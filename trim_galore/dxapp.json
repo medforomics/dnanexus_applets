@@ -1,0 +1,37 @@
+{
+  "name": "trim_galore",
+  "title": "Trim Galore",
+  "summary": "Trims FQ reads for adapter and quality",
+  "dxapi": "1.0.0",
+  "version": "0.0.1",
+  "categories": [
+    "Read Manipulation"
+  ],
+  "inputSpec": [
+    {
+      "name": "fastq",
+      "label": "Fastq",
+      "class": "file",
+      "optional": false
+    },
+    {
+      "name": "options",
+      "label": "Command Line Options",
+      "class": "string",
+      "optional": true,
+      "default": "--illumina --rrbs"
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "trimfastq",
+      "label": "Trimmed Fastq",
+      "class": "file"
+    }
+  ],
+  "runSpec": {
+    "interpreter": "bash",
+    "file": "src/trim_galore.sh"
+  },
+  "authorizedUsers": []
+}
