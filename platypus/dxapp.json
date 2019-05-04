@@ -1,0 +1,36 @@
+{
+  "name": "platypus",
+  "title": "platypus",
+  "summary": "Variant Prediction Tool",
+  "dxapi": "1.0.0",
+  "version": "0.0.1",
+  "categories": [
+    "Variation Calling"
+  ],
+  "inputSpec": [
+    {
+      "name": "bamfiles",
+      "label": "Sort Mappings",
+      "class": "array:file",
+      "optional": false
+    },
+    {
+      "name": "reference",
+      "label": "Genome",
+      "class": "file",
+      "optional": false
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "vcffile",
+      "label": "VCF",
+      "class": "file"
+    }
+  ],
+  "runSpec": {
+    "interpreter": "bash",
+    "file": "src/platypus.sh"
+  },
+  "authorizedUsers": []
+}
