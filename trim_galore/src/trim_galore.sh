@@ -16,29 +16,53 @@
 # to modify this file.
 
 main() {
-
-    export PATH=/usr/cutadapt/:/usr/cutadapt/bin:$PATH
-    export PYTHONPATH=$PYTHONPATH:/usr/cutadapt/
-
-    echo "Value of fastq: '$fastq'"
-    echo "Value of options: '$options'"
+    echo "Value of fq1: '$fq1'"
+    echo "Value of fq2: '$fq2'"
+    echo "Value of pair_id: '$pair_id'"
 
     # The following line(s) use the dx command-line tool to download your file
     # inputs to the local file system using variable names for the filenames. To
     # recover the original filenames, you can use the output of "dx describe
     # "$variable" --name".
+    export PYTHONPATH=$PYTHONPATH:/usr/lib/:/usr/lib/cutadapt
 
-    dx download "$fastq" -o seq.fastq.gz
-    /usr/bin/trim_galore $options seq.fastq.gz
-    bam_filename=$(dx describe --name "${fastq}")
-    bam_filename_prefix=${bam_filename%.fastq.gz}
+    dx download "$fq1" -o seq.R1.fastq.gz
+    if [ -n "$fq2" ]
+    then
+        dx download "$fq2" -o seq.R2.fastq.gz
+    fi
+    if [ -z "$pair_id" ]
+    then
+	filename=$(dx describe --name "${fq1}")
+	pair_id=${filename%.fastq.gz}
+    fi
+
+    r1base="seq.R1"
+    r2base="seq.R2"
     
-    trimfastq=$(dx upload seq_trimmed.fq.gz --destination $bam_filename_prefix.trim.fastq.gz --brief)
+    if [ -n "$fq2" ]
+    then
+	trim_galore --path_to_cutadapt /usr/bin/cutadapt --paired -q 25 --illumina --gzip --length 35 seq.R1.fastq.gz seq.R2.fastq.gz
+	mv ${r1base}_val_1.fq.gz ${pair_id}.trim.R1.fastq.gz
+	mv ${r2base}_val_2.fq.gz ${pair_id}.trim.R2.fastq.gz
+    else
+	trim_galore --path_to_cutadapt /usr/bin/cutadapt -q 25 --illumina --gzip --length 35 ${fq1}
+	mv ${r1base}_trimmed.fq.gz ${pair_id}.trim.R1.fastq.gz
+	cp ${pair_id}.trim.R1.fastq.gz ${pair_id}.trim.R2.fastq.gz 
+    fi
+    perl /process_scripts/preproc_fastq/parse_trimreport.pl ${pair_id}.trimreport.txt *trimming_report.txt
+
+    trim1=$(dx upload ${pair_id}.trim.R1.fastq.gz --brief)
+    trimreport=$(dx upload ${pair_id}.trimreport.txt --brief)
+    trim2=$(dx upload ${pair_id}.trim.R2.fastq.gz --brief)
     
     # The following line(s) use the utility dx-jobutil-add-output to format and
     # add output variables to your job's output as appropriate for the output
     # class.  Run "dx-jobutil-add-output -h" for more information on what it
     # does.
-    
-    dx-jobutil-add-output trimfastq "$trimfastq" --class=file
+
+    dx-jobutil-add-output trim1 "$trim1" --class=file
+    dx-jobutil-add-output trimreport "$trimreport" --class=file
+    dx-jobutil-add-output trim2 "$trim2" --class=file
+
 }

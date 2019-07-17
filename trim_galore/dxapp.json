@@ -1,37 +1,85 @@
 {
   "name": "trim_galore",
-  "title": "Trim Galore",
-  "summary": "Trims FQ reads for adapter and quality",
+  "title": "TrimGalore_0.6.3",
+  "summary": "Trim Galore trims poor quality sequence from reads",
   "dxapi": "1.0.0",
   "version": "0.0.1",
-  "categories": [
-    "Read Manipulation"
-  ],
   "inputSpec": [
     {
-      "name": "fastq",
-      "label": "Fastq",
+      "name": "fq1",
+      "label": "Fastq R1",
       "class": "file",
-      "optional": false
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
     },
     {
-      "name": "options",
-      "label": "Command Line Options",
+      "name": "fq2",
+      "label": "Fastq R2",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "pair_id",
+      "label": "Output Prefix",
       "class": "string",
       "optional": true,
-      "default": "--illumina --rrbs"
+      "help": ""
     }
   ],
   "outputSpec": [
     {
-      "name": "trimfastq",
-      "label": "Trimmed Fastq",
-      "class": "file"
+      "name": "trim1",
+      "label": "Trim Fq R1",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "trim2",
+      "label": "Trim Fq R2",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "trimreport",
+      "label": "Trim Output Report",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
     }
   ],
   "runSpec": {
+    "timeoutPolicy": {
+      "*": {
+        "hours": 12
+      }
+    },
     "interpreter": "bash",
+    "release": "16.04",
+    "distribution": "Ubuntu",
     "file": "src/trim_galore.sh"
   },
-  "authorizedUsers": []
+  "regionalOptions": {
+    "azure:westus": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "azure:mem1_ssd1_x2"
+        }
+      }
+    }
+  }
 }
