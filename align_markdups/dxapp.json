@@ -1,0 +1,116 @@
+{
+  "name": "align_markdups",
+  "title": "Generate BAM: BWA + MarkDuplicates",
+  "summary": "This app runs BWA and MarksDuplicates using either: picard, picard_umi or umi_consensus.",
+  "dxapi": "1.0.0",
+  "version": "0.0.1",
+  "inputSpec": [
+    {
+      "name": "fq1",
+      "label": "Fastq1",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "fq2",
+      "label": "Fastq2",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "reference",
+      "label": "Reference Files (BWA index) tar.gz",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "pair_id",
+      "label": "ReadGroup/SampleName",
+      "class": "string",
+      "optional": false,
+      "help": ""
+    },
+    {
+      "name": "mdup",
+      "label": "MarkDup Method",
+      "class": "string",
+      "optional": false,
+      "help": ""
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "rawbam",
+      "label": "Raw Bam",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "uniqbam",
+      "label": "Uniq Bam",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "rawbai",
+      "label": "Raw BAM index",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "uniqbai",
+      "label": "Uniq BAM index",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    }
+  ],
+  "runSpec": {
+    "execDepends": [
+          {"name": "pysam",
+             "package_manager": "pip",
+             "version": "0.7.4"}
+    ],
+      "timeoutPolicy": {
+      "*": {
+        "hours": 24
+      }
+    },
+    "interpreter": "bash",
+    "release": "16.04",
+    "distribution": "Ubuntu",
+    "file": "src/align_markdups.sh"
+  },
+  "regionalOptions": {
+    "azure:westus": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "azure:mem1_ssd1_x16"
+        }
+      }
+    }
+  }
+}
