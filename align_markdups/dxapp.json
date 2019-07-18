@@ -89,16 +89,17 @@
     }
   ],
   "runSpec": {
-    "execDepends": [
-          {"name": "pysam",
-             "package_manager": "pip",
-             "version": "0.7.4"}
-    ],
       "timeoutPolicy": {
       "*": {
         "hours": 24
       }
     },
+    "assetDepends": [
+    {
+       "project": "project-FZ6JQB8982k28kKJ66QPZy93",
+       "name": "alignment",
+       "version": "0.0.1"
+    }],
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",

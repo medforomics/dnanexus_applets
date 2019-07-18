@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 LABEL maintainer="b.cantarel@gmail.com"
 
 # install additional requirements
-RUN apt-get update && apt-get install -y curl unzip git wget zlib1g-dev python python3-pip gcc libbz2-dev libncurses5-dev libncursesw5-dev liblzma-dev default-jre default-jdk
+RUN apt-get update && apt-get install -y curl unzip git wget zlib1g-dev python python-pip gcc libbz2-dev libncurses5-dev libncursesw5-dev liblzma-dev default-jre default-jdk 
 
 # Make destination and work directory
 RUN mkdir -p /opt
@@ -16,6 +16,7 @@ RUN tar xvfz bwa.tar.gz; cd bwa-0.7.17; make; cp bwa /opt/bin
 RUN cd ..
 RUN rm bwa.tar.gz
 
+RUN pip install pysam
 
 # Install BWAKit 0.7.15
 RUN wget -O- http://sourceforge.net/projects/bio-bwa/files/bwakit/bwakit-0.7.12_x64-linux.tar.bz2/download |bunzip2 |tar xf -

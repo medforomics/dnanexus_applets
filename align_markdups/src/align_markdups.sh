@@ -43,7 +43,7 @@ main() {
     
     dx-docker run -v ${PWD}:/data alignment bwa mem -M -t 16 -R "@RG\tID:${pair_id}\tLB:tx\tPL:illumina\tPU:barcode\tSM:${pair_id}" reference/genome.fa seq.R1.fastq.gz seq.R2.fastq.gz > out.sam
     dx-docker run -v ${PWD}:/data alignment /usr/local/bin/bwa.kit/k8 /usr/local/bin/bwa.kit/bwa-postalt.js -p tmphla reference/genome.fa.alt out.sam > out.trans.sam
-    python /usr/bin/alignmentadd_umi_sam.py -s out.trans.sam -o output.unsort.bam
+    dx-docker run -v ${PWD}:/data -v /process_scripts:/scripts alignment python /scripts/alignment/add_umi_sam.py -s out.trans.sam -o output.unsort.bam
     dx-docker run -v ${PWD}:/data alignment samtools sort -n --threads 16 -o output.dups.bam output.unsort.bam
     dx-docker run -v ${PWD}:/data alignment java -Xmx4g  -jar /usr/local/bin/picard.jar FixMateInformation ASSUME_SORTED=TRUE SORT_ORDER=coordinate ADD_MATE_CIGAR=TRUE I=output.dups.bam O=${pair_id}.bam
     dx-docker run -v ${PWD}:/data alignment samtools index -@ 16 ${pair_id}.bam
