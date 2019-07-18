@@ -13,8 +13,8 @@ RUN pip3 install cutadapt==2.0
 
 # Install trim_galore
 ENV DEST_DIR /opt/
-ENV http_proxy http://proxy.swmed.edu:3128/
-ENV https_proxy http://proxy.swmed.edu:3128/
+#ENV http_proxy http://proxy.swmed.edu:3128/
+#ENV https_proxy http://proxy.swmed.edu:3128/
 
 # Make destination directory
 RUN mkdir -p /opt
