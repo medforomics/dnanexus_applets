@@ -1,5 +1,5 @@
 {
-  "name": "trim_galore_docker",
+  "name": "trim_galore",
   "title": "TrimGalore_0.6.3",
   "summary": "Trim Galore trims poor quality sequence from reads",
   "dxapi": "1.0.0",
@@ -68,12 +68,6 @@
         "hours": 12
       }
     },
-    "assetDepends": [
-      {
-         "project": "project-FZ6JQB8982k28kKJ66QPZy93",
-         "name": "trim_galore",
-         "version": "0.0.1"
-      }],
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",

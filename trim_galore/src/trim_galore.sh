@@ -24,7 +24,6 @@ main() {
     # inputs to the local file system using variable names for the filenames. To
     # recover the original filenames, you can use the output of "dx describe
     # "$variable" --name".
-    export PYTHONPATH=$PYTHONPATH:/usr/lib/:/usr/lib/cutadapt
 
     dx download "$fq1" -o seq.R1.fastq.gz
     if [ -n "$fq2" ]
@@ -42,11 +41,11 @@ main() {
     
     if [ -n "$fq2" ]
     then
-	trim_galore --path_to_cutadapt /usr/bin/cutadapt --paired -q 25 --illumina --gzip --length 35 seq.R1.fastq.gz seq.R2.fastq.gz
+	dx-docker run -v ${PWD}:/data alignment trim_galore --paired -q 25 --illumina --gzip --length 35 seq.R1.fastq.gz seq.R2.fastq.gz
 	mv ${r1base}_val_1.fq.gz ${pair_id}.trim.R1.fastq.gz
 	mv ${r2base}_val_2.fq.gz ${pair_id}.trim.R2.fastq.gz
     else
-	trim_galore --path_to_cutadapt /usr/bin/cutadapt -q 25 --illumina --gzip --length 35 ${fq1}
+	docker run -v ${PWD}:/data alignment trim_galore -q 25 --illumina --gzip --length 35 ${fq1}
 	mv ${r1base}_trimmed.fq.gz ${pair_id}.trim.R1.fastq.gz
 	cp ${pair_id}.trim.R1.fastq.gz ${pair_id}.trim.R2.fastq.gz 
     fi
@@ -54,7 +53,6 @@ main() {
 
     trim1=$(dx upload ${pair_id}.trim.R1.fastq.gz --brief)
     trimreport=$(dx upload ${pair_id}.trimreport.txt --brief)
-    trim2=$(dx upload ${pair_id}.trim.R2.fastq.gz --brief)
     
     # The following line(s) use the utility dx-jobutil-add-output to format and
     # add output variables to your job's output as appropriate for the output
@@ -63,6 +61,10 @@ main() {
 
     dx-jobutil-add-output trim1 "$trim1" --class=file
     dx-jobutil-add-output trimreport "$trimreport" --class=file
-    dx-jobutil-add-output trim2 "$trim2" --class=file
 
+    if [ -n "$fq2" ]
+    then
+	trim2=$(dx upload ${pair_id}.trim.R2.fastq.gz --brief)
+	dx-jobutil-add-output trim2 "$trim2" --class=file
+    fi
 }
