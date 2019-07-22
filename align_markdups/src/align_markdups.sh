@@ -20,7 +20,6 @@ main() {
     echo "Value of fq1: '$fq1'"
     echo "Value of fq2: '$fq2'"
     echo "Value of reference: '$reference'"
-    echo "Value of pair_id: '$pair_id'"
     echo "Value of mdup: '$mdup'"
 
     # The following line(s) use the dx command-line tool to download your file
@@ -36,37 +35,41 @@ main() {
     then
 	pair_id='seq'
     fi
+    echo "Value of pair_id: '$pair_id'"
+
 
     tar xvfz reference.tar.gz
 
     # Alignment Step
+    read_group="@RG\tID:${pair_id}\tLB:tx\tPL:illumina\tPU:barcode\tSM:${pair_id}"
+    echo $read_group
     
-    dx-docker run -v ${PWD}:/data alignment bwa mem -M -t 16 -R "@RG\tID:${pair_id}\tLB:tx\tPL:illumina\tPU:barcode\tSM:${pair_id}" reference/genome.fa seq.R1.fastq.gz seq.R2.fastq.gz > out.sam
-    dx-docker run -v ${PWD}:/data alignment /usr/local/bin/bwa.kit/k8 /usr/local/bin/bwa.kit/bwa-postalt.js -p tmphla reference/genome.fa.alt out.sam > out.trans.sam
-    dx-docker run -v ${PWD}:/data -v /process_scripts:/scripts alignment python /scripts/alignment/add_umi_sam.py -s out.trans.sam -o output.unsort.bam
-    dx-docker run -v ${PWD}:/data alignment samtools sort -n --threads 16 -o output.dups.bam output.unsort.bam
-    dx-docker run -v ${PWD}:/data alignment java -Xmx4g  -jar /usr/local/bin/picard.jar FixMateInformation ASSUME_SORTED=TRUE SORT_ORDER=coordinate ADD_MATE_CIGAR=TRUE I=output.dups.bam O=${pair_id}.bam
-    dx-docker run -v ${PWD}:/data alignment samtools index -@ 16 ${pair_id}.bam
+    docker run -v ${PWD}:/data alignment bwa mem -M -t 16 -R $read_group reference/genome.fa seq.R1.fastq.gz seq.R2.fastq.gz > out.sam
+    docker run -v ${PWD}:/data alignment /usr/local/bin/bwa.kit/k8 /usr/local/bin/bwa.kit/bwa-postalt.js -p tmphla reference/genome.fa.alt out.sam > out.trans.sam
+    docker run -v ${PWD}:/data -v /process_scripts:/scripts alignment python /scripts/alignment/add_umi_sam.py -s out.trans.sam -o output.unsort.bam
+    docker run -v ${PWD}:/data alignment samtools sort -n --threads 16 -o output.dups.bam output.unsort.bam
+    docker run -v ${PWD}:/data alignment java -Xmx4g  -jar /usr/local/bin/picard.jar FixMateInformation ASSUME_SORTED=TRUE SORT_ORDER=coordinate ADD_MATE_CIGAR=TRUE I=output.dups.bam O=${pair_id}.bam
+    docker run -v ${PWD}:/data alignment samtools index -@ 16 ${pair_id}.bam
 
     if [[ $mdup == 'umi_consensus' ]]
     then
     # Create Consensus using UMIs
-    dx-docker run -v ${PWD}:/data alignment java -jar /usr/local/bin/fgbio-0.8.1.jar GroupReadsByUmi -s identity -i ${pair_id}.bam -o group.bam --family-size-histogram ${pair_id}.umihist.txt -e 0 -m 0
-    dx-docker run -v ${PWD}:/data alignment java -jar /usr/local/bin/fgbio-0.8.1.jar CallMolecularConsensusReads -i group.bam -p consensus -M 1 -o consensus.bam -S ':none:'
-    dx-docker run -v ${PWD}:/data alignment samtools index -@ 16 consensus.bam
-    dx-docker run -v ${PWD}:/data alignment samtools fastq -1 consensus.R1.fastq -2 consensus.R2.fastq consensus.bam
-    dx-docker run -v ${PWD}:/data alignment gzip consensus.R1.fastq
-    dx-docker run -v ${PWD}:/data alignment gzip consensus.R2.fastq
-    dx-docker run -v ${PWD}:/data alignment bwa mem -M -C -t 16 -R "@RG\tID:${pair_id}\tLB:tx\tPL:illumina\tPU:barcode\tSM:${pair_id}" reference/genome.fa consensus.R1.fastq.gz consensus.R2.fastq.gz > consensus.sam
-    dx-docker run -v ${PWD}:/data alignment samtools view -1 consensus.sam > ${pair_id}.consensus.bam
-    dx-docker run -v ${PWD}:/data alignment samtools sort --threads 16 -o ${pair_id}.uniq.bam ${pair_id}.consensus.bam
-    dx-docker run -v ${PWD}:/data alignment samtools index -@ 16 ${pair_id}.uniq.bam
+    docker run -v ${PWD}:/data alignment java -jar /usr/local/bin/fgbio-0.8.1.jar GroupReadsByUmi -s identity -i ${pair_id}.bam -o group.bam --family-size-histogram ${pair_id}.umihist.txt -e 0 -m 0
+    docker run -v ${PWD}:/data alignment java -jar /usr/local/bin/fgbio-0.8.1.jar CallMolecularConsensusReads -i group.bam -p consensus -M 1 -o consensus.bam -S ':none:'
+    docker run -v ${PWD}:/data alignment samtools index -@ 16 consensus.bam
+    docker run -v ${PWD}:/data alignment samtools fastq -1 consensus.R1.fastq -2 consensus.R2.fastq consensus.bam
+    docker run -v ${PWD}:/data alignment gzip consensus.R1.fastq
+    docker run -v ${PWD}:/data alignment gzip consensus.R2.fastq
+    docker run -v ${PWD}:/data alignment bwa mem -M -C -t 16 -R "@RG\tID:${pair_id}\tLB:tx\tPL:illumina\tPU:barcode\tSM:${pair_id}" reference/genome.fa consensus.R1.fastq.gz consensus.R2.fastq.gz > consensus.sam
+    docker run -v ${PWD}:/data alignment samtools view -1 consensus.sam > ${pair_id}.consensus.bam
+    docker run -v ${PWD}:/data alignment samtools sort --threads 16 -o ${pair_id}.uniq.bam ${pair_id}.consensus.bam
+    docker run -v ${PWD}:/data alignment samtools index -@ 16 ${pair_id}.uniq.bam
     elif [ $mdup == 'picard' ]
     then
-	dx-docker run -v ${PWD}:/data alignment java -XX:ParallelGCThreads=16 -Xmx16g -jar /usr/local/bin/picard.jar MarkDuplicates I=${pair_id}.bam O=${pair_id}.uniq.bam M=${pair_id}.uniq.stat.txt
+	docker run -v ${PWD}:/data alignment java -XX:ParallelGCThreads=16 -Xmx16g -jar /usr/local/bin/picard.jar MarkDuplicates I=${pair_id}.bam O=${pair_id}.uniq.bam M=${pair_id}.uniq.stat.txt
 elif [ $mdup == 'picard_umi' ]
 then
-    dx-docker run -v ${PWD}:/data alignment java -XX:ParallelGCThreads=16 -Xmx16g -jar /usr/local/bin/picard.jar MarkDuplicates BARCODE_TAG=RX I=${pair_id}.bam O=${pair_id}.uniq.bam M=${pair_id}.uniq.stat.txt
+    docker run -v ${PWD}:/data alignment java -XX:ParallelGCThreads=16 -Xmx16g -jar /usr/local/bin/picard.jar MarkDuplicates BARCODE_TAG=RX I=${pair_id}.bam O=${pair_id}.uniq.bam M=${pair_id}.uniq.stat.txt
     else
 	cp ${pair_id}.bam ${pair_id}.uniq.bam
     fi
