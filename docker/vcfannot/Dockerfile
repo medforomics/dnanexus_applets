@@ -25,3 +25,13 @@ RUN cd /opt/bin; wget http://sourceforge.net/projects/snpeff/files/snpEff_v4_3t_
 
 RUN cd /opt; wget https://github.com/vcftools/vcftools/releases/download/v0.1.16/vcftools-0.1.16.tar.gz; tar xvfz vcftools-0.1.16.tar.gz; cd vcftools-0.1.16; ./configure; make; make install
 
+# FASTQC
+ENV DST=/opt
+ENV URL=http://www.bioinformatics.babraham.ac.uk/projects/fastqc/
+ENV ZIP=fastqc_v0.11.8.zip
+
+RUN wget $URL/$ZIP -O $DST/$ZIP; unzip - $DST/$ZIP -d $DST; rm $DST/$ZIP; cd $DST/FastQC; chmod 755 fastqc; cp $DST/FastQC/fastqc /usr/local/bin/fastqc
+
+WORKDIR /data/
+
+CMD ["/usr/local/bin/samtools"]

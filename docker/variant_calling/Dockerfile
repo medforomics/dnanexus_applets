@@ -36,4 +36,10 @@ RUN cd /opt; wget https://github.com/nhansen/Shimmer/archive/v0.2.tar.gz; tar xv
 
 RUN cd /opt; git clone https://github.com/genome/pindel.git; cd pindel/; ./INSTALL /opt/htslib-1.9; cp -R /opt/pindel /usr/local/bin
 
-RUN cd /opt; git clone --branch v2.9.9 https://github.com/Illumina/strelka.git; mkdir build; cd build; ../strelka/configure; make -C /opt/build; make install
+ENV STRELKA_INSTALL_DIR /opt/strelka/
+
+RUN wget https://github.com/Illumina/strelka/releases/download/v2.9.10/strelka-2.9.10.centos6_x86_64.tar.bz2; tar xf strelka-2.9.10.centos6_x86_64.tar.bz2; rm -f strelka-2.9.10.centos6_x86_64.tar.bz2; mv strelka-2.9.10.centos6_x86_64 $STRELKA_INSTALL_DIR
+
+WORKDIR /data/
+
+CMD ["/usr/local/bin/samtools"]
