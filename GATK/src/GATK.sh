@@ -38,7 +38,7 @@ main() {
 
     tar xvfz reference.tar.gz
 
-    docker run -v ${PWD}:/data docker.io/jamkuttan/dockerfiles:GATK gatk --java-options "-Xmx32g" BaseRecalibrator -I ${Consensus_BAM} --known-sites ${vcf} -R reference/genome.fa -O ${pair_id}.recal_data.table --use-original-qualities
+    docker run -v ${PWD}:/data docker.io/jamkuttan/dockerfiles:GATK sh -c "gatk --java-options \"-Xmx32g\" BaseRecalibrator -I \"${Consensus_BAM}\" --known-sites \"${vcf}\" -R reference/genome.fa -O \"${pair_id}.recal_data.table\" --use-original-qualities"
     docker run -v ${PWD}:/data docker.io/jamkuttan/dockerfiles:GATK gatk --java-options "-Xmx32g" ApplyBQSR -I ${Consensus_BAM} -R reference/genome.fa -O ${pair_id}.final.bam --use-original-qualities -bqsr ${pair_id}.recal_data.table
     docker run -v ${PWD}:/data docker.io/jamkuttan/dockerfiles:GATK samtools index -@ 1 ${pair_id}.final.bam
 
