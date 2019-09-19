@@ -19,16 +19,14 @@ main() {
 
     echo "Value of Consensus_BAM: '$Consensus_BAM'"
     echo "Value of reference: '$ref_file'"
-    echo "Value of vcf: '$vcf'"
 
     # The following line(s) use the dx command-line tool to download your file
     # inputs to the local file system using variable names for the filenames. To
     # recover the original filenames, you can use the output of "dx describe
     # "$variable" --name".
 
-    dx download "$Consensus_BAM" -o Consensus_BAM
+    dx download "$Consensus_BAM" -o consensus.bam
     dx download "$ref_file" -o reference.tar.gz
-    dx download "$vcf" -o vcf
 
     if [[ -z $pair_id ]]
     then
@@ -37,9 +35,11 @@ main() {
     echo "Value of pair_id: '$pair_id'"
 
     tar xvfz reference.tar.gz
+    gunzip reference/genome.fa.gz
 
-    docker run -v ${PWD}:/data docker.io/jamkuttan/dockerfiles:GATK sh -c "gatk --java-options \"-Xmx32g\" BaseRecalibrator -I \"${Consensus_BAM}\" --known-sites \"${vcf}\" -R reference/genome.fa -O \"${pair_id}.recal_data.table\" --use-original-qualities"
-    docker run -v ${PWD}:/data docker.io/jamkuttan/dockerfiles:GATK gatk --java-options "-Xmx32g" ApplyBQSR -I ${Consensus_BAM} -R reference/genome.fa -O ${pair_id}.final.bam --use-original-qualities -bqsr ${pair_id}.recal_data.table
+    docker run -v ${PWD}:/data docker.io/jamkuttan/dockerfiles:GATK samtools index -@ 1 consensus.bam
+    docker run -v ${PWD}:/data docker.io/jamkuttan/dockerfiles:GATK sh -c "gatk --java-options \"-Xmx32g\" BaseRecalibrator -I consensus.bam --known-sites dbSnp.gatk4.vcf.gz -R reference/genome.fa -O \"${pair_id}.recal_data.table\" --use-original-qualities"
+    docker run -v ${PWD}:/data docker.io/jamkuttan/dockerfiles:GATK sh -c "gatk --java-options \"-Xmx32g\" ApplyBQSR -I consensus.bam -R reference/genome.fa -O \"${pair_id}.final.bam\" --use-original-qualities -bqsr \"${pair_id}.recal_data.table\""
     docker run -v ${PWD}:/data docker.io/jamkuttan/dockerfiles:GATK samtools index -@ 1 ${pair_id}.final.bam
 
     # The following line(s) use the dx command-line tool to upload your file

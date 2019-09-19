@@ -26,13 +26,6 @@
       "help": ""
     },
     {
-      "name": "vcf",
-      "label": "Known Sites vcf.gz",
-      "class": "file",
-      "optional": false,
-      "help": ""
-    },
-    {
       "name": "pair_id",
       "label": "ReadGroup/SampleName",
       "class": "string",
