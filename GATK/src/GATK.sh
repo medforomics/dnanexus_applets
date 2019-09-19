@@ -48,7 +48,6 @@ main() {
     # but you can change that behavior to suit your needs.  Run "dx upload -h"
     # to see more options to set metadata.
 
-    report_table=$(dx upload ${pair_id}.recal_data.table --brief)
     finalbam=$(dx upload ${pair_id}.final.bam --brief)
 
     # The following line(s) use the utility dx-jobutil-add-output to format and
@@ -56,6 +55,5 @@ main() {
     # class.  Run "dx-jobutil-add-output -h" for more information on what it
     # does.
 
-    dx-jobutil-add-output report_table "$report_table" --class=file
     dx-jobutil-add-output finalbam "$finalbam" --class=file
 }

@@ -35,15 +35,6 @@
   ],
   "outputSpec": [
     {
-      "name": "report_table",
-      "label": "GATK Report Table",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
       "name": "finalbam",
       "label": "BAM after GATK",
       "class": "file",
