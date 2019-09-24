@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 LABEL maintainer="b.cantarel@gmail.com"
 
 # install additional requirements
-RUN apt-get update; apt-get install -y curl unzip git wget zlib1g-dev python python-pip gcc libbz2-dev libncurses5-dev libncursesw5-dev liblzma-dev default-jre default-jdk 
+RUN apt-get update; apt-get install -y curl unzip git wget zlib1g-dev python python-pip gcc libbz2-dev libncurses5-dev libncursesw5-dev liblzma-dev default-jre default-jdk bedtools 
 
 # Make destination and work directory
 RUN mkdir -p /opt
@@ -35,6 +35,8 @@ RUN cd /opt; wget https://github.com/arq5x/bedtools2/releases/download/v2.28.0/b
 RUN cd /opt/bin; wget https://github.com/fulcrumgenomics/fgbio/releases/download/0.8.1/fgbio-0.8.1.jar
 RUN cd /opt/bin; wget https://github.com/broadinstitute/picard/releases/download/2.20.3/picard.jar
 RUN cp -R /opt/bin/* /usr/local/bin/
+RUN chmod +x /usr/local/bin/picard.jar
+
 
 WORKDIR /data/
 

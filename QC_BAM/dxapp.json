@@ -40,7 +40,7 @@
       "class": "file",
       "patterns": [
         "*"
-      ],
+       ],
       "help": ""
     },
     {
