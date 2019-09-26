@@ -37,10 +37,10 @@ main() {
     tar xvfz reference.tar.gz
     gunzip reference/genome.fa.gz
 
-    docker run -v ${PWD}:/data docker.io/jamkuttan/dockerfiles:GATK samtools index -@ 1 consensus.bam
-    docker run -v ${PWD}:/data docker.io/jamkuttan/dockerfiles:GATK sh -c "gatk --java-options \"-Xmx32g\" BaseRecalibrator -I consensus.bam --known-sites dbSnp.gatk4.vcf.gz -R reference/genome.fa -O \"${pair_id}.recal_data.table\" --use-original-qualities"
-    docker run -v ${PWD}:/data docker.io/jamkuttan/dockerfiles:GATK sh -c "gatk --java-options \"-Xmx32g\" ApplyBQSR -I consensus.bam -R reference/genome.fa -O \"${pair_id}.final.bam\" --use-original-qualities -bqsr \"${pair_id}.recal_data.table\""
-    docker run -v ${PWD}:/data docker.io/jamkuttan/dockerfiles:GATK samtools index -@ 1 ${pair_id}.final.bam
+    docker run -v ${PWD}:/data docker.io/bcantarel/gatk:v1 samtools index -@ 1 consensus.bam
+    docker run -v ${PWD}:/data docker.io/bcantarel/gatk:v1 sh -c "gatk --java-options \"-Xmx32g\" BaseRecalibrator -I consensus.bam --known-sites dbSnp.gatk4.vcf.gz -R reference/genome.fa -O \"${pair_id}.recal_data.table\" --use-original-qualities"
+    docker run -v ${PWD}:/data docker.io/bcantarel/gatk:v1 sh -c "gatk --java-options \"-Xmx32g\" ApplyBQSR -I consensus.bam -R reference/genome.fa -O \"${pair_id}.final.bam\" --use-original-qualities -bqsr \"${pair_id}.recal_data.table\""
+    docker run -v ${PWD}:/data docker.io/bcantarel/gatk:v1 samtools index -@ 1 ${pair_id}.final.bam
 
     # The following line(s) use the dx command-line tool to upload your file
     # outputs after you have created them on the local file system.  It assumes
