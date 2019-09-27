@@ -6,11 +6,24 @@
   "outputFolder": "/Alignment_Output",
   "inputs": [
     {
+      "name": "fq1",
+      "class": "file"
+    },
+    {
+      "name": "fq2",
+      "class": "file",
+      "optional": true
+    },
+    {
       "name": "Reference_File",
       "class": "file"
     },
     {
       "name": "pair_id",
+      "class": "string"
+    },
+    {
+      "name": "mdup",
       "class": "string"
     }
   ],
@@ -73,7 +86,14 @@
       "folder": "TrimGalore_Output",
       "input": {
         "fq1": {
-          "$dnanexus_link": "file-FZYz008982k7JJ10G89z80q8"
+          "$dnanexus_link": {
+          "workflowInputField": "fq1"
+          }
+        },
+        "fq2": {
+          "$dnanexus_link": {
+          "workflowInputField": "fq2"
+          }
         },
         "pair_id": {
           "$dnanexus_link": {
@@ -104,7 +124,11 @@
             "workflowInputField": "Reference_File"
           }
         },
-        "mdup": "umi_consensus",
+        "mdup": {
+          "$dnanexus_link": {
+            "workflowInputField": "mdup"
+          }
+        },
         "pair_id": {
           "$dnanexus_link": {
             "workflowInputField": "pair_id"
