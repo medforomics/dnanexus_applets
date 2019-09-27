@@ -72,6 +72,9 @@
       "executable": "applet-Ff6Qg58982kJ4jBf9pfF3b01",
       "folder": "TrimGalore_Output",
       "input": {
+        "fq1": {
+          "$dnanexus_link": "file-FZYz008982k7JJ10G89z80q8"
+        },
         "pair_id": {
           "$dnanexus_link": {
             "workflowInputField": "pair_id"
@@ -101,6 +104,7 @@
             "workflowInputField": "Reference_File"
           }
         },
+        "mdup": "umi_consensus",
         "pair_id": {
           "$dnanexus_link": {
             "workflowInputField": "pair_id"
