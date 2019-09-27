@@ -41,11 +41,11 @@ main() {
     
     if [ -n "$fq2" ]
     then
-	docker run -v ${PWD}:/data docker.io/bcantarel/trim_galore:v1 trim_galore --paired -q 25 --illumina --gzip --length 35 seq.R1.fastq.gz seq.R2.fastq.gz
+	docker run -v ${PWD}:/data docker.io/goalconsortium/trim_galore:v1 trim_galore --paired -q 25 --illumina --gzip --length 35 seq.R1.fastq.gz seq.R2.fastq.gz
 	mv ${r1base}_val_1.fq.gz ${pair_id}.trim.R1.fastq.gz
 	mv ${r2base}_val_2.fq.gz ${pair_id}.trim.R2.fastq.gz
     else
-	docker run -v ${PWD}:/data docker.io/bcantarel/trim_galore:v1 trim_galore -q 25 --illumina --gzip --length 35 ${fq1}
+	docker run -v ${PWD}:/data docker.io/goalconsortium/trim_galore:v1 trim_galore -q 25 --illumina --gzip --length 35 ${fq1}
 	mv ${r1base}_trimmed.fq.gz ${pair_id}.trim.R1.fastq.gz
 	cp ${pair_id}.trim.R1.fastq.gz ${pair_id}.trim.R2.fastq.gz 
     fi

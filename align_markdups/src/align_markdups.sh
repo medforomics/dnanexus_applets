@@ -44,32 +44,32 @@ main() {
     read_group="@RG\tID:${pair_id}\tLB:tx\tPL:illumina\tPU:barcode\tSM:${pair_id}"
     echo $read_group
 
-    docker run -v ${PWD}:/data docker.io/bcantarel/alignment:v1 sh -c "bwa mem -M -t 16 -R \"${read_group}\" reference/genome.fa seq.R1.fastq.gz seq.R2.fastq.gz > out.sam"
-    docker run -v ${PWD}:/data docker.io/bcantarel/alignment:v1 /usr/local/bin/bwa.kit/k8 /usr/local/bin/bwa.kit/bwa-postalt.js -p tmphla reference/genome.fa.alt out.sam > out.trans.sam
-    docker run -v ${PWD}:/data -v /process_scripts:/scripts docker.io/bcantarel/alignment:v1 python /scripts/alignment/add_umi_sam.py -s out.trans.sam -o output.unsort.bam
-    docker run -v ${PWD}:/data docker.io/bcantarel/alignment:v1 samtools sort -n --threads 16 -o output.dups.bam output.unsort.bam
-    docker run -v ${PWD}:/data docker.io/bcantarel/alignment:v1 java -Xmx4g  -jar /usr/local/bin/picard.jar FixMateInformation ASSUME_SORTED=TRUE SORT_ORDER=coordinate ADD_MATE_CIGAR=TRUE I=output.dups.bam O=${pair_id}.bam
-    docker run -v ${PWD}:/data docker.io/bcantarel/alignment:v1 samtools index -@ 16 ${pair_id}.bam
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 sh -c "bwa mem -M -t 16 -R \"${read_group}\" reference/genome.fa seq.R1.fastq.gz seq.R2.fastq.gz > out.sam"
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 /usr/local/bin/bwa.kit/k8 /usr/local/bin/bwa.kit/bwa-postalt.js -p tmphla reference/genome.fa.alt out.sam > out.trans.sam
+    docker run -v ${PWD}:/data -v /process_scripts:/scripts docker.io/goalconsortium/alignment:v1 python /scripts/alignment/add_umi_sam.py -s out.trans.sam -o output.unsort.bam
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 samtools sort -n --threads 16 -o output.dups.bam output.unsort.bam
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 java -Xmx4g  -jar /usr/local/bin/picard.jar FixMateInformation ASSUME_SORTED=TRUE SORT_ORDER=coordinate ADD_MATE_CIGAR=TRUE I=output.dups.bam O=${pair_id}.bam
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 samtools index -@ 16 ${pair_id}.bam
 
     if [[ $mdup == 'umi_consensus' ]]
     then
     # Create Consensus using UMIs
-    docker run -v ${PWD}:/data docker.io/bcantarel/alignment:v1 java -jar /usr/local/bin/fgbio-0.8.1.jar GroupReadsByUmi -s identity -i ${pair_id}.bam -o group.bam --family-size-histogram ${pair_id}.umihist.txt -e 0 -m 0
-    docker run -v ${PWD}:/data docker.io/bcantarel/alignment:v1 java -jar /usr/local/bin/fgbio-0.8.1.jar CallMolecularConsensusReads -i group.bam -p consensus -M 1 -o consensus.bam -S ':none:'
-    docker run -v ${PWD}:/data docker.io/bcantarel/alignment:v1 samtools index -@ 16 consensus.bam
-    docker run -v ${PWD}:/data docker.io/bcantarel/alignment:v1 samtools fastq -1 consensus.R1.fastq -2 consensus.R2.fastq consensus.bam
-    docker run -v ${PWD}:/data docker.io/bcantarel/alignment:v1 gzip consensus.R1.fastq
-    docker run -v ${PWD}:/data docker.io/bcantarel/alignment:v1 gzip consensus.R2.fastq
-    docker run -v ${PWD}:/data docker.io/bcantarel/alignment:v1 bwa mem -M -C -t 16 -R "@RG\tID:${pair_id}\tLB:tx\tPL:illumina\tPU:barcode\tSM:${pair_id}" reference/genome.fa consensus.R1.fastq.gz consensus.R2.fastq.gz > consensus.sam
-    docker run -v ${PWD}:/data docker.io/bcantarel/alignment:v1 samtools view -1 consensus.sam > ${pair_id}.consensus.bam
-    docker run -v ${PWD}:/data docker.io/bcantarel/alignment:v1 samtools sort --threads 16 -o ${pair_id}.uniq.bam ${pair_id}.consensus.bam
-    docker run -v ${PWD}:/data docker.io/bcantarel/alignment:v1 samtools index -@ 16 ${pair_id}.uniq.bam
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 java -jar /usr/local/bin/fgbio-0.8.1.jar GroupReadsByUmi -s identity -i ${pair_id}.bam -o group.bam --family-size-histogram ${pair_id}.umihist.txt -e 0 -m 0
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 java -jar /usr/local/bin/fgbio-0.8.1.jar CallMolecularConsensusReads -i group.bam -p consensus -M 1 -o consensus.bam -S ':none:'
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 samtools index -@ 16 consensus.bam
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 samtools fastq -1 consensus.R1.fastq -2 consensus.R2.fastq consensus.bam
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 gzip consensus.R1.fastq
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 gzip consensus.R2.fastq
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 bwa mem -M -C -t 16 -R "@RG\tID:${pair_id}\tLB:tx\tPL:illumina\tPU:barcode\tSM:${pair_id}" reference/genome.fa consensus.R1.fastq.gz consensus.R2.fastq.gz > consensus.sam
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 samtools view -1 consensus.sam > ${pair_id}.consensus.bam
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 samtools sort --threads 16 -o ${pair_id}.uniq.bam ${pair_id}.consensus.bam
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 samtools index -@ 16 ${pair_id}.uniq.bam
     elif [ $mdup == 'picard' ]
     then
-	docker run -v ${PWD}:/data docker.io/bcantarel/alignment:v1 java -XX:ParallelGCThreads=16 -Xmx16g -jar /usr/local/bin/picard.jar MarkDuplicates I=${pair_id}.bam O=${pair_id}.uniq.bam M=${pair_id}.uniq.stat.txt
+	docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 java -XX:ParallelGCThreads=16 -Xmx16g -jar /usr/local/bin/picard.jar MarkDuplicates I=${pair_id}.bam O=${pair_id}.uniq.bam M=${pair_id}.uniq.stat.txt
 elif [ $mdup == 'picard_umi' ]
 then
-    docker run -v ${PWD}:/data docker.io/bcantarel/alignment:v1 java -XX:ParallelGCThreads=16 -Xmx16g -jar /usr/local/bin/picard.jar MarkDuplicates BARCODE_TAG=RX I=${pair_id}.bam O=${pair_id}.uniq.bam M=${pair_id}.uniq.stat.txt
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 java -XX:ParallelGCThreads=16 -Xmx16g -jar /usr/local/bin/picard.jar MarkDuplicates BARCODE_TAG=RX I=${pair_id}.bam O=${pair_id}.uniq.bam M=${pair_id}.uniq.stat.txt
     else
 	cp ${pair_id}.bam ${pair_id}.uniq.bam
     fi
