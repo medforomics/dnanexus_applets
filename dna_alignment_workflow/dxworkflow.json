@@ -3,7 +3,7 @@
   "title": "dna_alignment_workflow",
   "version": "1.0.0",
   "summary": "DNA Alignment Pipeline",
-  "outputFolder": "Alignment_Output",
+  "outputFolder": "/Alignment_Output",
   "inputs": [
     {
       "name": "Reference_File",
@@ -19,7 +19,7 @@
       "name": "trimreport",
       "class": "file",
       "outputSource": {
-        "dnanexus_link": {
+        "$dnanexus_link": {
           "outputField": "trimreport",
           "stage": "Trim_Galore"
         }
@@ -29,7 +29,7 @@
       "name": "umihist",
       "class": "file",
       "outputSource": {
-        "dnanexus_link": {
+        "$dnanexus_link": {
           "outputField": "umihist",
           "stage": "QC_BAM"
         }
@@ -39,7 +39,7 @@
       "name": "dedupcov",
       "class": "file",
       "outputSource": {
-        "dnanexus_link": {
+        "$dnanexus_link": {
           "outputField": "dedupcov",
           "stage": "QC_BAM"
         }
@@ -49,7 +49,7 @@
       "name": "covuniqhist",
       "class": "file",
       "outputSource": {
-        "dnanexus_link": {
+        "$dnanexus_link": {
           "outputField": "covuniqhist",
           "stage": "QC_BAM"
         }
@@ -59,7 +59,7 @@
       "name": "finalbam",
       "class": "file",
       "outputSource": {
-        "dnanexus_link": {
+        "$dnanexus_link": {
           "outputField": "finalbam",
           "stage": "GATK"
         }
@@ -70,6 +70,7 @@
     {
       "id": "Trim_Galore",
       "executable": "applet-Ff6Qg58982kJ4jBf9pfF3b01",
+      "folder": "TrimGalore_Output",
       "input": {
         "pair_id": {
           "$dnanexus_link": {
@@ -81,6 +82,7 @@
     {
       "id": "Align_Markdups",
       "executable": "applet-Ff6Qg8j982kJ4jBf9pfF3b05",
+      "folder": "AlignMarkdups_Output",
       "input": {
         "fq2": {
           "$dnanexus_link": {
@@ -109,6 +111,7 @@
     {
       "id": "QC_BAM",
       "executable": "applet-Ff6QgKj982kG098g9x6X8vqY",
+      "folder": "QC_Output",
       "input": {
         "Consensus_BAM": {
           "$dnanexus_link": {
@@ -131,6 +134,7 @@
     {
       "id": "GATK",
       "executable": "applet-Ff6QgF0982k24xj1Bv8jJjP0",
+      "folder": "GATK_Output",
       "input": {
         "Consensus_BAM": {
           "$dnanexus_link": {
