@@ -38,7 +38,11 @@ RUN cd /opt; git clone https://github.com/genome/pindel.git; cd pindel/; ./INSTA
 
 ENV STRELKA_INSTALL_DIR /opt/strelka/
 
-RUN wget https://github.com/Illumina/strelka/releases/download/v2.9.10/strelka-2.9.10.centos6_x86_64.tar.bz2; tar xf strelka-2.9.10.centos6_x86_64.tar.bz2; rm -f strelka-2.9.10.centos6_x86_64.tar.bz2; mv strelka-2.9.10.centos6_x86_64 $STRELKA_INSTALL_DIR
+RUN wget https://github.com/Illumina/strelka/releases/download/v2.9.10/strelka-2.9.10.centos6_x86_64.tar.bz2; tar xf strelka-2.9.10.centos6_x86_64.tar.bz2; rm -f strelka-2.9.10.centos6_x86_64.tar.bz2; mv strelka-2.9.10.centos6_x86_64 $STRELKA_INSTALL_DIR; cp -R /opt/strelka/bin/* /usr/local/bin
+
+ENV MANTA_INSTALL_DIR /opt/manta/
+
+RUN wget https://github.com/Illumina/manta/releases/download/v1.3.1/manta-1.3.1.centos6_x86_64.tar.bz2; tar xf manta-1.3.1.centos6_x86_64.tar.bz2; rm -f manta-1.3.1.centos6_x86_64.tar.bz2; mv manta-1.3.1.centos6_x86_64 $MANTA_INSTALL_DIR; cp -R /opt/manta/bin/* usr/local/bin; cp -R /opt/manta/lib/* usr/local/lib; cp -R /opt/manta/libexec/* usr/local/libexec
 
 WORKDIR /data/
 
