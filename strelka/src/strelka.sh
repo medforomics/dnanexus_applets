@@ -40,7 +40,7 @@ main() {
 
     mkdir manta strelka
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 configManta.py --tumorBam consensus.bam --referenceFasta reference/genome.fa $mode --runDir manta
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 configManta.py consensus.bam --referenceFasta reference/genome.fa $mode --runDir manta
     docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 manta/runWorkflow.py -m local -j 1
     docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 configureStrelkaGermlineWorkflow.py consensus.bam --referenceFasta reference/genome.fa $mode --indelCandidates manta/results/variants/candidateSmallIndels.vcf.gz --runDir strelka
     docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 strelka/runWorkflow.py -m local -j 1

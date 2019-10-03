@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 LABEL maintainer="b.cantarel@gmail.com"
 
 # install additional requirements
-RUN apt-get update; apt-get install -y curl unzip git wget zlib1g-dev python python-pip gcc libbz2-dev libncurses5-dev libncursesw5-dev liblzma-dev default-jre default-jdk cmake r-base libboost-all-dev
+RUN apt-get update; apt-get install -y curl unzip git wget zlib1g-dev python python-pip gcc libbz2-dev libncurses5-dev libncursesw5-dev liblzma-dev default-jre default-jdk cmake r-base libboost-all-dev bzip2 g++ make
 
 # Make destination and work directory
 RUN mkdir -p /opt
@@ -40,9 +40,7 @@ ENV STRELKA_INSTALL_DIR /opt/strelka/
 
 RUN wget https://github.com/Illumina/strelka/releases/download/v2.9.10/strelka-2.9.10.centos6_x86_64.tar.bz2; tar xf strelka-2.9.10.centos6_x86_64.tar.bz2; rm -f strelka-2.9.10.centos6_x86_64.tar.bz2; mv strelka-2.9.10.centos6_x86_64 $STRELKA_INSTALL_DIR; cp -R /opt/strelka/bin/* /usr/local/bin
 
-ENV MANTA_INSTALL_DIR /opt/manta/
-
-RUN wget https://github.com/Illumina/manta/releases/download/v1.3.1/manta-1.3.1.centos6_x86_64.tar.bz2; tar xf manta-1.3.1.centos6_x86_64.tar.bz2; rm -f manta-1.3.1.centos6_x86_64.tar.bz2; mv manta-1.3.1.centos6_x86_64 $MANTA_INSTALL_DIR; cp -R /opt/manta/bin/* usr/local/bin; cp -R /opt/manta/lib/* usr/local/lib; cp -R /opt/manta/libexec/* usr/local/libexec
+RUN cd /opt; wget https://github.com/Illumina/manta/releases/download/v1.6.0/manta-1.6.0.release_src.tar.bz2; tar -xjf manta-1.6.0.release_src.tar.bz2; mkdir build; cd build; ../manta-1.6.0.release_src/configure --jobs=4 --prefix=/opt; make -j4 install;
 
 WORKDIR /data/
 
