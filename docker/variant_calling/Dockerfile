@@ -38,9 +38,9 @@ RUN cd /opt; git clone https://github.com/genome/pindel.git; cd pindel/; ./INSTA
 
 ENV STRELKA_INSTALL_DIR /opt/strelka/
 
-RUN wget https://github.com/Illumina/strelka/releases/download/v2.9.10/strelka-2.9.10.centos6_x86_64.tar.bz2; tar xf strelka-2.9.10.centos6_x86_64.tar.bz2; rm -f strelka-2.9.10.centos6_x86_64.tar.bz2; mv strelka-2.9.10.centos6_x86_64 $STRELKA_INSTALL_DIR; cp -R /opt/strelka/bin/* /usr/local/bin
+RUN wget https://github.com/Illumina/strelka/releases/download/v2.9.10/strelka-2.9.10.centos6_x86_64.tar.bz2; tar xf strelka-2.9.10.centos6_x86_64.tar.bz2; rm -f strelka-2.9.10.centos6_x86_64.tar.bz2; mv strelka-2.9.10.centos6_x86_64 $STRELKA_INSTALL_DIR; cp -R /opt/strelka/bin/* /usr/local/bin; cp -R /opt/strelka/lib/* /usr/local/lib; cp -R /opt/strelka/libexec/* /usr/local/libexec; cp -R /opt/strelka/share/* /usr/local/share;
 
-RUN cd /opt; wget https://github.com/Illumina/manta/releases/download/v1.6.0/manta-1.6.0.release_src.tar.bz2; tar -xjf manta-1.6.0.release_src.tar.bz2; mkdir build; cd build; ../manta-1.6.0.release_src/configure --jobs=4 --prefix=/opt; make -j4 install;
+RUN cd /opt; wget https://github.com/Illumina/manta/releases/download/v1.6.0/manta-1.6.0.release_src.tar.bz2; tar -xjf manta-1.6.0.release_src.tar.bz2; cd /usr/local/bin; /opt/manta-1.6.0.release_src/configure --jobs=4; make -j4 install;
 
 WORKDIR /data/
 

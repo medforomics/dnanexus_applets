@@ -16,6 +16,16 @@
       "help": ""
     },
     {
+      "name": "Consensus_BAM_index",
+      "label": "Consensus BAM (*uniq.bam.bai)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
       "name": "ref_file",
       "label": "Reference Files (*.tar.gz)",
       "class": "file",
