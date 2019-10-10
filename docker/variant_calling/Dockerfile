@@ -16,13 +16,13 @@ RUN cd /opt; wget https://github.com/samtools/bcftools/releases/download/1.9/bcf
 RUN cd /opt; git clone --recursive --branch v1.3.1 git://github.com/ekg/freebayes.git; cd freebayes; make; make install
 
 RUN pip install cython
-RUN cd /opt; git clone https://github.com/andyrimmer/Platypus.git; cd Platypus; make; cp bin/* /usr/local/bin
+RUN cd /opt; git clone https://github.com/andyrimmer/Platypus.git; cd Platypus; make; mv bin/* /usr/local/bin
 
 ENV C_INCLUDE_PATH $C_INCLUDE_PATH:/usr/local/include
 ENV LIBRARY_PATH $LIBRARY_PATH:/usr/local/lib
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/local/lib
 
-RUN cd /opt; wget https://cfhcable.dl.sourceforge.net/project/virmid/Virmid-1.2.0.tar.gz; tar xvfz Virmid-1.2.0.tar.gz; cp -R Virmid1.2 /usr/local/bin/virmid
+RUN cd /opt; wget https://cfhcable.dl.sourceforge.net/project/virmid/Virmid-1.2.0.tar.gz; tar xvfz Virmid-1.2.0.tar.gz; mv Virmid1.2 /usr/local/bin/virmid
 
 RUN cd /opt; wget https://github.com/dkoboldt/varscan/releases/download/2.4.2/VarScan.v2.4.2.jar; mv VarScan.v2.4.2.jar /usr/local/bin
 
@@ -34,11 +34,11 @@ RUN cpanm CPAN::Meta Module::Build
 
 RUN cd /opt; wget https://github.com/nhansen/Shimmer/archive/v0.2.tar.gz; tar xvfz v0.2.tar.gz; cd Shimmer-0.2; perl Build.PL; ./Build; ./Build test; ./Build install
 
-RUN cd /opt; git clone https://github.com/genome/pindel.git; cd pindel/; ./INSTALL /opt/htslib-1.9; cp -R /opt/pindel /usr/local/bin
+RUN cd /opt; git clone https://github.com/genome/pindel.git; cd pindel/; ./INSTALL /opt/htslib-1.9; mv /opt/pindel /usr/local/bin
 
-ENV STRELKA_INSTALL_DIR /opt/strelka/
+RUN cd /opt; wget https://github.com/Illumina/strelka/releases/download/v2.9.10/strelka-2.9.10.centos6_x86_64.tar.bz2; tar xf strelka-2.9.10.centos6_x86_64.tar.bz2; rm -f strelka-2.9.10.centos6_x86_64.tar.bz2; mv strelka-2.9.10.centos6_x86_64 /usr/local/bin;
 
-RUN wget https://github.com/Illumina/strelka/releases/download/v2.9.10/strelka-2.9.10.centos6_x86_64.tar.bz2; tar xf strelka-2.9.10.centos6_x86_64.tar.bz2; rm -f strelka-2.9.10.centos6_x86_64.tar.bz2; mv strelka-2.9.10.centos6_x86_64 $STRELKA_INSTALL_DIR; cp -R /opt/strelka/bin/* /usr/local/bin; cp -R /opt/strelka/lib/* /usr/local/lib; cp -R /opt/strelka/libexec/* /usr/local/libexec; cp -R /opt/strelka/share/* /usr/local/share;
+ENV PATH=/usr/local/bin/strelka-2.9.10.centos6_x86_64/bin:${PATH}
 
 RUN cd /opt; wget https://github.com/Illumina/manta/releases/download/v1.6.0/manta-1.6.0.release_src.tar.bz2; tar -xjf manta-1.6.0.release_src.tar.bz2; cd /usr/local/bin; /opt/manta-1.6.0.release_src/configure --jobs=4; make -j4 install;
 
