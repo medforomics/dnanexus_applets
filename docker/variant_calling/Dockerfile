@@ -16,11 +16,10 @@ RUN cd /opt; wget https://github.com/samtools/bcftools/releases/download/1.9/bcf
 RUN cd /opt; git clone --recursive --branch v1.3.1 git://github.com/ekg/freebayes.git; cd freebayes; make; make install
 
 RUN pip install cython
-RUN cd /opt; git clone https://github.com/andyrimmer/Platypus.git; cd Platypus; make; mv bin/* /usr/local/bin
-
-ENV C_INCLUDE_PATH $C_INCLUDE_PATH:/usr/local/include
-ENV LIBRARY_PATH $LIBRARY_PATH:/usr/local/lib
-ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/local/lib
+ENV C_INCLUDE_PATH $C_INCLUDE_PATH:/usr/local/htslib/include
+ENV LIBRARY_PATH $LIBRARY_PATH:/usr/local/htslib/lib
+ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/local/htslib/lib
+RUN cd /opt; git clone https://github.com/andyrimmer/Platypus.git; cd Platypus; make; mv ../Platypus /usr/local/bin 
 
 RUN cd /opt; wget https://cfhcable.dl.sourceforge.net/project/virmid/Virmid-1.2.0.tar.gz; tar xvfz Virmid-1.2.0.tar.gz; mv Virmid1.2 /usr/local/bin/virmid
 

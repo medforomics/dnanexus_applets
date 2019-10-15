@@ -17,34 +17,34 @@
 
 main() {
 
-    echo "Value of bamfiles: '${bamfiles[@]}'"
-    echo "Value of reference: '$reference'"
+    echo "Value of Consensus_BAM: '$Consensus_BAM'"
+    echo "Value of Consensus_BAM Index: '$Consensus_BAM_index'"
+    echo "Value of ref_file: '$ref_file'"
+    echo "Value of pair_id: '$pair_id'"
 
-    export LD_LIBRARY_PATH=/samtools_1.2/bcftools/htslib-1.2.1:$LD_LIBRARY_PATH
-    export PYTHONPATH=/Platypus_0.8.1/build/lib.linux-x86_64-2.7/:$PYTHONPATH
+    # The following line(s) use the dx command-line tool to download your file
+    # inputs to the local file system using variable names for the filenames. To
+    # recover the original filenames, you can use the output of "dx describe
+    # "$variable" --name".
 
-    dx download "$reference" -o reference.fa.gz
-    for i in ${!bamfiles[@]}
-    do
-        dx download "${bamfiles[$i]}" -o file-$i.bam
-	/samtools_1.2/samtools index file-$i.bam
-    done
-    
-    gunzip reference.fa.gz
-    /samtools_1.2/samtools faidx reference.fa
-    
-    infile=$(printf "%s," file-*.bam)
-    echo " python /usr/bin/Platypus.py callVariants --bamFiles="${infile%,}" --refFile=reference.fa --output=vcffile"
-    
-    python /Platypus_0.8.1/Platypus.py callVariants --bamFiles="${infile%,}" --refFile=reference.fa --output=vcf
-    gzip vcf
-    
-    vcffile=$(dx upload vcf.gz --destination platypus.vcf.gz --brief)
+    dx download "$Consensus_BAM" -o consensus.bam
+    dx download "$Consensus_BAM_index" -o consensus.bam.bai
+    dx download "$ref_file" -o reference.tar.gz
+
+    tar xvfz reference.tar.gz
+    gunzip reference/genome.fa.gz
+
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 python /opt/Platypus/bin/Platypus.py callVariants --minMapQual=0 --minReads=3 --mergeClusteredVariants=1 --nCPU=1 --bamFiles=consensus.bam --refFile=reference/genome.fa --output=platypus.vcf
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 vcf-sort platypus.vcf |vcf-annotate -n --fill-type -n |bgzip > platypus.vcf.gz
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 tabix platypus.vcf.gz
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bcftools norm -c s -f reference/genome.fa -w 10 -O z -o ${pair_id}.platypus.vcf.gz platypus.vcf.gz
+
+    platypus_vcf=$(dx upload ${pair_id}.platypus.vcf.gz --brief)
 
     # The following line(s) use the utility dx-jobutil-add-output to format and
     # add output variables to your job's output as appropriate for the output
     # class.  Run "dx-jobutil-add-output -h" for more information on what it
     # does.
 
-    dx-jobutil-add-output vcffile "$vcffile" --class=file
+    dx-jobutil-add-output platyus_vcf "$platypus_vcf" --class=file
 }
