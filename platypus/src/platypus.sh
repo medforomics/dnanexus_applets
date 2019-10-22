@@ -34,8 +34,8 @@ main() {
     tar xvfz reference.tar.gz
     gunzip reference/genome.fa.gz
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 python /opt/Platypus/bin/Platypus.py callVariants --minMapQual=0 --minReads=3 --mergeClusteredVariants=1 --nCPU=1 --bamFiles=consensus.bam --refFile=reference/genome.fa --output=platypus.vcf
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 vcf-sort platypus.vcf |vcf-annotate -n --fill-type -n |bgzip > platypus.vcf.gz
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 python /usr/local/bin/bin/Platypus.py callVariants --minMapQual=0 --minReads=3 --mergeClusteredVariants=1 --nCPU=1 --bamFiles=consensus.bam --refFile=reference/genome.fa --output=platypus.vcf
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 vcf-sort platypus.vcf | vcf-annotate --fill-type -n | bgzip > platypus.vcf.gz
     docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 tabix platypus.vcf.gz
     docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bcftools norm -c s -f reference/genome.fa -w 10 -O z -o ${pair_id}.platypus.vcf.gz platypus.vcf.gz
 

@@ -16,10 +16,10 @@ RUN cd /opt; wget https://github.com/samtools/bcftools/releases/download/1.9/bcf
 RUN cd /opt; git clone --recursive --branch v1.3.1 git://github.com/ekg/freebayes.git; cd freebayes; make; make install
 
 RUN pip install cython
-ENV C_INCLUDE_PATH $C_INCLUDE_PATH:/usr/local/htslib/include
-ENV LIBRARY_PATH $LIBRARY_PATH:/usr/local/htslib/lib
-ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/local/htslib/lib
-RUN cd /opt; git clone https://github.com/andyrimmer/Platypus.git; cd Platypus; make; mv ../Platypus /usr/local/bin 
+ENV C_INCLUDE_PATH $C_INCLUDE_PATH:/usr/local/include
+ENV LIBRARY_PATH $LIBRARY_PATH:/usr/local/lib
+ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/local/lib
+RUN cd /opt; git clone https://github.com/andyrimmer/Platypus.git; cd Platypus; make; mv * /usr/local/bin 
 
 RUN cd /opt; wget https://cfhcable.dl.sourceforge.net/project/virmid/Virmid-1.2.0.tar.gz; tar xvfz Virmid-1.2.0.tar.gz; mv Virmid1.2 /usr/local/bin/virmid
 
@@ -40,6 +40,8 @@ RUN cd /opt; wget https://github.com/Illumina/strelka/releases/download/v2.9.10/
 ENV PATH=/usr/local/bin/strelka-2.9.10.centos6_x86_64/bin:${PATH}
 
 RUN cd /opt; wget https://github.com/Illumina/manta/releases/download/v1.6.0/manta-1.6.0.release_src.tar.bz2; tar -xjf manta-1.6.0.release_src.tar.bz2; cd /usr/local/bin; /opt/manta-1.6.0.release_src/configure --jobs=4; make -j4 install;
+
+RUN cd /opt; wget http://sourceforge.net/projects/vcftools/files/vcftools_0.1.6.tar.gz/download; tar xvfz download; rm download; cd vcftools_0.1.6; make; cp bin/* /usr/local/bin; cp lib/* usr/local/lib; cp perl/* /usr/local/share/perl
 
 WORKDIR /data/
 
