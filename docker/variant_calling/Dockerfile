@@ -41,7 +41,7 @@ ENV PATH=/usr/local/bin/strelka-2.9.10.centos6_x86_64/bin:${PATH}
 
 RUN cd /opt; wget https://github.com/Illumina/manta/releases/download/v1.6.0/manta-1.6.0.release_src.tar.bz2; tar -xjf manta-1.6.0.release_src.tar.bz2; cd /usr/local/bin; /opt/manta-1.6.0.release_src/configure --jobs=4; make -j4 install;
 
-RUN cd /opt; wget http://sourceforge.net/projects/vcftools/files/vcftools_0.1.6.tar.gz/download; tar xvfz download; rm download; cd vcftools_0.1.6; make; cp bin/* /usr/local/bin; cp lib/* usr/local/lib; cp perl/* /usr/local/share/perl
+RUN cd /opt; wget http://sourceforge.net/projects/vcftools/files/vcftools_0.1.13.tar.gz/download; tar xvfz download; rm download; cd vcftools_0.1.13; make; cp bin/* /usr/local/bin; cp lib/* /usr/local/lib; cp perl/* /usr/local/share/perl/5.22.1
 
 WORKDIR /data/
 
