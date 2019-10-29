@@ -34,8 +34,8 @@ main() {
     tar xvfz reference.tar.gz
     gunzip reference/genome.fa.gz
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 cut -f 1 reference/genomefile.5M.txt | parallel --delay 2 -j 1 "freebayes -f reference/genome.fa --min-base-quality 20 --min-coverage 10 --min-alternate-fraction 0.01 -C 3 --use-best-n-alleles 3 -r {} consensus.bam > fb.vcf"
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 vcf-concat fb.*.vcf | vcf-sort | vcf-annotate -n --fill-type | bcftools norm -c s -f reference/genome.fa -w 10 -O z -o ${pair_id}.freebayes.vcf.gz -
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "cut -f 1 reference/genomefile.5M.txt | freebayes -f reference/genome.fa --min-base-quality 20 --min-coverage 10 --min-alternate-fraction 0.01 -C 3 --use-best-n-alleles 3 consensus.bam > fb.vcf"
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "vcf-concat fb.vcf | vcf-sort | vcf-annotate -n --fill-type | bcftools norm -c s -f reference/genome.fa -w 10 -O z -o ${pair_id}.freebayes.vcf.gz -"
 
     freebayes_vcf=$(dx upload ${pair_id}.freebayes.vcf.gz --brief)
 
