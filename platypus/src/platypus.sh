@@ -17,27 +17,33 @@
 
 main() {
 
-    echo "Value of Consensus_BAM: '$Consensus_BAM'"
-    echo "Value of Consensus_BAM Index: '$Consensus_BAM_index'"
-    echo "Value of ref_file: '$ref_file'"
-    echo "Value of pair_id: '$pair_id'"
-
     # The following line(s) use the dx command-line tool to download your file
     # inputs to the local file system using variable names for the filenames. To
     # recover the original filenames, you can use the output of "dx describe
     # "$variable" --name".
 
-    dx download "$Consensus_BAM" -o consensus.bam
-    dx download "$Consensus_BAM_index" -o consensus.bam.bai
+    dx download "$Consensus_Tumor_BAM" -o tumor.bam
+    dx download "$Consensus_Tumor_BAM_index" -o tumor.bam.bai
     dx download "$ref_file" -o reference.tar.gz
 
     tar xvfz reference.tar.gz
     gunzip reference/genome.fa.gz
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 python /usr/local/bin/bin/Platypus.py callVariants --minMapQual=0 --minReads=3 --mergeClusteredVariants=1 --nCPU=1 --bamFiles=consensus.bam --refFile=reference/genome.fa --output=platypus.vcf
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "vcf-sort platypus.vcf | vcf-annotate -n --fill-type | bgzip > platypus.vcf.gz"
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 tabix platypus.vcf.gz
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bcftools norm -c s -f reference/genome.fa -w 10 -O z -o ${pair_id}.platypus.vcf.gz platypus.vcf.gz
+    if [[ -z $Consensus_Normal_BAM ]]
+    then
+        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 python /usr/local/bin/bin/Platypus.py callVariants --minMapQual=0 --minReads=3 --mergeClusteredVariants=1 --nCPU=1 --bamFiles=tumor.bam --refFile=reference/genome.fa --output=platypus.vcf
+        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "vcf-sort platypus.vcf | vcf-annotate -n --fill-type | bgzip > platypus.vcf.gz"
+        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 tabix platypus.vcf.gz
+        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bcftools norm -c s -f reference/genome.fa -w 10 -O z -o ${pair_id}.platypus.vcf.gz platypus.vcf.gz
+    else
+        dx download "$Consensus_Normal_BAM" -o normal.bam
+        dx download "$Consensus_Normal_BAM_index" -o normal.bam.bai
+
+        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 python /usr/local/bin/bin/Platypus.py callVariants --minMapQual=0 --minReads=3 --mergeClusteredVariants=1 --nCPU=1 --bamFiles=tumor.bam,normal.bam --refFile=reference/genome.fa --output=platypus.vcf
+        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "vcf-sort platypus.vcf | vcf-annotate -n --fill-type | bgzip > platypus.vcf.gz"
+        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 tabix platypus.vcf.gz
+        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bcftools norm -c s -f reference/genome.fa -w 10 -O z -o ${pair_id}.platypus.vcf.gz platypus.vcf.gz
+    fi
 
     platypus_vcf=$(dx upload ${pair_id}.platypus.vcf.gz --brief)
 
