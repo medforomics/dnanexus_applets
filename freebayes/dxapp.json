@@ -6,8 +6,8 @@
   "version": "0.0.1",
   "inputSpec": [
     {
-      "name": "Consensus_BAM",
-      "label": "Consensus BAM (*uniq.bam)",
+      "name": "Consensus_Tumor_BAM",
+      "label": "Consensus Tumor BAM (*uniq.bam)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -16,10 +16,30 @@
       "help": ""
     },
     {
-      "name": "Consensus_BAM_index",
-      "label": "Consensus BAM (*uniq.bam.bai)",
+      "name": "Consensus_Tumor_BAM_index",
+      "label": "Consensus Tumor BAM (*uniq.bam.bai)",
       "class": "file",
       "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "Consensus_Normal_BAM",
+      "label": "Consensus Normal BAM (*uniq.bam)",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "Consensus_Normal_BAM_index",
+      "label": "Consensus Normal BAM (*uniq.bam.bai)",
+      "class": "file",
+      "optional": true,
       "patterns": [
         "*"
       ],

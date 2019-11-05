@@ -17,25 +17,29 @@
 
 main() {
 
-    echo "Value of Consensus_BAM: '$Consensus_BAM'"
-    echo "Value of Consensus_BAM_index: '$Consensus_BAM_index'"
-    echo "Value of ref_file: '$ref_file'"
-    echo "Value of pair_id: '$pair_id'"
-
     # The following line(s) use the dx command-line tool to download your file
     # inputs to the local file system using variable names for the filenames. To
     # recover the original filenames, you can use the output of "dx describe
     # "$variable" --name".
 
-    dx download "$Consensus_BAM" -o consensus.bam
-    dx download "$Consensus_BAM_index" -o consensus.bam.bai
+    dx download "$Consensus_Tumor_BAM" -o tumor.bam
+    dx download "$Consensus_Tumor_BAM_index" -o tumor.bam.bai
     dx download "$ref_file" -o reference.tar.gz
 
     tar xvfz reference.tar.gz
     gunzip reference/genome.fa.gz
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "cut -f 1 reference/genomefile.5M.txt | freebayes -f reference/genome.fa --min-base-quality 20 --min-coverage 10 --min-alternate-fraction 0.01 -C 3 --use-best-n-alleles 3 consensus.bam > fb.vcf"
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "vcf-concat fb.vcf | vcf-sort | vcf-annotate -n --fill-type | bcftools norm -c s -f reference/genome.fa -w 10 -O z -o ${pair_id}.freebayes.vcf.gz -"
+    if [[ -z $Consensus_Normal_BAM ]]
+    then
+        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "cut -f 1 reference/genomefile.5M.txt | freebayes -f reference/genome.fa --min-base-quality 20 --min-coverage 10 --min-alternate-fraction 0.01 -C 3 --use-best-n-alleles 3 tumor.bam > fb.vcf"
+        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "vcf-concat fb.vcf | vcf-sort | vcf-annotate -n --fill-type | bcftools norm -c s -f reference/genome.fa -w 10 -O z -o ${pair_id}.freebayes.vcf.gz -"
+    else
+        dx download "$Consensus_Normal_BAM" -o normal.bam
+        dx download "$Consensus_Normal_BAM_index" -o normal.bam.bai
+
+        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "cut -f 1 reference/genomefile.5M.txt | freebayes -f reference/genome.fa --min-base-quality 20 --min-coverage 10 --min-alternate-fraction 0.01 -C 3 --use-best-n-alleles 3 --bam tumor.bam --bam normal.bam > fb.vcf"
+        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "vcf-concat fb.vcf | vcf-sort | vcf-annotate -n --fill-type | bcftools norm -c s -f reference/genome.fa -w 10 -O z -o ${pair_id}.freebayes.vcf.gz -"
+    fi
 
     freebayes_vcf=$(dx upload ${pair_id}.freebayes.vcf.gz --brief)
 
