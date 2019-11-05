@@ -1,45 +1,15 @@
 {
-  "name": "strelka",
-  "title": "strelka",
-  "summary": "Tumor-Only Strelka2 VCF",
+  "name": "mutect2",
+  "title": "mutect",
+  "summary": "Variant Prediction Tool",
   "dxapi": "1.0.0",
   "version": "0.0.1",
   "inputSpec": [
     {
-      "name": "Consensus_Tumor_BAM",
-      "label": "Consensus Tumor BAM (*uniq.bam)",
+      "name": "GATK_bam",
+      "label": "GATK Recalibrated BAM",
       "class": "file",
       "optional": false,
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "Consensus_Tumor_BAM_index",
-      "label": "Consensus BAM (*uniq.bam.bai)",
-      "class": "file",
-      "optional": false,
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "Consensus_Normal_BAM",
-      "label": "Consensus Normal BAM (*uniq.bam)",
-      "class": "file",
-      "optional": true,
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "Consensus_Normal_BAM_index",
-      "label": "Consensus BAM (*uniq.bam.bai)",
-      "class": "file",
-      "optional": true,
       "patterns": [
         "*"
       ],
@@ -65,8 +35,8 @@
   ],
   "outputSpec": [
     {
-      "name": "strelka2_vcf",
-      "label": "Strelka2 VCF File",
+      "name": "mutect_vcf",
+      "label": "Mutect2 VCF File",
       "class": "file",
       "patterns": [
         "*"
@@ -83,7 +53,7 @@
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/strelka.sh"
+    "file": "src/mutect2.sh"
   },
   "access": {
     "network": [

@@ -27,29 +27,23 @@ main() {
     # recover the original filenames, you can use the output of "dx describe
     # "$variable" --name".
 
-    dx download "$tumorbam" -o tumorbam
+    dx download "$tumorbam" -o tumor.bam
+    dx download "$normalbam" -o normal.bam
+    dx download "$reference" -o reference.tar.gz
 
-    dx download "$normalbam" -o normalbam
+    tar xvfz reference.tar.gz
+    gunzip reference/genome.fa.gz
 
-    dx download "$reference" -o reference.gz
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 shimmer.pl --minqual 25 --ref reference/genome.fa normal.bam tumor.bam --outdir shimmer_2 > shimmer.err
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 perl add_readct_shimmer.pl
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 vcf-annotate -n --fill-type shimmer/somatic_diffs.readct.vcf | java -jar /usr/local/bin/SnpSift.jar filter '(GEN[*].DP >= 10)' | perl -pe "s/TUMOR/${pair_id}/" | perl -pe "s/NORMAL/${pair_id}/g" | bgzip > ${pair_id}.shimmer.vcf.gz
 
-    gunzip reference.gz
-    samtools faidx reference
-
-    mkdir shimmer_results
-    /usr/bin/shimmer.pl --ref reference normalbam tumorbam --outdir shimmer_results
-    tar cf shimmer_results.tar shimmer_results
-    gzip shimmer_results.tar
-
-    bam_filename=$(dx describe --name "${tumorbam}")
-    bam_filename_prefix=${bam_filename%.bam}
-    
-    shimmer_out=$(dx upload shimmer_results.tar.gz --destination $bam_filename_prefix.shimmer.tar.gz --brief)
+    shimmer_vcf=$(dx upload ${pair_id}.shimmer.vcf.gz --brief)
     
     # The following line(s) use the utility dx-jobutil-add-output to format and
     # add output variables to your job's output as appropriate for the output
     # class.  Run "dx-jobutil-add-output -h" for more information on what it
     # does.
     
-    dx-jobutil-add-output shimmer_out "$shimmer_out" --class=file
+    dx-jobutil-add-output shimmer_vcf "$shimmer_vcf" --class=file
 }

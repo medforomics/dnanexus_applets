@@ -4,7 +4,6 @@
   "summary": "Shimmer predicts sommatic mutations",
   "dxapi": "1.0.0",
   "version": "0.0.1",
-  "categories": [],
   "inputSpec": [
     {
       "name": "tumorbam",
@@ -33,17 +32,34 @@
   ],
   "outputSpec": [
     {
-      "name": "shimmer_out",
-      "label": "Shimmer Out Files",
+      "name": "shimmer_vcf",
+      "label": "Shimmer VCF File",
       "class": "file"
     }
   ],
   "runSpec": {
+    "timeoutPolicy": {
+      "*": {
+        "hours": 24
+      }
+    },
     "interpreter": "bash",
-    "execDepends": [ {"name": "r-base"},
-		     {"name": "statmod", "package_manager": "cran"}],
+    "release": "16.04",
+    "distribution": "Ubuntu",
     "file": "src/shimmer.sh"
   },
-  "access": {"network": ["*"]},
-  "authorizedUsers": []
+  "access": {
+    "network": [
+      "*"
+    ]
+  },
+  "regionalOptions": {
+    "azure:westus": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "azure:mem1_ssd1_x16"
+        }
+      }
+    }
+  }
 }
