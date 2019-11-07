@@ -24,6 +24,13 @@
       "optional": false
     },
     {
+      "name": "pair_id",
+      "label": "Pair/Sample Name",
+      "class": "string",
+      "optional": false,
+      "help": ""
+    },
+    {
       "name": "options",
       "label": "command-line options",
       "class": "string",

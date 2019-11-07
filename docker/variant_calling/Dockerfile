@@ -43,6 +43,10 @@ RUN cd /opt; wget https://github.com/Illumina/manta/releases/download/v1.6.0/man
 
 RUN cd /opt; wget http://sourceforge.net/projects/vcftools/files/vcftools_0.1.13.tar.gz/download; tar xvfz download; rm download; cd vcftools_0.1.13; make; cp bin/* /usr/local/bin; cp lib/* /usr/local/lib; cp perl/* /usr/local/share/perl/5.22.1
 
+RUN cd /usr/local/bin; wget https://git.biohpc.swmed.edu/BICF/Astrocyte/process_scripts/raw/cabc31902db3374b96a90e98a9044a135b5329eb/variants/add_readct_shimmer.pl?inline=false; mv add_readct_shimmer.pl?inline=false add_readct_shimmer.pl;
+
+RUN cd /opt; wget http://sourceforge.net/projects/snpeff/files/snpEff_latest_core.zip; unzip snpEff_latest_core.zip; mv snpEff /usr/local/bin/;
+
 WORKDIR /data/
 
 CMD ["/usr/local/bin/samtools"]

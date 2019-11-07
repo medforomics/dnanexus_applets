@@ -17,11 +17,6 @@
 
 main() {
 
-    echo "Value of tumorbam: '$tumorbam'"
-    echo "Value of normalbam: '$normalbam'"
-    echo "Value of reference: '$reference'"
-    echo "Value of options: '$options'"
-
     # The following line(s) use the dx command-line tool to download your file
     # inputs to the local file system using variable names for the filenames. To
     # recover the original filenames, you can use the output of "dx describe
@@ -34,9 +29,9 @@ main() {
     tar xvfz reference.tar.gz
     gunzip reference/genome.fa.gz
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 shimmer.pl --minqual 25 --ref reference/genome.fa normal.bam tumor.bam --outdir shimmer_2 > shimmer.err
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 perl add_readct_shimmer.pl
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 vcf-annotate -n --fill-type shimmer/somatic_diffs.readct.vcf | java -jar /usr/local/bin/SnpSift.jar filter '(GEN[*].DP >= 10)' | perl -pe "s/TUMOR/${pair_id}/" | perl -pe "s/NORMAL/${pair_id}/g" | bgzip > ${pair_id}.shimmer.vcf.gz
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 shimmer.pl --minqual 25 --ref reference/genome.fa normal.bam tumor.bam --outdir shimmer 2> shimmer.err
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 perl /usr/local/bin/add_readct_shimmer.pl
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "vcf-annotate -n --fill-type shimmer/somatic_diffs.readct.vcf | java -jar /usr/local/bin/snpEff/SnpSift.jar filter '(GEN[*].DP >= 10)' | perl -pe \"s/TUMOR/${pair_id}/\" | perl -pe \"s/NORMAL/${pair_id}/g\" | bgzip > ${pair_id}.shimmer.vcf.gz"
 
     shimmer_vcf=$(dx upload ${pair_id}.shimmer.vcf.gz --brief)
     
