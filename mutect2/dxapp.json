@@ -6,8 +6,18 @@
   "version": "0.0.1",
   "inputSpec": [
     {
-      "name": "GATK_bam",
-      "label": "GATK Recalibrated BAM",
+      "name": "GATK_tumor_bam",
+      "label": "GATK Recalibrated Tumor BAM",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "GATK_normal_bam",
+      "label": "GATK Recalibrated Normal BAM",
       "class": "file",
       "optional": false,
       "patterns": [

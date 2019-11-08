@@ -47,6 +47,9 @@ RUN cd /usr/local/bin; wget https://git.biohpc.swmed.edu/BICF/Astrocyte/process_
 
 RUN cd /opt; wget http://sourceforge.net/projects/snpeff/files/snpEff_latest_core.zip; unzip snpEff_latest_core.zip; mv snpEff /usr/local/bin/;
 
+RUN cd /opt/bin; wget https://github.com/broadinstitute/picard/releases/download/2.20.3/picard.jar; mv /opt/bin/* /usr/local/bin/
+RUN chmod +x /usr/local/bin/picard.jar
+
 WORKDIR /data/
 
 CMD ["/usr/local/bin/samtools"]

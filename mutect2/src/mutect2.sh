@@ -17,25 +17,22 @@
 
 main() {
 
-    echo "Value of GATK_bam: '$GATK_bam'"
-    echo "Value of ref_file: '$ref_file'"
-    echo "Value of pair_id: '$pair_id'"
-
     # The following line(s) use the dx command-line tool to download your file
     # inputs to the local file system using variable names for the filenames. To
     # recover the original filenames, you can use the output of "dx describe
     # "$variable" --name".
 
-    dx download "$GATK_bam" -o GATK.bam
+    dx download "$GATK_tumor_bam" -o tumor.bam
+    dx download "$GATK_normal_bam" -o normal.bam
     dx download "$ref_file" -o reference.tar.gz
 
     tar xvfz reference.tar.gz
     gunzip reference/genome.fa.gz
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 java -XX:ParallelGCThreads=1 -Xmx16g -jar /usr/local/bin/picard.jar CollectSequencingArtifactMetrics I=GATK.bam O=artifact_metrics.txt R=reference/genome.fa
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "gatk --java-options \"-Xmx20g\" Mutect2 -R reference/genome.fa -A FisherStrand -A QualByDepth -A StrandArtifact -A DepthPerAlleleBySample -I GATK.bam -tumor ${pair_id} -I ${normal} -normal ${pair_id} --output ${pair_id}.mutect.vcf"
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 java -XX:ParallelGCThreads=1 -Xmx16g -jar /usr/local/bin/picard.jar CollectSequencingArtifactMetrics I=tumor.bam O=artifact_metrics.txt R=reference/genome.fa
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "gatk --java-options \"-Xmx20g\" Mutect2 -R reference/genome.fa -A FisherStrand -A QualByDepth -A StrandArtifact -A DepthPerAlleleBySample -I tumor.bam -tumor ${pair_id} -I normal.bam -normal ${pair_id} --output ${pair_id}.mutect.vcf"
     docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "gatk --java-options \"-Xmx20g\" FilterMutectCalls -V ${pair_id}.mutect.vcf -O ${pair_id}.mutect.filt.vcf"
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "vcf-sort ${pair_id}.mutect.filt.vcf | vcf-annotate -n --fill-type | java -jar /usr/local/bin/SnpSift.jar filter -p '(GEN[*].DP >= 10)' | bgzip > ${pair_id}.mutect.vcf.gz"
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "vcf-sort ${pair_id}.mutect.filt.vcf | vcf-annotate -n --fill-type | java -jar /usr/local/bin/snpEff/SnpSift.jar filter -p '(GEN[*].DP >= 10)' | bgzip > ${pair_id}.mutect.vcf.gz"
 
     mutect_vcf=$(dx upload ${pair_id}.mutect.vcf.gz --brief)
 
