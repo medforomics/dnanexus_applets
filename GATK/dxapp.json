@@ -42,6 +42,15 @@
         "*"
       ],
       "help": ""
+    },
+    {
+      "name": "finalindex",
+      "label": "BAM Index after GATK",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
     }
   ],
   "runSpec": {

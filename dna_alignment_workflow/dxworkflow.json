@@ -77,12 +77,22 @@
           "stage": "GATK"
         }
       }
+    },
+    {
+      "name": "finalindex",
+      "class": "file",
+      "outputSource": {
+        "$dnanexus_link": {
+          "outputField": "finalindex",
+          "stage": "GATK"
+        }
+      }
     }
   ],
   "stages": [
     {
       "id": "Trim_Galore",
-      "executable": "applet-Ff6Qg58982kJ4jBf9pfF3b01",
+      "executable": "applet-FfxVQKj982k2X5qf2pQvz0gP",
       "folder": "TrimGalore_Output",
       "input": {
         "fq1": {
@@ -161,7 +171,7 @@
     },
     {
       "id": "GATK",
-      "executable": "applet-Ff6QgF0982k24xj1Bv8jJjP0",
+      "executable": "applet-Fg2v1pj982kB4Jv87GQgx1J4",
       "folder": "GATK_Output",
       "input": {
         "Consensus_BAM": {

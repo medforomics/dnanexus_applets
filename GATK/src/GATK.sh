@@ -49,6 +49,7 @@ main() {
     # to see more options to set metadata.
 
     finalbam=$(dx upload ${pair_id}.final.bam --brief)
+    finalindex=$(dx upload ${pair_id}.final.bam.bai --brief)
 
     # The following line(s) use the utility dx-jobutil-add-output to format and
     # add output variables to your job's output as appropriate for the output
@@ -56,4 +57,5 @@ main() {
     # does.
 
     dx-jobutil-add-output finalbam "$finalbam" --class=file
+    dx-jobutil-add-output finalindex "$finalindex" --class=file
 }
