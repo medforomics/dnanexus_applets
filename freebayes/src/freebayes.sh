@@ -32,16 +32,16 @@ main() {
     if [[ -z $Consensus_Normal_BAM ]]
     then
         docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "cut -f 1 reference/genomefile.5M.txt | freebayes -f reference/genome.fa --min-base-quality 20 --min-coverage 10 --min-alternate-fraction 0.01 -C 3 --use-best-n-alleles 3 tumor.bam > fb.vcf"
-        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "vcf-concat fb.vcf | vcf-sort | vcf-annotate -n --fill-type | bcftools norm -c s -f reference/genome.fa -w 10 -O z -o ${pair_id}.freebayes.vcf.gz -"
+        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "vcf-concat fb.vcf | vcf-sort | vcf-annotate -n --fill-type | bcftools norm -c s -f reference/genome.fa -w 10 -O z -o ${pair_id}.fb.vcf.gz -"
     else
         dx download "$Consensus_Normal_BAM" -o normal.bam
         dx download "$Consensus_Normal_BAM_index" -o normal.bam.bai
 
         docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "cut -f 1 reference/genomefile.5M.txt | freebayes -f reference/genome.fa --min-base-quality 20 --min-coverage 10 --min-alternate-fraction 0.01 -C 3 --use-best-n-alleles 3 --bam tumor.bam --bam normal.bam > fb.vcf"
-        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "vcf-concat fb.vcf | vcf-sort | vcf-annotate -n --fill-type | bcftools norm -c s -f reference/genome.fa -w 10 -O z -o ${pair_id}.freebayes.vcf.gz -"
+        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "vcf-concat fb.vcf | vcf-sort | vcf-annotate -n --fill-type | bcftools norm -c s -f reference/genome.fa -w 10 -O z -o ${pair_id}.fb.vcf.gz -"
     fi
 
-    freebayes_vcf=$(dx upload ${pair_id}.freebayes.vcf.gz --brief)
+    freebayes_vcf=$(dx upload ${pair_id}.fb.vcf.gz --brief)
 
     # The following line(s) use the utility dx-jobutil-add-output to format and
     # add output variables to your job's output as appropriate for the output

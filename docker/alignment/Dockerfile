@@ -37,6 +37,11 @@ RUN cd /opt/bin; wget https://github.com/broadinstitute/picard/releases/download
 RUN cp -R /opt/bin/* /usr/local/bin/
 RUN chmod +x /usr/local/bin/picard.jar
 
+RUN cd /opt; wget http://sourceforge.net/projects/snpeff/files/snpEff_latest_core.zip; unzip snpEff_latest_core.zip; mv snpEff /usr/local/bin/
+
+RUN cd /usr/local/bin; wget https://git.biohpc.swmed.edu/BICF/Astrocyte/process_scripts/raw/cabc31902db3374b96a90e98a9044a135b5329eb/variants/unionvcf.pl?inline=false; mv unionvcf.pl?inline=false unionvcf.pl;
+
+RUN cd /usr/local/bin; wget https://git.biohpc.swmed.edu/BICF/Astrocyte/process_scripts/raw/cabc31902db3374b96a90e98a9044a135b5329eb/variants/vcfsorter.pl?inline=false; mv vcfsorter.pl?inline=false vcfsorter.pl;
 
 WORKDIR /data/
 
