@@ -16,8 +16,28 @@
       "help": ""
     },
     {
+      "name": "GATK_tumor_bam_index",
+      "label": "GATK Recalibrated Tumor BAM Indexed",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
       "name": "GATK_normal_bam",
       "label": "GATK Recalibrated Normal BAM",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "GATK_normal_bam_index",
+      "label": "GATK Recalibrated Normal BAM Indexed",
       "class": "file",
       "optional": false,
       "patterns": [
