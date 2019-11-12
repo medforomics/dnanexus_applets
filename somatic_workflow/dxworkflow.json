@@ -1,0 +1,329 @@
+{
+  "name": "somatic_workflow",
+  "title": "somatic_workflow",
+  "version": "1.0.0",
+  "summary": "Somatic Pipeline",
+  "outputFolder": "/Somatic_Output",
+  "inputs": [
+    {
+      "name": "Consensus_Tumor_BAM",
+      "class": "file"
+    },
+    {
+      "name": "Consensus_Tumor_BAM_index",
+      "class": "file"
+    },
+    {
+      "name": "Consensus_Normal_BAM",
+      "class": "file"
+    },
+    {
+      "name": "Consensus_Normal_BAM_index",
+      "class": "file"
+    },
+    {
+      "name": "GATK_Tumor_BAM",
+      "class": "file"
+    },
+    {
+      "name": "GATK_Tumor_BAM_index",
+      "class": "file"
+    },
+    {
+      "name": "GATK_Normal_BAM",
+      "class": "file"
+    },
+    {
+      "name": "GATK_Normal_BAM_index",
+      "class": "file"
+    },
+    {
+      "name": "Reference_File",
+      "class": "file"
+    },
+    {
+      "name": "pair_id",
+      "class": "string"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "strelka2_vcf",
+      "class": "file",
+      "outputSource": {
+        "$dnanexus_link": {
+          "outputField": "strelka2_vcf",
+          "stage": "Strelka2"
+        }
+      }
+    },
+    {
+      "name": "platypus_vcf",
+      "class": "file",
+      "outputSource": {
+        "$dnanexus_link": {
+          "outputField": "platypus_vcf",
+          "stage": "Platypus"
+        }
+      }
+    },
+    {
+      "name": "freebayes_vcf",
+      "class": "file",
+      "outputSource": {
+        "$dnanexus_link": {
+          "outputField": "freebayes_vcf",
+          "stage": "Freebayes"
+        }
+      }
+    },
+    {
+      "name": "shimmer_vcf",
+      "class": "file",
+      "outputSource": {
+        "$dnanexus_link": {
+          "outputField": "shimmer_vcf",
+          "stage": "Shimmer"
+        }
+      }
+    },
+    {
+      "name": "mutect_vcf",
+      "class": "file",
+      "outputSource": {
+        "$dnanexus_link": {
+          "outputField": "mutect_vcf",
+          "stage": "Mutect"
+        }
+      }
+    },
+    {
+      "name": "union_vcf",
+      "class": "file",
+      "outputSource": {
+        "$dnanexus_link": {
+          "outputField": "union_vcf",
+          "stage": "Union"
+        }
+      }
+    }
+  ],
+  "stages": [
+    {
+      "id": "Strelka2",
+      "executable": "applet-Fg0xYF09FX7B72Z0PjJ3Xk3B",
+      "input": {
+        "Consensus_Tumor_BAM": {
+          "$dnanexus_link": {
+          "workflowInputField": "Consensus_Tumor_BAM"
+          }
+        },
+        "Consensus_Tumor_BAM_index": {
+          "$dnanexus_link": {
+          "workflowInputField": "Consensus_Tumor_BAM_index"
+          }
+        },
+        "Consensus_Normal_BAM": {
+          "$dnanexus_link": {
+          "workflowInputField": "Consensus_Normal_BAM"
+          }
+        },
+        "Consensus_Normal_BAM_index": {
+          "$dnanexus_link": {
+          "workflowInputField": "Consensus_Normal_BAM_index"
+          }
+        },
+        "ref_file": {
+          "$dnanexus_link": {
+          "workflowInputField": "Reference_File"
+          }
+        },
+        "pair_id": {
+          "$dnanexus_link": {
+            "workflowInputField": "pair_id"
+          }
+        }
+      }
+    },
+    {
+      "id": "Platypus",
+      "executable": "applet-Fg0y5K09FX71v8Fg7J8VXfq1",
+      "input": {
+        "Consensus_Tumor_BAM": {
+          "$dnanexus_link": {
+          "workflowInputField": "Consensus_Tumor_BAM"
+          }
+        },
+        "Consensus_Tumor_BAM_index": {
+          "$dnanexus_link": {
+          "workflowInputField": "Consensus_Tumor_BAM_index"
+          }
+        },
+        "Consensus_Normal_BAM": {
+          "$dnanexus_link": {
+          "workflowInputField": "Consensus_Normal_BAM"
+          }
+        },
+        "Consensus_Normal_BAM_index": {
+          "$dnanexus_link": {
+          "workflowInputField": "Consensus_Normal_BAM_index"
+          }
+        },
+        "ref_file": {
+          "$dnanexus_link": {
+          "workflowInputField": "Reference_File"
+          }
+        },
+        "pair_id": {
+          "$dnanexus_link": {
+            "workflowInputField": "pair_id"
+          }
+        }
+      }    
+    },
+    {
+      "id": "Freebayes",
+      "executable": "applet-Fg5K5XQ9FX76p39KKj0GbyvK",
+      "input": {
+        "Consensus_Tumor_BAM": {
+          "$dnanexus_link": {
+          "workflowInputField": "Consensus_Tumor_BAM"
+          }
+        },
+        "Consensus_Tumor_BAM_index": {
+          "$dnanexus_link": {
+          "workflowInputField": "Consensus_Tumor_BAM_index"
+          }
+        },
+        "Consensus_Normal_BAM": {
+          "$dnanexus_link": {
+          "workflowInputField": "Consensus_Normal_BAM"
+          }
+        },
+        "Consensus_Normal_BAM_index": {
+          "$dnanexus_link": {
+          "workflowInputField": "Consensus_Normal_BAM_index"
+          }
+        },
+        "ref_file": {
+          "$dnanexus_link": {
+          "workflowInputField": "Reference_File"
+          }
+        },
+        "pair_id": {
+          "$dnanexus_link": {
+            "workflowInputField": "pair_id"
+          }
+        }
+      }
+    },
+    {
+      "id": "Shimmer",
+      "executable": "applet-Fg28Y109FX7FGVJJPPY70vXf",
+      "input": {
+        "tumorbam": {
+          "$dnanexus_link": {
+          "workflowInputField": "Consensus_Tumor_BAM"
+          }
+        },
+        "normalbam": {
+          "$dnanexus_link": {
+          "workflowInputField": "Consensus_Normal_BAM"
+          }
+        },
+        "reference": {
+          "$dnanexus_link": {
+          "workflowInputField": "Reference_File"
+          }
+        },
+        "pair_id": {
+          "$dnanexus_link": {
+            "workflowInputField": "pair_id"
+          }
+        }
+      }
+    },
+    {
+      "id": "Mutect",
+      "executable": "applet-Fg2zXz09FX7FJV5X0PvJvQ59",
+      "input": {
+        "GATK_tumor_bam": {
+          "$dnanexus_link": {
+          "workflowInputField": "GATK_Tumor_BAM"
+          }
+        },
+        "GATK_tumor_bam_index": {
+          "$dnanexus_link": {
+          "workflowInputField": "GATK_Tumor_BAM_index"
+          }
+        },
+        "GATK_normal_bam": {
+          "$dnanexus_link": {
+          "workflowInputField": "GATK_Normal_BAM"
+          }
+        },
+        "GATK_normal_bam_index": {
+          "$dnanexus_link": {
+          "workflowInputField": "GATK_Normal_BAM_index"
+          }
+        },
+        "ref_file": {
+          "$dnanexus_link": {
+          "workflowInputField": "Reference_File"
+          }
+        },
+        "pair_id": {
+          "$dnanexus_link": {
+            "workflowInputField": "pair_id"
+          }
+        }
+      }
+    },
+    {
+      "id": "Union",
+      "executable": "applet-Fg5XFzj9FX7F3vkpP1z0kKvQ",
+      "input": {
+        "platypus_vcf": {
+          "$dnanexus_link": {
+            "outputField": "platypus_vcf",
+            "stage": "Platypus"
+          }
+        },
+        "freebayes_vcf": {
+          "$dnanexus_link": {
+            "outputField": "freebayes_vcf",
+            "stage": "Freebayes"
+          }
+        },
+        "strelka_vcf": {
+          "$dnanexus_link": {
+            "outputField": "strelka2_vcf",
+            "stage": "Strelka2"
+          }
+        },
+        "shimmer_vcf": {
+          "$dnanexus_link": {
+            "outputField": "shimmer_vcf",
+            "stage": "Shimmer"
+          }
+        },
+        "mutect_vcf": {
+          "$dnanexus_link": {
+            "outputField": "mutect_vcf",
+            "stage": "Mutect"
+          }
+        },
+       "reference_files": {
+          "$dnanexus_link": {
+          "workflowInputField": "Reference_File"
+          }
+        },
+        "pair_id": {
+          "$dnanexus_link": {
+            "workflowInputField": "pair_id"
+          }
+        }
+      }
+    }
+  ]
+}
