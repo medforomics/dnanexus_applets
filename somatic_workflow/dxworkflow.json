@@ -245,7 +245,7 @@
     },
     {
       "id": "Mutect",
-      "executable": "applet-Fg2zXz09FX7FJV5X0PvJvQ59",
+      "executable": "applet-Fg6jy109FX7B56g12Zv4Vy6J",
       "input": {
         "GATK_tumor_bam": {
           "$dnanexus_link": {

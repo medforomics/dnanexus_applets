@@ -33,7 +33,7 @@ main() {
     gunzip reference/genome.fa.gz
 
     docker run -v ${PWD}:/data docker.io/goalconsortium/gatk:v1 java -XX:ParallelGCThreads=1 -Xmx16g -jar /usr/local/bin/picard.jar CollectSequencingArtifactMetrics I=tumor.bam O=artifact_metrics.txt R=reference/genome.fa
-    docker run -v ${PWD}:/data docker.io/goalconsortium/gatk:v1 sh -c "gatk --java-options \"-Xmx20g\" Mutect2 -R reference/genome.fa -A FisherStrand -A QualByDepth -A DepthPerAlleleBySample -I tumor.bam -tumor Tumor -I normal.bam -normal Normal --output ${pair_id}.mutect.vcf"
+    docker run -v ${PWD}:/data docker.io/goalconsortium/gatk:v1 sh -c "gatk --java-options \"-Xmx20g\" Mutect2 -R reference/genome.fa -A FisherStrand -A QualByDepth -A DepthPerAlleleBySample -I tumor.bam -I normal.bam --output ${pair_id}.mutect.vcf"
     docker run -v ${PWD}:/data docker.io/goalconsortium/gatk:v1 sh -c "gatk --java-options \"-Xmx20g\" FilterMutectCalls -V ${pair_id}.mutect.vcf -R reference/genome.fa -O ${pair_id}.mutect.filt.vcf"
     docker run -v ${PWD}:/data docker.io/goalconsortium/gatk:v1 sh -c "vcf-sort ${pair_id}.mutect.filt.vcf | vcf-annotate -n --fill-type | java -jar /usr/local/bin/snpEff/SnpSift.jar filter -p '(GEN[*].DP >= 10)' | bgzip > ${pair_id}.mutect.vcf.gz"
 
