@@ -281,7 +281,7 @@
     },
     {
       "id": "Union",
-      "executable": "applet-Fg5XFzj9FX7F3vkpP1z0kKvQ",
+      "executable": "applet-FgFJKv09VpY52Bk5F3bPvJ27",
       "input": {
         "platypus_vcf": {
           "$dnanexus_link": {
