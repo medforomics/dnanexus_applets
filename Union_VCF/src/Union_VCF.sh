@@ -38,7 +38,7 @@ main() {
         dx download "$mutect_vcf" -o mutect.vcf.gz
         list=(strelka.vcf.gz platypus.vcf.gz fb.vcf.gz shimmer.vcf.gz mutect.vcf.gz)
     fi
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 perl /usr/local/bin/unionvcf.pl union.header.vcf $list
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 perl /usr/local/bin/unionvcf.pl union.header.vcf ${list[*]}
     docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 sh -c "perl /usr/local/bin/vcfsorter.pl reference/genome.dict int.vcf | bgzip > ${pair_id}.union.vcf.gz"
 
     union_vcf=$(dx upload ${pair_id}.union.vcf.gz --brief)
