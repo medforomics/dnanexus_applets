@@ -1,4 +1,4 @@
-FROM broadinstitute/gatk:4.1.2.0
+FROM broadinstitute/gatk:4.1.4.0
 
 LABEL Author="Jeremy Mathews" \
       Maintainer=BICF@UTSouthwestern.edu
