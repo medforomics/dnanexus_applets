@@ -48,11 +48,11 @@ main() {
 
     docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 java -Xmx64g -jar /usr/local/bin/picard.jar CollectInsertSizeMetrics INPUT=consensus.bam HISTOGRAM_FILE=${pair_id}.hist.ps REFERENCE_SEQUENCE=reference/genome.fa OUTPUT=${pair_id}.hist.txt
     docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 bedtools coverage -sorted -g  reference/genomefile.txt -a hemepanelV3.bed -b consensus.bam -hist > ${pair_id}.covhist.txt
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 grep ^all ${pair_id}.covhist.txt >  ${pair_id}.genomecov.txt
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 grep ^all ${pair_id}.covhist.txt >  ${pair_id}.dedupcov.txt
 
 
     umihist=$(dx upload ${pair_id}.hist.txt --brief)
-    dedupcov=$(dx upload ${pair_id}.genomecov.txt --brief)
+    dedupcov=$(dx upload ${pair_id}.dedupcov.txt --brief)
     covuniqhist=$(dx upload ${pair_id}.covhist.txt --brief)
 
 

@@ -43,6 +43,8 @@ RUN cd /usr/local/bin; wget https://git.biohpc.swmed.edu/BICF/Astrocyte/process_
 
 RUN cd /usr/local/bin; wget https://git.biohpc.swmed.edu/BICF/Astrocyte/process_scripts/raw/cabc31902db3374b96a90e98a9044a135b5329eb/variants/vcfsorter.pl?inline=false; mv vcfsorter.pl?inline=false vcfsorter.pl;
 
+RUN cd /usr/local/bin; wget https://git.biohpc.swmed.edu/BICF/Astrocyte/process_scripts/raw/cabc31902db3374b96a90e98a9044a135b5329eb/alignment/calculate_depthcov.pl?inline=false; mv calculate_depthcov.pl?inline=false calculate_depthcov.pl;
+
 WORKDIR /data/
 
 CMD ["/usr/local/bin/bwa"]
