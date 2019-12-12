@@ -25,6 +25,10 @@
     {
       "name": "mdup",
       "class": "string"
+    },
+    {
+      "name": "Concat_Reference_File",
+      "class": "file"
     }
   ],
   "outputs": [
@@ -85,6 +89,16 @@
         "$dnanexus_link": {
           "outputField": "finalindex",
           "stage": "GATK"
+        }
+      }
+    },
+    {
+      "name": "seqstats",
+      "class": "file",
+      "outputSource": {
+        "$dnanexus_link": {
+          "outputField": "seqstats",
+          "stage": "QC_Stats"
         }
       }
     }
@@ -183,6 +197,46 @@
         "ref_file": {
           "$dnanexus_link": {
             "workflowInputField": "Reference_File"
+          }
+        },
+        "pair_id": {
+          "$dnanexus_link": {
+            "workflowInputField": "pair_id"
+          }
+        }
+      }
+    },
+    {
+      "id": "QC_Stats",
+      "executable": "applet-FgbP30Q9VpY9553Y7X8kXFpJ",
+      "folder": "QC_Output",
+      "input": {
+        "consensus_bam": {
+          "$dnanexus_link": {
+            "outputField": "uniqbam",
+            "stage": "Align_Markdups"
+          }
+        },
+        "trimreport": {
+          "$dnanexus_link": {
+            "outputField": "trimreport",
+            "stage": "Trim_Galore"
+          }
+        },
+        "dedupcov": {
+          "$dnanexus_link": {
+            "outputField": "dedupcov",
+            "stage": "QC_BAM"
+          }
+        },
+        "ref_file": {
+          "$dnanexus_link": {
+            "workflowInputField": "Reference_File"
+          }
+        },
+        "concat_ref_file": {
+          "$dnanexus_link": {
+            "workflowInputField": "Concat_Reference_File"
           }
         },
         "pair_id": {
