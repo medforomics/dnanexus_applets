@@ -43,7 +43,7 @@ RUN cd /usr/local/bin; wget https://git.biohpc.swmed.edu/BICF/Astrocyte/process_
 
 RUN cd /usr/local/bin; wget https://git.biohpc.swmed.edu/BICF/Astrocyte/process_scripts/raw/cabc31902db3374b96a90e98a9044a135b5329eb/variants/vcfsorter.pl?inline=false; mv vcfsorter.pl?inline=false vcfsorter.pl;
 
-RUN cd /usr/local/bin; wget https://git.biohpc.swmed.edu/ngsclialab/clinseq_workflows/raw/master/scripts/sequenceqc_alignment_withumi.pl?inline=false; mv sequenceqc_alignment_withumi.pl?inline=false sequenceqc_alignment_withumi.pl;
+RUN cd /usr/local/bin; wget https://git.biohpc.swmed.edu/ngsclialab/clinseq_workflows/raw/DNANexusCompat/scripts/sequenceqc_alignment_withumi.pl?inline=false; mv sequenceqc_alignment_withumi.pl?inline=false sequenceqc_alignment_withumi.pl;
 
 WORKDIR /data/
 

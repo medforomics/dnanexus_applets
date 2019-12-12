@@ -46,6 +46,16 @@
       "help": ""
     },
     {
+      "name": "concat_ref_file",
+      "label": "Reference Files tar.gz for concat step",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
       "name": "pair_id",
       "label": "ReadGroup/SampleName",
       "class": "string",

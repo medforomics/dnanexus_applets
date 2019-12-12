@@ -18,12 +18,14 @@
 main() {
 
     dx download "$consensus_bam" -o consensus.bam
-    dx download "$trimreport" -o trimreport.txt
-    dx download "$dedupcov" -o dedupcov.txt
+    dx download "$trimreport" -o ${pair_id}.trimreport.txt
+    dx download "$dedupcov" -o ${pair_id}.dedupcov.txt
     dx download "$ref_file" -o reference.tar.gz
+    dx download "$concat_ref_file" -o concat.tar.gz
 
     tar xvfz reference.tar.gz
     gunzip reference/genome.fa.gz
+    tar xvfz concat.tar.gz
 
     docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 java -XX:ParallelGCThreads=1 -Djava.io.tmpdir=./ -Xmx16g  -jar /usr/local/bin/picard.jar MarkDuplicates BARCODE_TAG=RX I=consensus.bam O=${pair_id}.dedup.bam M=${pair_id}.dedup.stat.txt
     docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 samtools index -@ 1 ${pair_id}.dedup.bam
@@ -40,7 +42,7 @@ main() {
     docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 bedtools coverage -sorted -g reference/genomefile.txt -a hemepanelV3.bed -b ${pair_id}.dedup.bam -hist > ${pair_id}.covhist.txt
     docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 grep ^all ${pair_id}.covhist.txt >  ${pair_id}.genomecov.txt
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 perl /usr/local/bin/sequenceqc_alignment_withumi.pl -r reference ${pair_id}.genomecov.txt
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 perl /usr/local/bin/sequenceqc_alignment_withumi.pl -r . ${pair_id}.genomecov.txt
 
     # The following line(s) use the dx command-line tool to upload your file
     # outputs after you have created them on the local file system.  It assumes
