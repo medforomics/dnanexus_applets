@@ -7,7 +7,7 @@
   "inputSpec": [
     {
       "name": "Consensus_BAM",
-      "label": "Consensus BAM from alignment step (uniq.bam)",
+      "label": "Consensus BAM from alignment step (consensus.bam)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -18,6 +18,16 @@
     {
       "name": "reference_files",
       "label": "Reference Files (tar.gz)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "capture_bed",
+      "label": "Capture Bed File",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -55,6 +65,33 @@
     {
       "name": "covuniqhist",
       "label": "uniq coverage",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "exoncovuniqstat",
+      "label": "exon coverage",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "lowcovuniqstat",
+      "label": "low coverage",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "uniqtdf",
+      "label": "uniq tdf file",
       "class": "file",
       "patterns": [
         "*"

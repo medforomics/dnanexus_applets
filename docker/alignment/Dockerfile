@@ -39,11 +39,11 @@ RUN chmod +x /usr/local/bin/picard.jar
 
 RUN cd /opt; wget http://sourceforge.net/projects/snpeff/files/snpEff_latest_core.zip; unzip snpEff_latest_core.zip; mv snpEff /usr/local/bin/
 
-RUN cd /usr/local/bin; wget https://git.biohpc.swmed.edu/BICF/Astrocyte/process_scripts/raw/cabc31902db3374b96a90e98a9044a135b5329eb/variants/unionvcf.pl?inline=false; mv unionvcf.pl?inline=false unionvcf.pl;
-
-RUN cd /usr/local/bin; wget https://git.biohpc.swmed.edu/BICF/Astrocyte/process_scripts/raw/cabc31902db3374b96a90e98a9044a135b5329eb/variants/vcfsorter.pl?inline=false; mv vcfsorter.pl?inline=false vcfsorter.pl;
-
-RUN cd /usr/local/bin; wget https://git.biohpc.swmed.edu/ngsclialab/clinseq_workflows/raw/DNANexusCompat/scripts/sequenceqc_alignment_withumi.pl?inline=false; mv sequenceqc_alignment_withumi.pl?inline=false sequenceqc_alignment_withumi.pl;
+RUN cd /opt; git clone https://git.biohpc.swmed.edu/ngsclialab/clinseq_workflows.git; cd clinseq_workflows; \
+    git submodule sync --recursive; git submodule update --init --recursive; \
+    cp -r process_scripts/alignment/* /usr/local/bin/; \
+    cp -r process_scripts/variants/* /usr/local/bin/; \
+    cp -r scripts/* /usr/local/bin/;
 
 WORKDIR /data/
 

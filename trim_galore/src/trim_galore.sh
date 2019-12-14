@@ -16,10 +16,6 @@
 # to modify this file.
 
 main() {
-    echo "Value of fq1: '$fq1'"
-    echo "Value of fq2: '$fq2'"
-    echo "Value of pair_id: '$pair_id'"
-
     # The following line(s) use the dx command-line tool to download your file
     # inputs to the local file system using variable names for the filenames. To
     # recover the original filenames, you can use the output of "dx describe
@@ -30,26 +26,9 @@ main() {
     then
         dx download "$fq2" -o seq.R2.fastq.gz
     fi
-    if [ -z "$pair_id" ]
-    then
-	filename=$(dx describe --name "${fq1}")
-	pair_id=${filename%.fastq.gz}
-    fi
 
-    r1base="seq.R1"
-    r2base="seq.R2"
-    
-    if [ -n "$fq2" ]
-    then
-	docker run -v ${PWD}:/data docker.io/goalconsortium/trim_galore:v1 trim_galore --paired -q 25 --illumina --gzip --length 35 seq.R1.fastq.gz seq.R2.fastq.gz
-	mv ${r1base}_val_1.fq.gz ${pair_id}.trim.R1.fastq.gz
-	mv ${r2base}_val_2.fq.gz ${pair_id}.trim.R2.fastq.gz
-    else
-	docker run -v ${PWD}:/data docker.io/goalconsortium/trim_galore:v1 trim_galore -q 25 --illumina --gzip --length 35 ${fq1}
-	mv ${r1base}_trimmed.fq.gz ${pair_id}.trim.R1.fastq.gz
-	cp ${pair_id}.trim.R1.fastq.gz ${pair_id}.trim.R2.fastq.gz 
-    fi
-    perl /process_scripts/preproc_fastq/parse_trimreport.pl ${pair_id}.trimreport.txt *trimming_report.txt
+    docker run -v ${PWD}:/data docker.io/goalconsortium/trim_galore:v1 bash /usr/local/bin/trimgalore.sh -p ${pair_id} -a seq.R1.fastq.gz -b seq.R2.fastq.gz
+    docker run -v ${PWD}:/data docker.io/goalconsortium/trim_galore:v1 perl /usr/local/bin/parse_trimreport.pl ${pair_id}.trimreport.txt *trimming_report.txt
 
     trim1=$(dx upload ${pair_id}.trim.R1.fastq.gz --brief)
     trimreport=$(dx upload ${pair_id}.trimreport.txt --brief)

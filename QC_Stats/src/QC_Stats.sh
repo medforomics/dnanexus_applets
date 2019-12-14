@@ -18,6 +18,7 @@
 main() {
 
     dx download "$consensus_bam" -o consensus.bam
+    dx download "$capture_bed" -o capture.bed
     dx download "$trimreport" -o ${pair_id}.trimreport.txt
     dx download "$dedupcov" -o ${pair_id}.dedupcov.txt
     dx download "$ref_file" -o reference.tar.gz
@@ -27,29 +28,20 @@ main() {
     gunzip reference/genome.fa.gz
     tar xvfz concat.tar.gz
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 java -XX:ParallelGCThreads=1 -Djava.io.tmpdir=./ -Xmx16g  -jar /usr/local/bin/picard.jar MarkDuplicates BARCODE_TAG=RX I=consensus.bam O=${pair_id}.dedup.bam M=${pair_id}.dedup.stat.txt
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 samtools index -@ 1 ${pair_id}.dedup.bam
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 bash /usr/local/bin/markdups.sh -a picard_umi -b consensus.bam -p ${pair_id}
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 bash /usr/local/bin/bamqc.sh -c capture.bed -n dna -r reference -b ${pair_id}.dedup.bam -p ${pair_id}
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 perl /usr/local/bin/sequenceqc_alignment_withumi.pl -r reference ${pair_id}.genomecov.txt
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 samtools flagstat ${pair_id}.dedup.bam > ${pair_id}.flagstat.txt
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 samtools view -@ 1 -b -L hemepanelV3.bed -o ${pair_id}.ontarget.bam ${pair_id}.dedup.bam
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 samtools index -@ 1 ${pair_id}.ontarget.bam
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 samtools flagstat ${pair_id}.ontarget.bam > ${pair_id}.ontarget.flagstat.txt
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 java -Xmx64g -jar /usr/local/bin/picard.jar CollectAlignmentSummaryMetrics R=reference/genome.fa I=${pair_id}.ontarget.bam OUTPUT=${pair_id}.alignmentsummarymetrics.txt
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 java -Xmx64g -XX:ParallelGCThreads=1 -jar /usr/local/bin/picard.jar EstimateLibraryComplexity I=${pair_id}.dedup.bam OUTPUT=${pair_id}.libcomplex.txt
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 sh -c "samtools view  -@ 1 -b -q 1 ${pair_id}.dedup.bam | bedtools coverage -sorted -hist -g reference/genomefile.txt -b stdin -a hemepanelV3.bed > ${pair_id}.mapqualcov.txt"
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 samtools view -@ 1 ${pair_id}.dedup.bam | awk '{sum+=$5} END { print "Mean MAPQ =",sum/NR }' > ${pair_id}.meanmap.txt
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 java -Xmx64g -jar /usr/local/bin/picard.jar CollectInsertSizeMetrics INPUT=${pair_id}.dedup.bam HISTOGRAM_FILE=${pair_id}.hist.ps REFERENCE_SEQUENCE=reference/genome.fa OUTPUT=${pair_id}.hist.txt
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 bedtools coverage -sorted -g reference/genomefile.txt -a hemepanelV3.bed -b ${pair_id}.dedup.bam -hist > ${pair_id}.covhist.txt
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 grep ^all ${pair_id}.covhist.txt >  ${pair_id}.genomecov.txt
-
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 perl /usr/local/bin/sequenceqc_alignment_withumi.pl -r . ${pair_id}.genomecov.txt
-
-    # The following line(s) use the dx command-line tool to upload your file
-    # outputs after you have created them on the local file system.  It assumes
-    # that you have used the output field name for the filename for each output,
-    # but you can change that behavior to suit your needs.  Run "dx upload -h"
-    # to see more options to set metadata.
-
+    alignstats=$(dx upload ${pair_id}.flagstat.txt --brief)
+    meanmap=$(dx upload ${pair_id}.meanmap.txt --brief)
+    libcomplex=$(dx upload ${pair_id}.libcomplex.txt --brief)
+    insertsize=$(dx upload ${pair_id}.hist.txt --brief)
+    alignmentsummarymetrics=$(dx upload ${pair_id}.alignmentsummarymetrics.txt --brief)
+    genomecov=$(dx upload ${pair_id}.genomecov.txt --brief)
+    covhist=$(dx upload ${pair_id}.covhist.txt --brief)
+    lowcapcovstat=$(dx upload ${pair_id}_lowcoverage.txt --brief)
+    exoncapcovstat=$(dx upload ${pair_id}_exoncoverage.txt --brief)
+    mapqualcov=$(dx upload ${pair_id}.mapqualcov.txt --brief)
     seqstats=$(dx upload ${pair_id}.sequence.stats.txt --brief)
 
     # The following line(s) use the utility dx-jobutil-add-output to format and
@@ -57,5 +49,15 @@ main() {
     # class.  Run "dx-jobutil-add-output -h" for more information on what it
     # does.
 
+    dx-jobutil-add-output alignstats "$alignstats" --class=file
+    dx-jobutil-add-output meanmap "$meanmap" --class=file
+    dx-jobutil-add-output libcomplex "$libcomplex" --class=file
+    dx-jobutil-add-output insertsize "$insertsize" --class=file
+    dx-jobutil-add-output alignmentsummarymetrics "$alignmentsummarymetrics" --class=file
+    dx-jobutil-add-output genomecov "$genomecov" --class=file
+    dx-jobutil-add-output covhist "$covhist" --class=file
+    dx-jobutil-add-output lowcapcovstat "$lowcapcovstat" --class=file
+    dx-jobutil-add-output exoncapcovstat "$exoncapcovstat" --class=file
+    dx-jobutil-add-output mapqualcov "$mapqualcov" --class=file
     dx-jobutil-add-output seqstats "$seqstats" --class=file
 }

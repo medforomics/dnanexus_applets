@@ -17,36 +17,13 @@
 
 main() {
 
-    echo "Value of Consensus_BAM: '$Consensus_BAM'"
-    echo "Value of reference: '$ref_file'"
-
-    # The following line(s) use the dx command-line tool to download your file
-    # inputs to the local file system using variable names for the filenames. To
-    # recover the original filenames, you can use the output of "dx describe
-    # "$variable" --name".
-
     dx download "$Consensus_BAM" -o consensus.bam
     dx download "$ref_file" -o reference.tar.gz
-
-    if [[ -z $pair_id ]]
-    then
-	pair_id='seq'
-    fi
-    echo "Value of pair_id: '$pair_id'"
 
     tar xvfz reference.tar.gz
     gunzip reference/genome.fa.gz
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/gatk:v1 samtools index -@ 1 consensus.bam
-    docker run -v ${PWD}:/data docker.io/goalconsortium/gatk:v1 sh -c "gatk --java-options \"-Xmx32g\" BaseRecalibrator -I consensus.bam --known-sites dbSnp.gatk4.vcf.gz -R reference/genome.fa -O \"${pair_id}.recal_data.table\" --use-original-qualities"
-    docker run -v ${PWD}:/data docker.io/goalconsortium/gatk:v1 sh -c "gatk --java-options \"-Xmx32g\" ApplyBQSR -I consensus.bam -R reference/genome.fa -O \"${pair_id}.final.bam\" --use-original-qualities -bqsr \"${pair_id}.recal_data.table\""
-    docker run -v ${PWD}:/data docker.io/goalconsortium/gatk:v1 samtools index -@ 1 ${pair_id}.final.bam
-
-    # The following line(s) use the dx command-line tool to upload your file
-    # outputs after you have created them on the local file system.  It assumes
-    # that you have used the output field name for the filename for each output,
-    # but you can change that behavior to suit your needs.  Run "dx upload -h"
-    # to see more options to set metadata.
+    docker run -v ${PWD}:/data docker.io/goalconsortium/gatk:v1 bash /usr/local/bin/gatkrunner.sh -a gatkbam -b consensus.bam -r reference -p ${pair_id}
 
     finalbam=$(dx upload ${pair_id}.final.bam --brief)
     finalindex=$(dx upload ${pair_id}.final.bam.bai --brief)

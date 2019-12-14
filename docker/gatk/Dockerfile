@@ -4,7 +4,7 @@ LABEL Author="Jeremy Mathews" \
       Maintainer=BICF@UTSouthwestern.edu
 
 RUN apt-get update && \
-    apt-get install -y autoconf automake make gcc zlib1g-dev libbz2-dev liblzma-dev libcurl4-gnutls-dev libssl-dev libncurses5-dev
+    apt-get install -y autoconf automake make gcc zlib1g-dev libbz2-dev liblzma-dev libcurl4-gnutls-dev libssl-dev libncurses5-dev git
 
 WORKDIR /usr/bin
 
@@ -32,6 +32,10 @@ RUN cd /opt; wget http://sourceforge.net/projects/snpeff/files/snpEff_latest_cor
 
 RUN cd /opt; wget https://github.com/broadinstitute/picard/releases/download/2.20.3/picard.jar; mv /opt/picard.jar /usr/local/bin/
 RUN chmod +x /usr/local/bin/picard.jar
+
+RUN cd /opt; git clone https://git.biohpc.swmed.edu/ngsclialab/clinseq_workflows.git; cd clinseq_workflows; \
+    git submodule sync --recursive; git submodule update --init --recursive; \
+    cp -r process_scripts/variants/* /usr/local/bin/;
 
 WORKDIR /data
 

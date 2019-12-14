@@ -29,7 +29,7 @@
       "name": "pair_id",
       "label": "Output Prefix",
       "class": "string",
-      "optional": true,
+      "optional": false,
       "help": ""
     }
   ],

@@ -17,46 +17,32 @@
 
 main() {
 
-    echo "Value of Consensus_BAM: '$Consensus_BAM'"
-    echo "Value of reference_files: '$reference_files'"
-    echo "Value of pair_id: '$pair_id'"
-
-    # The following line(s) use the dx command-line tool to download your file
-    # inputs to the local file system using variable names for the filenames. To
-    # recover the original filenames, you can use the output of "dx describe
-    # "$variable" --name".
-
     dx download "$Consensus_BAM" -o consensus.bam
     dx download "$reference_files" -o reference.tar.gz
-
-    if [[ -z $pair_id ]]
-    then
-        pair_id='seq'
-    fi
-    echo "Value of pair_id: '$pair_id'"
+    dx download "$capture_bed" -o capture.bed
 
     tar xvfz reference.tar.gz
     gunzip reference/genome.fa.gz
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 samtools view -@ 1 -b -L hemepanelV3.bed -o ${pair_id}.ontarget.bam consensus.bam
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 samtools index -@ 1 ${pair_id}.ontarget.bam
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 samtools flagstat ${pair_id}.ontarget.bam > ${pair_id}.ontarget.flagstat.txt
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 java -Xmx64g -jar /usr/local/bin/picard.jar CollectAlignmentSummaryMetrics R=reference/genome.fa I=${pair_id}.ontarget.bam OUTPUT=${pair_id}.alignmentsummarymetrics.txt
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 java -Xmx64g -XX:ParallelGCThreads=1 -jar /usr/local/bin/picard.jar EstimateLibraryComplexity I=consensus.bam OUTPUT=${pair_id}.libcomplex.txt
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 samtools view  -@ 1 -b -q 1 consensus.bam | docker run -v ${PWD}:/data docker.io/bcantarel/alignment:v1 bedtools coverage -sorted -hist -g reference/genomefile.txt -b stdin -a hemepanelV3.bed > ${pair_id}.mapqualcov.txt
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 samtools view  -@ 1 consensus.bam | awk '{sum+=$5} END { print "Mean MAPQ =",sum/NR}' > ${pair_id}.meanmap.txt
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 bash /usr/local/bin/bam2tdf.sh -r reference -b consensus.bam -p ${pair_id}.uniq
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 bash /usr/local/bin/bamqc.sh -c capture.bed -n dna -r reference -b consensus.bam -p ${pair_id} -s 1
+    mv ${pair_id}.genomecov.txt ${pair_id}.dedupcov.txt
+    mv ${pair_id}.covhist.txt ${pair_id}.covuniqhist.txt
+    mv ${pair_id}.hist.txt ${pair_id}.uniqhist.txt
+    mv ${pair_id}_lowcoverage.txt ${pair_id}_lowcoverageuniq.txt
+    mv ${pair_id}_exoncoverage.txt ${pair_id}_exoncoverageuniq.txt
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 java -Xmx64g -jar /usr/local/bin/picard.jar CollectInsertSizeMetrics INPUT=consensus.bam HISTOGRAM_FILE=${pair_id}.hist.ps REFERENCE_SEQUENCE=reference/genome.fa OUTPUT=${pair_id}.hist.txt
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 bedtools coverage -sorted -g  reference/genomefile.txt -a hemepanelV3.bed -b consensus.bam -hist > ${pair_id}.covhist.txt
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:v1 grep ^all ${pair_id}.covhist.txt >  ${pair_id}.dedupcov.txt
-
-
-    umihist=$(dx upload ${pair_id}.hist.txt --brief)
+    umihist=$(dx upload ${pair_id}.uniqhist.txt --brief)
     dedupcov=$(dx upload ${pair_id}.dedupcov.txt --brief)
-    covuniqhist=$(dx upload ${pair_id}.covhist.txt --brief)
-
+    covuniqhist=$(dx upload ${pair_id}.covuniqhist.txt --brief)
+    lowcovuniqstat=$(dx upload ${pair_id}_lowcoverageuniq.txt --brief)
+    exoncovuniqstat=$(dx upload ${pair_id}_exoncoverageuniq.txt --brief)
+    uniqtdf=$(dx upload ${pair_id}.uniq.tdf --brief)
 
     dx-jobutil-add-output umihist "$umihist" --class=file
     dx-jobutil-add-output dedupcov "$dedupcov" --class=file
     dx-jobutil-add-output covuniqhist "$covuniqhist" --class=file
+    dx-jobutil-add-output lowcovuniqstat "$lowcovuniqstat" --class=file
+    dx-jobutil-add-output exoncovuniqstat "$exoncovuniqstat" --class=file
+    dx-jobutil-add-output uniqtdf "$uniqtdf" --class=file
 }

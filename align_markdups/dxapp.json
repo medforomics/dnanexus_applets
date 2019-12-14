@@ -27,7 +27,7 @@
     },
     {
       "name": "reference",
-      "label": "Reference Files (BWA index) tar.gz",
+      "label": "Reference Files (tar.gz)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -61,8 +61,8 @@
       "help": ""
     },
     {
-      "name": "uniqbam",
-      "label": "Uniq Bam",
+      "name": "conbam",
+      "label": "Consensus Bam",
       "class": "file",
       "patterns": [
         "*"
@@ -79,8 +79,17 @@
       "help": ""
     },
     {
-      "name": "uniqbai",
-      "label": "Uniq BAM index",
+      "name": "conbai",
+      "label": "Consensus BAM index",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "rawtdf",
+      "label": "raw tdf file",
       "class": "file",
       "patterns": [
         "*"

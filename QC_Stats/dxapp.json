@@ -16,6 +16,16 @@
       "help": ""
     },
     {
+      "name": "capture_bed",
+      "label": "Capture Bed File",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
       "name": "trimreport",
       "label": "Trim Report (trim-galore)",
       "class": "file",
@@ -64,6 +74,96 @@
     }
   ],
   "outputSpec": [
+    {
+      "name": "alignstats",
+      "label": "alignment stats",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "meanmap",
+      "label": "mean mapping stats",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "libcomplex",
+      "label": "libcomplex stats",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "insertsize",
+      "label": "insert size stats",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "alignmentsummarymetrics",
+      "label": "alignment summary metrics",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "genomecov",
+      "label": "genome coverage",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "covhist",
+      "label": "coverage hist stats",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "lowcapcovstat",
+      "label": "low cap coverage",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "exoncapcovstat",
+      "label": "exon cap coverage",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "mapqualcov",
+      "label": "mapping quality coverage",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
     {
       "name": "seqstats",
       "label": "concatenated sequence stats",
