@@ -1,50 +1,55 @@
 FROM ubuntu:16.04
-LABEL maintainer="b.cantarel@gmail.com"
+LABEL Author="Jeremy Mathews" \
+      Maintainer="b.cantarel@gmail.com"
 
 # install additional requirements
-RUN apt-get update; apt-get install -y curl unzip git wget zlib1g-dev python python-pip gcc libbz2-dev libncurses5-dev libncursesw5-dev liblzma-dev default-jre default-jdk r-base 
+RUN apt-get update; apt-get install -y build-essential checkinstall; \
+    apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev liblzma-dev libcurl4-gnutls-dev libncurses5-dev wget unzip git default-jre default-jdk;
 
 # Make destination and work directory
-RUN mkdir -p /opt
-RUN mkdir -p /opt/bin
+RUN mkdir -p /opt;
+RUN mkdir -p /opt/bin;
 #ENV http_proxy http://proxy.swmed.edu:3128/
 #ENV https_proxy http://proxy.swmed.edu:3128/
 
-# Install BWA
-RUN curl -fsSL https://github.com/lh3/bwa/archive/v0.7.17.tar.gz -o bwa.tar.gz
-RUN tar xvfz bwa.tar.gz; cd bwa-0.7.17; make; cp bwa /opt/bin
-RUN cd ..
-RUN rm bwa.tar.gz
+# Install Python
+RUN cd /usr/src; wget https://www.python.org/ftp/python/2.7.17/Python-2.7.17.tgz; \
+    tar -zxvf Python-2.7.17.tgz; rm Python-2.7.17.tgz; \
+    cd Python-2.7.17; \
+    ./configure --enable-optimizations; \
+    make altinstall;
 
-RUN pip install pysam
-
-# Install BWAKit 0.7.15
-RUN wget -O- http://sourceforge.net/projects/bio-bwa/files/bwakit/bwakit-0.7.12_x64-linux.tar.bz2/download |bunzip2 |tar xf -
-RUN mv bwa.kit /opt/bin
+# Install BWA + BWAkit
+RUN cd /usr/src; wget https://github.com/lh3/bwa/releases/download/v0.7.17/bwa-0.7.17.tar.bz2; \
+    tar -vxjf bwa-0.7.17.tar.bz2; rm bwa-0.7.17.tar.bz2; \
+    cd bwa-0.7.17; make;
+ENV PATH "$PATH:/usr/src/bwa-0.7.17"
+RUN cd /usr/src; wget https://sourceforge.net/projects/bio-bwa/files/bwakit/bwakit-0.7.15_x64-linux.tar.bz2/download; \
+    tar -vxjf download; rm download; \
+    cd bwa.kit; \
+    cp -R * /usr/local/bin;
 
 # Install SamTools
-RUN cd /opt; wget https://github.com/samtools/htslib/releases/download/1.9/htslib-1.9.tar.bz2; tar -vxjf htslib-1.9.tar.bz2; cd htslib-1.9; make; cp tabix bgzip /opt/bin
-RUN cd /opt; wget https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2; tar -vxjf samtools-1.9.tar.bz2; cd samtools-1.9; make; cp samtools /opt/bin
-RUN cd /opt; wget https://github.com/samtools/bcftools/releases/download/1.9/bcftools-1.9.tar.bz2; tar -vxjf bcftools-1.9.tar.bz2; cd bcftools-1.9; make; cp bcftools /opt/bin
+RUN cd /opt; wget https://github.com/samtools/samtools/releases/download/1.10/samtools-1.10.tar.bz2; \
+    tar -vxjf samtools-1.10.tar.bz2; rm samtools-1.10.tar.bz2; \
+    cd samtools-1.10; \
+    ./configure; make; make install; \
+    cp samtools /opt/bin;
 
+# Install Picard + FGBio
+RUN cd /opt/bin; wget https://github.com/broadinstitute/picard/releases/download/2.21.7/picard.jar; \
+    cd /opt/bin; wget https://github.com/fulcrumgenomics/fgbio/releases/download/1.1.0/fgbio-1.1.0.jar; \
+    cp -R /opt/bin/* /usr/local/bin/; \
+    chmod +x /usr/local/bin/picard.jar; \
+    chmod +x /usr/local/bin/fgbio-1.1.0.jar;
+ENV PICARD "/usr/local/bin"
+ENV FGBIO "/usr/local/bin"
 
-#Bedtools
-RUN cd /opt; wget https://github.com/arq5x/bedtools2/releases/download/v2.28.0/bedtools-2.28.0.tar.gz; tar xvfz bedtools-2.28.0.tar.gz; cd bedtools2; make; cp bin/* /opt/bin
-
-# Install FGBio and Picard
-RUN cd /opt/bin; wget https://github.com/fulcrumgenomics/fgbio/releases/download/0.8.1/fgbio-0.8.1.jar
-RUN cd /opt/bin; wget https://github.com/broadinstitute/picard/releases/download/2.20.3/picard.jar
-RUN cp -R /opt/bin/* /usr/local/bin/
-RUN chmod +x /usr/local/bin/picard.jar
-
-RUN cd /opt; wget http://sourceforge.net/projects/snpeff/files/snpEff_latest_core.zip; unzip snpEff_latest_core.zip; mv snpEff /usr/local/bin/
-
+# Install Scripts
 RUN cd /opt; git clone https://git.biohpc.swmed.edu/ngsclialab/clinseq_workflows.git; cd clinseq_workflows; \
     git submodule sync --recursive; git submodule update --init --recursive; \
-    cp -r process_scripts/alignment/* /usr/local/bin/; \
-    cp -r process_scripts/variants/* /usr/local/bin/; \
-    cp -r scripts/* /usr/local/bin/;
+    cp -r process_scripts/alignment/* /usr/local/bin/;
+
+ENV PATH "$PATH:/usr/local/bin"
 
 WORKDIR /data/
-
-CMD ["/usr/local/bin/bwa"]

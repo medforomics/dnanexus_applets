@@ -1,37 +1,48 @@
 FROM ubuntu:16.04
-LABEL maintainer="b.cantarel@gmail.com"
+LABEL Author="Jeremy Mathews" \
+      Maintainer="b.cantarel@gmail.com"
 
 # install additional requirements
-RUN apt-get update; apt-get install -y curl unzip git wget zlib1g-dev python python-pip gcc libbz2-dev libncurses5-dev libncursesw5-dev liblzma-dev default-jre default-jdk cmake r-base libboost-all-dev pkg-config parallel
+RUN apt-get update; apt-get install -y build-essential checkinstall; \
+    apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev liblzma-dev libcurl4-gnutls-dev libncurses5-dev wget unzip git default-jre default-jdk;
 
 # Make destination and work directory
-RUN mkdir -p /opt
-RUN mkdir -p /opt/bin
+RUN mkdir -p /opt;
+RUN mkdir -p /opt/bin;
+#ENV http_proxy http://proxy.swmed.edu:3128/
+#ENV https_proxy http://proxy.swmed.edu:3128/
 
 # Install SamTools
-RUN cd /opt; wget https://github.com/samtools/htslib/releases/download/1.9/htslib-1.9.tar.bz2; tar -vxjf htslib-1.9.tar.bz2; cd htslib-1.9; make; make install
-RUN cd /opt; wget https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2; tar -vxjf samtools-1.9.tar.bz2; cd samtools-1.9; make; make install
-RUN cd /opt; wget https://github.com/samtools/bcftools/releases/download/1.9/bcftools-1.9.tar.bz2; tar -vxjf bcftools-1.9.tar.bz2; cd bcftools-1.9; make; make install
+RUN cd /opt; wget https://github.com/samtools/samtools/releases/download/1.10/samtools-1.10.tar.bz2; \
+    tar -vxjf samtools-1.10.tar.bz2; rm samtools-1.10.tar.bz2; \
+    cd samtools-1.10; \
+    ./configure; make; make install; \
+    cp samtools /opt/bin;
 
-#Bedtools
-RUN cd /opt; wget https://github.com/arq5x/bedtools2/releases/download/v2.28.0/bedtools-2.28.0.tar.gz; tar xvfz bedtools-2.28.0.tar.gz; cd bedtools2; make; cp bin/* /opt/bin
+# Install Bedtools
+RUN cd /opt; wget https://github.com/arq5x/bedtools2/releases/download/v2.29.2/bedtools-2.29.2.tar.gz; \
+    tar xvfz bedtools-2.29.2.tar.gz; rm bedtools-2.29.2.tar.gz; \
+    cd bedtools2; \
+    make; \
+    cp bin/* /opt/bin;
 
-# Install FGBio and Picard
-RUN cd /opt/bin; wget https://github.com/broadinstitute/picard/releases/download/2.20.3/picard.jar
-RUN cp -R /opt/bin/* /usr/local/bin/
+# Install FastQC
+RUN cd /opt/bin; wget http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.5.zip; \
+    unzip fastqc_v0.11.5.zip; rm fastqc_v0.11.5.zip;
 
-# Install SNPEff and Human Genome
-RUN cd /opt/bin; wget http://sourceforge.net/projects/snpeff/files/snpEff_v4_3t_core.zip; unzip snpEff_v4_3t_core.zip; cd snpEff; java -jar snpEff.jar download GRCh38.86
+# Install Picard
+RUN cd /opt/bin; wget https://github.com/broadinstitute/picard/releases/download/2.21.7/picard.jar; \
+    cp -R /opt/bin/* /usr/local/bin/; \
+    chmod +x /usr/local/bin/picard.jar; \
+    chmod 755 /usr/local/bin/FastQC/fastqc;
+ENV PICARD "/usr/local/bin"
+ENV PATH "$PATH:/usr/local/bin/FastQC"
 
-RUN cd /opt; wget https://github.com/vcftools/vcftools/releases/download/v0.1.16/vcftools-0.1.16.tar.gz; tar xvfz vcftools-0.1.16.tar.gz; cd vcftools-0.1.16; ./configure; make; make install
+# Install Scripts
+RUN cd /opt; git clone https://git.biohpc.swmed.edu/ngsclialab/clinseq_workflows.git; cd clinseq_workflows; \
+    git submodule sync --recursive; git submodule update --init --recursive; \
+    cp -r process_scripts/alignment/* /usr/local/bin/;
 
-# FASTQC
-ENV DST=/opt
-ENV URL=http://www.bioinformatics.babraham.ac.uk/projects/fastqc/
-ENV ZIP=fastqc_v0.11.8.zip
-
-RUN wget $URL/$ZIP -O $DST/$ZIP; unzip - $DST/$ZIP -d $DST; rm $DST/$ZIP; cd $DST/FastQC; chmod 755 fastqc; cp $DST/FastQC/fastqc /usr/local/bin/fastqc
+ENV PATH "$PATH:/usr/local/bin"
 
 WORKDIR /data/
-
-CMD ["/usr/local/bin/samtools"]

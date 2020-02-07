@@ -1,42 +1,39 @@
 FROM broadinstitute/gatk:4.1.4.0
-
 LABEL Author="Jeremy Mathews" \
-      Maintainer=BICF@UTSouthwestern.edu
+      Maintainer="b.cantarel@gmail.com"
 
-RUN apt-get update && \
-    apt-get install -y autoconf automake make gcc zlib1g-dev libbz2-dev liblzma-dev libcurl4-gnutls-dev libssl-dev libncurses5-dev git
+# Install additional requirements
+RUN apt-get update; apt-get install -y build-essential checkinstall; \
+    apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev liblzma-dev libcurl4-gnutls-dev libncurses5-dev wget unzip git default-jre default-jdk;
 
-WORKDIR /usr/bin
+# Make destination and work directory
+RUN mkdir -p /opt;
+RUN mkdir -p /opt/bin;
+#ENV http_proxy http://proxy.swmed.edu:3128/
+#ENV https_proxy http://proxy.swmed.edu:3128/
 
-RUN wget https://github.com/samtools/htslib/releases/download/1.8/htslib-1.8.tar.bz2 && \
-    tar -vxjf htslib-1.8.tar.bz2 && \
-    rm htslib-1.8.tar.bz2
+# Install SamTools
+RUN cd /opt; wget https://github.com/samtools/samtools/releases/download/1.10/samtools-1.10.tar.bz2; \
+    tar -vxjf samtools-1.10.tar.bz2; rm samtools-1.10.tar.bz2; \
+    cd samtools-1.10; \
+    ./configure; make; make install; \
+    cp samtools /opt/bin;
 
-WORKDIR /usr/bin/htslib-1.8
-RUN make && make install
+# Install Picard + ABRA2
+RUN cd /opt/bin; wget https://github.com/broadinstitute/picard/releases/download/2.21.7/picard.jar; \
+    cd /opt/bin; wget https://github.com/mozack/abra2/releases/download/v2.18/abra2-2.18.jar; \
+    cp -R /opt/bin/* /usr/local/bin/; \
+    chmod +x /usr/local/bin/picard.jar; \
+    chmod +x /usr/local/bin/abra2-2.18.jar;
+ENV PICARD "/usr/local/bin"
+ENV ABRA "/usr/local/bin"
 
-WORKDIR /usr/bin
-RUN wget https://github.com/samtools/samtools/releases/download/1.8/samtools-1.8.tar.bz2 && \
-    tar -xvjf samtools-1.8.tar.bz2 && \
-    rm samtools-1.8.tar.bz2
-
-WORKDIR /usr/bin/samtools-1.8
-RUN ./configure
-RUN make && make install
-
-RUN mkdir -p /usr/local/share/perl/5.22.1
-
-RUN cd /opt; wget http://sourceforge.net/projects/vcftools/files/vcftools_0.1.13.tar.gz/download; tar xvfz download; rm download; cd vcftools_0.1.13; make; cp bin/* /usr/local/bin; cp lib/* /usr/local/lib; cp perl/* /usr/local/share/perl/5.22.1/
-
-RUN cd /opt; wget http://sourceforge.net/projects/snpeff/files/snpEff_latest_core.zip; unzip snpEff_latest_core.zip; mv snpEff /usr/local/bin/
-
-RUN cd /opt; wget https://github.com/broadinstitute/picard/releases/download/2.20.3/picard.jar; mv /opt/picard.jar /usr/local/bin/
-RUN chmod +x /usr/local/bin/picard.jar
-
+# Install Scripts
 RUN cd /opt; git clone https://git.biohpc.swmed.edu/ngsclialab/clinseq_workflows.git; cd clinseq_workflows; \
     git submodule sync --recursive; git submodule update --init --recursive; \
-    cp -r process_scripts/variants/* /usr/local/bin/;
+    cp -r process_scripts/variants/* /usr/local/bin/; \
+    cp -r scripts/* /usr/local/bin/;
+
+ENV PATH "$PATH:/usr/local/bin"
 
 WORKDIR /data
-
-ENV PATH="/usr/bin/htslib-1.8/bin:/usr/bin/samtools-1.8/bin:$PATH"

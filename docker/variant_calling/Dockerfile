@@ -1,52 +1,109 @@
-FROM ubuntu:16.04
-LABEL maintainer="b.cantarel@gmail.com"
+FROM broadinstitute/gatk:4.1.4.0
+LABEL Author="Jeremy Mathews" \
+      Maintainer="b.cantarel@gmail.com"
 
 # install additional requirements
-RUN apt-get update; apt-get install -y curl unzip git wget zlib1g-dev python python-pip gcc libbz2-dev libncurses5-dev libncursesw5-dev liblzma-dev default-jre default-jdk cmake r-base libboost-all-dev bzip2 g++ make
+RUN apt-get update; apt-get install -y build-essential checkinstall; \
+    apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev liblzma-dev libcurl4-gnutls-dev libncurses5-dev wget unzip git default-jre default-jdk r-base cpanminus;
 
 # Make destination and work directory
-RUN mkdir -p /opt
-RUN mkdir -p /opt/bin
+RUN mkdir -p /opt;
+RUN mkdir -p /opt/bin;
+#ENV http_proxy http://proxy.swmed.edu:3128/
+#ENV https_proxy http://proxy.swmed.edu:3128/
 
-# Install SamTools
-RUN cd /opt; wget https://github.com/samtools/htslib/releases/download/1.9/htslib-1.9.tar.bz2; tar -vxjf htslib-1.9.tar.bz2; cd htslib-1.9; make; make install
-RUN cd /opt; wget https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2; tar -vxjf samtools-1.9.tar.bz2; cd samtools-1.9; make; make install
-RUN cd /opt; wget https://github.com/samtools/bcftools/releases/download/1.9/bcftools-1.9.tar.bz2; tar -vxjf bcftools-1.9.tar.bz2; cd bcftools-1.9; make; make install
+# Install Python
+RUN cd /usr/src; wget https://www.python.org/ftp/python/2.7.17/Python-2.7.17.tgz; \
+    tar -zxvf Python-2.7.17.tgz; rm Python-2.7.17.tgz; \
+    cd Python-2.7.17; \
+    ./configure --enable-optimizations; \
+    make altinstall;
 
-RUN cd /opt; git clone --recursive --branch v1.3.1 git://github.com/ekg/freebayes.git; cd freebayes; make; make install
+# Install SamTools + BCFTools + htslib
+RUN cd /opt; wget https://github.com/samtools/htslib/releases/download/1.9/htslib-1.9.tar.bz2; \
+    tar -vxjf htslib-1.9.tar.bz2; rm htslib-1.9.tar.bz2; \
+    cd htslib-1.9; \
+    ./configure; make; make install; \
+    cp -r htslib /opt/bin;
+RUN cd /opt; wget https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2; \
+    tar -vxjf samtools-1.9.tar.bz2; rm samtools-1.9.tar.bz2; \
+    cd samtools-1.9; \
+    ./configure; make; make install; \
+    cp -r samtools /opt/bin;
+RUN cd /opt; wget https://github.com/samtools/bcftools/releases/download/1.9/bcftools-1.9.tar.bz2; \
+    tar -vxjf bcftools-1.9.tar.bz2; rm bcftools-1.9.tar.bz2; \
+    cd bcftools-1.9; \
+    ./configure; make; make install; \
+    cp -r bcftools /opt/bin;
 
+# Install Platypus
 RUN pip install cython
 ENV C_INCLUDE_PATH $C_INCLUDE_PATH:/usr/local/include
 ENV LIBRARY_PATH $LIBRARY_PATH:/usr/local/lib
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/local/lib
-RUN cd /opt; git clone https://github.com/andyrimmer/Platypus.git; cd Platypus; make; mv * /usr/local/bin 
+RUN cd /opt; wget https://www.rdm.ox.ac.uk/files/research/lunter-group/platypus_0-8-1.tgz; \
+    tar -zxvf platypus_0-8-1.tgz; rm platypus_0-8-1.tgz; \
+    cd Platypus_0.8.1; \
+    ./buildPlatypus.sh; \
+    cp -R Platypus.py /usr/local/bin
 
-RUN cd /opt; wget https://cfhcable.dl.sourceforge.net/project/virmid/Virmid-1.2.0.tar.gz; tar xvfz Virmid-1.2.0.tar.gz; mv Virmid1.2 /usr/local/bin/virmid
+# Install Bedtools
+RUN cd /opt; wget https://github.com/arq5x/bedtools2/releases/download/v2.29.2/bedtools-2.29.2.tar.gz; \
+    tar xvfz bedtools-2.29.2.tar.gz; rm bedtools-2.29.2.tar.gz; \
+    cd bedtools2; \
+    make; \
+    cp -r bin/* /opt/bin;
 
-RUN cd /opt; wget https://github.com/dkoboldt/varscan/releases/download/2.4.2/VarScan.v2.4.2.jar; mv VarScan.v2.4.2.jar /usr/local/bin
+# Install VCFTools
+RUN cd /opt; wget https://github.com/vcftools/vcftools/releases/download/v0.1.14/vcftools-0.1.14.tar.gz; \
+    tar xvfz vcftools-0.1.14.tar.gz; rm vcftools-0.1.14.tar.gz; \
+    cd vcftools-0.1.14; \
+    ./configure; make; make install;
 
-#Install R and statmod
+# Install Picard + snpEff
+RUN cd /opt/bin; wget https://github.com/broadinstitute/picard/releases/download/2.21.7/picard.jar;
+RUN cd /opt/bin; wget https://sourceforge.net/projects/snpeff/files/snpEff_v4_3t_core.zip; \
+    unzip snpEff_v4_3t_core.zip; rm snpEff_v4_3t_core.zip; \
+    wget https://sourceforge.net/projects/snpeff/files/databases/v4_3/snpEff_v4_3_GRCh38.92.zip; \
+    unzip snpEff_v4_3_GRCh38.92.zip; rm snpEff_v4_3_GRCh38.92.zip;
+RUN cp -R /opt/bin/* /usr/local/bin/; \
+    chmod +x /usr/local/bin/picard.jar; \
+    chmod +x /usr/local/bin/snpEff/snpEff.jar;
+ENV PICARD "/usr/local/bin"
+ENV SNPEFF "/usr/local/bin/snpEff"
+
+# Install Strelka
+RUN cd /opt; wget https://github.com/Illumina/strelka/releases/download/v2.9.10/strelka-2.9.10.centos6_x86_64.tar.bz2; \
+    tar -vxjf strelka-2.9.10.centos6_x86_64.tar.bz2; rm strelka-2.9.10.centos6_x86_64.tar.bz2; \
+    mv strelka-2.9.10.centos6_x86_64 /usr/local/bin;
+ENV PATH "$PATH:/usr/local/bin/strelka-2.9.10.centos6_x86_64/bin"
+
+# Install Manta
+RUN cd /opt; wget https://github.com/Illumina/manta/releases/download/v1.6.0/manta-1.6.0.release_src.tar.bz2; \
+    tar -vxjf manta-1.6.0.release_src.tar.bz2; rm  manta-1.6.0.release_src.tar.bz2; \
+    cd /usr/local/bin; \
+    /opt/manta-1.6.0.release_src/configure --jobs=4; make -j4 install;
+
+# Install Freebayes
+RUN cd /opt; git clone --recursive --branch v1.2.0 git://github.com/ekg/freebayes.git; \
+    cd freebayes; \
+    make; make install;
+
+# Install Shimmer
 RUN R -e "install.packages('statmod', repos = 'http://cran.us.r-project.org')"
-
-RUN apt-get install -y cpanminus
 RUN cpanm CPAN::Meta Module::Build
+RUN cd /opt; wget https://github.com/nhansen/Shimmer/archive/v0.1.1.zip; \
+    unzip v0.1.1.zip; rm v0.1.1.zip; \
+    cd  Shimmer-0.1.1; \
+    perl Build.PL; \
+    ./Build; ./Build test; ./Build install;
 
-RUN cd /opt; wget https://github.com/nhansen/Shimmer/archive/v0.2.tar.gz; tar xvfz v0.2.tar.gz; cd Shimmer-0.2; perl Build.PL; ./Build; ./Build test; ./Build install
+# Install Scripts
+RUN cd /opt; git clone https://git.biohpc.swmed.edu/ngsclialab/clinseq_workflows.git; cd clinseq_workflows; \
+    git submodule sync --recursive; git submodule update --init --recursive; \
+    cp -r process_scripts/alignment/* /usr/local/bin/; \
+    cp -r process_scripts/variants/* /usr/local/bin/;
 
-RUN cd /opt; git clone https://github.com/genome/pindel.git; cd pindel/; ./INSTALL /opt/htslib-1.9; mv /opt/pindel /usr/local/bin
-
-RUN cd /opt; wget https://github.com/Illumina/strelka/releases/download/v2.9.10/strelka-2.9.10.centos6_x86_64.tar.bz2; tar xf strelka-2.9.10.centos6_x86_64.tar.bz2; rm -f strelka-2.9.10.centos6_x86_64.tar.bz2; mv strelka-2.9.10.centos6_x86_64 /usr/local/bin;
-
-ENV PATH=/usr/local/bin/strelka-2.9.10.centos6_x86_64/bin:${PATH}
-
-RUN cd /opt; wget https://github.com/Illumina/manta/releases/download/v1.6.0/manta-1.6.0.release_src.tar.bz2; tar -xjf manta-1.6.0.release_src.tar.bz2; cd /usr/local/bin; /opt/manta-1.6.0.release_src/configure --jobs=4; make -j4 install;
-
-RUN cd /opt; wget http://sourceforge.net/projects/vcftools/files/vcftools_0.1.13.tar.gz/download; tar xvfz download; rm download; cd vcftools_0.1.13; make; cp bin/* /usr/local/bin; cp lib/* /usr/local/lib; cp perl/* /usr/local/share/perl/5.22.1
-
-RUN cd /usr/local/bin; wget https://git.biohpc.swmed.edu/BICF/Astrocyte/process_scripts/raw/cabc31902db3374b96a90e98a9044a135b5329eb/variants/add_readct_shimmer.pl?inline=false; mv add_readct_shimmer.pl?inline=false add_readct_shimmer.pl;
-
-RUN cd /opt; wget http://sourceforge.net/projects/snpeff/files/snpEff_latest_core.zip; unzip snpEff_latest_core.zip; mv snpEff /usr/local/bin/;
+ENV PATH "$PATH:/usr/local/bin"
 
 WORKDIR /data/
-
-CMD ["/usr/local/bin/samtools"]
