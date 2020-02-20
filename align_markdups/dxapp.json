@@ -48,6 +48,13 @@
       "class": "string",
       "optional": false,
       "help": ""
+    },
+    {
+      "name": "aligner",
+      "label": "Aligner to be used",
+      "class": "string",
+      "optional": false,
+      "help": ""
     }
   ],
   "outputSpec": [
@@ -63,6 +70,15 @@
     {
       "name": "conbam",
       "label": "Consensus Bam",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "grbam",
+      "label": "Group BAM",
       "class": "file",
       "patterns": [
         "*"
@@ -88,8 +104,8 @@
       "help": ""
     },
     {
-      "name": "rawtdf",
-      "label": "raw tdf file",
+      "name": "grbai",
+      "label": "Group BAM index",
       "class": "file",
       "patterns": [
         "*"

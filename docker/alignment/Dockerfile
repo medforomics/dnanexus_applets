@@ -18,6 +18,10 @@ RUN cd /usr/src; wget https://www.python.org/ftp/python/2.7.17/Python-2.7.17.tgz
     cd Python-2.7.17; \
     ./configure --enable-optimizations; \
     make altinstall;
+RUN cd /usr/local/bin; \
+    mv python2.7 python;
+RUN python -m ensurepip --default-pip; \
+    python -m pip install pysam
 
 # Install BWA + BWAkit
 RUN cd /usr/src; wget https://github.com/lh3/bwa/releases/download/v0.7.17/bwa-0.7.17.tar.bz2; \
@@ -43,7 +47,9 @@ RUN cd /opt/bin; wget https://github.com/broadinstitute/picard/releases/download
     chmod +x /usr/local/bin/picard.jar; \
     chmod +x /usr/local/bin/fgbio-1.1.0.jar;
 ENV PICARD "/usr/local/bin"
-ENV FGBIO "/usr/local/bin"
+RUN echo '#!/bin/bash' > /usr/local/bin/fgbio; \
+    echo 'java -jar /usr/local/bin/fgbio-1.1.0.jar "$@"' >> /usr/local/bin/fgbio; \
+    chmod +x /usr/local/bin/fgbio;
 
 # Install Scripts
 RUN cd /opt; git clone https://git.biohpc.swmed.edu/ngsclialab/clinseq_workflows.git; cd clinseq_workflows; \

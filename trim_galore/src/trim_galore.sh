@@ -10,8 +10,7 @@ main() {
         dx download "$fq2" -o seq.R2.fastq.gz
     fi
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/trim_galore:v1 bash /usr/local/bin/trimgalore.sh -p ${pair_id} -a seq.R1.fastq.gz -b seq.R2.fastq.gz
-    docker run -v ${PWD}:/data docker.io/goalconsortium/trim_galore:v1 perl /usr/local/bin/parse_trimreport.pl ${pair_id}.trimreport.txt *trimming_report.txt
+    docker run -v ${PWD}:/data docker.io/goalconsortium/trim_galore:v1 bash /usr/local/bin/trimgalore.sh -p ${pair_id} -a seq.R1.fastq.gz -b seq.R2.fastq.gz -f
 
     trim1=$(dx upload ${pair_id}.trim.R1.fastq.gz --brief)
     trimreport=$(dx upload ${pair_id}.trimreport.txt --brief)
