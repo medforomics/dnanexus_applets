@@ -29,7 +29,9 @@ ENV PICARD "/usr/local/bin"
 ENV ABRA "/usr/local/bin"
 
 # Install Scripts
-RUN cd /opt; git clone https://git.biohpc.swmed.edu/ngsclialab/clinseq_workflows.git; cd clinseq_workflows; \
+RUN mkdir -p /project/PHG/PHG_Clinical; \
+    cd /project/PHG/PHG_Clinical; \
+    git clone https://git.biohpc.swmed.edu/ngsclialab/clinseq_workflows.git; cd clinseq_workflows; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/variants/* /usr/local/bin/; \
     cp -r scripts/* /usr/local/bin/;

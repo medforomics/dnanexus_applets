@@ -6,8 +6,8 @@
   "version": "0.0.1",
   "inputSpec": [
     {
-      "name": "consensus_bam",
-      "label": "Consensus BAM (*.uniq.bam)",
+      "name": "Group_BAM",
+      "label": "Group BAM from alignment step (group.bam)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -16,8 +16,8 @@
       "help": ""
     },
     {
-      "name": "capture_bed",
-      "label": "Capture Bed File",
+      "name": "reference",
+      "label": "Reference Files (tar.gz)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -26,8 +26,18 @@
       "help": ""
     },
     {
-      "name": "trimreport",
-      "label": "Trim Report (trim-galore)",
+      "name": "panel",
+      "label": "Panel Files (tar.gz)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "trimstat",
+      "label": "Trim Statistics Report from trim step",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -37,27 +47,7 @@
     },
     {
       "name": "dedupcov",
-      "label": "dedupcov Report (QC-BAM)",
-      "class": "file",
-      "optional": false,
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "ref_file",
-      "label": "Reference Files tar.gz",
-      "class": "file",
-      "optional": false,
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "concat_ref_file",
-      "label": "Reference Files tar.gz for concat step",
+      "label": "Deduplicate Coverage Report from QC_BAM step",
       "class": "file",
       "optional": false,
       "patterns": [
