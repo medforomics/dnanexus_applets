@@ -16,7 +16,7 @@
       "help": ""
     },
     {
-      "name": "reference_files",
+      "name": "reference",
       "label": "Reference Files (tar.gz)",
       "class": "file",
       "optional": false,
@@ -26,8 +26,8 @@
       "help": ""
     },
     {
-      "name": "capture_bed",
-      "label": "Capture Bed File",
+      "name": "panel",
+      "label": "Panel Files (tar.gz)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -83,15 +83,6 @@
     {
       "name": "lowcovuniqstat",
       "label": "low coverage",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "uniqtdf",
-      "label": "uniq tdf file",
       "class": "file",
       "patterns": [
         "*"

@@ -4,13 +4,22 @@ LABEL Author="Jeremy Mathews" \
 
 # install additional requirements
 RUN apt-get update; apt-get install -y build-essential checkinstall; \
-    apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev liblzma-dev libcurl4-gnutls-dev libncurses5-dev wget unzip git default-jre default-jdk;
+    apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev liblzma-dev libcurl4-gnutls-dev libncurses5-dev wget unzip git default-jre default-jdk r-base;
 
 # Make destination and work directory
 RUN mkdir -p /opt;
 RUN mkdir -p /opt/bin;
 #ENV http_proxy http://proxy.swmed.edu:3128/
 #ENV https_proxy http://proxy.swmed.edu:3128/
+
+# Install Python
+RUN cd /usr/src; wget https://www.python.org/ftp/python/2.7.17/Python-2.7.17.tgz; \
+    tar -zxvf Python-2.7.17.tgz; rm Python-2.7.17.tgz; \
+    cd Python-2.7.17; \
+    ./configure --enable-optimizations; \
+    make altinstall;
+RUN cd /usr/local/bin; \
+    mv python2.7 python;
 
 # Install SamTools
 RUN cd /opt; wget https://github.com/samtools/samtools/releases/download/1.10/samtools-1.10.tar.bz2; \
@@ -38,10 +47,18 @@ RUN cd /opt/bin; wget https://github.com/broadinstitute/picard/releases/download
 ENV PICARD "/usr/local/bin"
 ENV PATH "$PATH:/usr/local/bin/FastQC"
 
+# Install NGSCheckMate
+RUN cd /opt/bin; wget https://github.com/parklab/NGSCheckMate/archive/v1.0.0.tar.gz; \
+    tar xvfz v1.0.0.tar.gz; rm v1.0.0.tar.gz; \
+    cd NGSCheckMate-1.0.0; \
+    rm README.md LICENSE Documentation.pdf test_datafiles.txt; \
+    cp -R * /usr/local/bin/;
+
 # Install Scripts
 RUN cd /opt; git clone https://git.biohpc.swmed.edu/ngsclialab/clinseq_workflows.git; cd clinseq_workflows; \
     git submodule sync --recursive; git submodule update --init --recursive; \
-    cp -r process_scripts/alignment/* /usr/local/bin/;
+    cp -r process_scripts/alignment/* /usr/local/bin/; \
+    cp -r scripts/* /usr/local/bin/;
 
 ENV PATH "$PATH:/usr/local/bin"
 
