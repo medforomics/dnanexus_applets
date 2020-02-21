@@ -1,1 +1,0 @@
-../genect_rnaseq/build_ballgown.R

@@ -7,7 +7,7 @@
   "inputSpec": [
     {
       "name": "Consensus_BAM",
-      "label": "Consensus BAM (Uniq BAM)",
+      "label": "Consensus BAM from alignment step (consensus.bam)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -16,8 +16,8 @@
       "help": ""
     },
     {
-      "name": "ref_file",
-      "label": "Reference Files tar.gz",
+      "name": "reference",
+      "label": "Reference Files (tar.gz)",
       "class": "file",
       "optional": false,
       "patterns": [
