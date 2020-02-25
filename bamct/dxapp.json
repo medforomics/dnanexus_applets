@@ -1,0 +1,70 @@
+{
+  "name": "bamct",
+  "title": "Bam read count",
+  "summary": "Creates a per position read count and metrics",
+  "dxapi": "1.0.0",
+  "version": "0.0.1",
+  "inputSpec": [
+    {
+      "name": "alignbam",
+      "label": "hisat2 aligned bam file",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "pair_id",
+      "label": "Sample ID",
+      "class": "string",
+      "optional": false,
+      "help": ""
+    },
+    {
+      "name": "detect",
+      "label": "option to run bam-read count",
+      "class": "string",
+      "optional": true,
+      "default": "detect",
+      "help": ""
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "bamct_file",
+      "label": "bam read count output file",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    }
+  ],
+  "runSpec": {
+    "timeoutPolicy": {
+      "*": {
+        "hours": 24
+      }
+    },
+    "interpreter": "bash",
+    "release": "16.04",
+    "distribution": "Ubuntu",
+    "file": "src/bamct.sh"
+  },
+  "access": {
+    "network": [
+      "*"
+    ]
+  },
+  "regionalOptions": {
+    "azure:westus": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "azure:mem1_ssd1_x16"
+        }
+      }
+    }
+  }
+}
