@@ -7,17 +7,7 @@
   "inputSpec": [
     {
       "name": "Consensus_Tumor_BAM",
-      "label": "Consensus Tumor BAM (*uniq.bam)",
-      "class": "file",
-      "optional": false,
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "Consensus_Tumor_BAM_index",
-      "label": "Consensus BAM (*uniq.bam.bai)",
+      "label": "Consensus Tumor BAM (consensus.bam)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -27,7 +17,7 @@
     },
     {
       "name": "Consensus_Normal_BAM",
-      "label": "Consensus Normal BAM (*uniq.bam)",
+      "label": "Consensus Normal BAM (consensus.bam)",
       "class": "file",
       "optional": true,
       "patterns": [
@@ -36,18 +26,8 @@
       "help": ""
     },
     {
-      "name": "Consensus_Normal_BAM_index",
-      "label": "Consensus BAM (*uniq.bam.bai)",
-      "class": "file",
-      "optional": true,
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "ref_file",
-      "label": "Reference Files (*.tar.gz)",
+      "name": "reference",
+      "label": "Reference Files (tar.gz)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -57,7 +37,7 @@
     },
     {
       "name": "pair_id",
-      "label": "Pair/Sample Name",
+      "label": "ReadGroup/SampleName",
       "class": "string",
       "optional": false,
       "help": ""

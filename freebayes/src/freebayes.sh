@@ -16,7 +16,7 @@ main() {
 
     docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bash /usr/local/bin/indexbams.sh
     docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bash /usr/local/bin/germline_vc.sh -r dnaref -p ${pair_id} -a freebayes
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bash /usr/local/bin/uni_norm_annot.sh -g 'GRCh38.92' -r dnaref -p ${pair_id} -v ${pair_id}.freebayes.vcf.gz
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bash /usr/local/bin/uni_norm_annot.sh -g 'GRCh38.92' -r dnaref -p ${pair_id}.fb -v ${pair_id}.freebayes.vcf.gz
 
     freebayes_vcf=$(dx upload ${pair_id}.fb.vcf.gz --brief)
 

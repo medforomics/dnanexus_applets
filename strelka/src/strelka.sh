@@ -7,40 +7,23 @@ main() {
     dx download "$Consensus_Tumor_BAM" -o tumor.bam
     dx download "$reference" -o dnaref.tar.gz
 
-    if [[ -z $pair_id ]]
+    tar xvfz dnaref.tar.gz
+
+    if [[ ! -z $Consensus_Normal_BAM ]]
     then
-        pair_id='seq'
+        dx download "$Consensus_Normal_BAM" -o normal.bam
     fi
 
-    tar xvfz reference.tar.gz
-    gunzip reference/genome.fa.gz
-
-    mkdir manta strelka
-
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bash /usr/local/bin/indexbams.sh
     if [[ -z $Consensus_Normal_BAM ]]
     then
-        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 configManta.py --bam tumor.bam --referenceFasta reference/genome.fa --exome --runDir manta
-        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 manta/runWorkflow.py -m local -j 1
-        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 configureStrelkaGermlineWorkflow.py --bam tumor.bam --referenceFasta reference/genome.fa --exome --indelCandidates manta/results/variants/candidateSmallIndels.vcf.gz --runDir strelka
-        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 strelka/runWorkflow.py -m local -j 1
-        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bcftools norm -c s -f reference/genome.fa -w 10 -O z -o ${pair_id}.strelka2.vcf.gz strelka/results/variants/variants.vcf.gz
+        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bash /usr/local/bin/germline_vc.sh -r dnaref -p ${pair_id} -a strelka2
     else
-        dx download "$Consensus_Normal_BAM" -o normal.bam
-        dx download "$Consensus_Normal_BAM_index" -o normal.bam.bai
-
-        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 configManta.py --normalBam normal.bam --tumorBam tumor.bam --referenceFasta reference/genome.fa --runDir manta
-        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 manta/runWorkflow.py -m local -j 8
-        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 configureStrelkaSomaticWorkflow.py --normalBam normal.bam --tumorBam tumor.bam --referenceFasta reference/genome.fa --targeted --indelCandidates manta/results/variants/candidateSmallIndels.vcf.gz --runDir strelka
-        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 strelka/runWorkflow.py -m local -j 8
-        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 sh -c "vcf-concat strelka/results/variants/*.vcf.gz | vcf-annotate -n --fill-type -n | vcf-sort | java -jar /usr/local/bin/SnpSift.jar filter \"(GEN[*].DP >= 10)\" | perl -pe \"s/TUMOR/${pair_id}/g\" | perl -pe \"s/NORMAL/${pair_id}/g\" | bgzip > ${pair_id}.strelka2.vcf.gz"
+        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bash /usr/local/bin/somatic_vc.sh -r dnaref -p ${pair_id} -x 'tumor' -y 'normal' -n normal.bam -t tumor.bam -a strelka2
     fi
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bash /usr/local/bin/uni_norm_annot.sh -g 'GRCh38.92' -r dnaref -p ${pair_id}.strelka2 -v ${pair_id}.strelka2.vcf.gz
 
     strelka2_vcf=$(dx upload ${pair_id}.strelka2.vcf.gz --brief)
-
-    # The following line(s) use the utility dx-jobutil-add-output to format and
-    # add output variables to your job's output as appropriate for the output
-    # class.  Run "dx-jobutil-add-output -h" for more information on what it
-    # does.
 
     dx-jobutil-add-output strelka2_vcf "$strelka2_vcf" --class=file
 }
