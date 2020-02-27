@@ -1,7 +1,7 @@
 {
-  "name": "bamct",
-  "title": "bam-readcount",
-  "summary": "positional read count and metrics of bam file",
+  "name": "alignqc",
+  "title": "alignment qc stats",
+  "summary": "gathers qc metrics for rnaseq alignment steps",
   "dxapi": "1.0.0",
   "version": "0.0.1",
   "inputSpec": [
@@ -13,16 +13,18 @@
       "help": ""
     },
     {
-      "name": "bamct",
-      "label": "run bamct option",
-      "class": "string",
-      "optional": true,
-      "default": "detect",
+      "name": "aligned",
+      "label": "aligned bam file",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
       "help": ""
     },
     {
-      "name": "aligned",
-      "label": "alignmed bam file",
+      "name": "alignedsummary",
+      "label": "alignment summary file",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -33,8 +35,26 @@
   ],
   "outputSpec": [
     {
-      "name": "ctreads",
-      "label": "bam-readcount output file",
+      "name": "fastsqczip",
+      "label": "Zipped fastqc summary file",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "fastqchtml",
+      "label": "fastqc html summary file",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "alignstats",
+      "label": "rnaseq alignment summary stats file",
       "class": "file",
       "patterns": [
         "*"
@@ -51,7 +71,7 @@
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/bamct.sh"
+    "file": "src/alignqc.sh"
   },
   "access": {
     "network": [

@@ -1,7 +1,7 @@
 <!-- dx-header -->
-# bam-readcount (DNAnexus Platform App)
+# starfusion (DNAnexus Platform App)
 
-positional read count and metrics of bam file
+detect fusions using starfusion
 
 This is the source code for an app that runs on the DNAnexus Platform.
 For more information about how to run or modify it, see
