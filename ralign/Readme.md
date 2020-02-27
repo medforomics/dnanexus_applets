@@ -1,7 +1,7 @@
 <!-- dx-header -->
-# bam-readcount (DNAnexus Platform App)
+# rnaseq alignment (DNAnexus Platform App)
 
-positional read count and metrics of bam file
+rnaseq alignment
 
 This is the source code for an app that runs on the DNAnexus Platform.
 For more information about how to run or modify it, see

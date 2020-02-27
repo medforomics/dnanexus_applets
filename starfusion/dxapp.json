@@ -1,28 +1,39 @@
 {
-  "name": "bamct",
-  "title": "bam-readcount",
-  "summary": "positional read count and metrics of bam file",
+  "name": "starfusion",
+  "title": "starfusion",
+  "summary": "detect fusions using starfusion",
   "dxapi": "1.0.0",
   "version": "0.0.1",
   "inputSpec": [
     {
-      "name": "pair_id",
-      "label": "Sample ID",
-      "class": "string",
-      "optional": false,
-      "help": ""
-    },
-    {
-      "name": "bamct",
-      "label": "run bamct option",
+      "name": "fusion",
+      "label": "run starfusion option",
       "class": "string",
       "optional": true,
       "default": "detect",
       "help": ""
     },
     {
-      "name": "aligned",
-      "label": "alignmed bam file",
+      "name": "pairs",
+      "label": "single-end(se) or paired-end(pe)",
+      "class": "string",
+      "optional": true,
+      "default": "pe",
+      "help": ""
+    },
+    {
+      "name": "trimread1",
+      "label": "trimmed read 1 fastq file",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "trimread2",
+      "label": "trimmed read 2 fastq file",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -33,8 +44,8 @@
   ],
   "outputSpec": [
     {
-      "name": "ctreads",
-      "label": "bam-readcount output file",
+      "name": "fusionout",
+      "label": "starfusion output file",
       "class": "file",
       "patterns": [
         "*"
@@ -51,7 +62,7 @@
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/bamct.sh"
+    "file": "src/starfusion.sh"
   },
   "access": {
     "network": [
