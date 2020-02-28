@@ -1,0 +1,28 @@
+FROM ubuntu:16.04
+LABEL Author="Erika Villa" \
+      Maintainer="b.cantarel@gmail.com"
+
+
+#install additional requirements
+RUN apt-get update; apt-get install -y build-essential checkinstall; \
+    apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev liblzma-dev libcurl4-gnutls-dev libncurses5-dev wget unzip git default-jre default-jdk;
+
+
+# Make destination and work directory
+RUN mkdir -p /opt;
+RUN mkdir -p /opt/bin;
+#ENV http_proxy http://proxy.swmed.edu:3128/
+#ENV https_proxy http://proxy.swmed.edu:3128/
+
+
+RUN cd /opt;  wget https://sourceforge.net/projects/subread/files/subread-2.0.0/subread-2.0.0-Linux-x86_64.tar.gz; \
+	tar zxvf subread-2.0.0-Linux-x86_64.tar.gz; rm subread-2.0.0-Linux-x86_64.tar.gz; \ 
+	cp -R subread-2.0.0-Linux-x86_64 /usr/local/bin
+		
+ENV PATH "$PATH:/usr/local/bin/subread-2.0.0-Linux-x86_64/bin"
+
+RUN cd /opt; wget http://ccb.jhu.edu/software/stringtie/dl/stringtie-2.1.1.Linux_x86_64.tar.gz; \
+	tar xvfz stringtie-2.1.1.Linux_x86_64.tar.gz; rm stringtie-2.1.1.Linux_x86_64.tar.gz; \
+	cp -R stringtie-2.1.1.Linux_x86_64 /usr/local/bin
+
+ENV PATH "$PATH:/usr/local/bin/stringtie-2.1.1.Linux_x86_64"
