@@ -9,7 +9,7 @@ main() {
 
     tar xvfz dnaref.tar.gz
 
-    if [[ ! -z $Consensus_Normal_BAM ]]
+    if [[ ! -z "$Consensus_Normal_BAM" ]]
     then
         dx download "$Consensus_Normal_BAM" -o normal.bam
     fi

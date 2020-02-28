@@ -6,7 +6,7 @@
   "version": "0.0.1",
   "inputSpec": [
     {
-      "name": "GATK_tumor_bam",
+      "name": "GATK_Tumor_BAM",
       "label": "GATK Recalibrated Tumor BAM",
       "class": "file",
       "optional": false,
@@ -16,28 +16,18 @@
       "help": ""
     },
     {
-      "name": "GATK_tumor_bam_index",
-      "label": "GATK Recalibrated Tumor BAM Indexed",
-      "class": "file",
-      "optional": false,
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "GATK_normal_bam",
+      "name": "GATK_Normal_BAM",
       "label": "GATK Recalibrated Normal BAM",
       "class": "file",
-      "optional": false,
+      "optional": true,
       "patterns": [
         "*"
       ],
       "help": ""
     },
     {
-      "name": "GATK_normal_bam_index",
-      "label": "GATK Recalibrated Normal BAM Indexed",
+      "name": "reference",
+      "label": "Reference Files (tar.gz)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -46,10 +36,10 @@
       "help": ""
     },
     {
-      "name": "ref_file",
-      "label": "Reference Files (*.tar.gz)",
+      "name": "pon",
+      "label": "Panel of Normals",
       "class": "file",
-      "optional": false,
+      "optional": true,
       "patterns": [
         "*"
       ],
@@ -57,7 +47,7 @@
     },
     {
       "name": "pair_id",
-      "label": "Pair/Sample Name",
+      "label": "ReadGroup/SampleName",
       "class": "string",
       "optional": false,
       "help": ""

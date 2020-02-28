@@ -68,7 +68,8 @@ RUN cd /opt/bin; wget https://sourceforge.net/projects/snpeff/files/snpEff_v4_3t
     unzip snpEff_v4_3_GRCh38.92.zip; rm snpEff_v4_3_GRCh38.92.zip;
 RUN cp -R /opt/bin/* /usr/local/bin/; \
     chmod +x /usr/local/bin/picard.jar; \
-    chmod +x /usr/local/bin/snpEff/snpEff.jar;
+    chmod +x /usr/local/bin/snpEff/snpEff.jar; \
+    chmod +x /usr/local/bin/snpEff/SnpSift.jar;
 ENV PICARD "/usr/local/bin"
 ENV SNPEFF "/usr/local/bin/snpEff"
 
@@ -97,6 +98,12 @@ RUN cd /opt; wget https://github.com/nhansen/Shimmer/archive/v0.1.1.zip; \
     cd  Shimmer-0.1.1; \
     perl Build.PL; \
     ./Build; ./Build test; ./Build install;
+
+# Install Parallel
+RUN cd /opt/bin; wget http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2; \
+    tar -vxjf parallel-latest.tar.bz2; rm parallel-latest.tar.bz2; \
+    cd parallel-20200222; \
+    ./configure --prefix=/usr/local && make && make install;
 
 # Install Scripts
 RUN cd /opt; git clone https://git.biohpc.swmed.edu/ngsclialab/clinseq_workflows.git; cd clinseq_workflows; \
