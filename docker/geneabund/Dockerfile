@@ -16,12 +16,13 @@ RUN mkdir -p /opt/bin;
 
 
 RUN cd /opt;  wget https://sourceforge.net/projects/subread/files/subread-2.0.0/subread-2.0.0-Linux-x86_64.tar.gz; \
-	tar zxvf subread-2.0.0-Linux-x86_64.tar.gz
+	tar zxvf subread-2.0.0-Linux-x86_64.tar.gz; rm subread-2.0.0-Linux-x86_64.tar.gz; \ 
+	cp -R subread-2.0.0-Linux-x86_64 /usr/local/bin
 		
-ENV PATH "$PATH:/opt/subread-2.0.0-Linux-x86_64/bin"
+ENV PATH "$PATH:/usr/local/bin/subread-2.0.0-Linux-x86_64/bin"
 
-RUN cd /opt; git clone https://github.com/gpertea/stringtie; \
-	cd stringtie; \
-	make release;
+RUN cd /opt; wget http://ccb.jhu.edu/software/stringtie/dl/stringtie-2.1.1.Linux_x86_64.tar.gz; \
+	tar xvfz stringtie-2.1.1.Linux_x86_64.tar.gz; rm stringtie-2.1.1.Linux_x86_64.tar.gz; \
+	cp -R stringtie-2.1.1.Linux_x86_64 /usr/local/bin
 
-ENV PATH "$PATH:/opt/stringtie"
+ENV PATH "$PATH:/usr/local/bin/stringtie-2.1.1.Linux_x86_64"
