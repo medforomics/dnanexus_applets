@@ -6,35 +6,29 @@
   "version": "0.0.1",
   "inputSpec": [
     {
-      "name": "tumorbam",
-      "label": "TumorBam",
+      "name": "Consensus_Tumor_BAM",
+      "label": "Consensus Tumor BAM (consensus.bam)",
       "class": "file",
       "optional": false
     },
     {
-      "name": "normalbam",
-      "label": "NormalBam",
+      "name": "Consensus_Normal_BAM",
+      "label": "Consensus Normal BAM (consensus.bam)",
       "class": "file",
       "optional": false
     },
     {
       "name": "reference",
-      "label": "Reference",
+      "label": "Reference Files (tar.gz)",
       "class": "file",
       "optional": false
     },
     {
       "name": "pair_id",
-      "label": "Pair/Sample Name",
+      "label": "ReadGroup/SampleName",
       "class": "string",
       "optional": false,
       "help": ""
-    },
-    {
-      "name": "options",
-      "label": "command-line options",
-      "class": "string",
-      "optional": true
     }
   ],
   "outputSpec": [

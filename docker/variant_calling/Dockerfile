@@ -105,6 +105,13 @@ RUN cd /opt/bin; wget http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2; \
     cd parallel-20200222; \
     ./configure --prefix=/usr/local && make && make install;
 
+# Install Vt
+RUN cd /opt/bin; wget https://github.com/atks/vt/archive/0.57721.tar.gz; \
+    tar xvfz 0.57721.tar.gz; rm -rf 0.57721.tar.gz; \
+    cd vt-0.57721; \
+    make; \
+    mv vt /usr/local/bin/;
+
 # Install Scripts
 RUN cd /opt; git clone https://git.biohpc.swmed.edu/ngsclialab/clinseq_workflows.git; cd clinseq_workflows; \
     git submodule sync --recursive; git submodule update --init --recursive; \
