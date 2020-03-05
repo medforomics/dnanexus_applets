@@ -1,10 +1,30 @@
 {
-  "name": "mutect2",
-  "title": "mutect",
-  "summary": "Variant Prediction Tool",
+  "name": "Variant_Calling",
+  "title": "Variant Calling Applet",
+  "summary": "This applet contains variant calling methods for tumor only and somatic workflows. Including Platypus, Freebayes, Strelka2, Mutect2, and Shimmer",
   "dxapi": "1.0.0",
   "version": "0.0.1",
   "inputSpec": [
+    {
+      "name": "Consensus_Tumor_BAM",
+      "label": "Consensus Tumor BAM (consensus.bam)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "Consensus_Normal_BAM",
+      "label": "Consensus Normal BAM (consensus.bam)",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
     {
       "name": "GATK_Tumor_BAM",
       "label": "GATK Recalibrated Tumor BAM",
@@ -51,12 +71,19 @@
       "class": "string",
       "optional": false,
       "help": ""
+    },
+    {
+      "name": "algo",
+      "label": "Variant Calling Algorithm",
+      "class": "string",
+      "optional": false,
+      "help": ""
     }
   ],
   "outputSpec": [
     {
-      "name": "mutect_vcf",
-      "label": "Mutect2 VCF File",
+      "name": "vcf",
+      "label": "VCF File Output",
       "class": "file",
       "patterns": [
         "*"
@@ -67,13 +94,13 @@
   "runSpec": {
     "timeoutPolicy": {
       "*": {
-        "hours": 24
+        "hours": 48
       }
     },
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/mutect2.sh"
+    "file": "src/Variant_Calling.sh"
   },
   "access": {
     "network": [

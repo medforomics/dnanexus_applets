@@ -4,7 +4,7 @@ LABEL Author="Jeremy Mathews" \
 
 # install additional requirements
 RUN apt-get update; apt-get install -y build-essential checkinstall; \
-    apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev liblzma-dev libcurl4-gnutls-dev libncurses5-dev libffi-dev wget unzip git default-jre default-jdk r-base;
+    apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev liblzma-dev libcurl4-gnutls-dev libncurses5-dev libffi-dev wget unzip git default-jre default-jdk r-base cmake gfortran hdf5-tools libboost-date-time-dev libboost-program-options-dev libboost-system-dev libboost-filesystem-dev libboost-iostreams-dev libhdf5-dev;
 
 # Make destination and work directory
 RUN mkdir -p /opt;
@@ -58,8 +58,9 @@ RUN cd /opt/bin; wget https://sourceforge.net/projects/snpeff/files/snpEff_v4_3t
     wget https://sourceforge.net/projects/snpeff/files/databases/v4_3/snpEff_v4_3_GRCh38.92.zip; \
     unzip snpEff_v4_3_GRCh38.92.zip; rm snpEff_v4_3_GRCh38.92.zip;
 RUN cp -R /opt/bin/* /usr/local/bin/; \
-    chmod +x /usr/local/bin/snpEff/snpEff.jar;
-ENV SNPEFF "/usr/local/bin/snpEff"
+    chmod +x /usr/local/bin/snpEff/snpEff.jar; \
+    chmod +x /usr/local/bin/snpEff/SnpSift.jar
+ENV SNPEFF_HOME "/usr/local/bin/snpEff"
 
 # Install CNVkit
 RUN R -e "install.packages(c('BiocManager', 'DNAcopy'), repos='https://cran.rstudio.com')";
@@ -69,6 +70,27 @@ RUN cd /opt/bin; wget https://github.com/etal/cnvkit/archive/v0.9.5.tar.gz; \
     python -m pip install -e .;
 RUN cd /opt/bin/cnvkit-0.9.5; \
     cp -R * /usr/local/bin/;
+
+# Install Pindel
+RUN cd /opt/bin; wget http://github.com/genome/pindel/archive/v0.2.5b8.tar.gz; \
+    tar xvfz v0.2.5b8.tar.gz; rm v0.2.5b8.tar.gz; \
+    cd pindel-0.2.5b8; \
+    ./INSTALL /opt/htslib-1.9; \
+    cp *pindel* /usr/local/bin/;
+
+# Install Delly2
+RUN cd /opt/bin; git clone --branch v0.8.2 --recursive https://github.com/dellytools/delly.git; \
+    cd delly; \
+    make all; \
+    cp src/* /usr/local/bin/; \
+    mv /usr/local/bin/delly /usr/local/bin/delly2;
+
+# Install SvABA
+RUN cd /opt/bin; git clone --branch 1.1.0 --recursive https://github.com/walaj/svaba; \
+    cd svaba; \
+    ./configure; \
+    make && make install; \
+    cp bin/* /usr/local/bin/;
 
 # Install Scripts
 RUN cd /opt; git clone https://git.biohpc.swmed.edu/ngsclialab/clinseq_workflows.git; cd clinseq_workflows; \
