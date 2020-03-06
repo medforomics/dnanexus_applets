@@ -74,7 +74,7 @@
     },
     {
       "name": "algo",
-      "label": "Variant Calling Algorithm",
+      "label": "Variant Calling Algorithm(fb, mutect, platypus, strelka2, shimmer)",
       "class": "string",
       "optional": false,
       "help": ""

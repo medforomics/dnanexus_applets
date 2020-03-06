@@ -40,7 +40,7 @@ main() {
 
     else
 
-        if [[ "${algo}" == "freebayes" || "${algo}" == "platypus" ]]
+        if [[ "${algo}" == "fb" || "${algo}" == "platypus" ]]
         then
             docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bash /usr/local/bin/germline_vc.sh -r dnaref -p ${pair_id} -a ${algo}
         elif [[ "${algo}" == "mutect" ]]
