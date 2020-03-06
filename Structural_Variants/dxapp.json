@@ -1,6 +1,6 @@
 {
-  "name": "Somatic_Variants",
-  "title": "Somatic Variants Applet",
+  "name": "Structural_Variants",
+  "title": "Structural Variants Applet",
   "summary": "This applet contains variant calling methods for tumor only and somatic workflows. Including pindel, delly, svaba, NGSCheckMates",
   "dxapi": "1.0.0",
   "version": "0.0.1",
@@ -63,7 +63,7 @@
     },
     {
       "name": "svvcf",
-      "label": "Somatic Variant VCF File Output",
+      "label": "Structural Variant VCF File Output",
       "class": "file",
       "optional": true,
       "patterns": [
@@ -121,7 +121,7 @@
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/Somatic_Variants.sh"
+    "file": "src/Structural_Variants.sh"
   },
   "access": {
     "network": [

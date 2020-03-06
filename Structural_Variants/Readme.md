@@ -1,5 +1,5 @@
 <!-- dx-header -->
-# Somatic Variants Applet (DNAnexus Platform App)
+# Structural Variants Applet (DNAnexus Platform App)
 
 This applet contains variant calling methods for tumor only and somatic workflows. Including pindel
 
