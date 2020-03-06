@@ -71,7 +71,7 @@ RUN cp -R /opt/bin/* /usr/local/bin/; \
     chmod +x /usr/local/bin/snpEff/snpEff.jar; \
     chmod +x /usr/local/bin/snpEff/SnpSift.jar;
 ENV PICARD "/usr/local/bin"
-ENV SNPEFF "/usr/local/bin/snpEff"
+ENV SNPEFF_HOME "/usr/local/bin/snpEff"
 
 # Install Strelka
 RUN cd /opt; wget https://github.com/Illumina/strelka/releases/download/v2.9.10/strelka-2.9.10.centos6_x86_64.tar.bz2; \
