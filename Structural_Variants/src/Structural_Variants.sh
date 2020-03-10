@@ -4,57 +4,45 @@
 
 main() {
 
+    dx download "$Raw_Tumor_BAM" -o raw.tumor.bam
     dx download "$Consensus_Tumor_BAM" -o consensus.tumor.bam
     dx download "$reference" -o dnaref.tar.gz
 
     tar xvfz dnaref.tar.gz
 
+    if [ -n "$Raw_Normal_BAM" ]
+    then
+        dx download "$Raw_Normal_BAM" -o raw.normal.bam
+    fi
     if [ -n "$Consensus_Normal_BAM" ]
     then
-        dx download "$Consensus_Normal_BAM" -o Consensus_Normal_BAM
+        dx download "$Consensus_Normal_BAM" -o consensus.normal.bam
     fi
 
     docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bash /usr/local/bin/indexbams.sh
 
-    if [[ -z "$Consensus_Normal_BAM" ]]
+    if [[ "${algo}" == "pindel" ]]
     then
-
-        if [[ "${algo}" == "pindel" ]]
+        if [[ -z "$Consensus_Normal_BAM" ]]
         then
-            docker run -v ${PWD}:/data docker.io/goalconsortium/somatic_variant:v1 bash /usr/local/bin/svcalling.sh -r dnaref -b consensus.tumor.bam -p ${pair_id} -l dnaref/itd_genes.bed -a pindel
-            docker run -v ${PWD}:/data docker.io/goalconsortium/somatic_variant:v1 perl /usr/local/bin/filter_pindel.pl -d ${pair_id}.pindel_tandemdup.vcf.gz -s ${pair_id}.pindel_sv.vcf.gz -i ${pair_id}.pindel_indel.vcf.gz
-            docker run -v ${PWD}:/data docker.io/goalconsortium/somatic_variant:v1 bgzip ${pair_id}.pindel_indel.pass.vcf
-            docker run -v ${PWD}:/data docker.io/goalconsortium/somatic_variant:v1 bgzip ${pair_id}.pindel_tandemdup.pass.vcf
-            mv ${pair_id}.pindel_indel.pass.vcf.gz ${pair_id}.pindel.vcf.gz
-            grep '#CHROM' ${pair_id}.pindel_sv.pass.vcf > ${pair_id}.dna.genefusion.txt
-            docker run -v ${PWD}:/data docker.io/goalconsortium/somatic_variant:v1 sh -c "cat ${pair_id}.pindel_sv.pass.vcf | ${SNPEFF_HOME}/scripts/vcfEffOnePerLine.pl | java -jar ${SPNEFF_HOME}/SnpSift.jar extractFields - CHROM POS END ANN[*].EFFECT ANN[*].GENE ANN[*].HGVS_C ANN[*].HGVS_P GEN[*] | grep -E 'CHROM|gene_fusion' | uniq >> ${pair_id}.dna.genefusion.txt"
-            docker run -v ${PWD}:/data docker.io/goalconsortium/somatic_variant:v1 bgzip ${pair_id}.pindel_sv.pass.vcf
+            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:v1 bash /usr/local/bin/svcalling.sh -r dnaref -b consensus.tumor.bam -p ${pair_id} -l dnaref/itd_genes.bed -a ${algo} -f
         else
-            docker run -v ${PWD}:/data docker.io/goalconsortium/somatic_variant:v1 bash /usr/local/bin/svcalling.sh -r dnaref -b consensus.tumor.bam -p ${pair_id} -a ${algo}
+             docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:v1 bash /usr/local/bin/svcalling.sh -r dnaref -p ${pair_id} -l dnaref/itd_genes.bed -a ${algo} -f
         fi
+
+    elif [[ "${algo}" == "checkmates" ]]
+    then
+        docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:v1 python /usr/local/bin/ncm.py -B -d ./ -bed dnaref/NGSCheckMate.bed -O ./ -N ${pair_id}
+        docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:v1 perl /usr/local/bin/sequenceqc_somatic.pl -r dnaref -i ${pair_id}_all.txt -o ${pair_id}.sequence.stats.txt
 
     else
-
-        if [[ "${algo}" == "pindel" ]]
+        if [[ -z "$Raw_Normal_BAM" ]]
         then
-            docker run -v ${PWD}:/data docker.io/goalconsortium/somatic_variant:v1 bash /usr/local/bin/svcalling.sh -r dnaref -p ${pair_id} -l dnaref/itd_genes.bed -a pindel
-            docker run -v ${PWD}:/data docker.io/goalconsortium/somatic_variant:v1 perl /usr/local/bin/filter_pindel.pl -d ${pair_id}.pindel_tandemdup.vcf.gz -s ${pair_id}.pindel_sv.vcf.gz -i ${pair_id}.pindel_indel.vcf.gz
-            docker run -v ${PWD}:/data docker.io/goalconsortium/somatic_variant:v1 bgzip ${pair_id}.p
-indel_indel.pass.vcf
-            docker run -v ${PWD}:/data docker.io/goalconsortium/somatic_variant:v1 bgzip ${pair_id}.p
-indel_tandemdup.pass.vcf
-            mv ${pair_id}.pindel_indel.pass.vcf.gz ${pair_id}.pindel.vcf.gz
-            grep '#CHROM' ${pair_id}.pindel_sv.pass.vcf > ${pair_id}.dna.genefusion.txt
-            docker run -v ${PWD}:/data docker.io/goalconsortium/somatic_variant:v1 sh -c "cat ${pair_id}.pindel_sv.pass.vcf | ${SNPEFF_HOME}/scripts/vcfEffOnePerLine.pl | java -jar ${SPNEFF_HOME}/SnpSift.jar extractFields - CHROM POS END ANN[*].EFFECT ANN[*].GENE ANN[*].HGVS_C ANN[*].HGVS_P GEN[*] | grep -E 'CHROM|gene_fusion' | uniq >> ${pair_id}.dna.genefusion.txt"
-            docker run -v ${PWD}:/data docker.io/goalconsortium/somatic_variant:v1 bgzip ${pair_id}.pindel_sv.pass.vcf
-        elif [[ "${algo}" == "checkmates" ]]
-        then
-            docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:v1 python /usr/local/bin/ncm.py -B -d ./ -bed dnaref/NGSCheckMate.bed -O ./ -N ${pair_id}
-            docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:v1 perl /usr/local/bin/sequenceqc_somatic.pl -r dnaref -i ${pair_id}_all.txt -o ${pair_id}.sequence.stats.txt
+            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:v1 bash /usr/local/bin/svcalling.sh -r dnaref -b raw.tumor.bam -p ${pair_id} -a ${algo} -f
         else
-            docker run -v ${PWD}:/data docker.io/goalconsortium/somatic_variant:v1 bash /usr/local/bin/svcalling.sh -r dnaref -x 'tumor' -y 'normal' -b consensus.tumor.bam -n consensus.normal.bam -p ${pair_id} -a ${algo}
+            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:v1 bash /usr/local/
+bin/svcalling.sh -r dnaref -x 'tumor' -y 'normal' -b raw.tumor.bam -n raw.normal.bam -p ${pair_id} -a ${algo} -f
         fi
-
     fi
 
     if [[ "${algo}" == "checkmates" ]]
@@ -67,17 +55,28 @@ indel_tandemdup.pass.vcf
     elif [[ "${algo}" == "pindel" ]]
     then
         vcf=$(dx upload ${pair_id}.${algo}.vcf.gz --brief)
-        svvcf=$(dx upload ${pair_id}.${algo}_sv.pass.vcf.gz --brief)
-        tdvcf=$(dx upload ${pair_id}.${algo}_tandemdup.pass.vcf.gz --brief)
-        genefusion=$(dx upload ${pair_id}.dna.genefusion.txt --brief)
+        svvcf=$(dx upload ${pair_id}.${algo}.sv.vcf.gz --brief)
+        tdvcf=$(dx upload ${pair_id}.${algo}_tandemdup.vcf.gz --brief)
+        genefusion=$(dx upload ${pair_id}.${algo}.genefusion.txt --brief)
 
         dx-jobutil-add-output vcf "$vcf" --class=file
         dx-jobutil-add-output svvcf "$svvcf" --class=file
         dx-jobutil-add-output tdvcf "$tdvcf" --class=file
         dx-jobutil-add-output genefusion "$genefusion" --class=file
-    else
+    elif [[ "${algo}" == "delly" ]]
+    then
         vcf=$(dx upload ${pair_id}.${algo}.vcf.gz --brief)
+        genefusion=$(dx upload ${pair_id}.${algo}.genefusion.txt --brief)
 
         dx-jobutil-add-output vcf "$vcf" --class=file
+        dx-jobutil-add-output genefusion "$genefusion" --class=file
+    else
+        vcf=$(dx upload ${pair_id}.${algo}.vcf.gz --brief)
+        svvcf=$(dx upload ${pair_id}.${algo}.sv.vcf.gz --brief)
+        genefusion=$(dx upload ${pair_id}.${algo}.genefusion.txt --brief)
+
+        dx-jobutil-add-output vcf "$vcf" --class=file
+        dx-jobutil-add-output svvcf "$svvcf" --class=file
+        dx-jobutil-add-output genefusion "$genefusion" --class=file
     fi
 }

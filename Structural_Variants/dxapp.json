@@ -5,6 +5,26 @@
   "dxapi": "1.0.0",
   "version": "0.0.1",
   "inputSpec": [
+   {
+      "name": "Raw_Tumor_BAM",
+      "label": "Raw Tumor BAM (raw.bam)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+   {
+      "name": "Raw_Normal_BAM",
+      "label": "Raw Normal BAM (raw.bam)",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
     {
       "name": "Consensus_Tumor_BAM",
       "label": "Consensus Tumor BAM (consensus.bam)",
