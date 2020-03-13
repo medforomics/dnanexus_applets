@@ -71,6 +71,12 @@ RUN cd /opt/bin; wget https://github.com/etal/cnvkit/archive/v0.9.5.tar.gz; \
 RUN cd /opt/bin/cnvkit-0.9.5; \
     cp -R * /usr/local/bin/;
 
+# Install GATK
+RUN mkdir -p /cm/shared/apps/gatk/3.8/target/package; \
+    cd /cm/shared/apps/gatk/3.8/target/package; \
+    wget https://github.com/JAMKuttan/GenomeAnalysisTK/blob/master/GenomeAnalysisTK.jar;
+RUN chmod +x /cm/shared/apps/gatk/3.8/target/package/GenomeAnalysisTK.jar;
+
 # Install Pindel
 RUN cd /opt/bin; wget http://github.com/genome/pindel/archive/v0.2.5b8.tar.gz; \
     tar xvfz v0.2.5b8.tar.gz; rm v0.2.5b8.tar.gz; \
