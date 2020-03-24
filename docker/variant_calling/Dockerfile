@@ -102,7 +102,7 @@ RUN cd /opt; wget https://github.com/nhansen/Shimmer/archive/v0.1.1.zip; \
 # Install Parallel
 RUN cd /opt/bin; wget http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2; \
     tar -vxjf parallel-latest.tar.bz2; rm parallel-latest.tar.bz2; \
-    cd parallel-20200222; \
+    cd parallel*; \
     ./configure --prefix=/usr/local && make && make install;
 
 # Install Vt

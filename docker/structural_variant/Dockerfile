@@ -4,7 +4,7 @@ LABEL Author="Jeremy Mathews" \
 
 # install additional requirements
 RUN apt-get update; apt-get install -y build-essential checkinstall; \
-    apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev liblzma-dev libcurl4-gnutls-dev libncurses5-dev libffi-dev wget unzip git default-jre default-jdk r-base cmake gfortran hdf5-tools libboost-date-time-dev libboost-program-options-dev libboost-system-dev libboost-filesystem-dev libboost-iostreams-dev libhdf5-dev;
+    apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev liblzma-dev libcurl4-gnutls-dev libncurses5-dev libffi-dev wget unzip git default-jre default-jdk cmake gfortran hdf5-tools libboost-date-time-dev libboost-program-options-dev libboost-system-dev libboost-filesystem-dev libboost-iostreams-dev libhdf5-dev fort77 xorg-dev libblas-dev gcc-multilib gobjc++ aptitude texlive-latex-base libcairo2-dev;
 
 # Make destination and work directory
 RUN mkdir -p /opt;
@@ -63,7 +63,14 @@ RUN cp -R /opt/bin/* /usr/local/bin/; \
 ENV SNPEFF_HOME "/usr/local/bin/snpEff"
 
 # Install CNVkit
-RUN R -e "install.packages(c('BiocManager', 'DNAcopy'), repos='https://cran.rstudio.com')";
+RUN apt-get install -y r-base;
+RUN cd /opt; wget https://cran.r-project.org/src/base/R-3/R-3.3.2.tar.gz; \
+    tar xvfz R-3.3.2.tar.gz; rm R-3.3.2.tar.gz; \
+    cd R-3.3.2; \
+    ./configure --with-x=yes --enable-R-shlib=yes --with-cairo=yes; \
+    make; make install;
+RUN R -e "install.packages('BiocManager', repos='https://cran.rstudio.com')";
+RUN R -e "BiocManager::install('DNAcopy')"
 RUN cd /opt/bin; wget https://github.com/etal/cnvkit/archive/v0.9.5.tar.gz; \
     tar xvfz v0.9.5.tar.gz; rm v0.9.5.tar.gz; \
     cd cnvkit-0.9.5; \
@@ -72,10 +79,12 @@ RUN cd /opt/bin/cnvkit-0.9.5; \
     cp -R * /usr/local/bin/;
 
 # Install GATK
-RUN mkdir -p /cm/shared/apps/gatk/3.8/target/package; \
-    cd /cm/shared/apps/gatk/3.8/target/package; \
+RUN cd /usr/local/bin; \
+    mkdir gatk; \
+    cd gatk; \
     wget https://github.com/JAMKuttan/GenomeAnalysisTK/blob/master/GenomeAnalysisTK.jar;
-RUN chmod +x /cm/shared/apps/gatk/3.8/target/package/GenomeAnalysisTK.jar;
+RUN chmod +x /usr/local/bin/gatk/GenomeAnalysisTK.jar;
+ENV GATK3 "/usr/local/bin/gatk"
 
 # Install Pindel
 RUN cd /opt/bin; wget http://github.com/genome/pindel/archive/v0.2.5b8.tar.gz; \
