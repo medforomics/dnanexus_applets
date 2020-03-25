@@ -64,6 +64,7 @@ RUN cd /opt; wget https://github.com/vcftools/vcftools/releases/download/v0.1.14
 RUN cd /opt/bin; wget https://github.com/broadinstitute/picard/releases/download/2.21.7/picard.jar;
 RUN cd /opt/bin; wget https://sourceforge.net/projects/snpeff/files/snpEff_v4_3t_core.zip; \
     unzip snpEff_v4_3t_core.zip; rm snpEff_v4_3t_core.zip; \
+    cd snpEff; \
     wget https://sourceforge.net/projects/snpeff/files/databases/v4_3/snpEff_v4_3_GRCh38.92.zip; \
     unzip snpEff_v4_3_GRCh38.92.zip; rm snpEff_v4_3_GRCh38.92.zip;
 RUN cp -R /opt/bin/* /usr/local/bin/; \

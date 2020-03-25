@@ -55,6 +55,7 @@ RUN cd /opt; wget https://github.com/vcftools/vcftools/releases/download/v0.1.14
 # Install snpEff
 RUN cd /opt/bin; wget https://sourceforge.net/projects/snpeff/files/snpEff_v4_3t_core.zip; \
     unzip snpEff_v4_3t_core.zip; rm snpEff_v4_3t_core.zip; \
+    cd snpEff; \
     wget https://sourceforge.net/projects/snpeff/files/databases/v4_3/snpEff_v4_3_GRCh38.92.zip; \
     unzip snpEff_v4_3_GRCh38.92.zip; rm snpEff_v4_3_GRCh38.92.zip;
 RUN cp -R /opt/bin/* /usr/local/bin/; \
@@ -71,20 +72,12 @@ RUN cd /opt; wget https://cran.r-project.org/src/base/R-3/R-3.3.2.tar.gz; \
     make; make install;
 RUN R -e "install.packages('BiocManager', repos='https://cran.rstudio.com')";
 RUN R -e "BiocManager::install('DNAcopy')"
-RUN cd /opt/bin; wget https://github.com/etal/cnvkit/archive/v0.9.5.tar.gz; \
-    tar xvfz v0.9.5.tar.gz; rm v0.9.5.tar.gz; \
-    cd cnvkit-0.9.5; \
-    python -m pip install -e .;
-RUN cd /opt/bin/cnvkit-0.9.5; \
+RUN cd /opt/bin; wget https://github.com/etal/cnvkit/archive/v0.9.6.tar.gz; \
+    tar xvfz v0.9.6.tar.gz; rm v0.9.6.tar.gz;
+RUN python -m pip install numpy scipy pandas matplotlib reportlab biopython pyfaidx pysam future pyvcf; \
+    python -m pip install networkx joblib cython pomegranate;
+RUN cd /opt/bin/cnvkit-0.9.6; \
     cp -R * /usr/local/bin/;
-
-# Install GATK
-RUN cd /usr/local/bin; \
-    mkdir gatk; \
-    cd gatk; \
-    wget https://github.com/JAMKuttan/GenomeAnalysisTK/blob/master/GenomeAnalysisTK.jar;
-RUN chmod +x /usr/local/bin/gatk/GenomeAnalysisTK.jar;
-ENV GATK3 "/usr/local/bin/gatk"
 
 # Install Pindel
 RUN cd /opt/bin; wget http://github.com/genome/pindel/archive/v0.2.5b8.tar.gz; \
