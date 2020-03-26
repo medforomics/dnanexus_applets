@@ -17,11 +17,14 @@ main() {
 
         docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:v1 bash /usr/local/bin/cnvkit.sh -r dnaref -b raw.bam -p ${pair_id} -d panel
 
+        tar -czvf ${pair_id}.cnvansplot.tar.gz ${pair_id}.answerplot*
+        tar -czvf ${pair_id}.cnvtxt.tar.gz ${pair_id}.*txt
+
         cns=$(dx upload ${pair_id}.call.cns --brief)
         cnsori=$(dx upload ${pair_id}.cns --brief)
         cnr=$(dx upload ${pair_id}.cnr --brief)
-        cnvansplot=$(dx upload ${pair_id}.answerplot* --brief)
-        cnvtxt=$(dx upload ${pair_id}.*txt --brief)
+        cnvansplot=$(dx upload ${pair_id}.cnvansplot.tar.gz --brief)
+        cnvtxt=$(dx upload ${pair_id}.cnvtxt.tar.gz --brief)
         cnvpdf=$(dx upload ${pair_id}.cnv*pdf --brief)
 
         dx-jobutil-add-output cns "$cns" --class=file
