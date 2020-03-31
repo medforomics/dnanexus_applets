@@ -21,12 +21,14 @@ main() {
     if [ -n "$pon" ]
     then
         dx download "$pon" -o ponfile
-        ponopt="-q $ponfile"
+        ponopt='-q $ponfile'
     else
-        ponopt=""
+        ponopt=''
     fi
 
     docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bash /usr/local/bin/indexbams.sh
+
+    alias python=python2.7
 
     if [[ -z "$Consensus_Normal_BAM" ]]
     then

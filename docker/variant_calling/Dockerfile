@@ -66,7 +66,9 @@ RUN cd /opt/bin; wget https://sourceforge.net/projects/snpeff/files/snpEff_v4_3t
     unzip snpEff_v4_3t_core.zip; rm snpEff_v4_3t_core.zip; \
     cd snpEff; \
     wget https://sourceforge.net/projects/snpeff/files/databases/v4_3/snpEff_v4_3_GRCh38.92.zip; \
-    unzip snpEff_v4_3_GRCh38.92.zip; rm snpEff_v4_3_GRCh38.92.zip;
+    unzip snpEff_v4_3_GRCh38.92.zip; rm snpEff_v4_3_GRCh38.92.zip; \
+    echo 'GRCh38.92.genome : Homo_sapiens' >> snpEff.config; \
+    echo 'GRCh38.92.reference : ftp://ftp.ensembl.org/pub/release-92/gtf/' >> snpEff.config;
 RUN cp -R /opt/bin/* /usr/local/bin/; \
     chmod +x /usr/local/bin/picard.jar; \
     chmod +x /usr/local/bin/snpEff/snpEff.jar; \
