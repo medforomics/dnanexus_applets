@@ -55,7 +55,8 @@ RUN cd /opt/bin; wget https://github.com/parklab/NGSCheckMate/archive/v1.0.0.tar
     cp -R * /usr/local/bin/;
 
 # Install Scripts
-RUN cd /opt; git clone https://git.biohpc.swmed.edu/ngsclialab/clinseq_workflows.git; cd clinseq_workflows; \
+RUN cd /opt; git clone -b version_0.5.2 --single-branch https://github.com/bcantarel/genomeseer.git; \
+    cd genomeseer; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/alignment/* /usr/local/bin/; \
     cp -r scripts/* /usr/local/bin/;

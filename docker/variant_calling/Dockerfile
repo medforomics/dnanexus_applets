@@ -18,6 +18,8 @@ RUN cd /usr/src; wget https://www.python.org/ftp/python/2.7.17/Python-2.7.17.tgz
     cd Python-2.7.17; \
     ./configure --enable-optimizations; \
     make altinstall;
+RUN cd /usr/src; wget https://bootstrap.pypa.io/get-pip.py; \
+    python2.7 get-pip.py;
 
 # Install SamTools + BCFTools + htslib
 RUN cd /opt; wget https://github.com/samtools/htslib/releases/download/1.9/htslib-1.9.tar.bz2; \
@@ -37,15 +39,17 @@ RUN cd /opt; wget https://github.com/samtools/bcftools/releases/download/1.9/bcf
     cp -r bcftools /opt/bin;
 
 # Install Platypus
-RUN pip install cython
 ENV C_INCLUDE_PATH $C_INCLUDE_PATH:/usr/local/include
 ENV LIBRARY_PATH $LIBRARY_PATH:/usr/local/lib
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/local/lib
-RUN cd /opt; wget https://www.rdm.ox.ac.uk/files/research/lunter-group/platypus_0-8-1.tgz; \
-    tar -zxvf platypus_0-8-1.tgz; rm platypus_0-8-1.tgz; \
+RUN python2.7 -m pip install cython
+RUN cd /usr/local/lib/python2.7/site-packages; \
+    mv Cython cython;
+RUN cd /opt; wget https://github.com/andyrimmer/Platypus/raw/master/release/AllReleases/Platypus_0.8.1.tgz; \
+    tar -zxvf Platypus_0.8.1.tgz; rm Platypus_0.8.1.tgz; \
     cd Platypus_0.8.1; \
     ./buildPlatypus.sh; \
-    cp -R Platypus.py /usr/local/bin
+    cp -R * /opt/bin
 
 # Install Bedtools
 RUN cd /opt; wget https://github.com/arq5x/bedtools2/releases/download/v2.29.2/bedtools-2.29.2.tar.gz; \
@@ -116,11 +120,13 @@ RUN cd /opt/bin; wget https://github.com/atks/vt/archive/0.57721.tar.gz; \
     mv vt /usr/local/bin/;
 
 # Install Scripts
-RUN cd /opt; git clone https://git.biohpc.swmed.edu/ngsclialab/clinseq_workflows.git; cd clinseq_workflows; \
+RUN cd /opt; git clone -b version_0.5.2 --single-branch https://github.com/bcantarel/genomeseer.git; \
+    cd genomeseer; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/alignment/* /usr/local/bin/; \
     cp -r process_scripts/variants/* /usr/local/bin/;
 
+RUN ln -sf /usr/local/bin/python2.7 /opt/miniconda/envs/gatk/bin/python
 ENV PATH "$PATH:/usr/local/bin"
 
 WORKDIR /data/

@@ -52,7 +52,8 @@ RUN echo '#!/bin/bash' > /usr/local/bin/fgbio; \
     chmod +x /usr/local/bin/fgbio;
 
 # Install Scripts
-RUN cd /opt; git clone https://git.biohpc.swmed.edu/ngsclialab/clinseq_workflows.git; cd clinseq_workflows; \
+RUN cd /opt; git clone -b version_0.5.2 --single-branch https://github.com/bcantarel/genomeseer.git; \
+    cd genomeseer; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/alignment/* /usr/local/bin/;
 
