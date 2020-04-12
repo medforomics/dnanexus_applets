@@ -19,29 +19,28 @@ main() {
         dx download "$Consensus_Normal_BAM" -o consensus.normal.bam
     fi
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bash /usr/local/bin/indexbams.sh
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.0 bash /usr/local/bin/indexbams.sh
 
     if [[ "${algo}" == "pindel" ]]
     then
         if [[ -z "$Consensus_Normal_BAM" ]]
         then
-            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:v1 bash /usr/local/bin/svcalling.sh -r dnaref -b consensus.tumor.bam -p ${pair_id} -l dnaref/itd_genes.bed -a ${algo} -f
+            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.0 bash /usr/local/bin/svcalling.sh -r dnaref -b consensus.tumor.bam -p ${pair_id} -l dnaref/itd_genes.bed -a ${algo} -f
         else
-             docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:v1 bash /usr/local/bin/svcalling.sh -r dnaref -p ${pair_id} -l dnaref/itd_genes.bed -a ${algo} -f
+             docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.0 bash /usr/local/bin/svcalling.sh -r dnaref -p ${pair_id} -l dnaref/itd_genes.bed -a ${algo} -f
         fi
 
     elif [[ "${algo}" == "checkmates" ]]
     then
-        docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:v1 python /usr/local/bin/ncm.py -B -d ./ -bed dnaref/NGSCheckMate.bed -O ./ -N ${pair_id}
-        docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:v1 perl /usr/local/bin/sequenceqc_somatic.pl -r dnaref -i ${pair_id}_all.txt -o ${pair_id}.sequence.stats.txt
+        docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:1.0.0 python /usr/local/bin/ncm.py -B -d ./ -bed dnaref/NGSCheckMate.bed -O ./ -N ${pair_id}
+        docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:1.0.0 perl /usr/local/bin/sequenceqc_somatic.pl -r dnaref -i ${pair_id}_all.txt -o ${pair_id}.sequence.stats.txt
 
     else
         if [[ -z "$Raw_Normal_BAM" ]]
         then
-            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:v1 bash /usr/local/bin/svcalling.sh -r dnaref -b raw.tumor.bam -p ${pair_id} -a ${algo} -f
+            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.0 bash /usr/local/bin/svcalling.sh -r dnaref -b raw.tumor.bam -p ${pair_id} -a ${algo} -f
         else
-            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:v1 bash /usr/local/
-bin/svcalling.sh -r dnaref -x 'tumor' -y 'normal' -b raw.tumor.bam -n raw.normal.bam -p ${pair_id} -a ${algo} -f
+            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.0 bash /usr/local/bin/svcalling.sh -r dnaref -x 'tumor' -y 'normal' -b raw.tumor.bam -n raw.normal.bam -p ${pair_id} -a ${algo} -f
         fi
     fi
 

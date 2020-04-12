@@ -26,35 +26,33 @@ main() {
         ponopt=''
     fi
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bash /usr/local/bin/indexbams.sh
-
-    alias python=python2.7
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.0 bash /usr/local/bin/indexbams.sh
 
     if [[ -z "$Consensus_Normal_BAM" ]]
     then
 
         if [[ "${algo}" == "mutect" ]]
         then
-            docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bash /usr/local/bin/germline_vc.sh ${ponopt} -r dnaref -p ${pair_id} -a ${algo}
+            docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.0 bash /usr/local/bin/germline_vc.sh ${ponopt} -r dnaref -p ${pair_id} -a ${algo}
         else
-            docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bash /usr/local/bin/germline_vc.sh -r dnaref -p ${pair_id} -a ${algo}
+            docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.0 bash /usr/local/bin/germline_vc.sh -r dnaref -p ${pair_id} -a ${algo}
         fi
 
     else
 
         if [[ "${algo}" == "fb" || "${algo}" == "platypus" ]]
         then
-            docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bash /usr/local/bin/germline_vc.sh -r dnaref -p ${pair_id} -a ${algo}
+            docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.0 bash /usr/local/bin/germline_vc.sh -r dnaref -p ${pair_id} -a ${algo}
         elif [[ "${algo}" == "mutect" ]]
         then
-            docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bash /usr/local/bin/somatic_vc.sh ${ponopt} -r dnaref -p ${pair_id} -x 'tumor' -y 'normal' -n consensus.normal.bam -t consensus.tumor.bam -a ${algo}
+            docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.0 bash /usr/local/bin/somatic_vc.sh ${ponopt} -r dnaref -p ${pair_id} -x 'tumor' -y 'normal' -n consensus.normal.bam -t consensus.tumor.bam -a ${algo}
         else
-            docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bash /usr/local/bin/somatic_vc.sh -r dnaref -p ${pair_id} -x 'tumor' -y 'normal' -n consensus.normal.bam -t consensus.tumor.bam -a ${algo}
+            docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.0 bash /usr/local/bin/somatic_vc.sh -r dnaref -p ${pair_id} -x 'tumor' -y 'normal' -n consensus.normal.bam -t consensus.tumor.bam -a ${algo}
         fi
 
     fi
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:v1 bash /usr/local/bin/uni_norm_annot.sh -g 'GRCh38.92' -r dnaref -p ${pair_id}.${algo} -v ${pair_id}.${algo}.vcf.gz
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.0 bash /usr/local/bin/uni_norm_annot.sh -g 'GRCh38.92' -r dnaref -p ${pair_id}.${algo} -v ${pair_id}.${algo}.vcf.gz
 
     vcf=$(dx upload ${pair_id}.${algo}.vcf.gz --brief)
 
