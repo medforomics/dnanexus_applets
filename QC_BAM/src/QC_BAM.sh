@@ -11,7 +11,7 @@ main() {
     tar xvfz dnaref.tar.gz
     tar xvfz panel.tar.gz
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:v1 bash /usr/local/bin/bamqc.sh -c targetpanel.bed -n dna -r dnaref -b consensus.bam -p ${pair_id} -s 1
+    docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:1.0.0 bash /usr/local/bin/bamqc.sh -c targetpanel.bed -n dna -r dnaref -b consensus.bam -p ${pair_id} -s 1
     mv ${pair_id}.genomecov.txt ${pair_id}.dedupcov.txt
     mv ${pair_id}.covhist.txt ${pair_id}.covuniqhist.txt
     mv ${pair_id}.hist.txt ${pair_id}.uniqhist.txt

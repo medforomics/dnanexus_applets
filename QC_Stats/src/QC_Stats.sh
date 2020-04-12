@@ -13,8 +13,8 @@ main() {
     tar xvfz dnaref.tar.gz
     tar xvfz panel.tar.gz
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:v1 bash /usr/local/bin/bamqc.sh -c targetpanel.bed -n dna -r dnaref -b group.bam -p ${pair_id}
-    docker run -v ${PWD}:/data docker.io/goalconsortium/gatk:v1 perl /usr/local/bin/sequenceqc_alignment_withumi.pl -r dnaref ${pair_id}.genomecov.txt
+    docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:1.0.0 bash /usr/local/bin/bamqc.sh -c targetpanel.bed -n dna -r dnaref -b group.bam -p ${pair_id}
+    docker run -v ${PWD}:/data docker.io/goalconsortium/gatk:1.0.0 perl /usr/local/bin/sequenceqc_alignment_withumi.pl -r dnaref ${pair_id}.genomecov.txt
 
     alignstats=$(dx upload ${pair_id}.flagstat.txt --brief)
     meanmap=$(dx upload ${pair_id}.meanmap.txt --brief)
