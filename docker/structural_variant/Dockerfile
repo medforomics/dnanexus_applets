@@ -79,6 +79,12 @@ RUN python -m pip install numpy scipy pandas matplotlib reportlab biopython pyfa
 RUN cd /opt/bin/cnvkit-0.9.6; \
     cp -R * /usr/local/bin/;
 
+# Install ITDSeek
+RUN cd /opt/bin; wget https://github.com/tommyau/itdseek/archive/v1.2.tar.gz; \
+    tar xvfz v1.2.tar.gz; rm v1.2.tar.gz; \
+    cd itdseek-1.2; \
+    cp *.pl /usr/local/bin/;
+
 # Install Pindel
 RUN cd /opt/bin; wget http://github.com/genome/pindel/archive/v0.2.5b8.tar.gz; \
     tar xvfz v0.2.5b8.tar.gz; rm v0.2.5b8.tar.gz; \
