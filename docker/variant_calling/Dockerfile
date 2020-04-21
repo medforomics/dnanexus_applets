@@ -20,6 +20,7 @@ RUN cd /usr/src; wget https://www.python.org/ftp/python/2.7.17/Python-2.7.17.tgz
     make altinstall;
 RUN cd /usr/src; wget https://bootstrap.pypa.io/get-pip.py; \
     python2.7 get-pip.py;
+RUN ln -sf /usr/local/bin/python2.7 /opt/miniconda/envs/gatk/bin/python
 
 # Install SamTools + BCFTools + htslib
 RUN cd /opt; wget https://github.com/samtools/htslib/releases/download/1.9/htslib-1.9.tar.bz2; \
@@ -42,7 +43,7 @@ RUN cd /opt; wget https://github.com/samtools/bcftools/releases/download/1.9/bcf
 ENV C_INCLUDE_PATH $C_INCLUDE_PATH:/usr/local/include
 ENV LIBRARY_PATH $LIBRARY_PATH:/usr/local/lib
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/local/lib
-RUN python2.7 -m pip install cython
+RUN python -m pip install cython
 RUN cd /usr/local/lib/python2.7/site-packages; \
     mv Cython cython;
 RUN cd /opt; wget https://github.com/andyrimmer/Platypus/raw/master/release/AllReleases/Platypus_0.8.1.tgz; \
