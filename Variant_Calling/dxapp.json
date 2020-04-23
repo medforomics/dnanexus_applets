@@ -6,8 +6,8 @@
   "version": "0.0.1",
   "inputSpec": [
     {
-      "name": "Consensus_Tumor_BAM",
-      "label": "Consensus Tumor BAM (consensus.bam)",
+      "name": "Tumor_BAM",
+      "label": "Tumor BAM (.bam)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -16,28 +16,8 @@
       "help": ""
     },
     {
-      "name": "Consensus_Normal_BAM",
-      "label": "Consensus Normal BAM (consensus.bam)",
-      "class": "file",
-      "optional": true,
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "GATK_Tumor_BAM",
-      "label": "GATK Recalibrated Tumor BAM",
-      "class": "file",
-      "optional": false,
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "GATK_Normal_BAM",
-      "label": "GATK Recalibrated Normal BAM",
+      "name": "Normal_BAM",
+      "label": "Normal BAM (.bam)",
       "class": "file",
       "optional": true,
       "patterns": [
@@ -74,7 +54,7 @@
     },
     {
       "name": "algo",
-      "label": "Variant Calling Algorithm(fb, mutect, platypus, strelka2, shimmer)",
+      "label": "Variant Calling Algorithm (fb, mutect, platypus, strelka2, shimmer)",
       "class": "string",
       "optional": false,
       "help": ""

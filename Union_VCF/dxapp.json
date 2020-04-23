@@ -6,8 +6,8 @@
   "version": "0.0.1",
   "inputSpec": [
     {
-      "name": "strelka_vcf",
-      "label": "Strelka VCF",
+      "name": "fb_vcf",
+      "label": "Freebayes VCF",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -26,8 +26,28 @@
       "help": ""
     },
     {
-      "name": "freebayes_vcf",
-      "label": "Freebayes VCF",
+      "name": "strelka_vcf",
+      "label": "Strelka2 VCF",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "mutect_vcf",
+      "label": "Mutect2 VCF",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "pindel_vcf",
+      "label": "Pindel VCF",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -46,17 +66,7 @@
       "help": ""
     },
     {
-      "name": "mutect_vcf",
-      "label": "Mutect2 VCF",
-      "class": "file",
-      "optional": true,
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "reference_files",
+      "name": "reference",
       "label": "Reference Files (tar.gz)",
       "class": "file",
       "optional": false,
