@@ -36,6 +36,16 @@
       "help": ""
     },
     {
+      "name": "panel",
+      "label": "Panel Files (tar.gz)",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
       "name": "pair_id",
       "label": "ReadGroup/SampleName",
       "class": "string",
@@ -104,6 +114,16 @@
     {
       "name": "all",
       "label": "Checkmates All File Output",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "msi",
+      "label": "MSIsensor-pro File Output",
       "class": "file",
       "optional": true,
       "patterns": [

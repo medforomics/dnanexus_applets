@@ -111,6 +111,15 @@
         "*"
       ],
       "help": ""
+    },
+    {
+      "name": "vseqstat",
+      "label": "Virus Sequence Stats",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
     }
   ],
   "runSpec": {

@@ -54,8 +54,14 @@ RUN cd /opt/bin; wget https://github.com/parklab/NGSCheckMate/archive/v1.0.0.tar
     rm README.md LICENSE Documentation.pdf test_datafiles.txt; \
     cp -R * /usr/local/bin/;
 
+# Install MSIsensor-pro
+RUN cd /opt/bin; git clone --branch 1.0.a https://github.com/xjtu-omics/msisensor-pro; \
+    cd msisensor-pro/cpp; \
+    make; \
+    mv msisensor-pro /usr/local/bin/;
+
 # Install Scripts
-RUN cd /opt; git clone -b version_0.5.2 --single-branch https://github.com/bcantarel/genomeseer.git; \
+RUN cd /opt; git clone -b version_0.5.4 --single-branch https://github.com/bcantarel/genomeseer.git; \
     cd genomeseer; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/alignment/* /usr/local/bin/; \

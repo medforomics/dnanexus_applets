@@ -12,10 +12,11 @@ main() {
 
     if [[ ${mdup} == 'fgbio_umi' ]]
     then
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:1.0.0 bash /usr/local/bin/dnaseqalign.sh -r dnaref -a ${aligner} -p ${pair_id} -x seq.R1.fastq.gz -y seq.R2.fastq.gz -u
+        docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:1.0.0 bash /usr/local/bin/dnaseqalign.sh -r dnaref -a ${aligner} -p ${pair_id} -x seq.R1.fastq.gz -y seq.R2.fastq.gz -u
     else
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:1.0.0 bash /usr/local/bin/dnaseqalign.sh -r dnaref -a ${aligner} -p ${pair_id} -x seq.R1.fastq.gz -y seq.R2.fastq.gz
+        docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:1.0.0 bash /usr/local/bin/dnaseqalign.sh -r dnaref -a ${aligner} -p ${pair_id} -x seq.R1.fastq.gz -y seq.R2.fastq.gz
     fi
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:1.0.0 bash /usr/local/bin/virusalign.sh -b ${pair_id}.bam -p ${pair_id} -r dnaref -f
     docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:1.0.0 bash /usr/local/bin/markdups.sh -a ${mdup} -b ${pair_id}.bam -p ${pair_id} -r dnaref
     mv ${pair_id}.dedup.bam ${pair_id}.consensus.bam
     mv ${pair_id}.dedup.bam.bai ${pair_id}.consensus.bam.bai
@@ -26,6 +27,7 @@ main() {
     rawbai=$(dx upload ${pair_id}.bam.bai --brief)
     conbai=$(dx upload ${pair_id}.consensus.bam.bai --brief)
     grbai=$(dx upload ${pair_id}.group.bam.bai --brief)
+    vseqstat=$(dx upload ${pair_id}.viral.seqstats.txt --brief)
 
     dx-jobutil-add-output rawbam "$rawbam" --class=file
     dx-jobutil-add-output conbam "$conbam" --class=file
@@ -33,4 +35,5 @@ main() {
     dx-jobutil-add-output rawbai "$rawbai" --class=file
     dx-jobutil-add-output conbai "$conbai" --class=file
     dx-jobutil-add-output grbai "$grbai" --class=file
+    dx-jobutil-add-output vseqstat "$vseqstat" --class=file
 }
