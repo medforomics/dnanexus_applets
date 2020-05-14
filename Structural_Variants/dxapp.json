@@ -1,7 +1,7 @@
 {
   "name": "Structural_Variants",
   "title": "Structural Variants Applet",
-  "summary": "This applet contains variant calling methods for tumor only and somatic workflows. Including pindel, delly, svaba, NGSCheckMates",
+  "summary": "This applet contains variant calling methods for tumor only and somatic workflows. Including pindel, delly, svaba, msisensor-pro, NGSCheckMates",
   "dxapi": "1.0.0",
   "version": "0.0.1",
   "inputSpec": [
@@ -54,7 +54,7 @@
     },
     {
       "name": "algo",
-      "label": "Variant Calling Algorithm (pindel, delly, svaba, checkmates)",
+      "label": "Variant Calling Algorithm (pindel, delly, svaba, msisensor, checkmates)",
       "class": "string",
       "optional": false,
       "help": ""
