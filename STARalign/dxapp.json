@@ -1,0 +1,90 @@
+{
+  "name": "STARalign",
+  "title": "STAR-Fusion + ralign",
+  "summary": "STAR-Fusion and rna sequence alignment",
+  "dxapi": "1.0.0",
+  "version": "0.0.1",
+  "inputSpec": [
+    {
+      "name": "pair_id",
+      "label": "Sample ID",
+      "class": "string",
+      "optional": false,
+      "help": ""
+    },
+    {
+      "name": "aligned",
+      "label": "aligned bam file",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "alignedsummary",
+      "label": "alignment summary file",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "fastsqczip",
+      "label": "Zipped fastqc summary file",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "fastqchtml",
+      "label": "fastqc html summary file",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "alignstats",
+      "label": "rnaseq alignment summary stats file",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    }
+  ],
+  "runSpec": {
+    "timeoutPolicy": {
+      "*": {
+        "hours": 24
+      }
+    },
+    "interpreter": "bash",
+    "release": "16.04",
+    "distribution": "Ubuntu",
+    "file": "src/STARalign.sh"
+  },
+  "access": {
+    "network": [
+      "*"
+    ]
+  },
+  "regionalOptions": {
+    "azure:westus": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "azure:mem1_ssd1_x16"
+        }
+      }
+    }
+  }
+}

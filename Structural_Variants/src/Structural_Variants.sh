@@ -4,13 +4,16 @@
 
 main() {
 
-
     dx download "$Tumor_BAM" -o ${pair_id}.tumor.bam
     dx download "$reference" -o dnaref.tar.gz
-    dx download "$panel" -o panel.tar.gz
 
     tar xvfz dnaref.tar.gz
-    tar xvfz panel.tar.gz
+
+    if [ -n "$panel" ]
+    then
+        dx download "$panel" -o panel.tar.gz
+        tar xvfz panel.tar.gz
+    fi
 
     if [ -n "$Normal_BAM" ]
     then
@@ -74,9 +77,9 @@ main() {
     then
         if [[ -z "$Normal_BAM" ]]
         then
-            docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:1.0.0 bash usr/local/bin/msisensor.sh -r dnaref -p ${pair_id} -b ${pair_id}.tumor.bam -c targetpanel.bed
+            docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:1.0.0 bash /usr/local/bin/msisensor.sh -r dnaref -p ${pair_id} -b ${pair_id}.tumor.bam -c targetpanel.bed
         else
-            docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:1.0.0 bash usr/local/bin/msisensor.sh -r dnaref -p ${pair_id} -b ${pair_id}.tumor.bam -n ${pair_id}.normal.bam -c targetpanel.bed
+            docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:1.0.0 bash /usr/local/bin/msisensor.sh -r dnaref -p ${pair_id} -b ${pair_id}.tumor.bam -n ${pair_id}.normal.bam -c targetpanel.bed
         fi
 
         msi=$(dx upload ${pair_id}.msi --brief)
