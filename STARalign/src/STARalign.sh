@@ -18,13 +18,13 @@ main() {
     fi
     docker run -v ${PWD}:/data docker.io/goalconsortium/ralign:1.0.0 /usr/local/bin/starfusion.sh -p ${pair_id} -r dnaref -a trim.R1.fastq.gz -b trim.R2.fastq.gz -m trinity -f
 
-    rawbam=$(dx upload ${pair_id}.bam --brief)
-    rawbai=$(dx upload ${pair_id}.bam.bai --brief)
+    bam=$(dx upload ${pair_id}.bam --brief)
+    bai=$(dx upload ${pair_id}.bam.bai --brief)
     alignstats=$(dx upload ${pair_id}.alignerout.txt --brief)
     starfusion=$(dx upload ${pair_id}.starfusion.txt --brief)
 
-    dx-jobutil-add-output rawbam "$rawbam" --class=file
-    dx-jobutil-add-output rawbai "$rawbai" --class=file
+    dx-jobutil-add-output bam "$bam" --class=file
+    dx-jobutil-add-output bai "$bai" --class=file
     dx-jobutil-add-output alignstats "$alignstats" --class=file
     dx-jobutil-add-output starfusion "$starfusion" --class=file
 }

@@ -47,6 +47,7 @@
       "label": "MarkDup Method",
       "class": "string",
       "optional": false,
+      "default": "fgbio_umi",
       "help": ""
     },
     {
@@ -54,6 +55,7 @@
       "label": "Aligner to be used",
       "class": "string",
       "optional": false,
+      "default": "bwa",
       "help": ""
     }
   ],

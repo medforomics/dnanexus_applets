@@ -4,7 +4,7 @@ LABEL Author="Jeremy Mathews" \
 
 # install additional requirements
 RUN apt-get update; apt-get install -y build-essential checkinstall; \
-    apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev liblzma-dev libcurl4-gnutls-dev libncurses5-dev wget unzip git default-jre default-jdk r-base;
+    apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev liblzma-dev libcurl4-gnutls-dev libncurses5-dev wget unzip git default-jre default-jdk r-base cmake patch;
 
 # Make destination and work directory
 RUN mkdir -p /opt;
@@ -60,12 +60,20 @@ RUN cd /opt/bin; git clone --branch 1.0.a https://github.com/xjtu-omics/msisenso
     make; \
     mv msisensor-pro /usr/local/bin/;
 
+# Install BAM-ReadCount
+RUN cd /opt; wget https://github.com/genome/bam-readcount/archive/v0.8.0.tar.gz; \
+    tar xvfz v0.8.0.tar.gz; rm v0.8.0.tar.gz; \
+    cd bam-readcount-0.8.0; \
+    cmake .; make; \
+    mv bin/bam-readcount /usr/local/bin/;
+
 # Install Scripts
 RUN cd /opt; git clone -b version_0.5.6 --single-branch https://github.com/bcantarel/genomeseer.git; \
     cd genomeseer; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/alignment/* /usr/local/bin/; \
     cp -r process_scripts/variants/* /usr/local/bin/; \
+    cp -r process_scripts/ /* /usr/local/bin/; \
     cp -r scripts/* /usr/local/bin/;
 
 ENV PATH "$PATH:/usr/local/bin"

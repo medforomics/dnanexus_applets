@@ -1,20 +1,13 @@
 {
-  "name": "STARalign",
-  "title": "STAR-Fusion + ralign",
-  "summary": "STAR-Fusion and rna sequence alignment",
+  "name": "geneabund_GATK",
+  "title": "gene abundance and GATK",
+  "summary": "calculates gene counts and fpkm values + create group bam",
   "dxapi": "1.0.0",
   "version": "0.0.1",
   "inputSpec": [
     {
-      "name": "fq1",
-      "label": "Fastq1",
-      "class": "file",
-      "optional": false,
-      "help": ""
-    },
-    {
-      "name": "fq2",
-      "label": "Fastq2",
+      "name": "Aligned_BAM",
+      "label": "Aligned BAM from STARalign step (aligned.bam)",
       "class": "file",
       "optional": false,
       "help": ""
@@ -34,26 +27,18 @@
       "help": ""
     },
     {
-      "name": "mdup",
-      "label": "MarkDup Method",
-      "class": "string",
+      "name": "stranded",
+      "label": "0(unstranded) 1(stranded) 2(reversely stranded)",
+      "class": "int",
       "optional": false,
-      "default": "fgbio_umi",
-      "help": ""
-    },
-    {
-      "name": "aligner",
-      "label": "Aligner to be used",
-      "class": "string",
-      "optional": false,
-      "default": "hisat",
+      "default": 0,
       "help": ""
     }
   ],
   "outputSpec": [
     {
-      "name": "bam",
-      "label": "Aligned BAM file",
+      "name": "counts",
+      "label": "featureCounts output file",
       "class": "file",
       "patterns": [
         "*"
@@ -61,8 +46,8 @@
       "help": ""
     },
     {
-      "name": "bai",
-      "label": "BAM Index file",
+      "name": "strcts",
+      "label": "Strcts output file",
       "class": "file",
       "patterns": [
         "*"
@@ -70,8 +55,8 @@
       "help": ""
     },
     {
-      "name": "alignstats",
-      "label": "rnaseq alignment summary stats file",
+      "name": "fpkm",
+      "label": "stringtie fpkm output file",
       "class": "file",
       "patterns": [
         "*"
@@ -79,8 +64,17 @@
       "help": ""
     },
     {
-      "name": "starfusion",
-      "label": "Star Fusion output file",
+      "name": "finalbam",
+      "label": "Final Bam File",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "finalindex",
+      "label": "Final Bam Index File",
       "class": "file",
       "patterns": [
         "*"
@@ -97,7 +91,7 @@
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/STARalign.sh"
+    "file": "src/geneabund_GATK.sh"
   },
   "access": {
     "network": [

@@ -12,8 +12,8 @@ main() {
 
     USER+$(dx whoami)
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/ :1.0.0 samtools index aligned.bam
-    docker run -v ${PWD}:/data docker.io/goalconsortium/ :1.0.0 bam-readcount -w 0 -q 0 -b 25 -f dnaref/genome.fa aligned.bam > ${pair_id}.bamreadcount.txt
+    docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:1.0.0 samtools index aligned.bam
+    docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:1.0.0 bam-readcount -w 0 -q 0 -b 25 -f dnaref/genome.fa aligned.bam > ${pair_id}.bamreadcount.txt
 
     docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:1.0.0 bash /usr/local/bin/bamqc.sh -p ${pair_id} -b aligned.bam -n rna
     docker run -v ${PWD}:/data docker.io/goalconsortium/gatk:1.0.0 perl /usr/local/bin/sequenceqc_rnaseq.pl *.flagstat.txt -r dnaref -e /project/PHG/PHG_Clinical/genomeseer -u $USER
