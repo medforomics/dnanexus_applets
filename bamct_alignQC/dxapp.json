@@ -1,0 +1,100 @@
+{
+  "name": "bamct_alignQC",
+  "title": "bam-readcount + Alignment QC",
+  "summary": "positional read count and metrics of bam file + QC from alignment stats",
+  "dxapi": "1.0.0",
+  "version": "0.0.1",
+  "inputSpec": [
+    {
+      "name": "Aligned_BAM",
+      "label": "Aligned BAM from STARalign step (aligned.bam)",
+      "class": "file",
+      "optional": false,
+      "help": ""
+    },
+    {
+      "name": "Align_Stats",
+      "label": "Alignment Statistics",
+      "class": "file",
+      "optional": false,
+      "help": ""
+    },
+    {
+      "name": "reference",
+      "label": "Reference Files (tar.gz)",
+      "class": "file",
+      "optional": false,
+      "help": ""
+    },
+    {
+      "name": "pair_id",
+      "label": "ReadGroup/SampleName",
+      "class": "string",
+      "optional": false,
+      "help": ""
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "bamreadct",
+      "label": "bam-readcount output file",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "fastqczip",
+      "label": "FastQC output file (zip)",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "fastqchtml",
+      "label": "FastQC output file (html)",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "seqstats",
+      "label": "Sequence Statistics output file",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    }
+  ],
+  "runSpec": {
+    "timeoutPolicy": {
+      "*": {
+        "hours": 24
+      }
+    },
+    "interpreter": "bash",
+    "release": "16.04",
+    "distribution": "Ubuntu",
+    "file": "src/bamct_alignQC.sh"
+  },
+  "access": {
+    "network": [
+      "*"
+    ]
+  },
+  "regionalOptions": {
+    "azure:westus": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "azure:mem1_ssd1_x16"
+        }
+      }
+    }
+  }
+}
