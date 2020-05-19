@@ -1,7 +1,7 @@
 {
-  "name": "geneabund_GATK",
-  "title": "gene abundance and GATK",
-  "summary": "calculates gene counts and fpkm values + create group bam",
+  "name": "geneabund",
+  "title": "gene abundance",
+  "summary": "calculates gene counts and fpkm values",
   "dxapi": "1.0.0",
   "version": "0.0.1",
   "inputSpec": [
@@ -62,24 +62,6 @@
         "*"
       ],
       "help": ""
-    },
-    {
-      "name": "finalbam",
-      "label": "Final Bam File",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "finalindex",
-      "label": "Final Bam Index File",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
     }
   ],
   "runSpec": {
@@ -91,7 +73,7 @@
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/geneabund_GATK.sh"
+    "file": "src/geneabund.sh"
   },
   "access": {
     "network": [

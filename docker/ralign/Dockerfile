@@ -1,5 +1,5 @@
 FROM ubuntu:16.04
-LABEL Author="Erika Villa" \
+LABEL Author="Jeremy Mathews" \
       Maintainer="b.cantarel@gmail.com"
 
 # install additional requirements

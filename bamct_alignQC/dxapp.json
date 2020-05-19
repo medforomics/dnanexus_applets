@@ -32,6 +32,14 @@
       "class": "string",
       "optional": false,
       "help": ""
+    },
+    {
+      "name": "bamct",
+      "label": "0(skip) 1(detect)",
+      "class": "int",
+      "optional": false,
+      "default": 1,
+      "help": ""
     }
   ],
   "outputSpec": [
