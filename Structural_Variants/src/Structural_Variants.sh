@@ -89,7 +89,7 @@ main() {
     elif [[ "${algo}" == "checkmates" ]]
     then
         docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:1.0.0 python /usr/local/bin/ncm.py -B -d ./ -bed dnaref/NGSCheckMate.bed -O ./ -N ${pair_id}
-            docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:1.0.0 perl /usr/local/bin/sequenceqc_somatic.pl -r dnaref -i ${pair_id}_all.txt -o ${pair_id}.sequence.stats.txt
+        docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:1.0.0 perl /usr/local/bin/sequenceqc_somatic.pl -r dnaref -i ${pair_id}_all.txt -o ${pair_id}.sequence.stats.txt
 
         matched=$(dx upload ${pair_id}_matched.txt --brief)
         all=$(dx upload ${pair_id}_all.txt --brief)

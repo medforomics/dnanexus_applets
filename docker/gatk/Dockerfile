@@ -31,7 +31,7 @@ ENV ABRA "/usr/local/bin"
 # Install Scripts
 RUN mkdir -p /project/PHG/PHG_Clinical; \
     cd /project/PHG/PHG_Clinical; \
-    git clone -b version_0.5.6 --single-branch https://github.com/bcantarel/genomeseer.git; \
+    git clone -b version_0.5.7 --single-branch https://github.com/bcantarel/genomeseer.git; \
     cd genomeseer; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/variants/* /usr/local/bin/; \

@@ -68,12 +68,11 @@ RUN cd /opt; wget https://github.com/genome/bam-readcount/archive/v0.8.0.tar.gz;
     mv bin/bam-readcount /usr/local/bin/;
 
 # Install Scripts
-RUN cd /opt; git clone -b version_0.5.6 --single-branch https://github.com/bcantarel/genomeseer.git; \
+RUN cd /opt; git clone -b version_0.5.7 --single-branch https://github.com/bcantarel/genomeseer.git; \
     cd genomeseer; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/alignment/* /usr/local/bin/; \
     cp -r process_scripts/variants/* /usr/local/bin/; \
-    cp -r process_scripts/ /* /usr/local/bin/; \
     cp -r scripts/* /usr/local/bin/;
 
 ENV PATH "$PATH:/usr/local/bin"

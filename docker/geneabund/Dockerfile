@@ -26,7 +26,7 @@ RUN cd /opt; wget http://ccb.jhu.edu/software/stringtie/dl/stringtie-2.1.1.Linux
     cp * /usr/local/bin;
 
 # Install Scripts
-RUN cd /opt; git clone -b version_0.5.6 --single-branch https://github.com/bcantarel/genomeseer.git; \
+RUN cd /opt; git clone -b version_0.5.7 --single-branch https://github.com/bcantarel/genomeseer.git; \
     cd genomeseer; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/genect_rnaseq/* /usr/local/bin/;
