@@ -10,7 +10,7 @@ main() {
 
     tar xvfz dnaref.tar.gz
 
-    USER+$(dx whoami)
+    USER=$(dx whoami)
 
     if [[ ${bamct} == 1 ]]
     then
@@ -19,7 +19,7 @@ main() {
     fi
 
     docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:1.0.0 bash /usr/local/bin/bamqc.sh -p ${pair_id} -b aligned.bam -n rna
-    docker run -v ${PWD}:/data docker.io/goalconsortium/gatk:1.0.0 perl /usr/local/bin/sequenceqc_rnaseq.pl *.flagstat.txt -r dnaref -e /project/PHG/PHG_Clinical/genomeseer -u $USER
+    docker run -v ${PWD}:/data docker.io/goalconsortium/gatk:1.0.0 perl /usr/local/bin/sequenceqc_rnaseq.pl -r dnaref -u $USER *.flagstat.txt
 
     bamreadct=$(dx upload ${pair_id}.bamreadcount.txt --brief)
     fastqczip=$(dx upload ${pair_id}_fastqc.zip --brief)
