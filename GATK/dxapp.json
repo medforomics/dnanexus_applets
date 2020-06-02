@@ -1,13 +1,23 @@
 {
   "name": "GATK",
-  "title": "GATK",
+  "title": "GATK_0.5.9",
   "summary": "GATK",
   "dxapi": "1.0.0",
-  "version": "0.0.1",
+  "version": "0.5.9",
   "inputSpec": [
     {
       "name": "Consensus_BAM",
       "label": "Consensus BAM from alignment step (consensus.bam)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "Consensus_BAI",
+      "label": "Consensus BAI from alignment step (consensus.bam)",
       "class": "file",
       "optional": false,
       "patterns": [

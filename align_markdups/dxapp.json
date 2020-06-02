@@ -1,9 +1,9 @@
 {
   "name": "align_markdups",
-  "title": "Generate BAM: BWA + MarkDuplicates",
+  "title": "Align_Markdups_0.5.9",
   "summary": "This app runs BWA and MarksDuplicates using either: picard, picard_umi or umi_consensus.",
   "dxapi": "1.0.0",
-  "version": "0.0.1",
+  "version": "0.5.9",
   "inputSpec": [
     {
       "name": "fq1",

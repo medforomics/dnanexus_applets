@@ -1,13 +1,23 @@
 {
   "name": "QC_Stats",
-  "title": "QC_Stats",
+  "title": "QC_Stats_0.5.9",
   "summary": "Concat stat txt files from alignment workflow",
   "dxapi": "1.0.0",
-  "version": "0.0.1",
+  "version": "0.5.9",
   "inputSpec": [
     {
-      "name": "Group_BAM",
-      "label": "Group BAM from alignment step (group.bam)",
+      "name": "Raw_BAM",
+      "label": "Raw BAM from alignment step (raw.bam)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "Raw_BAI",
+      "label": "Raw BAI from alignment step (raw.bam.bai)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -46,16 +56,6 @@
       "help": ""
     },
     {
-      "name": "dedupcov",
-      "label": "Deduplicate Coverage Report from QC_BAM step",
-      "class": "file",
-      "optional": false,
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
       "name": "pair_id",
       "label": "ReadGroup/SampleName",
       "class": "string",
@@ -65,53 +65,8 @@
   ],
   "outputSpec": [
     {
-      "name": "alignstats",
+      "name": "flagstats",
       "label": "alignment stats",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "meanmap",
-      "label": "mean mapping stats",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "libcomplex",
-      "label": "libcomplex stats",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "insertsize",
-      "label": "insert size stats",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "alignmentsummarymetrics",
-      "label": "alignment summary metrics",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "genomecov",
-      "label": "genome coverage",
       "class": "file",
       "patterns": [
         "*"
@@ -128,17 +83,17 @@
       "help": ""
     },
     {
-      "name": "lowcapcovstat",
-      "label": "low cap coverage",
+      "name": "genomecov",
+      "label": "genome coverage",
       "class": "file",
       "patterns": [
         "*"
       ],
       "help": ""
     },
-    {
-      "name": "exoncapcovstat",
-      "label": "exon cap coverage",
+    { 
+      "name": "otflagstats",
+      "label": "on target alignment stats",
       "class": "file",
       "patterns": [
         "*"

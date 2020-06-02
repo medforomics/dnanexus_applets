@@ -1,13 +1,23 @@
 {
   "name": "CNV_ITDSeek",
-  "title": "CNV + ITDSeek",
+  "title": "CNV_ITDSeek_0.5.9",
   "summary": "Variant Calling for Alignment Workflow",
   "dxapi": "1.0.0",
-  "version": "0.0.1",
+  "version": "0.5.9",
   "inputSpec": [
     {
       "name": "Raw_BAM",
       "label": "Raw BAM from alignment step (.bam)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "Raw_BAI",
+      "label": "Raw BAI from alignment step (.bam.bai)",
       "class": "file",
       "optional": false,
       "patterns": [
