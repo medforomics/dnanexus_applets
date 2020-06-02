@@ -49,14 +49,6 @@
       "optional": false,
       "default": "fgbio_umi",
       "help": ""
-    },
-    {
-      "name": "aligner",
-      "label": "Aligner to be used",
-      "class": "string",
-      "optional": false,
-      "default": "bwa",
-      "help": ""
     }
   ],
   "outputSpec": [
