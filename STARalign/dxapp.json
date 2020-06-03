@@ -1,9 +1,9 @@
 {
   "name": "STARalign",
-  "title": "STAR-Fusion + ralign",
+  "title": "STAR-Fusion + ralign 0.5.9",
   "summary": "STAR-Fusion and rna sequence alignment",
   "dxapi": "1.0.0",
-  "version": "0.0.1",
+  "version": "0.5.9",
   "inputSpec": [
     {
       "name": "fq1",

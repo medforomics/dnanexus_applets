@@ -1,9 +1,9 @@
 {
   "name": "bamct_alignQC",
-  "title": "bam-readcount + Alignment QC",
+  "title": "bam-readcount + Alignment QC 0.5.9",
   "summary": "positional read count and metrics of bam file + QC from alignment stats",
   "dxapi": "1.0.0",
-  "version": "0.0.1",
+  "version": "0.5.9",
   "inputSpec": [
     {
       "name": "Aligned_BAM",
@@ -47,6 +47,7 @@
       "name": "bamreadct",
       "label": "bam-readcount output file",
       "class": "file",
+      "optional": true,
       "patterns": [
         "*"
       ],
