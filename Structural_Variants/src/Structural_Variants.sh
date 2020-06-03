@@ -20,15 +20,15 @@ main() {
         dx download "$Normal_BAM" -o ${pair_id}.normal.bam
     fi
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.0 bash /usr/local/bin/indexbams.sh
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.9 bash /usr/local/bin/indexbams.sh
 
     if [[ "${algo}" == "msisensor" ]]
     then
         if [[ -z "$Normal_BAM" ]]
         then
-            docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:1.0.0 bash /usr/local/bin/msisensor.sh -r dnaref -p ${pair_id} -b ${pair_id}.tumor.bam -c targetpanel.bed
+            docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.9 bash /usr/local/bin/msisensor.sh -r dnaref -p ${pair_id} -b ${pair_id}.tumor.bam -c targetpanel.bed
         else
-            docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:1.0.0 bash /usr/local/bin/msisensor.sh -r dnaref -p ${pair_id} -b ${pair_id}.tumor.bam -n ${pair_id}.normal.bam -c targetpanel.bed
+            docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.9 bash /usr/local/bin/msisensor.sh -r dnaref -p ${pair_id} -b ${pair_id}.tumor.bam -n ${pair_id}.normal.bam -c targetpanel.bed
         fi
 
         msiout=$(dx upload ${pair_id}.msi --brief)
@@ -39,9 +39,9 @@ main() {
     then
         if [[ -z "$Normal_BAM" ]]
         then
-            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.0 bash /usr/local/bin/svcalling.sh -r dnaref -b ${pair_id}.tumor.bam -p ${pair_id} -l dnaref/itd_genes.bed -a ${algo} -f
+            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.9 bash /usr/local/bin/svcalling.sh -r dnaref -b ${pair_id}.tumor.bam -p ${pair_id} -l dnaref/itd_genes.bed -a ${algo} -f
         else
-             docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.0 bash /usr/local/bin/svcalling.sh -r dnaref -p ${pair_id} -l dnaref/itd_genes.bed -a ${algo} -f
+             docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.9 bash /usr/local/bin/svcalling.sh -r dnaref -p ${pair_id} -l dnaref/itd_genes.bed -a ${algo} -f
         fi
 
         vcf=$(dx upload ${pair_id}.${algo}.vcf.gz --brief)
@@ -54,8 +54,8 @@ main() {
 
     elif [[ "${algo}" == "checkmates" ]]
     then
-        docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:1.0.0 python /usr/local/bin/ncm.py -B -d ./ -bed dnaref/NGSCheckMate.bed -O ./ -N ${pair_id}
-        docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:1.0.0 perl /usr/local/bin/sequenceqc_somatic.pl -r dnaref -i ${pair_id}_all.txt -o ${pair_id}.sequence.stats.txt
+        docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.9 python /usr/local/bin/ncm.py -B -d ./ -bed dnaref/NGSCheckMate.bed -O ./ -N ${pair_id}
+        docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.9 perl /usr/local/bin/sequenceqc_somatic.pl -r dnaref -i ${pair_id}_all.txt -o ${pair_id}.sequence.stats.txt
 
         matched=$(dx upload ${pair_id}_matched.txt --brief)
         all=$(dx upload ${pair_id}_all.txt --brief)
@@ -69,14 +69,14 @@ main() {
     then
         if [[ -z "$Normal_BAM" ]]
         then
-            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.0 bash /usr/local/bin/svcalling.sh -r dnaref -b ${pair_id}.tumor.bam -p ${pair_id} -a ${algo} -f
+            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.9 bash /usr/local/bin/svcalling.sh -r dnaref -b ${pair_id}.tumor.bam -p ${pair_id} -a ${algo} -f
 
             svvcf=$(dx upload ${pair_id}.${algo}.sv.vcf.gz --brief)
 
             dx-jobutil-add-output svvcf "$svvcf" --class=file
 
         else
-            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.0 bash /usr/local/bin/svcalling.sh -r dnaref -x 'tumor' -y 'normal' -b ${pair_id}.tumor.bam -n ${pair_id}.normal.bam -p ${pair_id} -a ${algo} -f
+            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.9 bash /usr/local/bin/svcalling.sh -r dnaref -x 'tumor' -y 'normal' -b ${pair_id}.tumor.bam -n ${pair_id}.normal.bam -p ${pair_id} -a ${algo} -f
         fi
 
         vcf=$(dx upload ${pair_id}.${algo}.vcf.gz --brief)
@@ -89,14 +89,14 @@ main() {
     then
         if [[ -z "$Normal_BAM" ]]
         then
-            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.0 bash /usr/local/bin/svcalling.sh -r dnaref -b ${pair_id}.tumor.bam -p ${pair_id} -a ${algo} -f
+            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.9 bash /usr/local/bin/svcalling.sh -r dnaref -b ${pair_id}.tumor.bam -p ${pair_id} -a ${algo} -f
 
             svvcf=$(dx upload ${pair_id}.${algo}.sv.vcf.gz --brief)
 
             dx-jobutil-add-output svvcf "$svvcf" --class=file
 
         else
-            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.0 bash /usr/local/bin/svcalling.sh -r dnaref -x 'tumor' -y 'normal' -b ${pair_id}.tumor.bam -n ${pair_id}.normal.bam -p ${pair_id} -a ${algo} -f
+            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.9 bash /usr/local/bin/svcalling.sh -r dnaref -x 'tumor' -y 'normal' -b ${pair_id}.tumor.bam -n ${pair_id}.normal.bam -p ${pair_id} -a ${algo} -f
         fi
 
         vcf=$(dx upload ${pair_id}.${algo}.vcf.gz --brief)

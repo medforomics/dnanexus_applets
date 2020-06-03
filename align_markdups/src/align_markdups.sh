@@ -12,12 +12,12 @@ main() {
 
     if [[ ${mdup} == 'fgbio_umi' ]]
     then
-        docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:1.0.0 bash /usr/local/bin/dnaseqalign.sh -r dnaref -p ${pair_id} -x ${pair_id}.trim.R1.fastq.gz -y ${pair_id}.trim.R2.fastq.gz -u
+        docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:0.5.9 bash /usr/local/bin/dnaseqalign.sh -r dnaref -p ${pair_id} -x ${pair_id}.trim.R1.fastq.gz -y ${pair_id}.trim.R2.fastq.gz -u
     else
-        docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:1.0.0 bash /usr/local/bin/dnaseqalign.sh -r dnaref -p ${pair_id} -x ${pair_id}.trim.R1.fastq.gz -y ${pair_id}.trim.R2.fastq.gz
+        docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:0.5.9 bash /usr/local/bin/dnaseqalign.sh -r dnaref -p ${pair_id} -x ${pair_id}.trim.R1.fastq.gz -y ${pair_id}.trim.R2.fastq.gz
     fi
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:1.0.0 bash /usr/local/bin/virusalign.sh -b ${pair_id}.bam -p ${pair_id} -r dnaref -f
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:1.0.0 bash /usr/local/bin/markdups.sh -a ${mdup} -b ${pair_id}.bam -p ${pair_id} -r dnaref
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:0.5.9 bash /usr/local/bin/virusalign.sh -b ${pair_id}.bam -p ${pair_id} -r dnaref -f
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:0.5.9 bash /usr/local/bin/markdups.sh -a ${mdup} -b ${pair_id}.bam -p ${pair_id} -r dnaref
     mv ${pair_id}.dedup.bam ${pair_id}.consensus.bam
     mv ${pair_id}.dedup.bam.bai ${pair_id}.consensus.bam.bai
 

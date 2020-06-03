@@ -10,7 +10,7 @@ main() {
 
     tar xvfz dnaref.tar.gz
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/gatk:1.0.0 bash /usr/local/bin/gatkrunner.sh -a gatkbam -b ${pair_id}.consensus.bam -r dnaref -p ${pair_id}
+    docker run -v ${PWD}:/data docker.io/goalconsortium/gatk:0.5.9 bash /usr/local/bin/gatkrunner.sh -a gatkbam -b ${pair_id}.consensus.bam -r dnaref -p ${pair_id}
 
     finalbam=$(dx upload ${pair_id}.final.bam --brief)
     finalindex=$(dx upload ${pair_id}.final.bam.bai --brief)

@@ -15,8 +15,8 @@ main() {
 
     USER=$(dx whoami)
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:1.0.0 bash /usr/local/bin/bamqc.sh -c targetpanel.bed -n dna -r dnaref -b ${pair_id}.bam -p ${pair_id}
-    docker run -v ${PWD}:/data docker.io/goalconsortium/gatk:1.0.0 perl /usr/local/bin/sequenceqc_alignment_withumi.pl -r dnaref -u $USER *.genomecov.txt
+    docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.9 bash /usr/local/bin/bamqc.sh -c targetpanel.bed -n dna -r dnaref -b ${pair_id}.bam -p ${pair_id}
+    docker run -v ${PWD}:/data docker.io/goalconsortium/gatk:0.5.9 perl /usr/local/bin/sequenceqc_alignment_withumi.pl -r dnaref -u $USER *.genomecov.txt
 
     flagstats=$(dx upload ${pair_id}.flagstat.txt --brief)
     covhist=$(dx upload ${pair_id}.covhist.txt --brief)

@@ -1,9 +1,9 @@
 {
   "name": "Union_VCF",
-  "title": "Union VCF",
+  "title": "Union VCF 0.5.9",
   "summary": "Combine VCF Outputs",
   "dxapi": "1.0.0",
-  "version": "0.0.1",
+  "version": "0.5.9",
   "inputSpec": [
     {
       "name": "fb_vcf",
