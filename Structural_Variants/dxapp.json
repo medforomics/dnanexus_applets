@@ -1,9 +1,9 @@
 {
   "name": "Structural_Variants",
-  "title": "Structural Variants Applet",
+  "title": "Structural Variants Applet 0.5.9",
   "summary": "This applet contains variant calling methods for tumor only and somatic workflows. Including pindel, delly, svaba, msisensor-pro, NGSCheckMates",
   "dxapi": "1.0.0",
-  "version": "0.0.1",
+  "version": "0.5.9",
   "inputSpec": [
    {
       "name": "Tumor_BAM",
@@ -54,7 +54,7 @@
     },
     {
       "name": "algo",
-      "label": "Variant Calling Algorithm (pindel, delly, svaba, msisensor, checkmates)",
+      "label": "Variant Calling Algorithm (msisensor, pindel, delly, svaba, checkmates)",
       "class": "string",
       "optional": false,
       "help": ""
@@ -62,8 +62,8 @@
   ],
   "outputSpec": [
     {
-      "name": "vcf",
-      "label": "VCF File Output",
+      "name": "msiout",
+      "label": "MSIsensor-pro File Output",
       "class": "file",
       "optional": true,
       "patterns": [
@@ -72,8 +72,8 @@
       "help": ""
     },
     {
-      "name": "svvcf",
-      "label": "Structural Variant VCF File Output",
+      "name": "vcf",
+      "label": "VCF File Output",
       "class": "file",
       "optional": true,
       "patterns": [
@@ -102,6 +102,16 @@
       "help": ""
     },
     {
+      "name": "svvcf",
+      "label": "Structural Variant VCF File Output",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
       "name": "matched",
       "label": "Checkmates Matched File Output",
       "class": "file",
@@ -122,8 +132,8 @@
       "help": ""
     },
     {
-      "name": "msi",
-      "label": "MSIsensor-pro File Output",
+      "name": "seqstats",
+      "label": "Somatic Sequence Statistics",
       "class": "file",
       "optional": true,
       "patterns": [
