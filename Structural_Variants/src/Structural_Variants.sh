@@ -33,7 +33,7 @@ main() {
 
         msiout=$(dx upload ${pair_id}.msi --brief)
 
-        dx-jobutil-add-output msi "$msiout" --class=file
+        dx-jobutil-add-output msiout "$msiout" --class=file
 
     elif [[ "${algo}" == "pindel" ]]
     then
@@ -70,11 +70,6 @@ main() {
         if [[ -z "$Normal_BAM" ]]
         then
             docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.9 bash /usr/local/bin/svcalling.sh -r dnaref -b ${pair_id}.tumor.bam -p ${pair_id} -a ${algo} -f
-
-            svvcf=$(dx upload ${pair_id}.${algo}.sv.vcf.gz --brief)
-
-            dx-jobutil-add-output svvcf "$svvcf" --class=file
-
         else
             docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.9 bash /usr/local/bin/svcalling.sh -r dnaref -x 'tumor' -y 'normal' -b ${pair_id}.tumor.bam -n ${pair_id}.normal.bam -p ${pair_id} -a ${algo} -f
         fi

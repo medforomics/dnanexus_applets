@@ -18,7 +18,7 @@ main() {
         dx download "$shimmer_vcf" -o ${pair_id}.shimmer.vcf.gz
     fi
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.9 /usr/local/bin/union.sh -r dnaref -p ${pair_id}
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.9 bash /usr/local/bin/union.sh -r dnaref -p ${pair_id}
 
     union_vcf=$(dx upload ${pair_id}.union.vcf.gz --brief)
 

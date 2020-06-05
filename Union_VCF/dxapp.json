@@ -26,7 +26,7 @@
       "help": ""
     },
     {
-      "name": "strelka_vcf",
+      "name": "strelka2_vcf",
       "label": "Strelka2 VCF",
       "class": "file",
       "optional": false,
