@@ -16,7 +16,7 @@ main() {
         mkdir -p panel
         tar xvfz panel.tar.gz -C panel/
 
-        docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.9 bash /usr/local/bin/cnvkit.sh -r dnaref -b ${pair_id}.bam -p ${pair_id} -d panel
+        docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.9 bash /usr/local/bin/cnvkit.sh -r dnaref -b ${pair_id}.bam -p ${pair_id} -d panel
 
         tar -czvf ${pair_id}.cnvansplot.tar.gz ${pair_id}.answerplot*
         tar -czvf ${pair_id}.cnvtxt.tar.gz ${pair_id}.*txt
@@ -36,7 +36,7 @@ main() {
         dx-jobutil-add-output cnvpdf "$cnvpdf" --class=file
     fi
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.9 bash /usr/local/bin/svcalling.sh -b ${pair_id}.bam -r dnaref -p ${pair_id} -l dnaref/itd_genes.bed -a itdseek -f
+    docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.9 bash /usr/local/bin/svcalling.sh -b ${pair_id}.bam -r dnaref -p ${pair_id} -l dnaref/itd_genes.bed -a itdseek -f
 
     itdseekvcf=$(dx upload ${pair_id}.itdseek_tandemdup.vcf.gz --brief)
 

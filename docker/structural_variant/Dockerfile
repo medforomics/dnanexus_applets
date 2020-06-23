@@ -63,28 +63,6 @@ RUN cp -R /opt/bin/* /usr/local/bin/; \
     chmod +x /usr/local/bin/snpEff/SnpSift.jar
 ENV SNPEFF_HOME "/usr/local/bin/snpEff"
 
-# Install CNVkit
-RUN apt-get install -y r-base;
-RUN cd /opt; wget https://cran.r-project.org/src/base/R-3/R-3.3.2.tar.gz; \
-    tar xvfz R-3.3.2.tar.gz; rm R-3.3.2.tar.gz; \
-    cd R-3.3.2; \
-    ./configure --with-x=yes --enable-R-shlib=yes --with-cairo=yes; \
-    make; make install;
-RUN R -e "install.packages('BiocManager', repos='https://cran.rstudio.com')";
-RUN R -e "BiocManager::install('DNAcopy')"
-RUN cd /opt/bin; wget https://github.com/etal/cnvkit/archive/v0.9.6.tar.gz; \
-    tar xvfz v0.9.6.tar.gz; rm v0.9.6.tar.gz;
-RUN python -m pip install numpy scipy pandas matplotlib reportlab biopython pyfaidx pysam future pyvcf; \
-    python -m pip install networkx joblib cython pomegranate;
-RUN cd /opt/bin/cnvkit-0.9.6; \
-    cp -R * /usr/local/bin/;
-
-# Install ITDSeek
-RUN cd /opt/bin; wget https://github.com/tommyau/itdseek/archive/v1.2.tar.gz; \
-    tar xvfz v1.2.tar.gz; rm v1.2.tar.gz; \
-    cd itdseek-1.2; \
-    cp *.pl /usr/local/bin/;
-
 # Install Pindel
 RUN cd /opt/bin; wget http://github.com/genome/pindel/archive/v0.2.5b8.tar.gz; \
     tar xvfz v0.2.5b8.tar.gz; rm v0.2.5b8.tar.gz; \

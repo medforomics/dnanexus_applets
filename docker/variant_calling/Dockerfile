@@ -13,9 +13,9 @@ RUN mkdir -p /opt/bin;
 #ENV https_proxy http://proxy.swmed.edu:3128/
 
 # Install Python
-RUN cd /usr/src; wget https://www.python.org/ftp/python/2.7.17/Python-2.7.17.tgz; \
-    tar -zxvf Python-2.7.17.tgz; rm Python-2.7.17.tgz; \
-    cd Python-2.7.17; \
+RUN cd /usr/src; wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz; \
+    tar -zxvf Python-2.7.18.tgz; rm Python-2.7.18.tgz; \
+    cd Python-2.7.18; \
     ./configure --enable-optimizations; \
     make altinstall;
 RUN cd /usr/src; wget https://bootstrap.pypa.io/get-pip.py; \
