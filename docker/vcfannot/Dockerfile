@@ -103,6 +103,7 @@ RUN cd /opt/bin; wget https://github.com/parklab/NGSCheckMate/archive/v1.0.0.tar
     cd NGSCheckMate-1.0.0; \
     rm README.md LICENSE Documentation.pdf test_datafiles.txt; \
     mv * /usr/local/bin/;
+ENV NCM_HOME="/usr/local/bin"
 
 # Install MSIsensor-pro
 RUN cd /opt/bin; git clone --branch 1.0.a https://github.com/xjtu-omics/msisensor-pro; \
@@ -118,7 +119,9 @@ RUN cd /opt; wget https://github.com/genome/bam-readcount/archive/v0.8.0.tar.gz;
     mv bin/bam-readcount /usr/local/bin/;
 
 # Install Scripts
-RUN cd /opt; git clone -b version_0.5.9 --single-branch https://github.com/bcantarel/genomeseer.git; \
+RUN mkdir -p /project/PHG/PHG_Clinical; \
+    cd /project/PHG/PHG_Clinical; \
+    git clone -b version_0.5.9 --single-branch https://github.com/bcantarel/genomeseer.git; \
     cd genomeseer; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/alignment/* /usr/local/bin/; \

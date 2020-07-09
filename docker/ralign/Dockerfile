@@ -4,7 +4,7 @@ LABEL Author="Jeremy Mathews" \
 
 # install additional requirements
 RUN apt-get update; apt-get install -y build-essential checkinstall; \
-    apt-get install -y libreadline-gplv2-dev cmake patch libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev liblzma-dev libcurl4-gnutls-dev libncurses5-dev wget unzip git default-jre default-jdk;
+    apt-get install -y libreadline-gplv2-dev cmake patch libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev liblzma-dev libcurl4-gnutls-dev libncurses5-dev wget unzip git default-jre default-jdk libtbb-dev;
 
 
 # Make destination and work directory
@@ -64,8 +64,32 @@ RUN cd /opt; wget https://github.com/STAR-Fusion/STAR-Fusion/releases/download/S
     cd STAR-Fusion-v1.8.1; \
     cp -r * /usr/local/bin;
 
+# Install Trinity
+RUN cd /opt; wget https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.4.1/bowtie2-2.4.1-source.zip; \
+    unzip bowtie2-2.4.1-source.zip; rm bowtie2-2.4.1-source.zip; \
+    cd bowtie2-2.4.1; \
+    make; \
+    cp -r bowtie2* /usr/local/bin;
+RUN cd /opt; wget https://github.com/gmarcais/Jellyfish/releases/download/v2.3.0/jellyfish-2.3.0.tar.gz; \
+    tar xvfz jellyfish-2.3.0.tar.gz; rm jellyfish-2.3.0.tar.gz; \
+    cd jellyfish-2.3.0; \
+    ./configure --prefix=/usr/local/bin; \
+    make -j 4; make install;
+RUN cd /opt; wget https://github.com/COMBINE-lab/salmon/releases/download/v1.2.1/salmon-1.2.1_linux_x86_64.tar.gz; \
+    tar xvfz salmon-1.2.1_linux_x86_64.tar.gz; rm salmon-1.2.1_linux_x86_64.tar.gz; \
+    cd salmon-latest_linux_x86_64/bin; \
+    cp * /usr/local/bin;
+RUN cd /opt; wget https://github.com/trinityrnaseq/trinityrnaseq/releases/download/v2.11.0/trinityrnaseq-v2.11.0.FULL.tar.gz; \
+    tar xvfz trinityrnaseq-v2.11.0.FULL.tar.gz; rm trinityrnaseq-v2.11.0.FULL.tar.gz; \
+    cd trinityrnaseq-v2.11.0; \
+    make; \
+    mv Trinity trinity; \
+    cp -r * /usr/local/bin;
+
 # Install Scripts
-RUN cd /opt; git clone -b version_0.5.9 --single-branch https://github.com/bcantarel/genomeseer.git; \
+RUN mkdir -p /project/PHG/PHG_Clinical; \
+    cd /project/PHG/PHG_Clinical; \
+    git clone -b version_0.5.9 --single-branch https://github.com/bcantarel/genomeseer.git; \
     cd genomeseer; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/alignment/* /usr/local/bin/;

@@ -52,7 +52,9 @@ RUN echo '#!/bin/bash' > /usr/local/bin/fgbio; \
     chmod +x /usr/local/bin/fgbio;
 
 # Install Scripts
-RUN cd /opt; git clone -b version_0.5.9 --single-branch https://github.com/bcantarel/genomeseer.git; \
+RUN mkdir -p /project/PHG/PHG_Clinical; \
+    cd /project/PHG/PHG_Clinical; \
+    git clone -b version_0.5.9 --single-branch https://github.com/bcantarel/genomeseer.git; \
     cd genomeseer; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/alignment/* /usr/local/bin/;
