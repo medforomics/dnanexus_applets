@@ -26,9 +26,9 @@ RUN cd /opt; wget http://ccb.jhu.edu/software/stringtie/dl/stringtie-2.1.1.Linux
     cp * /usr/local/bin;
 
 # Install Scripts
-RUN mkdir -p /project/PHG/PHG_Clinical; \
-    cd /project/PHG/PHG_Clinical; \
-    git clone -b version_0.5.9 --single-branch https://github.com/bcantarel/genomeseer.git; \
+RUN mkdir -p /seqprg; \
+    cd /seqprg; \
+    git clone -b version_0.5.19 --single-branch --recursive https://github.com/bcantarel/genomeseer.git; \
     cd genomeseer; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/genect_rnaseq/* /usr/local/bin/;
@@ -36,3 +36,4 @@ RUN mkdir -p /project/PHG/PHG_Clinical; \
 ENV PATH "$PATH:/usr/local/bin"
 
 WORKDIR /data/
+ENTRYPOINT ["bash","/seqprg/genomeseer/process_scripts/genect_rnaseq/geneabundance.sh"]

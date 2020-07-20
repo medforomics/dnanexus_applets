@@ -1,13 +1,13 @@
 {
-  "name": "align_markdups",
-  "title": "Align_Markdups_0.5.19",
-  "summary": "This app runs BWA and MarksDuplicates using either: picard, picard_umi or umi_consensus.",
+  "name": "dna_bamqc",
+  "title": "dna_bamqc_0.5.19",
+  "summary": "Concat stat txt files from alignment workflow",
   "dxapi": "1.0.0",
   "version": "0.5.19",
   "inputSpec": [
     {
-      "name": "fq1",
-      "label": "Fastq1",
+      "name": "Raw_BAM",
+      "label": "Raw BAM from alignment step (raw.bam)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -16,8 +16,8 @@
       "help": ""
     },
     {
-      "name": "fq2",
-      "label": "Fastq2",
+      "name": "Raw_BAI",
+      "label": "Raw BAI from alignment step (raw.bam.bai)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -36,25 +36,37 @@
       "help": ""
     },
     {
+      "name": "panel",
+      "label": "Panel Files (tar.gz)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "trimstat",
+      "label": "Trim Statistics Report from trim step",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
       "name": "pair_id",
       "label": "ReadGroup/SampleName",
       "class": "string",
       "optional": false,
       "help": ""
-    },
-    {
-      "name": "mdup",
-      "label": "MarkDup Method",
-      "class": "string",
-      "optional": false,
-      "default": "fgbio_umi",
-      "help": ""
     }
   ],
   "outputSpec": [
     {
-      "name": "rawbam",
-      "label": "Raw Bam",
+      "name": "flagstats",
+      "label": "alignment stats",
       "class": "file",
       "patterns": [
         "*"
@@ -62,8 +74,8 @@
       "help": ""
     },
     {
-      "name": "conbam",
-      "label": "Consensus Bam",
+      "name": "covhist",
+      "label": "coverage hist stats",
       "class": "file",
       "patterns": [
         "*"
@@ -71,8 +83,17 @@
       "help": ""
     },
     {
-      "name": "rawbai",
-      "label": "Raw BAM index",
+      "name": "genomecov",
+      "label": "genome coverage",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    { 
+      "name": "otflagstats",
+      "label": "on target alignment stats",
       "class": "file",
       "patterns": [
         "*"
@@ -80,8 +101,8 @@
       "help": ""
     },
     {
-      "name": "conbai",
-      "label": "Consensus BAM index",
+      "name": "mapqualcov",
+      "label": "mapping quality coverage",
       "class": "file",
       "patterns": [
         "*"
@@ -89,8 +110,8 @@
       "help": ""
     },
     {
-      "name": "vseqstat",
-      "label": "Virus Sequence Stats",
+      "name": "seqstats",
+      "label": "concatenated sequence stats",
       "class": "file",
       "patterns": [
         "*"
@@ -99,7 +120,7 @@
     }
   ],
   "runSpec": {
-      "timeoutPolicy": {
+    "timeoutPolicy": {
       "*": {
         "hours": 24
       }
@@ -107,7 +128,7 @@
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/align_markdups.sh"
+    "file": "src/dna_bamqc.sh"
   },
   "access": {
     "network": [

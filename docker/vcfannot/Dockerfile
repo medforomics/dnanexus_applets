@@ -119,15 +119,15 @@ RUN cd /opt; wget https://github.com/genome/bam-readcount/archive/v0.8.0.tar.gz;
     mv bin/bam-readcount /usr/local/bin/;
 
 # Install Scripts
-RUN mkdir -p /project/PHG/PHG_Clinical; \
-    cd /project/PHG/PHG_Clinical; \
-    git clone -b version_0.5.9 --single-branch https://github.com/bcantarel/genomeseer.git; \
+RUN mkdir -p /seqprg; \
+    cd /seqprg; \
+    git clone -b version_0.5.19 --single-branch --recursive https://github.com/bcantarel/genomeseer.git; \
     cd genomeseer; \
-    git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/alignment/* /usr/local/bin/; \
     cp -r process_scripts/variants/* /usr/local/bin/; \
     cp -r scripts/* /usr/local/bin/;
 
 ENV PATH "$PATH:/usr/local/bin"
+ENV gitv "version_0.5.19"
 
 WORKDIR /data/

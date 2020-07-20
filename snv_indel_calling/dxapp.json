@@ -1,15 +1,28 @@
 {
-  "name": "geneabund",
-  "title": "gene abundance 0.5.19",
-  "summary": "calculates gene counts and fpkm values",
+  "name": "snv_indel_calling",
+  "title": "Variant Calling Applet 0.5.19",
+  "summary": "This applet contains variant calling methods for tumor only and somatic workflows. Including Platypus, Freebayes, Strelka2, Mutect2, and Shimmer",
   "dxapi": "1.0.0",
   "version": "0.5.19",
   "inputSpec": [
     {
-      "name": "Aligned_BAM",
-      "label": "Aligned BAM from STARalign step (aligned.bam)",
+      "name": "Tumor_BAM",
+      "label": "Tumor BAM (.bam)",
       "class": "file",
       "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "Normal_BAM",
+      "label": "Normal BAM (.bam)",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*"
+      ],
       "help": ""
     },
     {
@@ -17,6 +30,19 @@
       "label": "Reference Files (tar.gz)",
       "class": "file",
       "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "panel",
+      "label": "Panel Files (tar.gz)",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*"
+      ],
       "help": ""
     },
     {
@@ -27,25 +53,17 @@
       "help": ""
     },
     {
-      "name": "glist",
-      "label": "Panel Gene List",
-      "class": "file",
-      "optional": true,
-      "help": ""
-    },
-    {
-      "name": "stranded",
-      "label": "0(unstranded) 1(stranded) 2(reversely stranded)",
-      "class": "int",
+      "name": "algo",
+      "label": "Variant Calling Algorithm (fb, mutect, platypus, strelka2, shimmer)",
+      "class": "string",
       "optional": false,
-      "default": 0,
       "help": ""
     }
   ],
   "outputSpec": [
     {
-      "name": "counts",
-      "label": "featureCounts output file",
+      "name": "vcf",
+      "label": "VCF File Output",
       "class": "file",
       "patterns": [
         "*"
@@ -53,17 +71,8 @@
       "help": ""
     },
     {
-      "name": "strcts",
-      "label": "Strcts output file",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "fpkm",
-      "label": "stringtie fpkm output file",
+      "name": "ori",
+      "label": "Original VCF File Output",
       "class": "file",
       "patterns": [
         "*"
@@ -74,13 +83,13 @@
   "runSpec": {
     "timeoutPolicy": {
       "*": {
-        "hours": 24
+        "hours": 48
       }
     },
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/geneabund.sh"
+    "file": "src/snv_indel_calling.sh"
   },
   "access": {
     "network": [

@@ -19,25 +19,15 @@ RUN cd /opt; wget https://github.com/samtools/samtools/releases/download/1.10/sa
     ./configure; make; make install; \
     cp samtools /opt/bin;
 
-# Install Picard + ABRA2
-RUN cd /opt/bin; wget https://github.com/broadinstitute/picard/releases/download/2.21.7/picard.jar; \
-    cd /opt/bin; wget https://github.com/mozack/abra2/releases/download/v2.18/abra2-2.18.jar; \
-    cp -R /opt/bin/* /usr/local/bin/; \
-    chmod +x /usr/local/bin/picard.jar; \
-    chmod +x /usr/local/bin/abra2-2.18.jar;
-ENV PICARD "/usr/local/bin"
-ENV ABRA "/usr/local/bin"
-
 # Install Scripts
-RUN mkdir -p /project/PHG/PHG_Clinical; \
-    cd /project/PHG/PHG_Clinical; \
-    git clone -b version_0.5.9 --single-branch https://github.com/bcantarel/genomeseer.git; \
+RUN mkdir -p /seqprg; \
+    cd /seqprg; \
+    git clone -b version_0.5.19 --single-branch --recursive https://github.com/bcantarel/genomeseer.git; \
     cd genomeseer; \
-    git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/variants/* /usr/local/bin/; \
     cp -r scripts/* /usr/local/bin/;
 
-ENV gitv "version_0.5.9"
+ENV gitv "version_0.5.19"
 
 ENV PATH "$PATH:/usr/local/bin"
 

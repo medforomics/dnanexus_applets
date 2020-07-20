@@ -1,15 +1,28 @@
 {
-  "name": "geneabund",
-  "title": "gene abundance 0.5.19",
-  "summary": "calculates gene counts and fpkm values",
+  "name": "gatkbam",
+  "title": "gatkbam_0.5.19",
+  "summary": "gatkbam",
   "dxapi": "1.0.0",
   "version": "0.5.19",
   "inputSpec": [
     {
-      "name": "Aligned_BAM",
-      "label": "Aligned BAM from STARalign step (aligned.bam)",
+      "name": "Consensus_BAM",
+      "label": "Consensus BAM from alignment step (consensus.bam)",
       "class": "file",
       "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "Consensus_BAI",
+      "label": "Consensus BAI from alignment step (consensus.bam)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
       "help": ""
     },
     {
@@ -17,6 +30,9 @@
       "label": "Reference Files (tar.gz)",
       "class": "file",
       "optional": false,
+      "patterns": [
+        "*"
+      ],
       "help": ""
     },
     {
@@ -25,27 +41,12 @@
       "class": "string",
       "optional": false,
       "help": ""
-    },
-    {
-      "name": "glist",
-      "label": "Panel Gene List",
-      "class": "file",
-      "optional": true,
-      "help": ""
-    },
-    {
-      "name": "stranded",
-      "label": "0(unstranded) 1(stranded) 2(reversely stranded)",
-      "class": "int",
-      "optional": false,
-      "default": 0,
-      "help": ""
     }
   ],
   "outputSpec": [
     {
-      "name": "counts",
-      "label": "featureCounts output file",
+      "name": "finalbam",
+      "label": "BAM after gatkbam",
       "class": "file",
       "patterns": [
         "*"
@@ -53,17 +54,8 @@
       "help": ""
     },
     {
-      "name": "strcts",
-      "label": "Strcts output file",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "fpkm",
-      "label": "stringtie fpkm output file",
+      "name": "finalindex",
+      "label": "BAM Index after gatkbam",
       "class": "file",
       "patterns": [
         "*"
@@ -80,7 +72,7 @@
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/geneabund.sh"
+    "file": "src/gatkbam.sh"
   },
   "access": {
     "network": [

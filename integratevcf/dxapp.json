@@ -1,13 +1,13 @@
 {
-  "name": "align_markdups",
-  "title": "Align_Markdups_0.5.19",
-  "summary": "This app runs BWA and MarksDuplicates using either: picard, picard_umi or umi_consensus.",
+  "name": "integratevcf",
+  "title": "Union VCF 0.5.19",
+  "summary": "Combine VCF Outputs",
   "dxapi": "1.0.0",
   "version": "0.5.19",
   "inputSpec": [
     {
-      "name": "fq1",
-      "label": "Fastq1",
+      "name": "fb_vcf",
+      "label": "Freebayes VCF",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -16,10 +16,50 @@
       "help": ""
     },
     {
-      "name": "fq2",
-      "label": "Fastq2",
+      "name": "platypus_vcf",
+      "label": "Platypus VCF",
       "class": "file",
       "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "strelka2_vcf",
+      "label": "Strelka2 VCF",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "mutect_vcf",
+      "label": "Mutect2 VCF",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "pindel_vcf",
+      "label": "Pindel VCF",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "shimmer_vcf",
+      "label": "Shimmer VCF",
+      "class": "file",
+      "optional": true,
       "patterns": [
         "*"
       ],
@@ -41,56 +81,12 @@
       "class": "string",
       "optional": false,
       "help": ""
-    },
-    {
-      "name": "mdup",
-      "label": "MarkDup Method",
-      "class": "string",
-      "optional": false,
-      "default": "fgbio_umi",
-      "help": ""
     }
   ],
   "outputSpec": [
     {
-      "name": "rawbam",
-      "label": "Raw Bam",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "conbam",
-      "label": "Consensus Bam",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "rawbai",
-      "label": "Raw BAM index",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "conbai",
-      "label": "Consensus BAM index",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "vseqstat",
-      "label": "Virus Sequence Stats",
+      "name": "union_vcf",
+      "label": "Union VCF",
       "class": "file",
       "patterns": [
         "*"
@@ -99,7 +95,7 @@
     }
   ],
   "runSpec": {
-      "timeoutPolicy": {
+    "timeoutPolicy": {
       "*": {
         "hours": 24
       }
@@ -107,7 +103,7 @@
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/align_markdups.sh"
+    "file": "src/integratevcf.sh"
   },
   "access": {
     "network": [

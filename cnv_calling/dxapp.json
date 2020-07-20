@@ -1,13 +1,13 @@
 {
-  "name": "trim_galore",
-  "title": "TrimGalore_0.5.19",
-  "summary": "Trim Galore trims poor quality sequence from reads",
+  "name": "cnv_calling",
+  "title": "cnv_calling_0.5.19",
+  "summary": "Variant Calling for Alignment Workflow",
   "dxapi": "1.0.0",
   "version": "0.5.19",
   "inputSpec": [
     {
-      "name": "fq1",
-      "label": "Fastq R1",
+      "name": "Raw_BAM",
+      "label": "Raw BAM from alignment step (.bam)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -16,8 +16,28 @@
       "help": ""
     },
     {
-      "name": "fq2",
-      "label": "Fastq R2",
+      "name": "Raw_BAI",
+      "label": "Raw BAI from alignment step (.bam.bai)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "reference",
+      "label": "Reference Files (tar.gz)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "panel",
+      "label": "Panel Files (tar.gz)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -27,7 +47,7 @@
     },
     {
       "name": "pair_id",
-      "label": "Output Prefix",
+      "label": "ReadGroup/SampleName",
       "class": "string",
       "optional": false,
       "help": ""
@@ -35,27 +55,9 @@
   ],
   "outputSpec": [
     {
-      "name": "trim1",
-      "label": "Trim Fq R1",
+      "name": "cnvout",
       "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "trim2",
-      "label": "Trim Fq R2",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "trimreport",
-      "label": "Trim Output Report",
-      "class": "file",
+      "optional": true,
       "patterns": [
         "*"
       ],
@@ -65,13 +67,13 @@
   "runSpec": {
     "timeoutPolicy": {
       "*": {
-        "hours": 12
+        "hours": 24
       }
     },
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/trim_galore.sh"
+    "file": "src/cnv_calling.sh"
   },
   "access": {
     "network": [
@@ -82,7 +84,7 @@
     "azure:westus": {
       "systemRequirements": {
         "*": {
-          "instanceType": "azure:mem1_ssd1_x2"
+          "instanceType": "azure:mem1_ssd1_x16"
         }
       }
     }

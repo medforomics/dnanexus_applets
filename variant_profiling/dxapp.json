@@ -1,13 +1,13 @@
 {
-  "name": "align_markdups",
-  "title": "Align_Markdups_0.5.19",
-  "summary": "This app runs BWA and MarksDuplicates using either: picard, picard_umi or umi_consensus.",
+  "name": "variant_profiling",
+  "title": "Variant Profiling Applet 0.5.19",
+  "summary": "This applet contains variant calling methods for tumor only and somatic workflows. Including msisensor-pro, NGSCheckMates",
   "dxapi": "1.0.0",
   "version": "0.5.19",
   "inputSpec": [
-    {
-      "name": "fq1",
-      "label": "Fastq1",
+   {
+      "name": "Tumor_BAM",
+      "label": "Tumor BAM (.bam)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -15,11 +15,11 @@
       ],
       "help": ""
     },
-    {
-      "name": "fq2",
-      "label": "Fastq2",
+   {
+      "name": "Normal_BAM",
+      "label": "Normal BAM (.bam)",
       "class": "file",
-      "optional": false,
+      "optional": true,
       "patterns": [
         "*"
       ],
@@ -36,6 +36,16 @@
       "help": ""
     },
     {
+      "name": "panel",
+      "label": "Panel Files (tar.gz)",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
       "name": "pair_id",
       "label": "ReadGroup/SampleName",
       "class": "string",
@@ -43,55 +53,49 @@
       "help": ""
     },
     {
-      "name": "mdup",
-      "label": "MarkDup Method",
+      "name": "algo",
+      "label": "Variant Calling Algorithm (msisensor, checkmates)",
       "class": "string",
       "optional": false,
-      "default": "fgbio_umi",
       "help": ""
     }
   ],
   "outputSpec": [
     {
-      "name": "rawbam",
-      "label": "Raw Bam",
+      "name": "msiout",
+      "label": "MSIsensor-pro File Output",
       "class": "file",
+      "optional": true,
       "patterns": [
         "*"
       ],
       "help": ""
     },
     {
-      "name": "conbam",
-      "label": "Consensus Bam",
+      "name": "matched",
+      "label": "Checkmates Matched File Output",
       "class": "file",
+      "optional": true,
       "patterns": [
         "*"
       ],
       "help": ""
     },
     {
-      "name": "rawbai",
-      "label": "Raw BAM index",
+      "name": "all",
+      "label": "Checkmates All File Output",
       "class": "file",
+      "optional": true,
       "patterns": [
         "*"
       ],
       "help": ""
     },
     {
-      "name": "conbai",
-      "label": "Consensus BAM index",
+      "name": "seqstats",
+      "label": "Somatic Sequence Statistics",
       "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "vseqstat",
-      "label": "Virus Sequence Stats",
-      "class": "file",
+      "optional": true,
       "patterns": [
         "*"
       ],
@@ -99,15 +103,15 @@
     }
   ],
   "runSpec": {
-      "timeoutPolicy": {
+    "timeoutPolicy": {
       "*": {
-        "hours": 24
+        "hours": 48
       }
     },
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/align_markdups.sh"
+    "file": "src/variant_profiling.sh"
   },
   "access": {
     "network": [
