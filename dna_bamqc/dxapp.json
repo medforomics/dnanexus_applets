@@ -1,9 +1,9 @@
 {
   "name": "dna_bamqc",
-  "title": "dna_bamqc_0.5.19",
+  "title": "dna_bamqc_0.5.25",
   "summary": "Concat stat txt files from alignment workflow",
   "dxapi": "1.0.0",
-  "version": "0.5.19",
+  "version": "0.5.25",
   "inputSpec": [
     {
       "name": "Raw_BAM",
@@ -26,8 +26,8 @@
       "help": ""
     },
     {
-      "name": "reference",
-      "label": "Reference Files (tar.gz)",
+      "name": "refinfo",
+      "label": "Info about pipeline db versions (reference_info.txt)",
       "class": "file",
       "optional": false,
       "patterns": [

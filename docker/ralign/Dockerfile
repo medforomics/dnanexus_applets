@@ -31,19 +31,6 @@ RUN cd /opt; wget https://github.com/samtools/samtools/releases/download/1.10/sa
     ./configure; make; make install; \
     cp samtools /opt/bin;
 
-# Install Bedtools
-RUN cd /opt; wget https://github.com/arq5x/bedtools2/releases/download/v2.29.2/bedtools-2.29.2.tar.gz; \
-    tar xvfz bedtools-2.29.2.tar.gz; rm bedtools-2.29.2.tar.gz; \
-    cd bedtools2; \
-    make; \
-    cp -r bin/* /opt/bin;
-
-# Install Picard + FGBio
-RUN cd /opt/bin; wget https://github.com/broadinstitute/picard/releases/download/2.21.7/picard.jar; \
-    cp -R /opt/bin/* /usr/local/bin/; \
-    chmod +x /usr/local/bin/picard.jar;
-ENV PICARD "/usr/local/bin"
-
 # Install HISAT2
 RUN cd /opt; wget ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/hisat2-2.1.0-source.zip; \
     unzip hisat2-2.1.0-source.zip; rm hisat2-2.1.0-source.zip; \
@@ -51,49 +38,14 @@ RUN cd /opt; wget ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/hisat2-2.1
     make; \
     cp -r hisat* /usr/local/bin;
 
-# Install STAR
-RUN cd /opt; wget https://github.com/alexdobin/STAR/archive/2.7.2b.tar.gz; \
-    tar xvfz 2.7.2b.tar.gz; rm 2.7.2b.tar.gz; \
-    cd STAR-2.7.2b/source; \
-    make STAR; \
-    cp -r * /usr/local/bin;
-
-# Install STARFusion
-RUN cd /opt; wget https://github.com/STAR-Fusion/STAR-Fusion/releases/download/STAR-Fusion-v1.8.1/STAR-Fusion-v1.8.1.FULL.tar.gz; \
-    tar -zxvf STAR-Fusion-v1.8.1.FULL.tar.gz; rm STAR-Fusion-v1.8.1.FULL.tar.gz; \
-    cd STAR-Fusion-v1.8.1; \
-    cp -r * /usr/local/bin;
-
-# Install Trinity
-RUN cd /opt; wget https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.4.1/bowtie2-2.4.1-source.zip; \
-    unzip bowtie2-2.4.1-source.zip; rm bowtie2-2.4.1-source.zip; \
-    cd bowtie2-2.4.1; \
-    make; \
-    cp -r bowtie2* /usr/local/bin;
-RUN cd /opt; wget https://github.com/gmarcais/Jellyfish/releases/download/v2.3.0/jellyfish-2.3.0.tar.gz; \
-    tar xvfz jellyfish-2.3.0.tar.gz; rm jellyfish-2.3.0.tar.gz; \
-    cd jellyfish-2.3.0; \
-    ./configure --prefix=/usr/local/bin; \
-    make -j 4; make install;
-RUN cd /opt; wget https://github.com/COMBINE-lab/salmon/releases/download/v1.2.1/salmon-1.2.1_linux_x86_64.tar.gz; \
-    tar xvfz salmon-1.2.1_linux_x86_64.tar.gz; rm salmon-1.2.1_linux_x86_64.tar.gz; \
-    cd salmon-latest_linux_x86_64/bin; \
-    cp * /usr/local/bin;
-RUN cd /opt; wget https://github.com/trinityrnaseq/trinityrnaseq/releases/download/v2.11.0/trinityrnaseq-v2.11.0.FULL.tar.gz; \
-    tar xvfz trinityrnaseq-v2.11.0.FULL.tar.gz; rm trinityrnaseq-v2.11.0.FULL.tar.gz; \
-    cd trinityrnaseq-v2.11.0; \
-    make; \
-    mv Trinity trinity; \
-    cp -r * /usr/local/bin;
-
 # Install Scripts
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_0.5.19 --single-branch --recursive https://github.com/bcantarel/genomeseer.git; \
+    git clone -b version_0.5.25 --single-branch --recursive https://github.com/bcantarel/genomeseer.git; \
     cd genomeseer; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/alignment/* /usr/local/bin/;
 
 ENV PATH "$PATH:/usr/local/bin"
-
+ENTRYPOINT["bash","/seqprg/genomeseer/process_scripts/alignment/rnaseqalign.sh"]
 WORKDIR /data/

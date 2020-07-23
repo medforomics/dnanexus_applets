@@ -1,9 +1,9 @@
 {
   "name": "rnaalign",
-  "title": "STAR-Fusion + ralign 0.5.19",
+  "title": "STAR-Fusion + ralign 0.5.25",
   "summary": "STAR-Fusion and rna sequence alignment",
   "dxapi": "1.0.0",
-  "version": "0.5.19",
+  "version": "0.5.25",
   "inputSpec": [
     {
       "name": "fq1",
@@ -72,15 +72,6 @@
     {
       "name": "alignstats",
       "label": "rnaseq alignment summary stats file",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "starfusion",
-      "label": "Star Fusion output file",
       "class": "file",
       "patterns": [
         "*"

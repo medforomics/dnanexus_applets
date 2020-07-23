@@ -1,28 +1,22 @@
 {
-  "name": "gatkbam",
-  "title": "gatkbam_0.5.25",
-  "summary": "gatkbam",
+  "name": "star_fusion",
+  "title": "STAR-Fusion 0.5.25",
+  "summary": "STAR-Fusion",
   "dxapi": "1.0.0",
   "version": "0.5.25",
   "inputSpec": [
     {
-      "name": "Consensus_BAM",
-      "label": "Consensus BAM from alignment step (consensus.bam)",
+      "name": "fq1",
+      "label": "Fastq1",
       "class": "file",
       "optional": false,
-      "patterns": [
-        "*"
-      ],
       "help": ""
     },
     {
-      "name": "Consensus_BAI",
-      "label": "Consensus BAI from alignment step (consensus.bam)",
+      "name": "fq2",
+      "label": "Fastq2",
       "class": "file",
       "optional": false,
-      "patterns": [
-        "*"
-      ],
       "help": ""
     },
     {
@@ -30,9 +24,6 @@
       "label": "Reference Files (tar.gz)",
       "class": "file",
       "optional": false,
-      "patterns": [
-        "*"
-      ],
       "help": ""
     },
     {
@@ -44,18 +35,9 @@
     }
   ],
   "outputSpec": [
-    {
-      "name": "finalbam",
-      "label": "BAM after gatkbam",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "finalindex",
-      "label": "BAM Index after gatkbam",
+     {
+      "name": "starfusion",
+      "label": "Star Fusion output file",
       "class": "file",
       "patterns": [
         "*"
@@ -72,7 +54,7 @@
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/gatkbam.sh"
+    "file": "src/star_fusion.sh"
   },
   "access": {
     "network": [

@@ -1,9 +1,9 @@
 {
   "name": "cnv_calling",
-  "title": "cnv_calling_0.5.19",
+  "title": "cnv_calling_0.5.25",
   "summary": "Variant Calling for Alignment Workflow",
   "dxapi": "1.0.0",
-  "version": "0.5.19",
+  "version": "0.5.25",
   "inputSpec": [
     {
       "name": "Raw_BAM",

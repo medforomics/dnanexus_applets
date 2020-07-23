@@ -1,9 +1,9 @@
 {
   "name": "align_markdups",
-  "title": "Align_Markdups_0.5.19",
+  "title": "Align_Markdups_0.5.25",
   "summary": "This app runs BWA and MarksDuplicates using either: picard, picard_umi or umi_consensus.",
   "dxapi": "1.0.0",
-  "version": "0.5.19",
+  "version": "0.5.25",
   "inputSpec": [
     {
       "name": "fq1",
@@ -26,10 +26,20 @@
       "help": ""
     },
     {
-      "name": "reference",
-      "label": "Reference Files (tar.gz)",
+      "name": "humanref",
+      "label": "BWA Index Files for Human Genome (tar.gz)",
       "class": "file",
       "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "virusref",
+      "label": "BWA Index Files for Virus Genomes (tar.gz)",
+      "class": "file",
+      "optional": true,
       "patterns": [
         "*"
       ],

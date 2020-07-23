@@ -1,9 +1,9 @@
 {
   "name": "geneabund",
-  "title": "gene abundance 0.5.19",
+  "title": "gene abundance 0.5.25",
   "summary": "calculates gene counts and fpkm values",
   "dxapi": "1.0.0",
-  "version": "0.5.19",
+  "version": "0.5.25",
   "inputSpec": [
     {
       "name": "Aligned_BAM",
@@ -13,8 +13,8 @@
       "help": ""
     },
     {
-      "name": "reference",
-      "label": "Reference Files (tar.gz)",
+      "name": "gtf",
+      "label": "Gencode GTF File",
       "class": "file",
       "optional": false,
       "help": ""
