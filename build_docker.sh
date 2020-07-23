@@ -12,6 +12,7 @@ dx build -f integratevcf
 dx build -f rna_bamqc
 dx build -f rnaalign
 dx build -f snv_indel_calling
+dx build -f star_fusion
 dx build -f sv_calling
 dx build -f trim_galore
 dx build -f variant_profiling

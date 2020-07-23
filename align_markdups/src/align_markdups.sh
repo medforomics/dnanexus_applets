@@ -12,9 +12,7 @@ main() {
 
     mkdir humanref
     tar xvfz humanref.tar.gz --strip-components=1 -C humanref
-
-    mkdir -p panel
-    tar xvfz panel.tar.gz -C panel/
+    tar xvfz panel.tar.gz
     
     alignopt=''
     if [[ ${mdup} == 'fgbio_umi' ]]
