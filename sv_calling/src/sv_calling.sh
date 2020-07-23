@@ -13,51 +13,75 @@ main() {
     if [ -n "$panel" ]
     then
         dx download "$panel" -o panel.tar.gz
-        tar xvfz panel.tar.gz
+	mkdir -p panel
+	tar xvfz panel.tar.gz -C panel/
     fi
 
     if [ -n "$Normal_BAM" ]
     then
         dx download "$Normal_BAM" -o ${pair_id}.normal.bam
     fi
-
+    
     docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.25 bash /seqprg/genomeseer/process_scripts/alignment/indexbams.sh
-
+    
     normopt=''
     if [[ -n "$Normal_BAM" ]]
     then
 	normopt=" -n ${pair_id}.normal.bam"
     fi
 
-    if [[ "${algo}" == "pindel" ]]
-    then
-	 docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.25 -r dnaref -p $pair_id -l dnaref/itd_genes.bed -a pindel -f
+    vcfout=''
+    vcfsv=''
+    gffile=''
+    outfile=''
 
-         vcf=$(dx upload ${pair_id}.${algo}.vcf.gz --brief)
-         tdvcf=$(dx upload ${pair_id}.${algo}_tandemdup.vcf.gz --brief)
-         genefusion=$(dx upload ${pair_id}.${algo}.genefusion.txt --brief)
-	 
-         dx-jobutil-add-output vcf "$vcf" --class=file
-         dx-jobutil-add-output tdvcf "$tdvcf" --class=file
-         dx-jobutil-add-output genefusion "$genefusion" --class=file
-	 
-    elif [[ "${algo}" == "delly" ]] || [[ "${algo}" == "svaba" ]]
-    then
-        docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.25 -r dnaref -b ${pair_id}.tumor.bam -p ${pair_id} -a ${algo} $normopt -f
-	
-        vcf=$(dx upload ${pair_id}.${algo}.vcf.gz --brief)
-        genefusion=$(dx upload ${pair_id}.${algo}.genefusion.txt --brief)
-	
-        dx-jobutil-add-output vcf "$vcf" --class=file
-        dx-jobutil-add-output genefusion "$genefusion" --class=file
-	
-    elif [[ "${algo}" == "itdseek" ]]
-    then
-	docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.25 bash  /seqprg/genomeseer/process_scripts/variants/svcalling.sh -r dnaref -b ${pair_id}.tumor.bam -p ${pair_id} -a ${algo} -l dnaref/itd_genes.bed -f
-	vcf=$(dx upload ${pair_id}.itdseek_tandemdup.vcf.gz --brief)
-	dx-jobutil-add-output vcf "$vcf" --class=file
+    for a in $algo
+    do
+	outfile+=".${a}"
+	if [[ "${a}" == "pindel" ]]
+	then
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.25 -r dnaref -p $pair_id -l dnaref/itd_genes.bed -a pindel -f
+	    $vcfout+=" ${pair_id}.${a}.vcf.gz"
+	    $vcfsv+=" ${pair_id}.${a}_tandemdup.vcf.gz"
+	    $gffile+=" ${pair_id}.${a}.genefusion.txt"
 
-    else
-        echo "Incorrect algorithm selection. Please select 1 of the following algorithms: pindel, delly, svaba"
-    fi
+	elif [[ "${a}" == "delly" ]] || [[ "${a}" == "svaba" ]]
+	then
+            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.25 -r dnaref -b ${pair_id}.tumor.bam -p ${pair_id} -a ${a} $normopt -f
+	    
+            $vcfsv+=" ${pair_id}.${a}.vcf.gz"
+	    $gffile+=" ${pair_id}.${a}.genefusion.txt"
+	    
+	elif [[ "${a}" == "itdseek" ]]
+	then
+	docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.25 bash  /seqprg/genomeseer/process_scripts/variants/svcalling.sh -r dnaref -b ${pair_id}.tumor.bam -p ${pair_id} -a ${a} -l dnaref/itd_genes.bed -f
+	
+	$vcfsv+=" ${pair_id}.${a}_tandemdup.vcf.gz"
+	
+	elif [[ "${a}" == "cnvkit" ]]
+	then
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.25 bash /seqprg/genomeseer/process_scripts/variants/cnvkit.sh -r dnaref -b ${pair_id}.tumor.bam -p ${pair_id} -d panel
+	    tar -czvf ${pair_id}.cnvout.tar.gz ${pair_id}.answerplot* ${pair_id}.*txt ${pair_id}.call.cns ${pair_id}.cns ${pair_id}.cnr
+	else
+            echo "Incorrect algorithm selection. Please select 1 of the following algorithms: pindel, delly, svaba,cnvkit"
+	fi
+
+    done
+    
+    tar -czvf ${pair_id}${outfile}.vcf.tar.gz vcfout
+    tar -czvf ${pair_id}${outfile}.sv.tar.gz vcfsv
+    tar -czvf ${pair_id}${outfile}.gf.tar.gz  gffile
+
+
+    vcf=$(dx upload ${pair_id}${outfile}.vcf.tar.gz --brief)
+    svvcf=$(dx upload ${pair_id}${outfile}.sv.tar.gz --brief)
+    genefusion=$(dx upload ${pair_id}${outfile}.gf.tar.gz --brief)
+    cnvout=$(dx upload ${pair_id}${outfile}.gf.tar.gz --brief)
+
+    dx-jobutil-add-output cnvout "$cnvout" --class=file
+    dx-jobutil-add-output vcf "$vcf" --class=file
+    dx-jobutil-add-output tdvcf "$svvcf" --class=file
+    dx-jobutil-add-output genefusion "$genefusion" --class=file
+
+
 }

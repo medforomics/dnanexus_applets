@@ -54,7 +54,7 @@
     },
     {
       "name": "algo",
-      "label": "Variant Calling Algorithm (pindel, delly, svaba)",
+      "label": "Variant Calling Algorithm (pindel delly svaba cnvkit)",
       "class": "string",
       "optional": false,
       "help": ""
@@ -72,8 +72,7 @@
       "help": ""
     },
     {
-      "name": "tdvcf",
-      "label": "Tandemdup VCF File Output",
+      "name": "cnvout",
       "class": "file",
       "optional": true,
       "patterns": [

@@ -7,9 +7,6 @@ ls | awk '{print "docker push goalconsortium/"$1":0.5.25"}' |sh
 
 source /Users/bcantarel/utsw/dnanexus/dx-toolkit/environment
 dx build -f align_markdups
-dx build -f cnv_calling
-dx build -f dna_bamqc
-dx build -f gatkbam
 dx build -f geneabund
 dx build -f integratevcf
 dx build -f rna_bamqc

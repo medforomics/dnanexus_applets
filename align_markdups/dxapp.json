@@ -53,6 +53,26 @@
       "help": ""
     },
     {
+      "name": "panel",
+      "label": "Panel Files (tar.gz)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "trimstat",
+      "label": "Trim Statistics Report from trim step",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
       "name": "mdup",
       "label": "MarkDup Method",
       "class": "string",
@@ -101,6 +121,15 @@
     {
       "name": "vseqstat",
       "label": "Virus Sequence Stats",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "seqstats",
+      "label": "concatenated sequence stats",
       "class": "file",
       "patterns": [
         "*"

@@ -7,9 +7,15 @@ main() {
     dx download "$fq1" -o ${pair_id}.trim.R1.fastq.gz
     dx download "$fq2" -o ${pair_id}.trim.R2.fastq.gz
     dx download "$humanref" -o humanref.tar.gz
+    dx download "$panel" -o panel.tar.gz
+    dx download "$trimstat" -o ${pair_id}.trimreport.txt
 
     mkdir humanref
     tar xvfz humanref.tar.gz --strip-components=1 -C humanref
+
+    mkdir -p panel
+    tar xvfz panel.tar.gz -C panel/
+    
     alignopt=''
     if [[ ${mdup} == 'fgbio_umi' ]]
     then
@@ -21,7 +27,12 @@ main() {
     
     mv ${pair_id}.dedup.bam ${pair_id}.consensus.bam
     mv ${pair_id}.dedup.bam.bai ${pair_id}.consensus.bam.bai
+    USER=$(dx whoami)
+
+    docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.25 bash /seqprg/genomeseer/process_scripts/alignment/bamqc.sh -c targetpanel.bed -n dna -r ./ -b ${pair_id}.bam -p ${pair_id} -u $USER
+    tar -czvf ${pair_id}.sequence.stats.tar.gz ${pair_id}.flagstat.txt ${pair_id}.covhist.txt ${pair_id}.genomecov.txt ${pair_id}.ontarget.flagstat.txt  ${pair_id}.mapqualcov.txt ${pair_id}.sequence.stats.txt 
     
+
     if [[ -n $virusref ]]
     then
 	dx download "$virusref" -o virusref.tar.gz
@@ -37,7 +48,8 @@ main() {
     conbam=$(dx upload ${pair_id}.consensus.bam --brief)
     rawbai=$(dx upload ${pair_id}.bam.bai --brief)
     conbai=$(dx upload ${pair_id}.consensus.bam.bai --brief)
-    
+    seqstats=$(dx upload ${pair_id}.sequence.stats.tar.gz --brief)
+    dx-jobutil-add-output seqstats "$seqstats" --class=file
     dx-jobutil-add-output rawbam "$rawbam" --class=file
     dx-jobutil-add-output conbam "$conbam" --class=file
     dx-jobutil-add-output rawbai "$rawbai" --class=file

@@ -36,27 +36,51 @@ main() {
 
     docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.25 bash /seqprg/genomeseer/process_scripts/alignment/indexbams.sh
 
-    if [[ "${algo}" == "fb" ]] || [[ "${algo}" == "platypus" ]]
-    then
-        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.25 bash /seqprg/genomeseer/process_scripts/variants/germline_vc.sh -r dnaref -p ${pair_id} -a ${algo} -b $capturebed
-        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.25 bash /seqprg/genomeseer/process_scripts/variants/uni_norm_annot.sh -g 'GRCh38.92' -r dnaref -p ${pair_id}.${algo} -v ${pair_id}.${algo}.vcf.gz
+    vcfout=''
+    vcfori=''
+    outfile=''
 
-    elif [[ "${algo}" == "strelka2" ]] || [[ "${algo}" == "mutect" ]] || [[ "${algo}" == "shimmer" ]]
-    then
-        if [[ -z "$Normal_BAM" ]]
-        then
-            docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.25 bash /seqprg/genomeseer/process_scripts/variants/germline_vc.sh -r dnaref -p ${pair_id} -a ${algo} -b $capturebed ${ponopt}
-        else
-            docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.25 bash /seqprg/genomeseer/process_scripts/variants/somatic_vc.sh -r dnaref -p ${pair_id} -n ${pair_id}.normal.bam -t ${pair_id}.tumor.bam -a ${algo} -b $capturebed ${ponopt}
-        fi
-        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.25 bash /seqprg/genomeseer/process_scripts/variants/uni_norm_annot.sh -g 'GRCh38.92' -r dnaref -p ${pair_id}.${algo} -v ${pair_id}.${algo}.vcf.gz
-
-    else
-        echo "Incorrect algorithm selection. Please select 1 of the following algorithms: fb, platypus, strelka2, mutect, shimmer"
-    fi
+    for a in $algo
+    do
+	if [[ "${a}" == "mutect" ]] 
+	then
+	    for i in *.bam
+	    do
+		docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.25 bash /seqprg/genomeseer/process_scripts/variants/gatkrunner.sh -a gatkbam -b ${pair_id}.consensus.bam -r dnaref -p ${pair_id}
+		mv $i $i.ori
+		mv ${pair_id}.final.bam $i
+	    done
+	fi
+	if [[ "${a}" == "fb" ]] || [[ "${a}" == "platypus" ]]
+	then
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.25 bash /seqprg/genomeseer/process_scripts/variants/germline_vc.sh -r dnaref -p ${pair_id} -a ${a} -b $capturebed
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.25 bash /seqprg/genomeseer/process_scripts/variants/uni_norm_annot.sh -g 'GRCh38.92' -r dnaref -p ${pair_id}.${a} -v ${pair_id}.${a}.vcf.gz
+	    
+	elif [[ "${a}" == "strelka2" ]] || [[ "${a}" == "mutect" ]] || [[ "${a}" == "shimmer" ]]
+	then
+	    if [[ -z "$Normal_BAM" ]]
+	    then
+		docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.25 bash /seqprg/genomeseer/process_scripts/variants/germline_vc.sh -r dnaref -p ${pair_id} -a ${a} -b $capturebed ${ponopt}
+	    else
+		docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.25 bash /seqprg/genomeseer/process_scripts/variants/somatic_vc.sh -r dnaref -p ${pair_id} -n ${pair_id}.normal.bam -t ${pair_id}.tumor.bam -a ${a} -b $capturebed ${ponopt}
+	    fi
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.25 bash /seqprg/genomeseer/process_scripts/variants/uni_norm_annot.sh -g 'GRCh38.92' -r dnaref -p ${pair_id}.${a} -v ${pair_id}.${a}.vcf.gz
+	else
+	    echo "Incorrect algorithm selection. Please select 1 of the following algorithms: fb, platypus, strelka2, mutect, shimmer"
+	fi
+	vcfout+=" ${pair_id}.${a}.vcf.gz"
+	vcfori+=" ${pair_id}.${a}.ori.vcf.gz"
+	outfile+=".${a}"
+    done
     
-    vcf=$(dx upload ${pair_id}.${algo}.vcf.gz --brief)
-    ori=$(dx upload ${pair_id}.${algo}.ori.vcf.gz --brief)
+    tar cf ${pair_id}${outfile}.vcfout.tar vcfout
+    tar cf ${pair_id}${outfile}.ori.tar vcfori
+    gzip ${pair_id}${outfile}.vcfout.tar
+    gzip ${pair_id}${outfile}.ori.tar
+    
+    
+    vcf=$(dx upload ${pair_id}${outfile}.vcfout.tar.gz --brief)
+    ori=$(dx upload ${pair_id}${outfile}.ori.tar.gz --brief)
     
     dx-jobutil-add-output vcf "$vcf" --class=file
     dx-jobutil-add-output ori "$ori" --class=file
