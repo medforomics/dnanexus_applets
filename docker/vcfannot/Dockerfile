@@ -75,27 +75,21 @@ ENV PICARD "/usr/local/bin"
 ENV PATH "$PATH:/usr/local/bin/FastQC"
 ENV SNPEFF_HOME "/usr/local/bin/snpEff"
 
-# Install CNVkit
-RUN apt-get install -y r-base;
-RUN cd /opt; wget https://cran.r-project.org/src/base/R-3/R-3.3.2.tar.gz; \
-    tar xvfz R-3.3.2.tar.gz; rm R-3.3.2.tar.gz; \
-    cd R-3.3.2; \
-    ./configure --with-x=yes --enable-R-shlib=yes --with-cairo=yes; \
-    make; make install;
-RUN R -e "install.packages('BiocManager', repos='https://cran.rstudio.com')";
-RUN R -e "BiocManager::install('DNAcopy')"
-RUN pip install numpy==1.16.6; pip install scipy==1.2.3; pip install pandas==0.24.2; pip install matplotlib==2.2.5; pip install reportlab; pip install biopython==1.76; pip install pyfaidx; pip install pysam; pip install pyvcf;
-RUN cd /opt/bin; git clone -b v0.9.6 --single-branch https://github.com/etal/cnvkit; \
-    cd cnvkit/; \
-    pip install future; pip install futures; pip install networkx; pip install joblib; pip install cython; pip install pomegranate; \
-    cd /opt/bin/cnvkit/; \
-    mv * /usr/local/bin/;
-
-# Install ITDSeek
-RUN cd /opt/bin; wget https://github.com/tommyau/itdseek/archive/v1.2.tar.gz; \
-    tar xvfz v1.2.tar.gz; rm v1.2.tar.gz; \
-    cd itdseek-1.2; \
-    mv *.pl /usr/local/bin/;
+# # Install CNVkit
+# RUN apt-get install -y r-base;
+# RUN cd /opt; wget https://cran.r-project.org/src/base/R-3/R-3.3.2.tar.gz; \
+#     tar xvfz R-3.3.2.tar.gz; rm R-3.3.2.tar.gz; \
+#     cd R-3.3.2; \
+#     ./configure --with-x=yes --enable-R-shlib=yes --with-cairo=yes; \
+#     make; make install;
+# RUN R -e "install.packages('BiocManager', repos='https://cran.rstudio.com')";
+# RUN R -e "BiocManager::install('DNAcopy')"
+# RUN pip install numpy==1.16.6; pip install scipy==1.2.3; pip install pandas==0.24.2; pip install matplotlib==2.2.5; pip install reportlab; pip install biopython==1.76; pip install pyfaidx; pip install pysam; pip install pyvcf;
+# RUN cd /opt/bin; git clone -b v0.9.6 --single-branch https://github.com/etal/cnvkit; \
+#     cd cnvkit/; \
+#     pip install future; pip install futures; pip install networkx; pip install joblib; pip install cython; pip install pomegranate; \
+#     cd /opt/bin/cnvkit/; \
+#     mv * /usr/local/bin/;
 
 # Install NGSCheckMate
 RUN cd /opt/bin; wget https://github.com/parklab/NGSCheckMate/archive/v1.0.0.tar.gz; \
@@ -121,13 +115,13 @@ RUN cd /opt; wget https://github.com/genome/bam-readcount/archive/v0.8.0.tar.gz;
 # Install Scripts
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_0.5.25 --single-branch --recursive https://github.com/bcantarel/genomeseer.git; \
+    git clone -b version_0.5.26 --single-branch --recursive https://github.com/bcantarel/genomeseer.git; \
     cd genomeseer; \
     cp -r process_scripts/alignment/* /usr/local/bin/; \
     cp -r process_scripts/variants/* /usr/local/bin/; \
     cp -r scripts/* /usr/local/bin/;
 
 ENV PATH "$PATH:/usr/local/bin"
-ENV gitv "version_0.5.25"
+ENV gitv "version_0.5.26"
 
 WORKDIR /data/

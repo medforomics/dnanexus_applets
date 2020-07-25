@@ -11,7 +11,7 @@
       "class": "file",
       "optional": false,
       "patterns": [
-        "*"
+        "*.bam"
       ],
       "help": ""
     },
@@ -21,7 +21,7 @@
       "class": "file",
       "optional": true,
       "patterns": [
-        "*"
+        "*.bam"
       ],
       "help": ""
     },
@@ -31,7 +31,7 @@
       "class": "file",
       "optional": false,
       "patterns": [
-        "*"
+        "*.tar.gz"
       ],
       "help": ""
     },
@@ -41,7 +41,7 @@
       "class": "file",
       "optional": true,
       "patterns": [
-        "*"
+        "*.tar.gz"
       ],
       "help": ""
     },
@@ -54,8 +54,8 @@
     },
     {
       "name": "algo",
-      "label": "Variant Calling Algorithm (pindel delly svaba cnvkit)",
-      "class": "string",
+      "label": "Variant Calling Algorithm (pindel delly svaba cnvkit itdseek)",
+      "class": "array:string",
       "optional": false,
       "help": ""
     }
@@ -65,7 +65,7 @@
       "name": "vcf",
       "label": "VCF File Output",
       "class": "file",
-      "optional": false,
+      "optional": true,
       "patterns": [
         "*"
       ],
@@ -104,7 +104,7 @@
   "runSpec": {
     "timeoutPolicy": {
       "*": {
-        "hours": 48
+        "hours": 1
       }
     },
     "interpreter": "bash",

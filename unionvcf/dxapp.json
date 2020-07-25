@@ -1,0 +1,62 @@
+{
+  "name": "unionvcf",
+  "title": "IntegrateVCF Files from Various Callers",
+  "summary": "This app create a union VCF from multiple VCF files",
+  "dxapi": "1.0.0",
+  "version": "0.5.25",
+  "inputSpec": [
+    {
+      "name": "vcffiles",
+      "label": "VCF Files",
+      "class": "array:file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "pair_id",
+      "label": "Output Prefix",
+      "class": "string",
+      "optional": false,
+      "help": ""
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "unionvcf",
+      "label": "Union VCF",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    }
+  ],
+  "runSpec": {
+    "timeoutPolicy": {
+      "*": {
+        "hours": 48
+      }
+    },
+    "interpreter": "bash",
+    "release": "16.04",
+    "distribution": "Ubuntu",
+    "file": "src/unionvcf.sh"
+  },
+  "access": {
+    "network": [
+      "*"
+    ]
+  },
+  "regionalOptions": {
+    "azure:westus": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "azure:mem1_ssd1_x2"
+        }
+      }
+    }
+  }
+}

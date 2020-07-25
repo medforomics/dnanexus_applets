@@ -26,7 +26,7 @@ RUN cd /opt; wget https://github.com/ComputationalSystemsBiology/EoulsanDockerFi
 # Install Scripts
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_0.5.25 --single-branch --recursive https://github.com/bcantarel/genomeseer.git; \
+    git clone -b version_0.5.26 --single-branch --recursive https://github.com/bcantarel/genomeseer.git; \
     cd genomeseer; \
     cp -r process_scripts/preproc_fastq/* /usr/local/bin/;
 

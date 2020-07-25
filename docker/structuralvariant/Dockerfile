@@ -1,7 +1,8 @@
-FROM ubuntu:16.04
+FROM etal/cnvkit:0.9.7
 LABEL Author="Jeremy Mathews" \
       Maintainer="b.cantarel@gmail.com"
 
+USER root
 # install additional requirements
 RUN apt-get update; apt-get install -y build-essential checkinstall; \
     apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev liblzma-dev libcurl4-gnutls-dev libncurses5-dev libffi-dev wget unzip git default-jre default-jdk cmake gfortran hdf5-tools libboost-date-time-dev libboost-program-options-dev libboost-system-dev libboost-filesystem-dev libboost-iostreams-dev libhdf5-dev fort77 xorg-dev libblas-dev gcc-multilib gobjc++ aptitude texlive-latex-base libcairo2-dev;
@@ -84,10 +85,17 @@ RUN cd /opt/bin; git clone --branch 1.1.0 --recursive https://github.com/walaj/s
     make && make install; \
     cp bin/* /usr/local/bin/;
 
+# Install ITDSeek
+RUN cd /opt/bin; wget https://github.com/tommyau/itdseek/archive/v1.2.tar.gz; \
+    tar xvfz v1.2.tar.gz; rm v1.2.tar.gz; \
+    cd itdseek-1.2; \
+    mv *.pl /usr/local/bin/;
+
+
 # Install Scripts
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_0.5.25 --single-branch --recursive https://github.com/bcantarel/genomeseer.git; \
+    git clone -b version_0.5.26 --single-branch --recursive https://github.com/bcantarel/genomeseer.git; \
     cd genomeseer; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/variants/* /usr/local/bin/;
@@ -95,4 +103,4 @@ RUN mkdir -p /seqprg; \
 ENV PATH "$PATH:/usr/local/bin"
 
 WORKDIR /data/
-ENTRYPOINT ["bash","/seqprg/genomeseer/process_scripts/variants/svcalling.sh"]
+#ENTRYPOINT ["bash","/seqprg/genomeseer/process_scripts/variants/svcalling.sh"]
