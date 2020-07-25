@@ -6,9 +6,11 @@ main() {
 
     dx download "$Tumor_BAM" -o ${pair_id}.tumor.bam
     dx download "$reference" -o ref.tar.gz
+
     mkdir dnaref
     tar xvfz ref.tar.gz --strip-components=1 -C dnaref
 
+    panelopt=''
     if [ -n "$panel" ]
     then
         dx download "$panel" -o panel.tar.gz
@@ -18,21 +20,17 @@ main() {
 	panelopt="-b $capturebed"
     fi
 
+    normopt=''
     if [ -n "$Normal_BAM" ]
     then
         dx download "$Normal_BAM" -o ${pair_id}.normal.bam
+        normopt=" -n ${pair_id}.normal.bam"
     fi
 
     ponopt=''
     if [ -f "$pon" ]
     then
         ponopt='-q $ponfile'
-    fi
-
-    normopt=''
-    if [[ -n "$Normal_BAM" ]]
-    then
-        normopt=" -n ${pair_id}.normal.bam"
     fi
 
     docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.26 bash /seqprg/genomeseer/process_scripts/alignment/indexbams.sh
