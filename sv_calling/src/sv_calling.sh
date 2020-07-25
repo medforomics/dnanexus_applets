@@ -35,13 +35,13 @@ main() {
     gffile=''
     outfile=''
 
-    echo "${algo[@]}"
+    echo "$algo"
     
-    for a in ${!algo[@]}
+    for a in $algo
     do
-	outfile+=".${a}"
 	echo "Starting ${a}"
-	
+	outfile+=".${a}"
+
 	if [[ "${a}" == "pindel" ]]
 	then
 	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.26 bash /seqprg/genomeseer/process_scripts/variants/svcalling.sh -r dnaref -p $pair_id -l dnaref/itd_genes.bed -a pindel -f
@@ -70,7 +70,6 @@ main() {
     tar -czvf ${pair_id}${outfile}.sv.tar.gz vcfsv
     tar -czvf ${pair_id}${outfile}.gf.tar.gz  gffile
 
-
     vcf=$(dx upload ${pair_id}${outfile}.vcf.tar.gz --brief)
     svvcf=$(dx upload ${pair_id}${outfile}.sv.tar.gz --brief)
     genefusion=$(dx upload ${pair_id}${outfile}.gf.tar.gz --brief)
@@ -80,6 +79,4 @@ main() {
     dx-jobutil-add-output vcf "$vcf" --class=file
     dx-jobutil-add-output tdvcf "$svvcf" --class=file
     dx-jobutil-add-output genefusion "$genefusion" --class=file
-
-
 }
