@@ -6,15 +6,15 @@ main() {
 
     dx download "$Aligned_BAM" -o ${pair_id}.bam
     dx download "$Align_Stats" -o ${pair_id}.alignerout.txt
-    dx download "$reference" -o ref.tar.gz
-
-    mkdir rnaref
-    tar xvfz ref.tar.gz --strip-components=1 -C rnaref
-
 
     USER=$(dx whoami)
-    if [[ ${bamct} == 1 ]]
+    if [[ -n "${bamct}" ]]
     then
+        dx download "$bamct" -o ref.tar.gz
+
+        mkdir rnaref
+        tar xvfz ref.tar.gz --strip-components=1 -C rnaref
+
         docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.26 samtools index ${pair_id}.bam
         docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.26 bam-readcount -w 0 -q 0 -b 25 -f rnaref/genome.fa ${pair_id}.bam > ${pair_id}.bamreadcount.txt
 
@@ -22,7 +22,7 @@ main() {
 
         dx-jobutil-add-output bamreadct "$bamreadct" --class=file
     fi
-
+    
     docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.26 bash /seqprg/genomeseer/process_scripts/alignment/bamqc.sh -p ${pair_id} -b ${pair_id}.bam -n rna 
 
     fastqczip=$(dx upload ${pair_id}_fastqc.zip --brief)
