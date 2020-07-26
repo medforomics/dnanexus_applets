@@ -1,9 +1,9 @@
 {
   "name": "integratevcf",
-  "title": "Union VCF 0.5.25",
+  "title": "Union VCF 0.5.26",
   "summary": "Combine VCF Outputs",
   "dxapi": "1.0.0",
-  "version": "0.5.25",
+  "version": "0.5.26",
   "inputSpec": [
     {
       "name": "fb_vcf",

@@ -1,9 +1,9 @@
 #!/bin/bash
 
 cd docker
-ls | awk '{print "docker build --tag",$1":0.5.26",$1}' |sh
-ls | awk '{print "docker tag",$1":0.5.26 goalconsortium/"$1":0.5.26"}' |sh
-ls | awk '{print "docker push goalconsortium/"$1":0.5.26"}' |sh
+ls | awk '{print "docker build --tag",$1":0.5.27",$1}' |sh
+ls | awk '{print "docker tag",$1":0.5.27 goalconsortium/"$1":0.5.27"}' |sh
+ls | awk '{print "docker push goalconsortium/"$1":0.5.27"}' |sh
 
 source /Users/bcantarel/utsw/dnanexus/dx-toolkit/environment
 dx build -f align_markdups

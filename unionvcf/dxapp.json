@@ -3,7 +3,7 @@
   "title": "IntegrateVCF Files from Various Callers",
   "summary": "This app create a union VCF from multiple VCF files",
   "dxapi": "1.0.0",
-  "version": "0.5.25",
+  "version": "0.5.26",
   "inputSpec": [
     {
       "name": "vcffiles",

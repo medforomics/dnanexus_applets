@@ -55,7 +55,7 @@
     {
       "name": "algo",
       "label": "Variant Calling Algorithm (fb, mutect, platypus, strelka2, shimmer)",
-      "class": "string",
+      "class": "array:string",
       "optional": false,
       "help": ""
     }
@@ -83,7 +83,7 @@
   "runSpec": {
     "timeoutPolicy": {
       "*": {
-        "hours": 48
+        "hours": 8
       }
     },
     "interpreter": "bash",

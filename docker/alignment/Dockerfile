@@ -54,7 +54,7 @@ RUN echo '#!/bin/bash' > /usr/local/bin/fgbio; \
 # Install Scripts
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_0.5.26 --single-branch --recursive https://github.com/bcantarel/genomeseer.git; \
+    git clone -b version_0.5.27 --single-branch --recursive https://github.com/bcantarel/genomeseer.git; \
     cd genomeseer; \
     cp -r process_scripts/alignment/* /usr/local/bin/;
 

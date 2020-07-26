@@ -41,11 +41,13 @@ RUN cd /opt; wget ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/hisat2-2.1
 # Install Scripts
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_0.5.25 --single-branch --recursive https://github.com/bcantarel/genomeseer.git; \
+    git clone -b version_0.5.26 --single-branch --recursive https://github.com/bcantarel/genomeseer.git; \
     cd genomeseer; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/alignment/* /usr/local/bin/;
 
 ENV PATH "$PATH:/usr/local/bin"
+
 ENTRYPOINT["bash","/seqprg/genomeseer/process_scripts/alignment/rnaseqalign.sh"]
+
 WORKDIR /data/
