@@ -5,10 +5,10 @@
 main() {
 
     dx download "$Tumor_BAM" -o ${pair_id}.tumor.bam
-    dx download "$reference" -o ref.tar.gz
+    #dx download "$reference" -o ref.tar.gz
 
     mkdir dnaref
-    tar xvfz ref.tar.gz --strip-components=1 -C dnaref
+    #tar xvfz ref.tar.gz --strip-components=1 -C dnaref
 
     panelopt=''
     if [ -n "$panel" ]
@@ -30,10 +30,10 @@ main() {
     ponopt=''
     if [ -f "$pon" ]
     then
-        ponopt='-q $ponfile'
+        ponopt="-q $pon"
     fi
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.27 bash /seqprg/genomeseer/process_scripts/alignment/indexbams.sh
+    echo "docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.27 bash /seqprg/genomeseer/process_scripts/alignment/indexbams.sh"
 
     vcfout=''
     vcfori=''
@@ -51,39 +51,39 @@ main() {
 	then
 	    for i in *.bam
 	    do
-		docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.27 bash /seqprg/genomeseer/process_scripts/variants/gatkrunner.sh -a gatkbam -b ${pair_id}.consensus.bam -r dnaref -p ${pair_id}
-		mv $i $i.ori
-		mv ${pair_id}.final.bam $i
+		echo "docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.27 bash /seqprg/genomeseer/process_scripts/variants/gatkrunner.sh -a gatkbam -b ${pair_id}.consensus.bam -r dnaref -p ${pair_id}"
+		#mv $i $i.ori
+		#mv ${pair_id}.final.bam $i
 	    done
 	fi
 	if [[ "${a}" == "fb" ]] || [[ "${a}" == "platypus" ]]
 	then
-	    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.27 bash /seqprg/genomeseer/process_scripts/variants/germline_vc.sh -r dnaref -p ${pair_id} -a ${a} ${panelopt}
-	    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.27 bash /seqprg/genomeseer/process_scripts/variants/uni_norm_annot.sh -g 'GRCh38.92' -r dnaref -p ${pair_id}.${a} -v ${pair_id}.${a}.vcf.gz
+	    echo "docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.27 bash /seqprg/genomeseer/process_scripts/variants/germline_vc.sh -r dnaref -p ${pair_id} -a ${a} ${panelopt}"
+	    echo "docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.27 bash /seqprg/genomeseer/process_scripts/variants/uni_norm_annot.sh -g 'GRCh38.92' -r dnaref -p ${pair_id}.${a} -v ${pair_id}.${a}.vcf.gz"
 	    
 	elif [[ "${a}" == "strelka2" ]] || [[ "${a}" == "mutect" ]] || [[ "${a}" == "shimmer" ]]
 	then
 	    if [[ -z "$Normal_BAM" ]]
 	    then
-		docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.27 bash /seqprg/genomeseer/process_scripts/variants/germline_vc.sh -r dnaref -p ${pair_id} -a ${a} ${panelopt} ${ponopt}
+		echo "docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.27 bash /seqprg/genomeseer/process_scripts/variants/germline_vc.sh -r dnaref -p ${pair_id} -a ${a} ${panelopt} ${ponopt}"
 	    else
-		docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.27 bash /seqprg/genomeseer/process_scripts/variants/somatic_vc.sh -r dnaref -p ${pair_id} -n ${pair_id}.normal.bam -t ${pair_id}.tumor.bam -a ${a} ${panelopt} ${ponopt}
+		echo "docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.27 bash /seqprg/genomeseer/process_scripts/variants/somatic_vc.sh -r dnaref -p ${pair_id} -n ${pair_id}.normal.bam -t ${pair_id}.tumor.bam -a ${a} ${panelopt} ${ponopt}"
 	    fi
-	    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.27 bash /seqprg/genomeseer/process_scripts/variants/uni_norm_annot.sh -g 'GRCh38.92' -r dnaref -p ${pair_id}.${a} -v ${pair_id}.${a}.vcf.gz
+	    echo "docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.27 bash /seqprg/genomeseer/process_scripts/variants/uni_norm_annot.sh -g 'GRCh38.92' -r dnaref -p ${pair_id}.${a} -v ${pair_id}.${a}.vcf.gz"
 	else
 	    echo "Incorrect algorithm selection. Please select 1 of the following algorithms: fb, platypus, strelka2, mutect, shimmer"
 	fi
     done
     
-    tar cf ${pair_id}${outfile}.vcfout.tar $vcfout
-    tar cf ${pair_id}${outfile}.ori.tar $vcfori
-    gzip ${pair_id}${outfile}.vcfout.tar
-    gzip ${pair_id}${outfile}.ori.tar
+    echo "tar cf ${pair_id}${outfile}.vcfout.tar $vcfout"
+    echo "tar cf ${pair_id}${outfile}.ori.tar $vcfori"
+    #gzip ${pair_id}${outfile}.vcfout.tar
+    #gzip ${pair_id}${outfile}.ori.tar
     
     
-    vcf=$(dx upload ${pair_id}${outfile}.vcfout.tar.gz --brief)
-    ori=$(dx upload ${pair_id}${outfile}.ori.tar.gz --brief)
+    #vcf=$(dx upload ${pair_id}${outfile}.vcfout.tar.gz --brief)
+    #ori=$(dx upload ${pair_id}${outfile}.ori.tar.gz --brief)
     
-    dx-jobutil-add-output vcf "$vcf" --class=file
-    dx-jobutil-add-output ori "$ori" --class=file
+    #dx-jobutil-add-output vcf "$vcf" --class=file
+    #dx-jobutil-add-output ori "$ori" --class=file
 }
