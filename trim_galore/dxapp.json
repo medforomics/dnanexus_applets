@@ -1,9 +1,9 @@
 {
   "name": "trim_galore",
-  "title": "TrimGalore_0.5.26",
+  "title": "TrimGalore_0.5.28",
   "summary": "Trim Galore trims poor quality sequence from reads",
   "dxapi": "1.0.0",
-  "version": "0.5.26",
+  "version": "0.5.28",
   "inputSpec": [
     {
       "name": "fq1",
@@ -79,10 +79,10 @@
     ]
   },
   "regionalOptions": {
-    "azure:westus": {
+    "aws:us-east-1": {
       "systemRequirements": {
         "*": {
-          "instanceType": "azure:mem1_ssd1_x2"
+          "instanceType": "mem1_ssd1_x2"
         }
       }
     }

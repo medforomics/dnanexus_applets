@@ -1,9 +1,9 @@
 {
   "name": "geneabund",
-  "title": "gene abundance 0.5.26",
+  "title": "gene abundance 0.5.28",
   "summary": "calculates gene counts and fpkm values",
   "dxapi": "1.0.0",
-  "version": "0.5.26",
+  "version": "0.5.28",
   "inputSpec": [
     {
       "name": "Aligned_BAM",
@@ -88,10 +88,10 @@
     ]
   },
   "regionalOptions": {
-    "azure:westus": {
+    "aws:us-east-1": {
       "systemRequirements": {
         "*": {
-          "instanceType": "azure:mem1_ssd1_x16"
+          "instanceType": "mem1_ssd1_x16"
         }
       }
     }

@@ -1,9 +1,9 @@
 {
   "name": "align_markdups",
-  "title": "Align_Markdups_0.5.26",
+  "title": "Align_Markdups_0.5.28",
   "summary": "This app runs BWA and MarksDuplicates using either: picard, picard_umi or umi_consensus.",
   "dxapi": "1.0.0",
-  "version": "0.5.26",
+  "version": "0.5.28",
   "inputSpec": [
     {
       "name": "fq1",
@@ -154,10 +154,10 @@
     ]
   },
   "regionalOptions": {
-    "azure:westus": {
+    "aws:us-east-1": {
       "systemRequirements": {
         "*": {
-          "instanceType": "azure:mem1_ssd1_x16"
+          "instanceType": "mem1_ssd1_v2_x16"
         }
       }
     }

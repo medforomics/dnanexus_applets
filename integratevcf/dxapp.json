@@ -1,9 +1,9 @@
 {
   "name": "integratevcf",
-  "title": "Union VCF 0.5.26",
+  "title": "Union VCF 0.5.28",
   "summary": "Combine VCF Outputs",
   "dxapi": "1.0.0",
-  "version": "0.5.26",
+  "version": "0.5.28",
   "inputSpec": [
     {
       "name": "fb_vcf",
@@ -111,10 +111,10 @@
     ]
   },
   "regionalOptions": {
-    "azure:westus": {
+    "aws:us-east-1": {
       "systemRequirements": {
         "*": {
-          "instanceType": "azure:mem1_ssd1_x16"
+          "instanceType": "mem1_ssd1_x16"
         }
       }
     }

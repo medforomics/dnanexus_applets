@@ -26,11 +26,11 @@ RUN cd /opt; wget https://github.com/ComputationalSystemsBiology/EoulsanDockerFi
 # Install Scripts
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_0.5.27 --single-branch --recursive https://github.com/bcantarel/genomeseer.git; \
-    cd genomeseer; \
+    git clone -b version_0.5.28 --single-branch --recursive https://github.com/bcantarel/school.git; \
+    cd school; \
     cp -r process_scripts/preproc_fastq/* /usr/local/bin/;
 
 ENV PATH "$PATH:/usr/local/bin"
 
 WORKDIR /data/
-ENTRYPOINT ["bash","/seqprg/genomeseer/process_scripts/preproc_fastq/trimgalore.sh"]
+ENTRYPOINT ["bash","/seqprg/school/process_scripts/preproc_fastq/trimgalore.sh"]

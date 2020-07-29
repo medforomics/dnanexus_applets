@@ -3,7 +3,7 @@
   "title": "IntegrateVCF Files from Various Callers",
   "summary": "This app create a union VCF from multiple VCF files",
   "dxapi": "1.0.0",
-  "version": "0.5.26",
+  "version": "0.5.28",
   "inputSpec": [
     {
       "name": "vcffiles",
@@ -51,10 +51,10 @@
     ]
   },
   "regionalOptions": {
-    "azure:westus": {
+    "aws:us-east-1": {
       "systemRequirements": {
         "*": {
-          "instanceType": "azure:mem1_ssd1_x2"
+          "instanceType": "mem1_ssd1_x2"
         }
       }
     }

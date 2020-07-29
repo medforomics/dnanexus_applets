@@ -1,9 +1,9 @@
 {
   "name": "variant_profiling",
-  "title": "Variant Profiling Applet 0.5.26",
+  "title": "Variant Profiling Applet 0.5.28",
   "summary": "This applet contains variant calling methods for tumor only and somatic workflows. Including msisensor-pro, NGSCheckMates",
   "dxapi": "1.0.0",
-  "version": "0.5.26",
+  "version": "0.5.28",
   "inputSpec": [
    {
       "name": "Tumor_BAM",
@@ -119,10 +119,10 @@
     ]
   },
   "regionalOptions": {
-    "azure:westus": {
+    "aws:us-east-1": {
       "systemRequirements": {
         "*": {
-          "instanceType": "azure:mem1_ssd1_x16"
+          "instanceType": "mem1_ssd1_x2"
         }
       }
     }
