@@ -53,11 +53,12 @@
       "help": ""
     },
     {
-      "name": "algo",
-      "label": "Variant Calling Algorithm (pindel delly svaba cnvkit itdseek)",
-      "class": "array:string",
-      "optional": false,
-      "help": ""
+	"name": "algo",
+	"label": "Variant Calling Algorithm (pindel delly svaba cnvkit itdseek)",
+	"class": "array:string",
+	"optional": false,
+	"default":"pindel delly svaba cnvkit itdseek",
+	"help": ""
     }
   ],
   "outputSpec": [

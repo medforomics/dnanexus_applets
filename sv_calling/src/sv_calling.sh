@@ -44,10 +44,10 @@ main() {
 
 	if [[ "${a}" == "pindel" ]]
 	then
-	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.28 bash /seqprg/school/process_scripts/variants/svcalling.sh -r dnaref -p $pair_id -l dnaref/itd_genes.bed -a pindel -f
-	    vcfout+=" ${pair_id}.${a}.vcf.gz"
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.28 bash /seqprg/school/process_scripts/variants/svcalling.sh -r dnaref -p $pair_id -l dnaref/itd_genes.bed -c dnaref/itd_genes.bed -a pindel -f
+	    #vcfout+=" ${pair_id}.${a}.vcf.gz"
 	    vcfsv+=" ${pair_id}.${a}_tandemdup.vcf.gz"
-	    gffile+=" ${pair_id}.${a}.genefusion.txt"
+	    #gffile+=" ${pair_id}.${a}.genefusion.txt"
 	elif [[ "${a}" == "delly" ]] || [[ "${a}" == "svaba" ]]
 	then
             docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.28 bash /seqprg/school/process_scripts/variants/svcalling.sh -r dnaref -b ${pair_id}.tumor.bam -p ${pair_id} -a ${a} $normopt -f
@@ -64,7 +64,7 @@ main() {
 	    cnvout=$(dx upload ${pair_id}.cnvout.tar.gz --brief)
 	    dx-jobutil-add-output cnvout "$cnvout" --class=file
 	else
-            echo "Incorrect algorithm selection. Please select 1 of the following algorithms: pindel, delly, svaba,cnvkit"
+            echo "Incorrect algorithm selection. Please select 1 of the following algorithms: pindel delly svaba cnvkit itdseek"
 	fi
     done
 
