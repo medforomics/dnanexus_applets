@@ -1,9 +1,9 @@
 #!/bin/bash
 
 cd docker
-ls | awk '{print "docker build --tag",$1":0.5.28",$1}' |sh
-ls | awk '{print "docker tag",$1":0.5.28 goalconsortium/"$1":0.5.28"}' |sh
-ls | awk '{print "docker push goalconsortium/"$1":0.5.28"}' |sh
+ls | awk '{print "docker build --tag",$1":0.5.29",$1}' |sh
+ls | awk '{print "docker tag",$1":0.5.29 goalconsortium/"$1":0.5.29"}' |sh
+ls | awk '{print "docker push goalconsortium/"$1":0.5.29"}' |sh
 
 source /Users/bcantarel/utsw/dnanexus/dx-toolkit/environment
 dx build -f trim_galore

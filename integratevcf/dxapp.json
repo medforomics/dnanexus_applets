@@ -1,67 +1,17 @@
 {
   "name": "integratevcf",
-  "title": "Union VCF 0.5.28",
+  "title": "Union VCF 0.5.29",
   "summary": "Combine VCF Outputs",
   "dxapi": "1.0.0",
-  "version": "0.5.28",
+  "version": "0.5.29",
   "inputSpec": [
-    {
-      "name": "fb_vcf",
-      "label": "Freebayes VCF",
-      "class": "file",
+     {
+      "name": "vcffiles",
+      "label": "VCF Files",
+      "class": "array:file",
       "optional": false,
       "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "platypus_vcf",
-      "label": "Platypus VCF",
-      "class": "file",
-      "optional": false,
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "strelka2_vcf",
-      "label": "Strelka2 VCF",
-      "class": "file",
-      "optional": false,
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "mutect_vcf",
-      "label": "Mutect2 VCF",
-      "class": "file",
-      "optional": false,
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "pindel_vcf",
-      "label": "Pindel VCF",
-      "class": "file",
-      "optional": false,
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "shimmer_vcf",
-      "label": "Shimmer VCF",
-      "class": "file",
-      "optional": true,
-      "patterns": [
-        "*"
+        "*.tar.gz"
       ],
       "help": ""
     },
@@ -97,7 +47,7 @@
   "runSpec": {
     "timeoutPolicy": {
       "*": {
-        "hours": 24
+        "hours": 1
       }
     },
     "interpreter": "bash",
@@ -114,7 +64,7 @@
     "aws:us-east-1": {
       "systemRequirements": {
         "*": {
-          "instanceType": "mem1_ssd1_x16"
+          "instanceType": "mem1_ssd1_x2"
         }
       }
     }

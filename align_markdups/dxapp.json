@@ -1,9 +1,9 @@
 {
   "name": "align_markdups",
-  "title": "Align_Markdups_0.5.28",
-  "summary": "This app runs BWA and MarksDuplicates using either: picard, picard_umi or umi_consensus.",
+  "title": "Align_Markdups_0.5.29",
+  "summary": "This app runs BWA, MarksDuplicates (PICARD or FG Biotools) and QC",
   "dxapi": "1.0.0",
-  "version": "0.5.28",
+  "version": "0.5.29",
   "inputSpec": [
     {
       "name": "fq1",
@@ -11,9 +11,9 @@
       "class": "file",
       "optional": false,
       "patterns": [
-        "*"
+          "*.fastq.gz","*.fq.gz"
       ],
-      "help": ""
+      "help": "R1"
     },
     {
       "name": "fq2",
@@ -21,9 +21,9 @@
       "class": "file",
       "optional": false,
       "patterns": [
-        "*"
+        "*.fastq.gz","*.fq.gz"
       ],
-      "help": ""
+      "help": "R2"
     },
     {
       "name": "humanref",
@@ -31,9 +31,9 @@
       "class": "file",
       "optional": false,
       "patterns": [
-        "*"
+        "*.tar.gz"
       ],
-      "help": ""
+      "help": "tar gz file of BWA index files for Human Genome"
     },
     {
       "name": "virusref",
@@ -41,9 +41,9 @@
       "class": "file",
       "optional": true,
       "patterns": [
-        "*"
+        "*.tar.gz"
       ],
-      "help": ""
+      "help": "tar gz file of BWA index files for Viral Genome"
     },
     {
       "name": "pair_id",
@@ -58,7 +58,7 @@
       "class": "file",
       "optional": false,
       "patterns": [
-        "*"
+        "*.tar.gz"
       ],
       "help": ""
     },
@@ -68,7 +68,7 @@
       "class": "file",
       "optional": false,
       "patterns": [
-        "*"
+        "*.trimreport.txt"
       ],
       "help": ""
     },

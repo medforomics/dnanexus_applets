@@ -1,9 +1,9 @@
 {
   "name": "star_fusion",
-  "title": "STAR-Fusion 0.5.28",
+  "title": "STAR-Fusion 0.5.29",
   "summary": "STAR-Fusion",
   "dxapi": "1.0.0",
-  "version": "0.5.28",
+  "version": "0.5.29",
   "inputSpec": [
     {
       "name": "fq1",
