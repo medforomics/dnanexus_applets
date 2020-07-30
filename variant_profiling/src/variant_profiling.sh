@@ -13,7 +13,7 @@ main() {
     if [ -n "$panel" ]
     then
         dx download "$panel" -o panel.tar.gz
-        tar -I pigz -xvf panel.tar.gz
+         docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.30 tar -I pigz -xvf panel.tar.gz
     fi
 
     if [ -n "$Normal_BAM" ]
