@@ -1,0 +1,99 @@
+{
+  "name": "markdups",
+  "title": "Markdups_0.5.30",
+  "summary":"This app runs MarksDuplicates (PICARD or FG Biotools)", 
+  "dxapi": "1.0.0",
+  "version": "0.5.30",
+  "inputSpec": [
+   {
+      "name": "bam",
+      "label": "Raw BAM (.bam)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*.bam"
+      ],
+      "help": ""
+    },
+   {
+      "name": "bai",
+      "label": "Raw BAM Index (.bai)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*.bai"
+      ],
+      "help": ""
+    },
+    {
+      "name": "pair_id",
+      "label": "ReadGroup/SampleName",
+      "class": "string",
+      "optional": false,
+      "help": ""
+    },
+    {
+      "name": "humanref",
+      "label": "BWA Index Files for Human Genome (tar.gz)",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*.tar.gz"
+      ],
+      "help": "tar gz file of BWA index files for Human Genome"
+    },
+    {
+      "name": "mdup",
+      "label": "MarkDup Method",
+      "class": "string",
+      "optional": false,
+      "default": "fgbio_umi",
+      "help": ""
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "conbam",
+      "label": "Consensus Bam",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "conbai",
+      "label": "Consensus BAM index",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    }
+  ],
+  "runSpec": {
+      "timeoutPolicy": {
+      "*": {
+        "hours": 6
+      }
+    },
+    "interpreter": "bash",
+    "release": "16.04",
+    "distribution": "Ubuntu",
+    "file": "src/markdups.sh"
+  },
+  "access": {
+    "network": [
+      "*"
+    ]
+  },
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem2_ssd1_v2_x2"
+        }
+      }
+    }
+  }
+}

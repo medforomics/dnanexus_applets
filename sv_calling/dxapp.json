@@ -1,9 +1,9 @@
 {
   "name": "sv_calling",
-  "title": "Structural Variants Applet 0.5.29",
+  "title": "Structural Variants Applet 0.5.30",
   "summary": "This applet contains variant calling methods for tumor only and somatic workflows. Including pindel, delly, svaba",
   "dxapi": "1.0.0",
-  "version": "0.5.29",
+  "version": "0.5.30",
   "inputSpec": [
    {
       "name": "Tumor_BAM",

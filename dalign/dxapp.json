@@ -1,9 +1,9 @@
 {
-  "name": "align_markdups",
-  "title": "Align_Markdups_0.5.29",
-  "summary": "This app runs BWA, MarksDuplicates (PICARD or FG Biotools) and QC",
+  "name": "dalign",
+  "title": "Align_0.5.30",
+  "summary": "This app runs BWA",
   "dxapi": "1.0.0",
-  "version": "0.5.29",
+  "version": "0.5.30",
   "inputSpec": [
     {
       "name": "fq1",
@@ -46,38 +46,17 @@
       "help": "tar gz file of BWA index files for Viral Genome"
     },
     {
+      "name": "umi",
+      "label": "UMI in ReadName",
+      "class": "boolean",
+      "optional": true,
+      "help": ""
+    },
+    {
       "name": "pair_id",
       "label": "ReadGroup/SampleName",
       "class": "string",
       "optional": false,
-      "help": ""
-    },
-    {
-      "name": "panel",
-      "label": "Panel Files (tar.gz)",
-      "class": "file",
-      "optional": false,
-      "patterns": [
-        "*.tar.gz"
-      ],
-      "help": ""
-    },
-    {
-      "name": "trimstat",
-      "label": "Trim Statistics Report from trim step",
-      "class": "file",
-      "optional": false,
-      "patterns": [
-        "*.trimreport.txt"
-      ],
-      "help": ""
-    },
-    {
-      "name": "mdup",
-      "label": "MarkDup Method",
-      "class": "string",
-      "optional": false,
-      "default": "fgbio_umi",
       "help": ""
     }
   ],
@@ -85,15 +64,6 @@
     {
       "name": "rawbam",
       "label": "Raw Bam",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "conbam",
-      "label": "Consensus Bam",
       "class": "file",
       "patterns": [
         "*"
@@ -110,26 +80,8 @@
       "help": ""
     },
     {
-      "name": "conbai",
-      "label": "Consensus BAM index",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
       "name": "vseqstat",
       "label": "Virus Sequence Stats",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "seqstats",
-      "label": "concatenated sequence stats",
       "class": "file",
       "patterns": [
         "*"
@@ -140,13 +92,13 @@
   "runSpec": {
       "timeoutPolicy": {
       "*": {
-        "hours": 24
+        "hours": 6
       }
     },
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/align_markdups.sh"
+    "file": "src/dalign.sh"
   },
   "access": {
     "network": [
