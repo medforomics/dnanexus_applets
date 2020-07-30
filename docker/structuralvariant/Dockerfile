@@ -95,7 +95,7 @@ RUN cd /opt/bin; wget https://github.com/tommyau/itdseek/archive/v1.2.tar.gz; \
 # Install Scripts
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_0.5.29 --single-branch --recursive https://github.com/bcantarel/school.git; \
+    git clone -b version_0.5.30 --single-branch --recursive https://github.com/bcantarel/school.git; \
     cd school; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/variants/* /usr/local/bin/;
