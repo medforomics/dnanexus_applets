@@ -7,14 +7,14 @@
   "inputSpec": [
     {
       "name": "fq1",
-      "label": "Fastq1",
+      "label": "Trimmed Fastq1",
       "class": "file",
       "optional": false,
       "help": ""
     },
     {
       "name": "fq2",
-      "label": "Fastq2",
+      "label": "Trimmed Fastq2",
       "class": "file",
       "optional": false,
       "help": ""

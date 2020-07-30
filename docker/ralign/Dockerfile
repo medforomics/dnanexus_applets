@@ -48,6 +48,4 @@ RUN mkdir -p /seqprg; \
 
 ENV PATH "$PATH:/usr/local/bin"
 
-ENTRYPOINT ["bash","/seqprg/school/process_scripts/alignment/rnaseqalign.sh"]
-
 WORKDIR /data/

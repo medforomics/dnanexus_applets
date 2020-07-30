@@ -1,7 +1,7 @@
 {
   "name": "rnaalign",
   "title": "rnaralign 0.5.30",
-  "summary": "RNA sequence alignment",
+  "summary": "RNA sequence trim + alignment",
   "dxapi": "1.0.0",
   "version": "0.5.30",
   "inputSpec": [
@@ -51,6 +51,33 @@
     }
   ],
   "outputSpec": [
+    {
+      "name": "trim1",
+      "label": "Trim Fq R1",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "trim2",
+      "label": "Trim Fq R2",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "trimreport",
+      "label": "Trim Output Report",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
     {
       "name": "bam",
       "label": "Aligned BAM file",
