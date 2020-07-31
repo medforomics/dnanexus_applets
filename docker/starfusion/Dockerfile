@@ -26,5 +26,4 @@ RUN mkdir -p /seqprg; \
 ENV PATH "$PATH:/usr/local/bin"
 
 WORKDIR /data/
-#ENTRYPOINT ["bash","/seqprg/school/process_scripts/alignment/starfusion.sh"]
 #agfusion annotate -db agfusion.homo_sapiens.95.db -g5 SLC34A2 -j5 25664330 -g3 ROS1 -j3 117329446 -o SLC34A2_25664330_ROS1_117329446

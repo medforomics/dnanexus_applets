@@ -9,7 +9,7 @@ main() {
     dx download "$reference" -o rnaref.tar.gz
 
     mkdir rnaref
-    docker run -v ${PWD}:/data docker.io/goalconsortium/ralign:0.5.30 tar -I pigz -xvf rnaref.tar.gz --strip-components=1 -C rnaref
+    docker run -v ${PWD}:/data docker.io/goalconsortium/ralign:0.5.31 tar -I pigz -xvf rnaref.tar.gz --strip-components=1 -C rnaref
 
     umiopt=""
     if [[ ${mdup} == 'fgbio_umi' ]]

@@ -9,9 +9,10 @@ main() {
     dx download "$reference" -o rnaref.tar.gz
 
     mkdir rnaref
-    tar -I pigz -xvf rnaref.tar.gz --strip-components=1 -C rnaref
+    docker run -v ${PWD}:/data docker.io/goalconsortium/starfusion:0.5.31 tar -I pigz -xvf rnaref.tar.gz --strip-components=1 -C rnaref
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/starfusion:0.5.32 -p ${pair_id} -r rnaref -a ${pair_id}.trim.R1.fastq.gz -b ${pair_id}.trim.R2.fastq.gz -f
+    docker run -v ${PWD}:/data docker.io/goalconsortium/starfusion:0.5.32 bash /seqprg/school/process_scripts/alignment/starfusion.sh -p ${pair_id} -r rnaref -a ${pair_id}.trim.R1.fastq.gz -b ${pair_id}.trim.R2.fastq.gz -f
+
 
     tar cf ${pair_id}.starfusion.tar ${pair_id}.*.txt
     gzip ${pair_id}.starfusion.tar
