@@ -13,7 +13,7 @@ main() {
         dx download "$bamct" -o ref.tar.gz
 
         mkdir rnaref
-        tar -I pigz -xvf ref.tar.gz --strip-components=1 -C rnaref
+        docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.31 tar -I pigz -xvf ref.tar.gz --strip-components=1 -C rnaref
 
         docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.31 samtools index ${pair_id}.bam
         docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.31 bam-readcount -w 0 -q 0 -b 25 -f rnaref/genome.fa ${pair_id}.bam > ${pair_id}.bamreadcount.txt
