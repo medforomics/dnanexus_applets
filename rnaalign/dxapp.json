@@ -1,22 +1,28 @@
 {
   "name": "rnaalign",
-  "title": "rnaralign 0.5.30",
+  "title": "rnaralign 0.5.31",
   "summary": "RNA sequence trim + alignment",
   "dxapi": "1.0.0",
-  "version": "0.5.30",
+  "version": "0.5.31",
   "inputSpec": [
     {
-      "name": "fq1",
-      "label": "Fastq1",
-      "class": "file",
-      "optional": false,
-      "help": ""
+	"name": "fq1",
+	"label": "Fastq1",
+	"class": "file",
+	"optional": false,
+	"patterns": [
+            "*.fastq.gz","*.fq.gz"
+	],
+	"help": ""
     },
     {
       "name": "fq2",
       "label": "Fastq2",
       "class": "file",
       "optional": false,
+	"patterns": [
+            "*.fastq.gz","*.fq.gz"
+	],
       "help": ""
     },
     {
@@ -24,6 +30,9 @@
       "label": "Reference Files (tar.gz)",
       "class": "file",
       "optional": false,
+	"patterns": [
+            "*.tar.gz"
+	],
       "help": ""
     },
     {

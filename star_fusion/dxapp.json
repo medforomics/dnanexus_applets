@@ -1,15 +1,18 @@
 {
   "name": "star_fusion",
-  "title": "STAR-Fusion 0.5.30",
+  "title": "STAR-Fusion 0.5.31",
   "summary": "STAR-Fusion",
   "dxapi": "1.0.0",
-  "version": "0.5.30",
+  "version": "0.5.31",
   "inputSpec": [
     {
       "name": "fq1",
       "label": "Trimmed Fastq1",
       "class": "file",
       "optional": false,
+      "patterns": [
+          "*.fastq.gz","*.fq.gz"
+      ],
       "help": ""
     },
     {
@@ -17,6 +20,9 @@
       "label": "Trimmed Fastq2",
       "class": "file",
       "optional": false,
+      "patterns": [
+          "*.fastq.gz","*.fq.gz"
+      ],
       "help": ""
     },
     {
@@ -24,6 +30,9 @@
       "label": "Reference Files (tar.gz)",
       "class": "file",
       "optional": false,
+      "patterns": [
+          "*.tar.gz"
+      ],
       "help": ""
     },
     {

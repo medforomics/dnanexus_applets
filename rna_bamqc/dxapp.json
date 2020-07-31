@@ -1,15 +1,18 @@
 {
   "name": "rna_bamqc",
-  "title": "bam-readcount + Alignment QC 0.5.30",
+  "title": "bam-readcount + Alignment QC 0.5.31",
   "summary": "positional read count and metrics of bam file + QC from alignment stats",
   "dxapi": "1.0.0",
-  "version": "0.5.30",
+  "version": "0.5.31",
   "inputSpec": [
     {
       "name": "Aligned_BAM",
       "label": "Aligned BAM from rnaalign step (aligned.bam)",
       "class": "file",
       "optional": false,
+      "patterns": [
+        "*.bam"
+      ],
       "help": ""
     },
     {
@@ -31,6 +34,9 @@
       "label": "bam-readcount reference file (tar.gz)",
       "class": "file",
       "optional": true,
+      "patterns": [
+        "*.tar.gz"
+      ],
       "help": ""
     }
   ],

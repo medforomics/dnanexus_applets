@@ -1,15 +1,18 @@
 {
   "name": "geneabund",
-  "title": "gene abundance 0.5.30",
+  "title": "gene abundance 0.5.31",
   "summary": "calculates gene counts and fpkm values",
   "dxapi": "1.0.0",
-  "version": "0.5.30",
+  "version": "0.5.31",
   "inputSpec": [
     {
       "name": "Aligned_BAM",
       "label": "Aligned BAM from rnaalign step (aligned.bam)",
       "class": "file",
       "optional": false,
+      "patterns": [
+        "*.bam"
+      ],
       "help": ""
     },
     {
@@ -17,6 +20,9 @@
       "label": "Gencode GTF File",
       "class": "file",
       "optional": false,
+      "patterns": [
+        "*gtf*"
+      ],
       "help": ""
     },
     {

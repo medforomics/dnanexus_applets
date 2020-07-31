@@ -18,7 +18,7 @@ RUN cd /opt; wget https://github.com/arq5x/bedtools2/releases/download/v2.29.2/b
 
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_0.5.30 --single-branch --recursive https://github.com/bcantarel/school.git; \
+    git clone -b version_0.5.31 --single-branch --recursive https://github.com/bcantarel/school.git; \
     cd school; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/alignment/* /usr/local/bin/;

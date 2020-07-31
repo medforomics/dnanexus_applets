@@ -65,11 +65,16 @@ RUN cp -R /opt/bin/* /usr/local/bin/; \
 ENV SNPEFF_HOME "/usr/local/bin/snpEff"
 
 # Install Pindel
-RUN cd /opt/bin; wget http://github.com/genome/pindel/archive/v0.2.5b8.tar.gz; \
-    tar xvfz v0.2.5b8.tar.gz; rm v0.2.5b8.tar.gz; \
-    cd pindel-0.2.5b8; \
-    ./INSTALL /opt/htslib-1.9; \
+RUN git clone https://github.com/xjtu-omics/pindel; \
+    cd pindel; \
+    ./INSTALL /opt/samtools-1.9/htslib-1.9; \
     cp *pindel* /usr/local/bin/;
+    
+#RUN cd /opt/bin; wget http://github.com/genome/pindel/archive/v0.2.5b8.tar.gz; \
+#    tar xvfz v0.2.5b8.tar.gz; rm v0.2.5b8.tar.gz; \
+#    cd pindel-0.2.5b8; \
+#    ./INSTALL /opt/htslib-1.9; \
+#    cp *pindel* /usr/local/bin/;
 
 # Install Delly2
 RUN cd /opt/bin; git clone --branch v0.8.2 --recursive https://github.com/dellytools/delly.git; \
@@ -95,7 +100,7 @@ RUN cd /opt/bin; wget https://github.com/tommyau/itdseek/archive/v1.2.tar.gz; \
 # Install Scripts
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_0.5.30 --single-branch --recursive https://github.com/bcantarel/school.git; \
+    git clone -b version_0.5.31 --single-branch --recursive https://github.com/bcantarel/school.git; \
     cd school; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/variants/* /usr/local/bin/;

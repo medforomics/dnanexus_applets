@@ -1,9 +1,9 @@
 {
   "name": "dna_bamqc",
-  "title": "dna_bamqc_0.5.30",
+  "title": "dna_bamqc_0.5.31",
   "summary": "Concat stat txt files from alignment workflow",
   "dxapi": "1.0.0",
-  "version": "0.5.30",
+  "version": "0.5.31",
   "inputSpec": [
     {
       "name": "Raw_BAM",
@@ -11,7 +11,7 @@
       "class": "file",
       "optional": false,
       "patterns": [
-        "*"
+        "*.bam"
       ],
       "help": ""
     },
@@ -21,17 +21,17 @@
       "class": "file",
       "optional": false,
       "patterns": [
-        "*"
+        "*.bai"
       ],
       "help": ""
     },
     {
       "name": "refinfo",
-      "label": "Info about pipeline db versions (reference_info.txt)",
+      "label": "Bedtools Genome File, Genome Fasta Index, reference_info.txt",
       "class": "file",
       "optional": false,
       "patterns": [
-        "*"
+        "*.tar.gz"
       ],
       "help": ""
     },
@@ -41,7 +41,7 @@
       "class": "file",
       "optional": false,
       "patterns": [
-        "*"
+        "*.tar.gz"
       ],
       "help": ""
     },
@@ -51,7 +51,7 @@
       "class": "file",
       "optional": false,
       "patterns": [
-        "*"
+        "*trimreport.txt"
       ],
       "help": ""
     },
