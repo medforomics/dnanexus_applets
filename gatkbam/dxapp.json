@@ -1,27 +1,27 @@
 {
-  "name": "gatkbam",
-  "title": "gatkbam_0.5.25",
-  "summary": "gatkbam",
+  "name": "GATK-BQSR",
+  "title": "GATK BQSR Applet 0.5.32",
+  "summary": "This applet contains GATK and runs BQSR for BAM files for samples analyzed downstream by GATK",
   "dxapi": "1.0.0",
-  "version": "0.5.25",
+  "version": "0.5.32",
   "inputSpec": [
-    {
-      "name": "Consensus_BAM",
-      "label": "Consensus BAM from alignment step (consensus.bam)",
+   {
+      "name": "bam",
+      "label": "Raw BAM (.bam)",
       "class": "file",
       "optional": false,
       "patterns": [
-        "*"
+        "*.bam"
       ],
       "help": ""
     },
-    {
-      "name": "Consensus_BAI",
-      "label": "Consensus BAI from alignment step (consensus.bam)",
+   {
+      "name": "bai",
+      "label": "Raw BAM Index (.bai)",
       "class": "file",
       "optional": false,
       "patterns": [
-        "*"
+        "*.bai"
       ],
       "help": ""
     },
@@ -31,11 +31,11 @@
       "class": "file",
       "optional": false,
       "patterns": [
-        "*"
+        "*.tar.gz"
       ],
       "help": ""
     },
-    {
+   {
       "name": "pair_id",
       "label": "ReadGroup/SampleName",
       "class": "string",
@@ -45,8 +45,8 @@
   ],
   "outputSpec": [
     {
-      "name": "finalbam",
-      "label": "BAM after gatkbam",
+      "name": "gatkbam",
+      "label": "GATK Bam",
       "class": "file",
       "patterns": [
         "*"
@@ -54,8 +54,8 @@
       "help": ""
     },
     {
-      "name": "finalindex",
-      "label": "BAM Index after gatkbam",
+      "name": "gatkbai",
+      "label": "GATK BAM index",
       "class": "file",
       "patterns": [
         "*"
@@ -66,13 +66,13 @@
   "runSpec": {
     "timeoutPolicy": {
       "*": {
-        "hours": 24
+        "hours": 8
       }
     },
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/gatkbam.sh"
+    "file": "src/snv_indel_calling.sh"
   },
   "access": {
     "network": [
@@ -80,10 +80,10 @@
     ]
   },
   "regionalOptions": {
-    "azure:westus": {
+    "aws:us-east-1": {
       "systemRequirements": {
         "*": {
-          "instanceType": "azure:mem1_ssd1_x16"
+          "instanceType": "mem1_ssd1_v2_x72"
         }
       }
     }

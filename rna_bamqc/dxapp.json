@@ -1,9 +1,9 @@
 {
   "name": "rna_bamqc",
-  "title": "bam-readcount + Alignment QC 0.5.31",
+  "title": "bam-readcount + Alignment QC 0.5.32",
   "summary": "positional read count and metrics of bam file + QC from alignment stats",
   "dxapi": "1.0.0",
-  "version": "0.5.31",
+  "version": "0.5.32",
   "inputSpec": [
     {
       "name": "Aligned_BAM",

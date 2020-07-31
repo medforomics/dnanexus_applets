@@ -15,7 +15,7 @@ main() {
     
     USER=$(dx whoami)
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.31 bash /seqprg/school/process_scripts/alignment/bamqc.sh -c targetpanel.bed -n dna -r ./ -b ${pair_id}.bam -p ${pair_id} -u $USER
+    docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.32 bash /seqprg/school/process_scripts/alignment/bamqc.sh -c targetpanel.bed -n dna -r ./ -b ${pair_id}.bam -p ${pair_id} -u $USER
     tar -czvf ${pair_id}.sequence.stats.tar.gz ${pair_id}.flagstat.txt ${pair_id}.covhist.txt ${pair_id}.genomecov.txt ${pair_id}.ontarget.flagstat.txt ${pair_id}.sequence.stats.txt
 
     seqstats=$(dx upload ${pair_id}.sequence.stats.tar.gz --brief)

@@ -1,9 +1,9 @@
 {
   "name": "markdups",
-  "title": "Markdups_0.5.31",
+  "title": "Markdups_0.5.32",
   "summary":"This app runs MarksDuplicates (PICARD or FG Biotools)", 
   "dxapi": "1.0.0",
-  "version": "0.5.31",
+  "version": "0.5.32",
   "inputSpec": [
    {
       "name": "bam",

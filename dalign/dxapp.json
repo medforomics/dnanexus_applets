@@ -1,9 +1,9 @@
 {
   "name": "dalign",
-  "title": "Align_0.5.31",
+  "title": "Align_0.5.32",
   "summary": "This app runs BWA",
   "dxapi": "1.0.0",
-  "version": "0.5.31",
+  "version": "0.5.32",
   "inputSpec": [
     {
       "name": "fq1",

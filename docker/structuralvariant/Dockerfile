@@ -91,16 +91,16 @@ RUN cd /opt/bin; git clone --branch 1.1.0 --recursive https://github.com/walaj/s
     cp bin/* /usr/local/bin/;
 
 # Install ITDSeek
-RUN cd /opt/bin; wget https://github.com/tommyau/itdseek/archive/v1.2.tar.gz; \
-    tar xvfz v1.2.tar.gz; rm v1.2.tar.gz; \
-    cd itdseek-1.2; \
-    mv *.pl /usr/local/bin/;
+#RUN cd /opt/bin; wget https://github.com/tommyau/itdseek/archive/v1.2.tar.gz; \
+#    tar xvfz v1.2.tar.gz; rm v1.2.tar.gz; \
+#    cd itdseek-1.2; \
+#    mv *.pl /usr/local/bin/;
 
 
 # Install Scripts
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_0.5.31 --single-branch --recursive https://github.com/bcantarel/school.git; \
+    git clone -b version_0.5.32 --single-branch --recursive https://github.com/bcantarel/school.git; \
     cd school; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/variants/* /usr/local/bin/;
@@ -108,4 +108,3 @@ RUN mkdir -p /seqprg; \
 ENV PATH "$PATH:/usr/local/bin"
 
 WORKDIR /data/
-#ENTRYPOINT ["bash","/seqprg/school/process_scripts/variants/svcalling.sh"]
