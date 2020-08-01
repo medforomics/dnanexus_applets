@@ -70,10 +70,10 @@ RUN cd /opt/bin; wget https://github.com/broadinstitute/picard/releases/download
 RUN cd /opt/bin; wget https://sourceforge.net/projects/snpeff/files/snpEff_v4_3t_core.zip; \
     unzip snpEff_v4_3t_core.zip; rm snpEff_v4_3t_core.zip; \
     cd snpEff; \
-    wget https://sourceforge.net/projects/snpeff/files/databases/v4_3/snpEff_v4_3_GRCh38.92.zip; \
-    unzip snpEff_v4_3_GRCh38.92.zip; rm snpEff_v4_3_GRCh38.92.zip; \
-    echo 'GRCh38.92.genome : Homo_sapiens' >> snpEff.config; \
-    echo 'GRCh38.92.reference : ftp://ftp.ensembl.org/pub/release-92/gtf/' >> snpEff.config;
+    wget https://sourceforge.net/projects/snpeff/files/databases/v4_3/snpEff_v4_3_GRCh38.86.zip; \
+    unzip snpEff_v4_3_GRCh38.86.zip; rm snpEff_v4_3_GRCh38.86.zip; \
+    echo 'GRCh38.86.genome : Homo_sapiens' >> snpEff.config; \
+    echo 'GRCh38.86.reference : ftp://ftp.ensembl.org/pub/release-92/gtf/' >> snpEff.config;
 RUN cp -R /opt/bin/* /usr/local/bin/; \
     chmod +x /usr/local/bin/picard.jar; \
     chmod +x /usr/local/bin/snpEff/snpEff.jar; \
@@ -123,7 +123,7 @@ RUN cd /opt/bin; wget https://github.com/atks/vt/archive/0.57721.tar.gz; \
 # Install Scripts
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_0.5.32 --single-branch --recursive https://github.com/bcantarel/school.git; \
+    git clone -b version_0.5.33 --single-branch --recursive https://github.com/bcantarel/school.git; \
     cd school; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/alignment/* /usr/local/bin/; \

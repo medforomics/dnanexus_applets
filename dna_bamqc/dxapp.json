@@ -1,9 +1,9 @@
 {
   "name": "dna_bamqc",
-  "title": "dna_bamqc_0.5.32",
+  "title": "dna_bamqc_0.5.33",
   "summary": "Concat stat txt files from alignment workflow",
   "dxapi": "1.0.0",
-  "version": "0.5.32",
+  "version": "0.5.33",
   "inputSpec": [
     {
       "name": "Raw_BAM",

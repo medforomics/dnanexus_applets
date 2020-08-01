@@ -1,9 +1,9 @@
 {
   "name": "snv_indel_calling",
-  "title": "Variant Calling Applet 0.5.32",
+  "title": "Variant Calling Applet 0.5.33",
   "summary": "This applet contains variant calling methods for tumor only and somatic workflows. Including Platypus, Freebayes, Strelka2, Mutect2, and Shimmer",
   "dxapi": "1.0.0",
-  "version": "0.5.32",
+  "version": "0.5.33",
   "inputSpec": [
     {
       "name": "Tumor_BAM",
@@ -56,7 +56,7 @@
       "name": "algo",
       "label": "Variant Calling Algorithm (mutect fb platypus strelka2 shimmer)",
 	"class": "string",
-	"default":"fb strelka2 platypus"
+	"default":"fb strelka2 platypus",
       "optional": false,
       "help": ""
     }
@@ -84,7 +84,7 @@
   "runSpec": {
     "timeoutPolicy": {
       "*": {
-        "hours": 8
+        "hours": 4
       }
     },
     "interpreter": "bash",
@@ -101,7 +101,7 @@
     "aws:us-east-1": {
       "systemRequirements": {
         "*": {
-          "instanceType": "mem1_ssd1_v2_x72"
+          "instanceType": "mem1_ssd1_v2_x16"
         }
       }
     }

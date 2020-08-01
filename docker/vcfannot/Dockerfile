@@ -57,13 +57,6 @@ RUN cd /opt; wget https://github.com/arq5x/bedtools2/releases/download/v2.29.2/b
 RUN cd /opt/bin; wget http://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.5.zip; \
     unzip fastqc_v0.11.5.zip; rm fastqc_v0.11.5.zip;
 
-# Install snpEff
-RUN cd /opt/bin; wget https://sourceforge.net/projects/snpeff/files/snpEff_v4_3t_core.zip; \
-    unzip snpEff_v4_3t_core.zip; rm snpEff_v4_3t_core.zip; \
-    cd snpEff; \
-    wget https://sourceforge.net/projects/snpeff/files/databases/v4_3/snpEff_v4_3_GRCh38.92.zip; \
-    unzip snpEff_v4_3_GRCh38.92.zip; rm snpEff_v4_3_GRCh38.92.zip;
-
 # Install Picard
 RUN cd /opt/bin; wget https://github.com/broadinstitute/picard/releases/download/2.21.7/picard.jar; \
     mv /opt/bin/* /usr/local/bin/; \
@@ -75,21 +68,6 @@ ENV PICARD "/usr/local/bin"
 ENV PATH "$PATH:/usr/local/bin/FastQC"
 ENV SNPEFF_HOME "/usr/local/bin/snpEff"
 
-# # Install CNVkit
-# RUN apt-get install -y r-base;
-# RUN cd /opt; wget https://cran.r-project.org/src/base/R-3/R-3.3.2.tar.gz; \
-#     tar xvfz R-3.3.2.tar.gz; rm R-3.3.2.tar.gz; \
-#     cd R-3.3.2; \
-#     ./configure --with-x=yes --enable-R-shlib=yes --with-cairo=yes; \
-#     make; make install;
-# RUN R -e "install.packages('BiocManager', repos='https://cran.rstudio.com')";
-# RUN R -e "BiocManager::install('DNAcopy')"
-# RUN pip install numpy==1.16.6; pip install scipy==1.2.3; pip install pandas==0.24.2; pip install matplotlib==2.2.5; pip install reportlab; pip install biopython==1.76; pip install pyfaidx; pip install pysam; pip install pyvcf;
-# RUN cd /opt/bin; git clone -b v0.9.6 --single-branch https://github.com/etal/cnvkit; \
-#     cd cnvkit/; \
-#     pip install future; pip install futures; pip install networkx; pip install joblib; pip install cython; pip install pomegranate; \
-#     cd /opt/bin/cnvkit/; \
-#     mv * /usr/local/bin/;
 
 # Install NGSCheckMate
 RUN cd /opt/bin; wget https://github.com/parklab/NGSCheckMate/archive/v1.0.0.tar.gz; \
@@ -115,13 +93,13 @@ RUN cd /opt; wget https://github.com/genome/bam-readcount/archive/v0.8.0.tar.gz;
 # Install Scripts
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_0.5.32 --single-branch --recursive https://github.com/bcantarel/school.git; \
+    git clone -b version_0.5.33 --single-branch --recursive https://github.com/bcantarel/school.git; \
     cd school; \
     cp -r process_scripts/alignment/* /usr/local/bin/; \
     cp -r process_scripts/variants/* /usr/local/bin/; \
     cp -r scripts/* /usr/local/bin/;
 
 ENV PATH "$PATH:/usr/local/bin"
-ENV gitv "version_0.5.32"
+ENV gitv "version_0.5.33"
 
 WORKDIR /data/

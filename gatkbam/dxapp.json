@@ -1,9 +1,9 @@
 {
-  "name": "GATK-BQSR",
-  "title": "GATK BQSR Applet 0.5.32",
+  "name": "gatkbam",
+  "title": "GATK BQSR Applet 0.5.33",
   "summary": "This applet contains GATK and runs BQSR for BAM files for samples analyzed downstream by GATK",
   "dxapi": "1.0.0",
-  "version": "0.5.32",
+  "version": "0.5.33",
   "inputSpec": [
    {
       "name": "bam",
@@ -66,13 +66,13 @@
   "runSpec": {
     "timeoutPolicy": {
       "*": {
-        "hours": 8
+        "hours": 4
       }
     },
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/snv_indel_calling.sh"
+    "file": "src/gatkbam.sh"
   },
   "access": {
     "network": [
@@ -83,7 +83,7 @@
     "aws:us-east-1": {
       "systemRequirements": {
         "*": {
-          "instanceType": "mem1_ssd1_v2_x72"
+          "instanceType": "mem1_ssd1_v2_x16"
         }
       }
     }

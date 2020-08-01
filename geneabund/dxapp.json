@@ -1,9 +1,9 @@
 {
   "name": "geneabund",
-  "title": "gene abundance 0.5.32",
+  "title": "gene abundance 0.5.33",
   "summary": "calculates gene counts and fpkm values",
   "dxapi": "1.0.0",
-  "version": "0.5.32",
+  "version": "0.5.33",
   "inputSpec": [
     {
       "name": "Aligned_BAM",
@@ -21,7 +21,7 @@
       "class": "file",
       "optional": false,
       "patterns": [
-        "*gtf*"
+        "*gtf.gz"
       ],
       "help": ""
     },
@@ -34,9 +34,12 @@
     },
     {
       "name": "glist",
-      "label": "Panel Gene List",
+      "label": "Panel Gene Info",
       "class": "file",
       "optional": true,
+      "patterns": [
+        "*tar.gz"
+      ],
       "help": ""
     },
     {
@@ -97,7 +100,7 @@
     "aws:us-east-1": {
       "systemRequirements": {
         "*": {
-          "instanceType": "mem1_ssd1_x16"
+          "instanceType": "mem1_ssd1_v2_x2"
         }
       }
     }

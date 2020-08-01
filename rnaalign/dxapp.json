@@ -1,9 +1,9 @@
 {
   "name": "rnaalign",
-  "title": "rnaralign 0.5.32",
+  "title": "rnaralign 0.5.33",
   "summary": "RNA sequence trim + alignment",
   "dxapi": "1.0.0",
-  "version": "0.5.32",
+  "version": "0.5.33",
   "inputSpec": [
     {
 	"name": "fq1",
@@ -135,7 +135,7 @@
     "aws:us-east-1": {
       "systemRequirements": {
         "*": {
-          "instanceType": "mem1_ssd1_x16"
+          "instanceType": "mem1_ssd1_x8"
         }
       }
     }

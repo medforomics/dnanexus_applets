@@ -9,10 +9,10 @@ main() {
     dx download "$reference" -o ref.tar.gz
 
     mkdir dnaref
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.32 tar -I pigz -xvf ref.tar.gz --strip-components=1 -C dnaref
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.33 tar -I pigz -xvf ref.tar.gz --strip-components=1 -C dnaref
 
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.32 bash /seqprg/school/process_scripts/variants/gatkrunner.sh -a gatkbam -b ${pair_id}.bam -r dnaref -p ${pair_id}
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.33 bash /seqprg/school/process_scripts/variants/gatkrunner.sh -a gatkbam -b ${pair_id}.bam -r dnaref -p ${pair_id}
 
     gatkbam=$(dx upload ${pair_id}.final.bam --brief)
     gatkbai=$(dx upload ${pair_id}.final.bam.bai --brief)
