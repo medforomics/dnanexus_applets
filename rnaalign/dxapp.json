@@ -118,7 +118,7 @@
   "runSpec": {
     "timeoutPolicy": {
       "*": {
-        "hours": 24
+        "hours": 2
       }
     },
     "interpreter": "bash",

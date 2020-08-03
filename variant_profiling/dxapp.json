@@ -11,7 +11,7 @@
       "class": "file",
       "optional": false,
       "patterns": [
-        "*"
+        "*.bam"
       ],
       "help": ""
     },
@@ -21,7 +21,7 @@
       "class": "file",
       "optional": true,
       "patterns": [
-        "*"
+        "*.bam"
       ],
       "help": ""
     },
@@ -31,7 +31,7 @@
       "class": "file",
       "optional": false,
       "patterns": [
-        "*"
+        "*.tar.gz"
       ],
       "help": ""
     },
@@ -41,7 +41,7 @@
       "class": "file",
       "optional": true,
       "patterns": [
-        "*"
+        "*.tar.gz"
       ],
       "help": ""
     },
