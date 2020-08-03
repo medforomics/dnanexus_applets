@@ -1,9 +1,9 @@
 {
   "name": "rna_bamqc",
-  "title": "bam-readcount + Alignment QC 0.5.33",
+  "title": "bam-readcount + Alignment QC 0.5.36",
   "summary": "positional read count and metrics of bam file + QC from alignment stats",
   "dxapi": "1.0.0",
-  "version": "0.5.33",
+  "version": "0.5.36",
   "inputSpec": [
     {
       "name": "Aligned_BAM",
@@ -99,7 +99,7 @@
     "aws:us-east-1": {
       "systemRequirements": {
         "*": {
-          "instanceType": "mem1_ssd1_x2"
+          "instanceType": "mem2_hdd2_x1"
         }
       }
     }

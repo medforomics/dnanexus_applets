@@ -1,9 +1,9 @@
 {
   "name": "gatkbam",
-  "title": "GATK BQSR Applet 0.5.33",
+  "title": "GATK BQSR Applet 0.5.36",
   "summary": "This applet contains GATK and runs BQSR for BAM files for samples analyzed downstream by GATK",
   "dxapi": "1.0.0",
-  "version": "0.5.33",
+  "version": "0.5.36",
   "inputSpec": [
    {
       "name": "bam",
@@ -83,7 +83,7 @@
     "aws:us-east-1": {
       "systemRequirements": {
         "*": {
-          "instanceType": "mem1_ssd1_v2_x16"
+          "instanceType": "mem3_hdd2_x2"
         }
       }
     }

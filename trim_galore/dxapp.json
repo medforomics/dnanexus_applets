@@ -1,9 +1,9 @@
 {
   "name": "trim_galore",
-  "title": "TrimGalore_0.5.33",
+  "title": "TrimGalore_0.5.36",
   "summary": "Trim Galore trims poor quality sequence from reads",
   "dxapi": "1.0.0",
-  "version": "0.5.33",
+  "version": "0.5.36",
   "inputSpec": [
     {
       "name": "fq1",

@@ -1,10 +1,10 @@
 #!/bin/bash
 
-perl -pi -e 's/0.5.30/0.5.33/g' docker/*/Dockerfile */dxapp.json */src/*.sh build_docker.sh
+perl -pi -e 's/0.5.36/0.5.36/g' docker/*/Dockerfile */dxapp.json */src/*.sh build_docker.sh
 cd docker
-ls | awk '{print "docker build --tag",$1":0.5.33",$1}' |sh
-ls | awk '{print "docker tag",$1":0.5.33 goalconsortium/"$1":0.5.33"}' |sh
-ls | awk '{print "docker push goalconsortium/"$1":0.5.33"}' |sh
+ls | awk '{print "docker build --tag",$1":0.5.36",$1}' |sh
+ls | awk '{print "docker tag",$1":0.5.36 goalconsortium/"$1":0.5.36"}' |sh
+ls | awk '{print "docker push goalconsortium/"$1":0.5.36"}' |sh
 cd ..
 
 source /Users/bcantarel/utsw/dnanexus/dx-toolkit/environment

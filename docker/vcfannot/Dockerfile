@@ -61,13 +61,9 @@ RUN cd /opt/bin; wget http://www.bioinformatics.babraham.ac.uk/projects/fastqc/f
 RUN cd /opt/bin; wget https://github.com/broadinstitute/picard/releases/download/2.21.7/picard.jar; \
     mv /opt/bin/* /usr/local/bin/; \
     chmod +x /usr/local/bin/picard.jar; \
-    chmod 755 /usr/local/bin/FastQC/fastqc; \
-    chmod +x /usr/local/bin/snpEff/snpEff.jar; \
-    chmod +x /usr/local/bin/snpEff/SnpSift.jar
+    chmod 755 /usr/local/bin/FastQC/fastqc;
 ENV PICARD "/usr/local/bin"
 ENV PATH "$PATH:/usr/local/bin/FastQC"
-ENV SNPEFF_HOME "/usr/local/bin/snpEff"
-
 
 # Install NGSCheckMate
 RUN cd /opt/bin; wget https://github.com/parklab/NGSCheckMate/archive/v1.0.0.tar.gz; \
@@ -93,13 +89,13 @@ RUN cd /opt; wget https://github.com/genome/bam-readcount/archive/v0.8.0.tar.gz;
 # Install Scripts
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_0.5.33 --single-branch --recursive https://github.com/bcantarel/school.git; \
+    git clone -b version_0.5.40 --single-branch --recursive https://github.com/bcantarel/school.git; \
     cd school; \
     cp -r process_scripts/alignment/* /usr/local/bin/; \
     cp -r process_scripts/variants/* /usr/local/bin/; \
     cp -r scripts/* /usr/local/bin/;
 
 ENV PATH "$PATH:/usr/local/bin"
-ENV gitv "version_0.5.33"
+ENV gitv "version_0.5.40"
 
 WORKDIR /data/

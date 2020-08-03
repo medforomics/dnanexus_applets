@@ -1,9 +1,9 @@
 {
   "name": "variant_profiling",
-  "title": "Variant Profiling Applet 0.5.33",
+  "title": "Variant Profiling Applet 0.5.40",
   "summary": "This applet contains variant calling methods for tumor only and somatic workflows. Including msisensor-pro, NGSCheckMates",
   "dxapi": "1.0.0",
-  "version": "0.5.33",
+  "version": "0.5.40",
   "inputSpec": [
    {
       "name": "Tumor_BAM",
@@ -54,10 +54,11 @@
     },
     {
       "name": "algo",
-      "label": "Variant Calling Algorithm (msisensor, checkmates)",
+      "label": "Variant Calling Algorithm (msisensor)",
       "class": "string",
       "optional": false,
-      "help": ""
+	"default":"msisensor",
+	"help": ""
     }
   ],
   "outputSpec": [
@@ -105,7 +106,7 @@
   "runSpec": {
     "timeoutPolicy": {
       "*": {
-        "hours": 48
+        "hours": 2
       }
     },
     "interpreter": "bash",

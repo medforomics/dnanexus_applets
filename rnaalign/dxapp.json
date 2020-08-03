@@ -1,9 +1,9 @@
 {
   "name": "rnaalign",
-  "title": "rnaralign 0.5.33",
+  "title": "rnaralign 0.5.36",
   "summary": "RNA sequence trim + alignment",
   "dxapi": "1.0.0",
-  "version": "0.5.33",
+  "version": "0.5.36",
   "inputSpec": [
     {
 	"name": "fq1",
