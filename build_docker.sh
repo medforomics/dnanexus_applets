@@ -1,25 +1,29 @@
 #!/bin/bash
 
-perl -pi -e 's/0.5.36/0.5.36/g' docker/*/Dockerfile */dxapp.json */src/*.sh build_docker.sh
+
+perl -pi -e 's/version_0.5.36/version_0.5.40/g' docker/*/Dockerfile
+perl -pi -e 's/version_0.5.39/version_0.5.40/g' docker/*/Dockerfile
+
 cd docker
-ls | awk '{print "docker build --tag",$1":0.5.36",$1}' |sh
-ls | awk '{print "docker tag",$1":0.5.36 goalconsortium/"$1":0.5.36"}' |sh
-ls | awk '{print "docker push goalconsortium/"$1":0.5.36"}' |sh
+ls | awk '{print "docker build --tag",$1":0.5.40",$1}' |sh
+ls | awk '{print "docker tag",$1":0.5.40 goalconsortium/"$1":0.5.36"}' |sh
+ls | awk '{print "docker push goalconsortium/"$1":0.5.40"}' |sh
 cd ..
 
+perl -pi -e 's/0.5.36/0.5.36/g' */dxapp.json */src/*.sh build_docker.sh
 source /Users/bcantarel/utsw/dnanexus/dx-toolkit/environment
-ls */dxapp.json | awk -F '/' '{print "build -f",$1}' |sh
-build -f dalign
-build -f dna_bamqc
-build -f gatkbam
-build -f geneabund
-build -f integratevcf
-build -f markdups
-build -f rna_bamqc
-build -f rnaalign
-build -f snv_indel_calling
-build -f star_fusion
-build -f sv_calling
-build -f trim_galore
-build -f variant_profiling
+ls */dxapp.json | awk -F '/' '{print "dx build -f",$1}' |sh
+dx build -f dalign
+dx build -f dna_bamqc
+dx build -f gatkbam
+dx build -f geneabund
+dx build -f integratevcf
+dx build -f markdups
+dx build -f rna_bamqc
+dx build -f rnaalign
+dx build -f snv_indel_calling
+dx build -f star_fusion
+dx build -f sv_calling
+dx build -f trim_galore
+dx build -f variant_profiling
 

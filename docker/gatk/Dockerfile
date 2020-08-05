@@ -22,12 +22,12 @@ RUN cd /opt; wget https://github.com/samtools/samtools/releases/download/1.10/sa
 # Install Scripts
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_0.5.36 --single-branch --recursive https://github.com/bcantarel/school.git; \
+    git clone -b version_0.5.40 --single-branch --recursive https://github.com/bcantarel/school.git; \
     cd school; \
     cp -r process_scripts/variants/* /usr/local/bin/; \
     cp -r scripts/* /usr/local/bin/;
 
-ENV gitv "version_0.5.36"
+ENV gitv "version_0.5.40"
 
 ENV PATH "$PATH:/usr/local/bin"
 

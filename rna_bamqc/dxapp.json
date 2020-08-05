@@ -1,9 +1,9 @@
 {
   "name": "rna_bamqc",
-  "title": "bam-readcount + Alignment QC 0.5.36",
+  "title": "bam-readcount + Alignment QC 0.5.40",
   "summary": "positional read count and metrics of bam file + QC from alignment stats",
   "dxapi": "1.0.0",
-  "version": "0.5.36",
+  "version": "0.5.40",
   "inputSpec": [
     {
       "name": "Aligned_BAM",
@@ -30,8 +30,18 @@
       "help": ""
     },
     {
-     "name": "bamct",
-      "label": "bam-readcount reference file (tar.gz)",
+      "name": "panel",
+      "label": "Panel Reference File (tar.gz)",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*.tar.gz"
+      ],
+      "help": ""
+    },
+   {
+      "name": "bamct",
+      "label": "RNA QC Reference file (tar.gz)",
       "class": "file",
       "optional": true,
       "patterns": [
@@ -82,7 +92,7 @@
   "runSpec": {
     "timeoutPolicy": {
       "*": {
-        "hours": 24
+        "hours": 4
       }
     },
     "interpreter": "bash",

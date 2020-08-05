@@ -1,23 +1,13 @@
 {
-  "name": "integratevcf",
-  "title": "Union VCF 0.5.40",
-  "summary": "Combine VCF Outputs",
+  "name": "Abra2",
+  "title": "Abra Realignment",
+  "summary": "Abra2 Realignment",
   "dxapi": "1.0.0",
-  "version": "0.5.40",
+  "version": "0.0.1",
   "inputSpec": [
-     {
-      "name": "vcffiles",
-      "label": "VCF Files",
-      "class": "array:file",
-      "optional": false,
-      "patterns": [
-        "*.tar.gz"
-      ],
-      "help": ""
-    },
     {
-      "name": "genodict",
-      "label": "Genome Dictionary File for VCF sorting",
+      "name": "bam",
+      "label": "BAM",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -26,17 +16,30 @@
       "help": ""
     },
     {
-      "name": "pair_id",
-      "label": "ReadGroup/SampleName",
-      "class": "string",
+      "name": "reference",
+      "label": "Reference (Tar Gz)",
+      "class": "file",
       "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "panel",
+      "label": "Panel (Tar Gz)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
       "help": ""
     }
   ],
   "outputSpec": [
     {
-      "name": "union_vcf",
-      "label": "Union VCF",
+      "name": "outbam",
+      "label": "Abra2 BAM",
       "class": "file",
       "patterns": [
         "*"
@@ -47,13 +50,13 @@
   "runSpec": {
     "timeoutPolicy": {
       "*": {
-        "hours": 1
+        "hours": 6
       }
     },
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/integratevcf.sh"
+    "file": "src/Abra2.sh"
   },
   "access": {
     "network": [
@@ -64,7 +67,7 @@
     "aws:us-east-1": {
       "systemRequirements": {
         "*": {
-          "instanceType": "mem1_ssd1_x2"
+          "instanceType": "mem1_ssd1_x8"
         }
       }
     }
