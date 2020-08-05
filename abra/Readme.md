@@ -1,7 +1,7 @@
 <!-- dx-header -->
-# Abra Realignment (DNAnexus Platform App)
+# GATK (DNAnexus Platform App)
 
-Abra2 Realignment
+GATK
 
 This is the source code for an app that runs on the DNAnexus Platform.
 For more information about how to run or modify it, see
