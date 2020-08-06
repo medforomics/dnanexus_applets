@@ -1,47 +1,24 @@
 <!-- dx-header -->
-# Generate BAM: BWA + MarkDuplicates + QC (DNAnexus Platform App)
+# DNA Alignment (dalign)
 
-This is the source code for an app that runs on the DNAnexus Platform.
-For more information about how to run or modify it, see
-https://wiki.dnanexus.com/.
-
-# Align_Markdups
-
-This app runs:
 - BWA against the Human Genome
 - BWA against the Viral Genom
-- MarkDupliates
-  - samtools markdup
-  - picard MarkDuplicates
-  - picard MarkDuplicates BARCODE_TAG=RX 
-  - fgbio GroupReadsByUmi, CallMolecularConsensusReads 
-- QC
-  - samtools flagstat
-  - fastqc
-  - bedtools coverage
-  - picard EstimateLibraryComplexity
 
-**Runs with:**
-- Docker Container [goalconsortium/alignment](https://hub.docker.com/repository/docker/goalconsortium/alignment/general)
-- Git Repo [SCHOOL](https://github.com/bcantarel/school)
+Uses
+- [docker.io/goalconsortium/alignment:0.5.40]((https://hub.docker.com/repository/docker/goalconsortium/alignment/general)
+   - bwa 0.7.17
+   - fgbio 1.1.0
+   - picard 2.21.7
+- [SCHOOL](https://github.com/bcantarel/school.git)
 
-**Required Input:**
+**Input**
 - Fastq Files (PE):
   - fq1
   - fq2
 - Human Ref: BWA Index Files for the Human Genome
-- Virus Ref: BWA Index Files for the Virus Genome
-- Panel File: BED file
-- TrimStat Fle: Trim Report output from TrimGalore
-- PairID: SampleName/ReadGroup
-- MarkDup Method
-  - samtools
-  - picard
-  - picard_umi
-  - fgbio_umi
+- Virus Ref: BWA Index Files for the Virus Genome (optional)
+- ReadGroup/SampleName 
 
-**Output:**
-- Raw BAM
-- BAM post mark duplicates step
-- Viral Alignment Stats
-- Alignment Stat Files
+**Output**
+- Sorted Human Ref BAM, BAI
+- Viral alignment stats (optional)

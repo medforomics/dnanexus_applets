@@ -38,11 +38,16 @@ main() {
     docker run -v ${PWD}:/data docker.io/goalconsortium/abra2:0.5.40 java -Xmx16G -jar /usr/local/bin/abra2.jar $ioopt --ref dnaref/genome.fa --threads $threads $opt --tmpdir tmpdir --mbq 150 --mnf 5 --mer 0.05 > abra.log
 
     abratbam=$(dx upload ${pair_id}.tumor.abra2.bam --brief)
-    dx-jobutil-add-output abrabam "$abratbam" --class=file
+    dx-jobutil-add-output abratbam "$abratbam" --class=file
 
+    abratbai=$(dx upload ${pair_id}.tumor.abra2.bam.bai --brief)
+    dx-jobutil-add-output abratbai "$abratbai" --class=file
+    
     if [ -n "$normalbam" ]
     then
 	abranbam=$(dx upload ${pair_id}.normal.abra2.bam --brief)
-	dx-jobutil-add-output abrabai "$abranbam" --class=file
+	dx-jobutil-add-output abranbam "$abranbam" --class=file
+ 	abranbai=$(dx upload ${pair_id}.normal.abra2.bam.bai --brief)
+	dx-jobutil-add-output abranbai "$abranbai" --class=file
     fi
 }

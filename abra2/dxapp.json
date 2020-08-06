@@ -56,7 +56,7 @@
   "outputSpec": [
     {
       "name": "abratbam",
-      "label": "ABRA2 Tumor Bam",
+      "label": "ABRA2 Tumor BAM",
       "class": "file",
       "patterns": [
         "*"
@@ -72,8 +72,28 @@
         "*"
       ],
       "help": ""
-    }
-  ],
+    },
+    {
+      "name": "abratbai",
+      "label": "ABRA2 Tumor BAM BAI",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "abranbai",
+      "label": "ABRA Normal BAM BAI",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    } 
+
+ ],
   "runSpec": {
     "timeoutPolicy": {
       "*": {
@@ -94,7 +114,7 @@
     "aws:us-east-1": {
       "systemRequirements": {
         "*": {
-          "instanceType": "mem3_ssd1_x8"
+          "instanceType": "mem1_ssd1_v2_x16"
         }
       }
     }

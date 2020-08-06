@@ -1,7 +1,7 @@
 {
   "name": "trim_galore",
-  "title": "TrimGalore_0.5.40",
-  "summary": "Trim Galore trims poor quality sequence from reads",
+  "title": "Trim Galore",
+  "summary": "Trim Galore: Trims poor quality sequence from reads",
   "dxapi": "1.0.0",
   "version": "0.5.40",
   "inputSpec": [
@@ -27,7 +27,7 @@
     },
     {
       "name": "pair_id",
-      "label": "Output Prefix",
+      "label": "Output Files Prefix",
       "class": "string",
       "optional": false,
       "help": ""

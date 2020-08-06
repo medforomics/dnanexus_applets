@@ -1,13 +1,13 @@
 {
   "name": "integratevcf",
-  "title": "Union VCF 0.5.40",
+  "title": "Intergrate VCF VCF",
   "summary": "Combine VCF Outputs",
   "dxapi": "1.0.0",
   "version": "0.5.40",
   "inputSpec": [
      {
       "name": "vcffiles",
-      "label": "VCF Files",
+      "label": "VCF Files Tar Gz (Array)",
       "class": "array:file",
       "optional": false,
       "patterns": [
