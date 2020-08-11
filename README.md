@@ -135,7 +135,7 @@ Uses
 - BAM BAI,
 - SampleName/ReadGroup
 
-# Variant Profiling
+## Variant Profiling
 variant_profiling
 
 Microsatallite Stability and Tumor/Normal Pair Comparison
@@ -200,6 +200,7 @@ Uses
 
 Options
 - pindel: PINDEL
+- pindel_itd: PINDEL restricted to itd_genes.bed
 - delly: DELLY 
 - svaba: SVABA
 - cnvkit: CNVKit
@@ -235,11 +236,78 @@ Uses
 - Union VCF
 
 
+## RNASeq Align
 rnaalign
 
+Aligns RNASeq Data to a reference genome with HiSAT2
+
+Uses
+- Docker Container [goalconsortium/structuralvariant](https://hub.docker.com/repository/docker/goalconsortium/structuralvariant/general)
+- Git Repo [SCHOOL](https://github.com/bcantarel/school)
+
+**Input**
+- Fastq Files (PE):
+  - fq1
+  - fq2
+- Human Ref: HiSAT2 Index Files for the Human Genome
+- ReadGroup/SampleName 
+
+**Output**
+- Sorted Human Ref BAM, BAI
+- Alignment Stats File from HiSAT
+
+## RNA BAM QC
 rna_bamqc
 
+Uses
+- Docker Container [goalconsortium/structuralvariant](https://hub.docker.com/repository/docker/goalconsortium/alignment/general)
+- Git Repo [SCHOOL](https://github.com/bcantarel/school)
+
+ **Input**
+- Sorted Human Ref BAM, BAI
+- Alignment Stats File from HiSAT
+- ReadGroup/SampleName 
+- Panel Tar Gz with Target Panel Bed (optional to run BAM Read Count)
+
+**Output**
+
+- BAM Read Count
+- Output from FASTQC
+- HTML File from FastQC
+- TXT file with Summary of QC Metrics
+
+## Gene Abundance Calculation
 geneabund
 
+Runs Feature Count and String Tie to determine raw read counts and FPKM of genes.
+
+Uses
+- Docker Container [goalconsortium/structuralvariant](https://hub.docker.com/repository/docker/goalconsortium/geneabund/general)
+- Git Repo [SCHOOL](https://github.com/bcantarel/school)
+
+**Input**
+- Sorted BAM
+- Gene GTF
+- ReadGroup/SampleName
+- Gene List (for panel data)
+- Stranded (for specialty assays that generate stranded libraries)
+
+**Output**
+- Raw Count Table
+- FPKM Table
+- StringTie Output file
+
+## Gene Fusion Detection
 star_fusion
 
+Runs Star Fusion to Detect Gene Fusions and uses AGFusion to annotate Exon Junctions.
+
+**Input**
+- Fastq Files (PE):
+  - fq1
+  - fq2
+- Human Ref: (CTAT plug and play)[https://github.com/FusionAnnotator/CTAT_HumanFusionLib/wiki]
+- ReadGroup/SampleName 
+
+**Output**
+- Star Fusion Output and Derived Files

@@ -41,6 +41,9 @@ main() {
 	
 	if [[ "${a}" == "pindel" ]]
 	then
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.40 bash /seqprg/school/process_scripts/variants/svcalling.sh -r dnaref -p $pair_id -l dnaref/itd_genes.bed -c dnaref/targetpanel.bed -a ${a} -g GRCh38.86 -f
+	elif [[ "${a}" == "pindel_itd" ]]
+	then
 	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.40 bash /seqprg/school/process_scripts/variants/svcalling.sh -r dnaref -p $pair_id -l dnaref/itd_genes.bed -c dnaref/itd_genes.bed -a ${a} -g GRCh38.86 -f
 	elif [[ "${a}" == "delly" ]] || [[ "${a}" == "svaba" ]]
 	then

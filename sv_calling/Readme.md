@@ -8,6 +8,7 @@ Uses
 
 Options
 - pindel: PINDEL
+- pindel_itd: PINDEL restricted to regions in itd_genes.bed
 - delly: DELLY 
 - svaba: SVABA
 - cnvkit: CNVKit

@@ -57,7 +57,7 @@
 	"label": "Variant Calling Algorithm (pindel delly svaba cnvkit itdseek)",
 	"class": "string",
 	"optional": false,
-	"default":"pindel delly svaba cnvkit itdseek",
+	"default":"pindel_itd delly svaba cnvkit itdseek",
 	"help": ""
     }
   ],
