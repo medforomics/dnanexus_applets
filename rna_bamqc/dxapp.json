@@ -1,7 +1,7 @@
 {
   "name": "rna_bamqc",
-  "title": "bam-readcount + Alignment QC 0.5.40",
-  "summary": "positional read count and metrics of bam file + QC from alignment stats",
+  "title": "Alignment QC 0.5.40",
+  "summary": "Alignment QC",
   "dxapi": "1.0.0",
   "version": "0.5.40",
   "inputSpec": [
@@ -23,44 +23,14 @@
       "help": ""
     },
     {
-      "name": "pair_id",
+      "name": "sampleid",
       "label": "ReadGroup/SampleName",
       "class": "string",
       "optional": false,
       "help": ""
-    },
-    {
-      "name": "panel",
-      "label": "Panel Reference File (tar.gz)",
-      "class": "file",
-      "optional": true,
-      "patterns": [
-        "*.tar.gz"
-      ],
-      "help": ""
-    },
-   {
-      "name": "bamct",
-      "label": "RNA QC Reference file (tar.gz)",
-      "class": "file",
-      "optional": true,
-      "patterns": [
-        "*.tar.gz"
-      ],
-      "help": ""
     }
   ],
   "outputSpec": [
-    {
-      "name": "bamreadct",
-      "label": "bam-readcount output file",
-      "class": "file",
-      "optional": true,
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
     {
       "name": "fastqczip",
       "label": "FastQC output file (zip)",
@@ -92,7 +62,7 @@
   "runSpec": {
     "timeoutPolicy": {
       "*": {
-        "hours": 4
+        "hours": 1
       }
     },
     "interpreter": "bash",
@@ -109,7 +79,7 @@
     "aws:us-east-1": {
       "systemRequirements": {
         "*": {
-          "instanceType": "mem2_hdd2_x1"
+          "instanceType": "mem1_ssd1_v2_x2"
         }
       }
     }

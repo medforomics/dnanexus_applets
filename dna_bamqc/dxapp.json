@@ -56,7 +56,7 @@
       "help": ""
     },
     {
-      "name": "pair_id",
+      "name": "sampleid",
       "label": "ReadGroup/SampleName",
       "class": "string",
       "optional": false,

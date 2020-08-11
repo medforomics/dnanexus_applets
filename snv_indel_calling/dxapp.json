@@ -46,8 +46,8 @@
       "help": ""
     },
     {
-      "name": "pair_id",
-      "label": "ReadGroup/SampleName",
+      "name": "caseid",
+      "label": "SubjectID/CaseID",
       "class": "string",
       "optional": false,
       "help": ""

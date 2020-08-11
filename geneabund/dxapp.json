@@ -1,6 +1,6 @@
 {
   "name": "geneabund",
-  "title": "gene abundance 0.5.40",
+  "title": "Gene Abundance 0.5.40",
   "summary": "calculates gene counts and fpkm values",
   "dxapi": "1.0.0",
   "version": "0.5.40",
@@ -26,15 +26,15 @@
       "help": ""
     },
     {
-      "name": "pair_id",
-      "label": "ReadGroup/SampleName",
+      "name": "sampleid",
+      "label": "ReadGroup/SampleID",
       "class": "string",
       "optional": false,
       "help": ""
     },
     {
       "name": "glist",
-      "label": "Panel Gene Info",
+      "label": "Panel Gene List",
       "class": "file",
       "optional": true,
       "patterns": [
@@ -54,7 +54,7 @@
   "outputSpec": [
     {
       "name": "counts",
-      "label": "featureCounts output file",
+      "label": "featureCounts Gene Count File",
       "class": "file",
       "patterns": [
         "*"
@@ -63,7 +63,7 @@
     },
     {
       "name": "strcts",
-      "label": "Strcts output file",
+      "label": "StringTie Output Files",
       "class": "file",
       "patterns": [
         "*"
@@ -72,7 +72,7 @@
     },
     {
       "name": "fpkm",
-      "label": "stringtie fpkm output file",
+      "label": "StringTie FPKM File",
       "class": "file",
       "patterns": [
         "*"

@@ -4,18 +4,18 @@
 
 main() {
 
-    dx download "$tbam" -o ${pair_id}.tumor.bam
+    dx download "$tbam" -o ${caseid}.tumor.bam
     dx download "$reference" -o ref.tar.gz
 
     mkdir dnaref
     docker run -v ${PWD}:/data docker.io/goalconsortium/abra2:0.5.40 tar -I pigz -xvf ref.tar.gz --strip-components=1 -C dnaref
     
-    ioopt="--in ${pair_id}.tumor.bam --out ${pair_id}.tumor.abra2.bam"
+    ioopt="--in ${caseid}.tumor.bam --out ${caseid}.tumor.abra2.bam"
 
     if [ -n "$nbam" ]
     then
-        dx download "$nbam" -o ${pair_id}.normal.bam
-	ioopt="--in ${pair_id}.normal.bam,${pair_id}.tumor.bam --out ${pair_id}.normal.abra2.bam,${pair_id}.tumor.abra2.bam"
+        dx download "$nbam" -o ${caseid}.normal.bam
+	ioopt="--in ${caseid}.normal.bam,${caseid}.tumor.bam --out ${caseid}.normal.abra2.bam,${caseid}.tumor.abra2.bam"
     fi
 
     opt=''
@@ -37,17 +37,17 @@ main() {
         
     docker run -v ${PWD}:/data docker.io/goalconsortium/abra2:0.5.40 java -Xmx16G -jar /usr/local/bin/abra2.jar $ioopt --ref dnaref/genome.fa --threads $threads $opt --tmpdir tmpdir --mbq 150 --mnf 5 --mer 0.05 > abra.log
 
-    abratbam=$(dx upload ${pair_id}.tumor.abra2.bam --brief)
+    abratbam=$(dx upload ${caseid}.tumor.abra2.bam --brief)
     dx-jobutil-add-output abratbam "$abratbam" --class=file
 
-    abratbai=$(dx upload ${pair_id}.tumor.abra2.bam.bai --brief)
+    abratbai=$(dx upload ${caseid}.tumor.abra2.bam.bai --brief)
     dx-jobutil-add-output abratbai "$abratbai" --class=file
     
     if [ -n "$nbam" ]
     then
-	abranbam=$(dx upload ${pair_id}.normal.abra2.bam --brief)
+	abranbam=$(dx upload ${caseid}.normal.abra2.bam --brief)
 	dx-jobutil-add-output abranbam "$abranbam" --class=file
- 	abranbai=$(dx upload ${pair_id}.normal.abra2.bam.bai --brief)
+ 	abranbai=$(dx upload ${caseid}.normal.abra2.bam.bai --brief)
 	dx-jobutil-add-output abranbai "$abranbai" --class=file
     fi
 }

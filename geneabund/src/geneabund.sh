@@ -4,7 +4,7 @@
 
 main() {
 
-    dx download "$bam" -o ${pair_id}.bam
+    dx download "$bam" -o ${sampleid}.bam
     dx download "$gtf" -o gencode.gtf.gz
 
     gunzip gencode.gtf.gz
@@ -18,13 +18,13 @@ main() {
         tar xvfz panel.tar.gz
 	opt="-f /data/genelist.txt"
     fi
-    docker run -v ${PWD}:/data docker.io/goalconsortium/geneabund:0.5.40 -s ${stranded} -g /data/gencode.gtf -p ${pair_id} -b ${pair_id}.bam -i /data/gene_info.human.txt $opt
+    docker run -v ${PWD}:/data docker.io/goalconsortium/geneabund:0.5.40 -s ${stranded} -g /data/gencode.gtf -p ${sampleid} -b ${sampleid}.bam -i /data/gene_info.human.txt $opt
 
-    tar zvcf  ${pair_id}_stringtie.tar.gz  ${pair_id}_stringtie
+    tar zvcf  ${sampleid}_stringtie.tar.gz  ${sampleid}_stringtie
 
-    counts=$(dx upload ${pair_id}.cts --brief)
-    strcts=$(dx upload ${pair_id}_stringtie.tar.gz --brief)
-    fpkm=$(dx upload ${pair_id}.fpkm.txt --brief)
+    counts=$(dx upload ${sampleid}.cts --brief)
+    strcts=$(dx upload ${sampleid}_stringtie.tar.gz --brief)
+    fpkm=$(dx upload ${sampleid}.fpkm.txt --brief)
 
     dx-jobutil-add-output counts "$counts" --class=file
     dx-jobutil-add-output strcts "$strcts" --class=file

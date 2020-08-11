@@ -7,7 +7,7 @@
   "inputSpec": [
     {
       "name": "fq1",
-      "label": "Trimmed Fastq1",
+      "label": "Fastq1",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -17,7 +17,7 @@
     },
     {
       "name": "fq2",
-      "label": "Trimmed Fastq2",
+      "label": "Fastq2",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -46,7 +46,7 @@
       "help": ""
     },
     {
-      "name": "pair_id",
+      "name": "sampleid",
       "label": "ReadGroup/SampleName",
       "class": "string",
       "optional": false,

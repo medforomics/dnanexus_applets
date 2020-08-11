@@ -37,7 +37,7 @@
     },
     {
       "name": "panel",
-      "label": "Panel Files (tar.gz)",
+      "label": "Target Panel Files (tar.gz)",
       "class": "file",
       "optional": true,
       "patterns": [
@@ -46,19 +46,11 @@
       "help": ""
     },
     {
-      "name": "pair_id",
-      "label": "CaseID/SubjectID",
+      "name": "caseid",
+      "label": "SubjectID/CaseID",
       "class": "string",
       "optional": false,
       "help": ""
-    },
-    {
-      "name": "algo",
-      "label": "Variant Calling Algorithm (msisensor)",
-      "class": "string",
-      "optional": false,
-	"default":"msisensor",
-	"help": ""
     }
   ],
   "outputSpec": [

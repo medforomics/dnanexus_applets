@@ -1,13 +1,13 @@
 {
   "name": "markdups",
-  "title": "Markdups_0.5.40",
+  "title": "Markdups 0.5.40",
   "summary":"This app runs MarksDuplicates (PICARD or FG Biotools)", 
   "dxapi": "1.0.0",
   "version": "0.5.40",
   "inputSpec": [
    {
       "name": "bam",
-      "label": "Raw BAM (.bam)",
+      "label": "Sorted BAM (.bam)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -17,7 +17,7 @@
     },
    {
       "name": "bai",
-      "label": "Raw BAM Index (.bai)",
+      "label": "BAM Index (.bai)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -26,8 +26,8 @@
       "help": ""
     },
     {
-      "name": "pair_id",
-      "label": "ReadGroup/SampleName",
+      "name": "sampleid",
+      "label": "ReadGroup/SampleID",
       "class": "string",
       "optional": false,
       "help": ""
@@ -53,8 +53,8 @@
   ],
   "outputSpec": [
     {
-      "name": "conbam",
-      "label": "Consensus Bam",
+      "name": "dedupbam",
+      "label": "Deduplicate Bam",
       "class": "file",
       "patterns": [
         "*"
@@ -62,8 +62,8 @@
       "help": ""
     },
     {
-      "name": "conbai",
-      "label": "Consensus BAM index",
+      "name": "dedupbai",
+      "label": "Deduplicate BAM index",
       "class": "file",
       "patterns": [
         "*"

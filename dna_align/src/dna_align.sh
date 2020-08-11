@@ -4,8 +4,8 @@
 
 main() {
 
-    dx download "$fq1" -o ${pair_id}.R1.fastq.gz
-    dx download "$fq2" -o ${pair_id}.R2.fastq.gz
+    dx download "$fq1" -o ${sampleid}.R1.fastq.gz
+    dx download "$fq2" -o ${sampleid}.R2.fastq.gz
     dx download "$humanref" -o humanref.tar.gz
 
     mkdir humanref
@@ -17,9 +17,9 @@ main() {
 	alignopt=" -u"
     fi
     
-    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:0.5.40 bash /seqprg/school/process_scripts/alignment/dnaseqalign.sh -r humanref -p ${pair_id} -x ${pair_id}.R1.fastq.gz -y ${pair_id}.R2.fastq.gz $alignopt
-    bam=$(dx upload ${pair_id}.bam --brief)
-    bai=$(dx upload ${pair_id}.bam.bai --brief)
+    docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:0.5.40 bash /seqprg/school/process_scripts/alignment/dnaseqalign.sh -r humanref -p ${sampleid} -x ${sampleid}.R1.fastq.gz -y ${sampleid}.R2.fastq.gz $alignopt
+    bam=$(dx upload ${sampleid}.bam --brief)
+    bai=$(dx upload ${sampleid}.bam.bai --brief)
     dx-jobutil-add-output bam "$bam" --class=file
     dx-jobutil-add-output bai "$bai" --class=file
     
@@ -29,8 +29,8 @@ main() {
 	mkdir virusref
 	tar xvfz virusref.tar.gz --strip-components=1 -C virusref
 
-	docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:0.5.40 bash /seqprg/school/process_scripts/alignment/virusalign.sh -b ${pair_id}.bam -p ${pair_id} -r virusref -f
-	vseqstat=$(dx upload ${pair_id}.viral.seqstats.txt --brief)
+	docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:0.5.40 bash /seqprg/school/process_scripts/alignment/virusalign.sh -b ${sampleid}.bam -p ${sampleid} -r virusref -f
+	vseqstat=$(dx upload ${sampleid}.viral.seqstats.txt --brief)
 	dx-jobutil-add-output vseqstat "$vseqstat" --class=file
     fi
 

@@ -4,7 +4,7 @@
 
 main() {
 
-    dx download "$tbam" -o ${pair_id}.tumor.bam
+    dx download "$tbam" -o ${caseid}.tumor.bam
     dx download "$reference" -o ref.tar.gz
 
     mkdir dnaref
@@ -19,7 +19,7 @@ main() {
 
     if [ -n "$nbam" ]
     then
-        dx download "$nbam" -o ${pair_id}.normal.bam
+        dx download "$nbam" -o ${caseid}.normal.bam
     fi
     
     docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.40 bash /seqprg/school/process_scripts/alignment/indexbams.sh
@@ -27,7 +27,7 @@ main() {
     normopt=''
     if [[ -n "$nbam" ]]
     then
-	normopt=" -n ${pair_id}.normal.bam"
+	normopt=" -n ${caseid}.normal.bam"
     fi
 
     outfile=''
@@ -41,21 +41,21 @@ main() {
 	
 	if [[ "${a}" == "pindel" ]]
 	then
-	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.40 bash /seqprg/school/process_scripts/variants/svcalling.sh -r dnaref -p $pair_id -l dnaref/itd_genes.bed -c dnaref/targetpanel.bed -a ${a} -g GRCh38.86 -f
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.40 bash /seqprg/school/process_scripts/variants/svcalling.sh -r dnaref -p $caseid -l dnaref/itd_genes.bed -c dnaref/targetpanel.bed -a ${a} -g GRCh38.86 -f
 	elif [[ "${a}" == "pindel_itd" ]]
 	then
-	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.40 bash /seqprg/school/process_scripts/variants/svcalling.sh -r dnaref -p $pair_id -l dnaref/itd_genes.bed -c dnaref/itd_genes.bed -a ${a} -g GRCh38.86 -f
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.40 bash /seqprg/school/process_scripts/variants/svcalling.sh -r dnaref -p $caseid -l dnaref/itd_genes.bed -c dnaref/itd_genes.bed -a ${a} -g GRCh38.86 -f
 	elif [[ "${a}" == "delly" ]] || [[ "${a}" == "svaba" ]]
 	then
-            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.40 bash /seqprg/school/process_scripts/variants/svcalling.sh -r dnaref -b ${pair_id}.tumor.bam -p ${pair_id} -a ${a} -g GRCh38.86 $normopt -f
+            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.40 bash /seqprg/school/process_scripts/variants/svcalling.sh -r dnaref -b ${caseid}.tumor.bam -p ${caseid} -a ${a} -g GRCh38.86 $normopt -f
 	elif [[ "${a}" == "itdseek" ]]
 	then
-	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.40 bash /seqprg/school/process_scripts/variants/svcalling.sh -r dnaref -b ${pair_id}.tumor.bam -p ${pair_id} -a ${a} -l dnaref/itd_genes.bed -g GRCh38.86 -f
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.40 bash /seqprg/school/process_scripts/variants/svcalling.sh -r dnaref -b ${caseid}.tumor.bam -p ${caseid} -a ${a} -l dnaref/itd_genes.bed -g GRCh38.86 -f
 	elif [[ "${a}" == "cnvkit" ]]
 	then
-	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.40 bash /seqprg/school/process_scripts/variants/cnvkit.sh -r dnaref -b ${pair_id}.tumor.bam -p ${pair_id} -d panel
-	    tar -czvf ${pair_id}.cnvout.tar.gz ${pair_id}.answerplot* *cnv.answer.txt *ballelefreq.txt ${pair_id}.call.cns ${pair_id}.cns ${pair_id}.cnr
-	    cnvout=$(dx upload ${pair_id}.cnvout.tar.gz --brief)
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.40 bash /seqprg/school/process_scripts/variants/cnvkit.sh -r dnaref -b ${caseid}.tumor.bam -p ${caseid} -d panel
+	    tar -czvf ${caseid}.cnvout.tar.gz ${caseid}.answerplot* *cnv.answer.txt *ballelefreq.txt ${caseid}.call.cns ${caseid}.cns ${caseid}.cnr
+	    cnvout=$(dx upload ${caseid}.cnvout.tar.gz --brief)
 	    dx-jobutil-add-output cnvout "$cnvout" --class=file
 	else
             echo "Incorrect algorithm selection. Please select 1 of the following algorithms: pindel delly svaba cnvkit itdseek"
@@ -64,14 +64,14 @@ main() {
     
     if [[ "${a}" == "delly" ]] || [[ "${a}" == "svaba" ]] || [[ "${a}" == "itdseek" ]] || [[ "${a}" == "pindel" ]]
     then
-	tar -czvf ${pair_id}${outfile}.sv.tar.gz *.vcf.gz
-	svvcf=$(dx upload ${pair_id}${outfile}.sv.tar.gz --brief)
+	tar -czvf ${caseid}${outfile}.sv.tar.gz *.vcf.gz
+	svvcf=$(dx upload ${caseid}${outfile}.sv.tar.gz --brief)
 	dx-jobutil-add-output svvcf "$svvcf" --class=file
     fi
     if [[ "${a}" == "delly" ]] || [[ "${a}" == "svaba" ]] || [[ "${a}" == "pindel" ]]
     then
-	tar -czvf ${pair_id}${outfile}.gf.tar.gz ${pair_id}*.txt
-	genefusion=$(dx upload ${pair_id}${outfile}.gf.tar.gz --brief)
+	tar -czvf ${caseid}${outfile}.gf.tar.gz ${caseid}*.txt
+	genefusion=$(dx upload ${caseid}${outfile}.gf.tar.gz --brief)
 	dx-jobutil-add-output genefusion "$genefusion" --class=file
     fi
 }

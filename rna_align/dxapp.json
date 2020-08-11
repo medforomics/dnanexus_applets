@@ -36,18 +36,18 @@
       "help": ""
     },
     {
-      "name": "pair_id",
-      "label": "ReadGroup/SampleName",
+      "name": "sampleid",
+      "label": "ReadGroup/SampleID",
       "class": "string",
       "optional": false,
       "help": ""
     },
     {
-      "name": "mdup",
-      "label": "MarkDup Method",
-      "class": "string",
-      "optional": false,
-      "default": "fgbio_umi",
+      "name": "umi",
+      "label": "UMI in ReadName",
+      "class": "boolean",
+	"optional": false,
+	"default": true,
       "help": ""
     },
     {

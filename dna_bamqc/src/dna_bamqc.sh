@@ -4,20 +4,20 @@
 
 main() {
 
-    dx download "$bam" -o ${pair_id}.bam
-    dx download "$bai" -o ${pair_id}.bam.bai
+    dx download "$bam" -o ${sampleid}.bam
+    dx download "$bai" -o ${sampleid}.bam.bai
     dx download "$refinfo" -o reference.tar.gz
     dx download "$panel" -o panel.tar.gz
-    dx download "$trimstat" -o ${pair_id}.trimreport.txt
+    dx download "$trimstat" -o ${sampleid}.trimreport.txt
     
     tar xvfz panel.tar.gz
     tar xvfz reference.tar.gz
     
     USER=$(dx whoami)
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.40 bash /seqprg/school/process_scripts/alignment/bamqc.sh -c targetpanel.bed -n dna -r ./ -b ${pair_id}.bam -p ${pair_id} -u $USER
-    tar -czvf ${pair_id}.sequence.stats.tar.gz ${pair_id}.flagstat.txt ${pair_id}.covhist.txt ${pair_id}.genomecov.txt ${pair_id}.ontarget.flagstat.txt ${pair_id}.sequence.stats.txt
+    docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.40 bash /seqprg/school/process_scripts/alignment/bamqc.sh -c targetpanel.bed -n dna -r ./ -b ${sampleid}.bam -p ${sampleid} -u $USER
+    tar -czvf ${sampleid}.sequence.stats.tar.gz ${sampleid}.flagstat.txt ${sampleid}.covhist.txt ${sampleid}.genomecov.txt ${sampleid}.ontarget.flagstat.txt ${sampleid}.sequence.stats.txt
 
-    seqstats=$(dx upload ${pair_id}.sequence.stats.tar.gz --brief)
+    seqstats=$(dx upload ${sampleid}.sequence.stats.tar.gz --brief)
     dx-jobutil-add-output seqstats "$seqstats" --class=file
 }

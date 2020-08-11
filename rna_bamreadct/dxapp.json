@@ -1,61 +1,54 @@
 {
-  "name": "trim_galore",
-  "title": "Trim Galore",
-  "summary": "Trim Galore: Trims poor quality sequence from reads",
+  "name": "rna_bamqc",
+  "title": "BAM-ReadCount 0.5.40",
+  "summary": "Positional allele-specific read count from BAM",
   "dxapi": "1.0.0",
   "version": "0.5.40",
   "inputSpec": [
     {
-      "name": "fq1",
-      "label": "Fastq1",
+      "name": "bam",
+      "label": "Sorted BAM",
       "class": "file",
       "optional": false,
       "patterns": [
-          "*.fastq.gz","*.fq.gz"
-      ],
-      "help": ""
-    },
-    {
-      "name": "fq2",
-      "label": "Fastq2",
-      "class": "file",
-      "optional": false,
-      "patterns": [
-        "*.fastq.gz","*.fq.gz"
+        "*.bam"
       ],
       "help": ""
     },
     {
       "name": "sampleid",
-      "label": "Output Files Prefix",
+      "label": "ReadGroup/SampleID",
       "class": "string",
       "optional": false,
+      "help": ""
+    },
+    {
+      "name": "panel",
+      "label": "RNA Panel Files (tar.gz)",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*.tar.gz"
+      ],
+      "help": ""
+    },
+    {
+      "name": "reference",
+      "label": "Reference Files (tar.gz)",
+      "class": "file",
+      "optional": false,
+        "patterns": [
+            "*.tar.gz"
+        ],
       "help": ""
     }
   ],
   "outputSpec": [
     {
-      "name": "trim1",
-      "label": "Trim Fq1",
+      "name": "bamreadct",
+      "label": "bam-readcount output file",
       "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "trim2",
-      "label": "Trim Fq2",
-      "class": "file",
-      "patterns": [
-        "*"
-      ],
-      "help": ""
-    },
-    {
-      "name": "trimreport",
-      "label": "Trim Output Report",
-      "class": "file",
+      "optional": true,
       "patterns": [
         "*"
       ],
@@ -65,13 +58,13 @@
   "runSpec": {
     "timeoutPolicy": {
       "*": {
-        "hours": 2
+        "hours": 4
       }
     },
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/trim_galore.sh"
+    "file": "src/rna_bamqc.sh"
   },
   "access": {
     "network": [
@@ -82,7 +75,7 @@
     "aws:us-east-1": {
       "systemRequirements": {
         "*": {
-          "instanceType": "mem1_ssd1_x2"
+          "instanceType": "mem2_hdd2_x1"
         }
       }
     }

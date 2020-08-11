@@ -4,18 +4,18 @@
 
 main() {
 
-    dx download "$bam" -o ${pair_id}.bam
-    dx download "$bai" -o ${pair_id}.bam.bai
+    dx download "$bam" -o ${sampleid}.bam
+    dx download "$bai" -o ${sampleid}.bam.bai
     dx download "$reference" -o ref.tar.gz
 
     mkdir dnaref
     docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.36 tar -I pigz -xvf ref.tar.gz --strip-components=1 -C dnaref
 
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.36 bash /seqprg/school/process_scripts/variants/gatkrunner.sh -a gatkbam -b ${pair_id}.bam -r dnaref -p ${pair_id}
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.36 bash /seqprg/school/process_scripts/variants/gatkrunner.sh -a gatkbam -b ${sampleid}.bam -r dnaref -p ${sampleid}
 
-    gatkbam=$(dx upload ${pair_id}.final.bam --brief)
-    gatkbai=$(dx upload ${pair_id}.final.bam.bai --brief)
+    gatkbam=$(dx upload ${sampleid}.final.bam --brief)
+    gatkbai=$(dx upload ${sampleid}.final.bam.bai --brief)
 
     dx-jobutil-add-output gatkbam "$gatkbam" --class=file
     dx-jobutil-add-output gatkbai "$gatkbai" --class=file

@@ -4,7 +4,7 @@
 
 main() {
     
-    dx download "$tbam" -o ${pair_id}.tumor.bam
+    dx download "$tbam" -o ${caseid}.tumor.bam
     dx download "$reference" -o ref.tar.gz
     
     mkdir dnaref
@@ -23,8 +23,8 @@ main() {
     normopt=''
     if [ -n "$nbam" ]
     then
-        dx download "$nbam" -o ${pair_id}.normal.bam
-        normopt=" -n ${pair_id}.normal.bam"
+        dx download "$nbam" -o ${caseid}.normal.bam
+        normopt=" -n ${caseid}.normal.bam"
     fi
     
     ponopt=''
@@ -44,36 +44,36 @@ main() {
     for a in $algo
     do
         echo "Starting ${a}"
-	vcfout+=" ${pair_id}.${a}.vcf.gz"
-	vcfori+=" ${pair_id}.${a}.ori.vcf.gz"
+	vcfout+=" ${caseid}.${a}.vcf.gz"
+	vcfori+=" ${caseid}.${a}.ori.vcf.gz"
 	outfile+=".${a}"
 	if [[ "${a}" == "fb" ]] || [[ "${a}" == "platypus" ]]
 	then
-	    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.40 bash /seqprg/school/process_scripts/variants/germline_vc.sh -r dnaref -p ${pair_id} -a ${a} ${panelopt}
-	    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.40 bash /seqprg/school/process_scripts/variants/uni_norm_annot.sh -g 'GRCh38.86' -r dnaref -p ${pair_id}.${a} -v ${pair_id}.${a}.vcf.gz
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.40 bash /seqprg/school/process_scripts/variants/germline_vc.sh -r dnaref -p ${caseid} -a ${a} ${panelopt}
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.40 bash /seqprg/school/process_scripts/variants/uni_norm_annot.sh -g 'GRCh38.86' -r dnaref -p ${caseid}.${a} -v ${caseid}.${a}.vcf.gz
 	    
 	elif [[ "${a}" == "strelka2" ]] || [[ "${a}" == "mutect" ]] || [[ "${a}" == "shimmer" ]]
 	then
 	    if [[ -z "$nbam" ]]
 	    then
-		docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.40 bash /seqprg/school/process_scripts/variants/germline_vc.sh -r dnaref -p ${pair_id} -a ${a} ${panelopt} ${ponopt}
+		docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.40 bash /seqprg/school/process_scripts/variants/germline_vc.sh -r dnaref -p ${caseid} -a ${a} ${panelopt} ${ponopt}
 	    else
-		docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.40 bash /seqprg/school/process_scripts/variants/somatic_vc.sh -r dnaref -p ${pair_id} -n ${pair_id}.normal.bam -t ${pair_id}.tumor.bam -a ${a} ${panelopt} ${ponopt}
+		docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.40 bash /seqprg/school/process_scripts/variants/somatic_vc.sh -r dnaref -p ${caseid} -n ${caseid}.normal.bam -t ${caseid}.tumor.bam -a ${a} ${panelopt} ${ponopt}
 	    fi
-	    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.40 bash /seqprg/school/process_scripts/variants/uni_norm_annot.sh -g 'GRCh38.86' -r dnaref -p ${pair_id}.${a} -v ${pair_id}.${a}.vcf.gz
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.40 bash /seqprg/school/process_scripts/variants/uni_norm_annot.sh -g 'GRCh38.86' -r dnaref -p ${caseid}.${a} -v ${caseid}.${a}.vcf.gz
 	else
 	    echo "Incorrect algorithm selection. Please select 1 of the following algorithms: fb platypus strelka2 mutect shimmer"
 	fi
     done
     
-    tar cf ${pair_id}${outfile}.vcfout.tar $vcfout
-    tar cf ${pair_id}${outfile}.ori.tar $vcfori
-    gzip ${pair_id}${outfile}.vcfout.tar
-    gzip ${pair_id}${outfile}.ori.tar
+    tar cf ${caseid}${outfile}.vcfout.tar $vcfout
+    tar cf ${caseid}${outfile}.ori.tar $vcfori
+    gzip ${caseid}${outfile}.vcfout.tar
+    gzip ${caseid}${outfile}.ori.tar
     
     
-    vcf=$(dx upload ${pair_id}${outfile}.vcfout.tar.gz --brief)
-    ori=$(dx upload ${pair_id}${outfile}.ori.tar.gz --brief)
+    vcf=$(dx upload ${caseid}${outfile}.vcfout.tar.gz --brief)
+    ori=$(dx upload ${caseid}${outfile}.ori.tar.gz --brief)
     
     dx-jobutil-add-output vcf "$vcf" --class=file
     dx-jobutil-add-output ori "$ori" --class=file

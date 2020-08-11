@@ -4,36 +4,20 @@
 
 main() {
 
-    dx download "$bam" -o ${pair_id}.bam
-    dx download "$alignstats" -o ${pair_id}.alignerout.txt
+    dx download "$bam" -o ${sampleid}.bam
+    dx download "$alignstats" -o ${sampleid}.alignerout.txt
     dx download "$panel" -o panel.tar.gz
 
     tar xvfz panel.tar.gz
     
     USER=$(dx whoami)
-    docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.40 bash /seqprg/school/process_scripts/alignment/bamqc.sh -p ${pair_id} -b ${pair_id}.bam -n rna 
+    docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.40 bash /seqprg/school/process_scripts/alignment/bamqc.sh -p ${sampleid} -b ${sampleid}.bam -n rna 
 
-    fastqczip=$(dx upload ${pair_id}_fastqc.zip --brief)
-    fastqchtml=$(dx upload ${pair_id}_fastqc.html --brief)
-    seqstats=$(dx upload ${pair_id}.sequence.stats.txt --brief)
+    fastqczip=$(dx upload ${sampleid}_fastqc.zip --brief)
+    fastqchtml=$(dx upload ${sampleid}_fastqc.html --brief)
+    seqstats=$(dx upload ${sampleid}.sequence.stats.txt --brief)
 
     dx-jobutil-add-output fastqczip "$fastqczip" --class=file
     dx-jobutil-add-output fastqchtml "$fastqchtml" --class=file
     dx-jobutil-add-output seqstats "$seqstats" --class=file
-
-    if [[ -n "${bamct}" ]]
-    then
-        dx download "$bamct" -o ref.tar.gz
-
-        mkdir rnaref
-        docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.40 tar -I pigz -xvf ref.tar.gz --strip-components=1 -C rnaref
-
-        docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.40 samtools index ${pair_id}.bam
-        docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.40 bam-readcount -l targetpanel.bed -w 0 -q 0 -b 25 -f rnaref/genome.fa ${pair_id}.bam > ${pair_id}.bamreadcount.txt
-
-        bamreadct=$(dx upload ${pair_id}.bamreadcount.txt --brief)
-
-        dx-jobutil-add-output bamreadct "$bamreadct" --class=file
-    fi
-    
 }

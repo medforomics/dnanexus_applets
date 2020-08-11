@@ -1,7 +1,7 @@
 {
-  "name": "dalign",
-  "title": "Align_0.5.40",
-  "summary": "This app runs BWA",
+  "name": "dna_align",
+  "title": "DNA Align 0.5.40",
+  "summary": "Create a Sorted BAM using BWA and Samtools",
   "dxapi": "1.0.0",
   "version": "0.5.40",
   "inputSpec": [
@@ -49,12 +49,13 @@
       "name": "umi",
       "label": "UMI in ReadName",
       "class": "boolean",
-      "optional": true,
+	"optional": true,
+	"default": true,
       "help": ""
     },
     {
-      "name": "pair_id",
-      "label": "ReadGroup/SampleName",
+      "name": "sampleid",
+      "label": "ReadGroup/SampleID",
       "class": "string",
       "optional": false,
       "help": ""
@@ -63,7 +64,7 @@
   "outputSpec": [
     {
       "name": "bam",
-      "label": "Raw Bam",
+      "label": "Sorted Bam",
       "class": "file",
       "patterns": [
         "*"
@@ -72,7 +73,7 @@
     },
     {
       "name": "bai",
-      "label": "Raw BAM index",
+      "label": "BAM index",
       "class": "file",
       "patterns": [
         "*"
@@ -98,7 +99,7 @@
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/dalign.sh"
+    "file": "src/dna_align.sh"
   },
   "access": {
     "network": [

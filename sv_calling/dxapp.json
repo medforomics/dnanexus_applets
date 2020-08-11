@@ -1,7 +1,7 @@
 {
   "name": "sv_calling",
   "title": "Structural Variants Applet 0.5.40",
-  "summary": "This applet contains variant calling methods for tumor only and somatic workflows. Including pindel, delly, svaba",
+  "summary": "This applet contains variant calling methods for tumor only and somatic workflows. Including pindel, delly, svaba, cnvkit and itdseek",
   "dxapi": "1.0.0",
   "version": "0.5.40",
   "inputSpec": [
@@ -46,8 +46,8 @@
       "help": ""
     },
     {
-      "name": "pair_id",
-      "label": "ReadGroup/SampleName",
+      "name": "caseid",
+      "label": "SubjectID/CaseID",
       "class": "string",
       "optional": false,
       "help": ""
@@ -74,7 +74,8 @@
     },
     {
       "name": "cnvout",
-      "class": "file",
+	"label": "CNVKit Output Files",
+	"class": "file",
       "optional": true,
       "patterns": [
         "*"

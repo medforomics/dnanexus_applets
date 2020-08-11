@@ -7,7 +7,7 @@
   "inputSpec": [
    {
       "name": "bam",
-      "label": "Raw BAM (.bam)",
+      "label": "Sorted BAM (.bam)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -17,7 +17,7 @@
     },
    {
       "name": "bai",
-      "label": "Raw BAM Index (.bai)",
+      "label": "BAM Index (.bai)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -36,8 +36,8 @@
       "help": ""
     },
    {
-      "name": "pair_id",
-      "label": "ReadGroup/SampleName",
+      "name": "sampleid",
+      "label": "ReadGroup/SampleID",
       "class": "string",
       "optional": false,
       "help": ""

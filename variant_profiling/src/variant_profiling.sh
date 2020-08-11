@@ -4,14 +4,14 @@
 
 main() {
 
-    dx download "$tbam" -o ${pair_id}.tumor.bam
+    dx download "$tbam" -o ${caseid}.tumor.bam
     dx download "$reference" -o ref.tar.gz
     
     normopt=''
     if [ -n "$nbam" ]
     then
-        dx download "$nbam" -o ${pair_id}.normal.bam
-	normopt=" -n ${pair_id}.normal.bam"
+        dx download "$nbam" -o ${caseid}.normal.bam
+	normopt=" -n ${caseid}.normal.bam"
     fi
 
     mkdir dnaref
@@ -28,19 +28,19 @@ main() {
     if [[ -n "$nbam" ]]
     then
 	
-	docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.36 bash /seqprg/school/process_scripts/variants/checkmate.sh -r dnaref -p ${pair_id} -c dnaref/NGSCheckMate.bed -f
-	echo -e "TumorFILE\t${tbam}" >> ${pair_id}.sequence.stats.txt
-	echo -e "NormalFILE\t${nbam}" >> ${pair_id}.sequence.stats.txt
+	docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.36 bash /seqprg/school/process_scripts/variants/checkmate.sh -r dnaref -p ${caseid} -c dnaref/NGSCheckMate.bed -f
+	echo -e "TumorFILE\t${tbam}" >> ${caseid}.sequence.stats.txt
+	echo -e "NormalFILE\t${nbam}" >> ${caseid}.sequence.stats.txt
 	
-        matched=$(dx upload ${pair_id}_matched.txt --brief)
-        all=$(dx upload ${pair_id}_all.txt --brief)
-        seqstats=$(dx upload ${pair_id}.sequence.stats.txt --brief)
+        matched=$(dx upload ${caseid}_matched.txt --brief)
+        all=$(dx upload ${caseid}_all.txt --brief)
+        seqstats=$(dx upload ${caseid}.sequence.stats.txt --brief)
 	
         dx-jobutil-add-output matched "$matched" --class=file
         dx-jobutil-add-output all "$all" --class=file
         dx-jobutil-add-output seqstats "$seqstats" --class=file
     fi
-    docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.36 bash /seqprg/school/process_scripts/variants/msisensor.sh -r dnaref -p ${pair_id} -b ${pair_id}.tumor.bam -c targetpanel.bed $normopt
-    msiout=$(dx upload ${pair_id}.msi --brief)
+    docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.36 bash /seqprg/school/process_scripts/variants/msisensor.sh -r dnaref -p ${caseid} -b ${caseid}.tumor.bam -c targetpanel.bed $normopt
+    msiout=$(dx upload ${caseid}.msi --brief)
     dx-jobutil-add-output msiout "$msiout" --class=file
 }

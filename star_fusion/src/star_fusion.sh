@@ -4,8 +4,8 @@
 
 main() {
 
-    dx download "$fq1" -o ${pair_id}.trim.R1.fastq.gz
-    dx download "$fq2" -o ${pair_id}.trim.R2.fastq.gz
+    dx download "$fq1" -o ${sampleid}.trim.R1.fastq.gz
+    dx download "$fq2" -o ${sampleid}.trim.R2.fastq.gz
     dx download "$reference" -o rnaref.tar.gz
     dx download "$panel" -o panel.tar.gz
     tar xvfz panel.tar.gz
@@ -14,11 +14,11 @@ main() {
     docker run -v ${PWD}:/data docker.io/goalconsortium/starfusion:0.5.40 tar -I pigz -xvf rnaref.tar.gz --strip-components=2 -C CTAT_resource_lib
 
     cp genelist.txt panelgenes.txt
-    docker run -v ${PWD}:/data docker.io/goalconsortium/starfusion:0.5.40 bash /seqprg/school/process_scripts/alignment/starfusion.sh -p ${pair_id} -r /data -a ${pair_id}.trim.R1.fastq.gz -b ${pair_id}.trim.R2.fastq.gz -f 
+    docker run -v ${PWD}:/data docker.io/goalconsortium/starfusion:0.5.40 bash /seqprg/school/process_scripts/alignment/starfusion.sh -p ${sampleid} -r /data -a ${sampleid}.trim.R1.fastq.gz -b ${sampleid}.trim.R2.fastq.gz -f 
     
-    tar cf ${pair_id}.starfusion.tar ${pair_id}*star_fusion/*.tsv *.txt
-    gzip ${pair_id}.starfusion.tar
+    tar cf ${sampleid}.starfusion.tar ${sampleid}*star_fusion/*.tsv *.txt
+    gzip ${sampleid}.starfusion.tar
     
-    starfusion=$(dx upload ${pair_id}.starfusion.tar.gz --brief)
+    starfusion=$(dx upload ${sampleid}.starfusion.tar.gz --brief)
     dx-jobutil-add-output starfusion "$starfusion" --class=file
 }
