@@ -1,4 +1,4 @@
-# Somatic_Variants Developer Readme
+# Variant Profiling
 
 <!--
 TODO: Please edit this Readme.developer.md file to include information
@@ -20,7 +20,7 @@ providing the ``systemRequirements`` field to ```/applet-XXXX/run``` or
 
     {
       systemRequirements: {
-        "main": {"instanceType": "mem2_hdd2_x2"}
+        "main": {"instanceType": "mem1_ssd1_x2"}
       },
       [...]
     }

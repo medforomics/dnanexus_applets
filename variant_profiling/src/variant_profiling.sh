@@ -4,13 +4,13 @@
 
 main() {
 
-    dx download "$Tumor_BAM" -o ${pair_id}.tumor.bam
+    dx download "$tbam" -o ${pair_id}.tumor.bam
     dx download "$reference" -o ref.tar.gz
     
     normopt=''
-    if [ -n "$Normal_BAM" ]
+    if [ -n "$nbam" ]
     then
-        dx download "$Normal_BAM" -o ${pair_id}.normal.bam
+        dx download "$nbam" -o ${pair_id}.normal.bam
 	normopt=" -n ${pair_id}.normal.bam"
     fi
 
@@ -25,12 +25,12 @@ main() {
 
     docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.36 bash /seqprg/school/process_scripts/alignment/indexbams.sh
 
-    if [[ -n "$Normal_BAM" ]]
+    if [[ -n "$nbam" ]]
     then
 	
 	docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.36 bash /seqprg/school/process_scripts/variants/checkmate.sh -r dnaref -p ${pair_id} -c dnaref/NGSCheckMate.bed -f
-	echo -e "TumorFILE\t${Tumor_BAM}" >> ${pair_id}.sequence.stats.txt
-	echo -e "NormalFILE\t${Normal_BAM}" >> ${pair_id}.sequence.stats.txt
+	echo -e "TumorFILE\t${tbam}" >> ${pair_id}.sequence.stats.txt
+	echo -e "NormalFILE\t${nbam}" >> ${pair_id}.sequence.stats.txt
 	
         matched=$(dx upload ${pair_id}_matched.txt --brief)
         all=$(dx upload ${pair_id}_all.txt --brief)
@@ -43,6 +43,4 @@ main() {
     docker run -v ${PWD}:/data docker.io/goalconsortium/vcfannot:0.5.36 bash /seqprg/school/process_scripts/variants/msisensor.sh -r dnaref -p ${pair_id} -b ${pair_id}.tumor.bam -c targetpanel.bed $normopt
     msiout=$(dx upload ${pair_id}.msi --brief)
     dx-jobutil-add-output msiout "$msiout" --class=file
-
-
 }

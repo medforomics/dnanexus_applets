@@ -4,7 +4,7 @@
 
 main() {
 
-    dx download "$Tumor_BAM" -o ${pair_id}.tumor.bam
+    dx download "$tbam" -o ${pair_id}.tumor.bam
     dx download "$reference" -o ref.tar.gz
 
     mkdir dnaref
@@ -17,15 +17,15 @@ main() {
 	docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.40 tar -I pigz -xvf panel.tar.gz -C panel/
     fi
 
-    if [ -n "$Normal_BAM" ]
+    if [ -n "$nbam" ]
     then
-        dx download "$Normal_BAM" -o ${pair_id}.normal.bam
+        dx download "$nbam" -o ${pair_id}.normal.bam
     fi
     
     docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:0.5.40 bash /seqprg/school/process_scripts/alignment/indexbams.sh
     
     normopt=''
-    if [[ -n "$Normal_BAM" ]]
+    if [[ -n "$nbam" ]]
     then
 	normopt=" -n ${pair_id}.normal.bam"
     fi

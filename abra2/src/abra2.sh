@@ -4,7 +4,7 @@
 
 main() {
 
-    dx download "$tumorbam" -o ${pair_id}.tumor.bam
+    dx download "$tbam" -o ${pair_id}.tumor.bam
     dx download "$reference" -o ref.tar.gz
 
     mkdir dnaref
@@ -12,9 +12,9 @@ main() {
     
     ioopt="--in ${pair_id}.tumor.bam --out ${pair_id}.tumor.abra2.bam"
 
-    if [ -n "$normalbam" ]
+    if [ -n "$nbam" ]
     then
-        dx download "$normalbam" -o ${pair_id}.normal.bam
+        dx download "$nbam" -o ${pair_id}.normal.bam
 	ioopt="--in ${pair_id}.normal.bam,${pair_id}.tumor.bam --out ${pair_id}.normal.abra2.bam,${pair_id}.tumor.abra2.bam"
     fi
 
@@ -43,7 +43,7 @@ main() {
     abratbai=$(dx upload ${pair_id}.tumor.abra2.bam.bai --brief)
     dx-jobutil-add-output abratbai "$abratbai" --class=file
     
-    if [ -n "$normalbam" ]
+    if [ -n "$nbam" ]
     then
 	abranbam=$(dx upload ${pair_id}.normal.abra2.bam --brief)
 	dx-jobutil-add-output abranbam "$abranbam" --class=file

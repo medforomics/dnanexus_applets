@@ -62,7 +62,7 @@
   ],
   "outputSpec": [
     {
-      "name": "rawbam",
+      "name": "bam",
       "label": "Raw Bam",
       "class": "file",
       "patterns": [
@@ -71,7 +71,7 @@
       "help": ""
     },
     {
-      "name": "rawbai",
+      "name": "bai",
       "label": "Raw BAM index",
       "class": "file",
       "patterns": [

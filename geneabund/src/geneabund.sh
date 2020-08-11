@@ -4,7 +4,7 @@
 
 main() {
 
-    dx download "$Aligned_BAM" -o ${pair_id}.bam
+    dx download "$bam" -o ${pair_id}.bam
     dx download "$gtf" -o gencode.gtf.gz
 
     gunzip gencode.gtf.gz

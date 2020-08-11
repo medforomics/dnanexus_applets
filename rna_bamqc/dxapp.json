@@ -6,7 +6,7 @@
   "version": "0.5.40",
   "inputSpec": [
     {
-      "name": "Aligned_BAM",
+      "name": "bam",
       "label": "Aligned BAM from rnaalign step (aligned.bam)",
       "class": "file",
       "optional": false,
@@ -16,7 +16,7 @@
       "help": ""
     },
     {
-      "name": "Align_Stats",
+      "name": "alignstats",
       "label": "Alignment Statistics",
       "class": "file",
       "optional": false,

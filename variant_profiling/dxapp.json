@@ -6,8 +6,8 @@
   "version": "0.5.40",
   "inputSpec": [
    {
-      "name": "Tumor_BAM",
-      "label": "Tumor BAM (.bam)",
+      "name": "tbam",
+      "label": "Tumor Sorted BAM (.bam)",
       "class": "file",
       "optional": false,
       "patterns": [
@@ -16,8 +16,8 @@
       "help": ""
     },
    {
-      "name": "Normal_BAM",
-      "label": "Normal BAM (.bam)",
+      "name": "nbam",
+      "label": "Normal Sorted BAM (.bam)",
       "class": "file",
       "optional": true,
       "patterns": [
@@ -47,7 +47,7 @@
     },
     {
       "name": "pair_id",
-      "label": "ReadGroup/SampleName",
+      "label": "CaseID/SubjectID",
       "class": "string",
       "optional": false,
       "help": ""

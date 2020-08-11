@@ -4,7 +4,7 @@
 
 main() {
     
-    dx download "$Tumor_BAM" -o ${pair_id}.tumor.bam
+    dx download "$tbam" -o ${pair_id}.tumor.bam
     dx download "$reference" -o ref.tar.gz
     
     mkdir dnaref
@@ -21,9 +21,9 @@ main() {
     fi
     
     normopt=''
-    if [ -n "$Normal_BAM" ]
+    if [ -n "$nbam" ]
     then
-        dx download "$Normal_BAM" -o ${pair_id}.normal.bam
+        dx download "$nbam" -o ${pair_id}.normal.bam
         normopt=" -n ${pair_id}.normal.bam"
     fi
     
@@ -54,7 +54,7 @@ main() {
 	    
 	elif [[ "${a}" == "strelka2" ]] || [[ "${a}" == "mutect" ]] || [[ "${a}" == "shimmer" ]]
 	then
-	    if [[ -z "$Normal_BAM" ]]
+	    if [[ -z "$nbam" ]]
 	    then
 		docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:0.5.40 bash /seqprg/school/process_scripts/variants/germline_vc.sh -r dnaref -p ${pair_id} -a ${a} ${panelopt} ${ponopt}
 	    else

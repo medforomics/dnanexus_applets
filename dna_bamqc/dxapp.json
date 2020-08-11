@@ -6,7 +6,7 @@
   "version": "0.5.40",
   "inputSpec": [
     {
-      "name": "Raw_BAM",
+      "name": "bam",
       "label": "Raw BAM from alignment step (raw.bam)",
       "class": "file",
       "optional": false,
@@ -16,7 +16,7 @@
       "help": ""
     },
     {
-      "name": "Raw_BAI",
+      "name": "bai",
       "label": "Raw BAI from alignment step (raw.bam.bai)",
       "class": "file",
       "optional": false,

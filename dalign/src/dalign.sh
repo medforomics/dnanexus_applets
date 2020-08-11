@@ -18,10 +18,10 @@ main() {
     fi
     
     docker run -v ${PWD}:/data docker.io/goalconsortium/alignment:0.5.40 bash /seqprg/school/process_scripts/alignment/dnaseqalign.sh -r humanref -p ${pair_id} -x ${pair_id}.R1.fastq.gz -y ${pair_id}.R2.fastq.gz $alignopt
-    rawbam=$(dx upload ${pair_id}.bam --brief)
-    rawbai=$(dx upload ${pair_id}.bam.bai --brief)
-    dx-jobutil-add-output rawbam "$rawbam" --class=file
-    dx-jobutil-add-output rawbai "$rawbai" --class=file
+    bam=$(dx upload ${pair_id}.bam --brief)
+    bai=$(dx upload ${pair_id}.bam.bai --brief)
+    dx-jobutil-add-output bam "$bam" --class=file
+    dx-jobutil-add-output bai "$bai" --class=file
     
     if [[ -n $virusref ]]
     then

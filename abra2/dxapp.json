@@ -6,7 +6,7 @@
   "version": "0.5.40",
   "inputSpec": [
    {
-       "name": "tumorbam",
+       "name": "tbam",
       "label": "Tumor Raw BAM (.bam)",
       "class": "file",
       "optional": false,
@@ -16,7 +16,7 @@
       "help": ""
     },
    {
-      "name": "normalbam",
+      "name": "nbam",
       "label": "Normal Raw BAM (.bam)",
       "class": "file",
       "optional": true,

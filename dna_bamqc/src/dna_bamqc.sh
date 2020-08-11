@@ -4,8 +4,8 @@
 
 main() {
 
-    dx download "$Raw_BAM" -o ${pair_id}.bam
-    dx download "$Raw_BAI" -o ${pair_id}.bam.bai
+    dx download "$bam" -o ${pair_id}.bam
+    dx download "$bai" -o ${pair_id}.bam.bai
     dx download "$refinfo" -o reference.tar.gz
     dx download "$panel" -o panel.tar.gz
     dx download "$trimstat" -o ${pair_id}.trimreport.txt

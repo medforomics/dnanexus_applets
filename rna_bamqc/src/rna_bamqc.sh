@@ -4,8 +4,8 @@
 
 main() {
 
-    dx download "$Aligned_BAM" -o ${pair_id}.bam
-    dx download "$Align_Stats" -o ${pair_id}.alignerout.txt
+    dx download "$bam" -o ${pair_id}.bam
+    dx download "$alignstats" -o ${pair_id}.alignerout.txt
     dx download "$panel" -o panel.tar.gz
 
     tar xvfz panel.tar.gz
