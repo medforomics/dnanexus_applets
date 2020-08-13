@@ -7,7 +7,7 @@
   "inputSpec": [
     {
       "name": "bam",
-      "label": "Aligned BAM from rnaalign step (aligned.bam)",
+      "label": "BAM",
       "class": "file",
       "optional": false,
       "patterns": [

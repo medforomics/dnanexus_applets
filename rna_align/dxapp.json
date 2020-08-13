@@ -1,5 +1,5 @@
 {
-  "name": "rnaalign",
+  "name": "rna_alignment",
   "title": "RNASeq Alignment",
   "summary": "Creates a BAM file from RNASeq data",
   "dxapi": "1.0.0",
@@ -97,7 +97,7 @@
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/rnaalign.sh"
+    "file": "src/rna_align.sh"
   },
   "access": {
     "network": [

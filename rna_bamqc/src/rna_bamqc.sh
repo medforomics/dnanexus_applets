@@ -6,9 +6,6 @@ main() {
 
     dx download "$bam" -o ${sampleid}.bam
     dx download "$alignstats" -o ${sampleid}.alignerout.txt
-    dx download "$panel" -o panel.tar.gz
-
-    tar xvfz panel.tar.gz
     
     USER=$(dx whoami)
     docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.0 bash /seqprg/school/process_scripts/alignment/bamqc.sh -p ${sampleid} -b ${sampleid}.bam -n rna 
