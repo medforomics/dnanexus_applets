@@ -1,9 +1,9 @@
 {
   "name": "dna_align",
-  "title": "DNA Align 0.5.40",
+  "title": "DNA Alignment",
   "summary": "Create a Sorted BAM using BWA and Samtools",
   "dxapi": "1.0.0",
-  "version": "0.5.40",
+  "version": "1.0.0",
   "inputSpec": [
     {
       "name": "fq1",

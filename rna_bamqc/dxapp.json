@@ -1,9 +1,9 @@
 {
   "name": "rna_bamqc",
-  "title": "Alignment QC 0.5.40",
-  "summary": "Alignment QC",
+  "title": "RNASeq Alignment QC",
+  "summary": "RNASeq Alignment QC, alignment stats and fastqc",
   "dxapi": "1.0.0",
-  "version": "0.5.40",
+  "version": "1.0.0",
   "inputSpec": [
     {
       "name": "bam",

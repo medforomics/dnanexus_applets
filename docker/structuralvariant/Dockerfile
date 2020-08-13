@@ -24,19 +24,19 @@ RUN cd /usr/local/bin; \
 RUN python -m ensurepip --default-pip;
 
 # Install SamTools + BCFTools + htslib
-RUN cd /opt; wget https://github.com/samtools/htslib/releases/download/1.9/htslib-1.9.tar.bz2; \
-    tar -vxjf htslib-1.9.tar.bz2; rm htslib-1.9.tar.bz2; \
-    cd htslib-1.9; \
+RUN cd /opt; wget https://github.com/samtools/htslib/releases/download/1.10/htslib-1.10.tar.bz2; \
+    tar -vxjf htslib-1.10.tar.bz2; rm htslib-1.10.tar.bz2; \
+    cd htslib-1.10; \
     ./configure; make; make install; \
     cp -r htslib /opt/bin;
-RUN cd /opt; wget https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2; \
-    tar -vxjf samtools-1.9.tar.bz2; rm samtools-1.9.tar.bz2; \
-    cd samtools-1.9; \
+RUN cd /opt; wget https://github.com/samtools/samtools/releases/download/1.10/samtools-1.10.tar.bz2; \
+    tar -vxjf samtools-1.10.tar.bz2; rm samtools-1.10.tar.bz2; \
+    cd samtools-1.10; \
     ./configure; make; make install; \
     cp -r samtools /opt/bin;
-RUN cd /opt; wget https://github.com/samtools/bcftools/releases/download/1.9/bcftools-1.9.tar.bz2; \
-    tar -vxjf bcftools-1.9.tar.bz2; rm bcftools-1.9.tar.bz2; \
-    cd bcftools-1.9; \
+RUN cd /opt; wget https://github.com/samtools/bcftools/releases/download/1.10/bcftools-1.10.tar.bz2; \
+    tar -vxjf bcftools-1.10.tar.bz2; rm bcftools-1.10.tar.bz2; \
+    cd bcftools-1.10; \
     ./configure; make; make install; \
     cp -r bcftools /opt/bin;
 
@@ -69,15 +69,9 @@ ENV SNPEFF_HOME "/usr/local/bin/snpEff"
 # Install Pindel
 RUN git clone https://github.com/xjtu-omics/pindel; \
     cd pindel; \
-    ./INSTALL /opt/samtools-1.9/htslib-1.9; \
+    ./INSTALL /opt/samtools-1.10/htslib-1.10; \
     cp *pindel* /usr/local/bin/;
     
-#RUN cd /opt/bin; wget http://github.com/genome/pindel/archive/v0.2.5b8.tar.gz; \
-#    tar xvfz v0.2.5b8.tar.gz; rm v0.2.5b8.tar.gz; \
-#    cd pindel-0.2.5b8; \
-#    ./INSTALL /opt/htslib-1.9; \
-#    cp *pindel* /usr/local/bin/;
-
 # Install Delly2
 RUN cd /opt/bin; git clone --branch v0.8.2 --recursive https://github.com/dellytools/delly.git; \
     cd delly; \
@@ -102,11 +96,12 @@ RUN cd /opt/bin; wget https://github.com/bcantarel/itdseek/archive/v1.3.1.tar.gz
 # Install Scripts
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_0.5.40 --single-branch --recursive https://github.com/bcantarel/school.git; \
+    git clone -b version_1.0.0 --single-branch --recursive https://github.com/bcantarel/school.git; \
     cd school; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/variants/* /usr/local/bin/;
 
+ENV isdocker 1
 ENV PATH "$PATH:/usr/local/bin"
 ENV SNPEFF_HOME "/usr/local/bin/snpEff"
 WORKDIR /data/

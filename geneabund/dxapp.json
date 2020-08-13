@@ -1,9 +1,9 @@
 {
   "name": "geneabund",
-  "title": "Gene Abundance 0.5.40",
-  "summary": "calculates gene counts and fpkm values",
+  "title": "Gene Abundance",
+  "summary": "Calculates gene counts and fpkm values",
   "dxapi": "1.0.0",
-  "version": "0.5.40",
+  "version": "1.0.0",
   "inputSpec": [
     {
       "name": "bam",

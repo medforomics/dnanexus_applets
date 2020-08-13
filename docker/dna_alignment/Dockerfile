@@ -27,6 +27,7 @@ RUN python -m ensurepip --default-pip; \
 RUN cd /usr/src; wget https://github.com/lh3/bwa/releases/download/v0.7.17/bwa-0.7.17.tar.bz2; \
     tar -vxjf bwa-0.7.17.tar.bz2; rm bwa-0.7.17.tar.bz2; \
     cd bwa-0.7.17; make;
+
 ENV PATH "$PATH:/usr/src/bwa-0.7.17"
 RUN cd /usr/src; wget https://sourceforge.net/projects/bio-bwa/files/bwakit/bwakit-0.7.15_x64-linux.tar.bz2/download; \
     tar -vxjf download; rm download; \
@@ -54,10 +55,11 @@ RUN echo '#!/bin/bash' > /usr/local/bin/fgbio; \
 # Install Scripts
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_0.5.40 --single-branch --recursive https://github.com/bcantarel/school.git; \
+    git clone -b version_1.0.0 --single-branch --recursive https://github.com/bcantarel/school.git; \
     cd school; \
     cp -r process_scripts/alignment/* /usr/local/bin/;
 
+ENV isdocker 1
 ENV PATH "$PATH:/usr/local/bin"
 
 WORKDIR /data/

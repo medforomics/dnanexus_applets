@@ -22,6 +22,7 @@ RUN cd /opt; wget https://github.com/samtools/samtools/releases/download/1.10/sa
     ./configure; make; make install; \
     cp samtools /usr/local/bin;
 
+ENV isdocker 1
 ENV PATH "$PATH:/usr/local/bin"
 
 WORKDIR /data/

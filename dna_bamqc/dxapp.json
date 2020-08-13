@@ -1,9 +1,9 @@
 {
   "name": "dna_bamqc",
-  "title": "dna_bamqc_0.5.40",
-  "summary": "Concat stat txt files from alignment workflow",
+  "title": "DNA BAM QC",
+  "summary": "Calculates QC of Alignment",
   "dxapi": "1.0.0",
-  "version": "0.5.40",
+  "version": "1.0.0",
   "inputSpec": [
     {
       "name": "bam",

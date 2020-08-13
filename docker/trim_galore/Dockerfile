@@ -26,10 +26,11 @@ RUN cd /opt; wget https://github.com/ComputationalSystemsBiology/EoulsanDockerFi
 # Install Scripts
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_0.5.40 --single-branch --recursive https://github.com/bcantarel/school.git; \
+    git clone -b version_1.0.0 --single-branch --recursive https://github.com/bcantarel/school.git; \
     cd school; \
     cp -r process_scripts/preproc_fastq/* /usr/local/bin/;
 
+ENV isdocker 1
 ENV PATH "$PATH:/usr/local/bin"
 
 WORKDIR /data/

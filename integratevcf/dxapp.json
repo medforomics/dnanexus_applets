@@ -3,7 +3,7 @@
   "title": "Intergrate VCF VCF",
   "summary": "Combine VCF Outputs",
   "dxapi": "1.0.0",
-  "version": "0.5.40",
+  "version": "1.0.0",
   "inputSpec": [
      {
       "name": "vcffiles",

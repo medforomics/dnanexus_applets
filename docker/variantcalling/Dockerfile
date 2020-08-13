@@ -3,8 +3,9 @@ LABEL Author="Jeremy Mathews" \
       Maintainer="b.cantarel@gmail.com"
 
 # install additional requirements
-RUN apt-get update; apt-get install -y build-essential checkinstall; \
-    apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev liblzma-dev libcurl4-gnutls-dev libncurses5-dev wget unzip git default-jre default-jdk r-base cpanminus pigz;
+RUN apt-get update; apt-get install -y build-essential checkinstall; apt-get upgrade; \
+    apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev liblzma-dev libcurl4-gnutls-dev libncurses5-dev wget unzip git default-jre default-jdk r-base cpanminus pigz
+
 
 # Make destination and work directory
 RUN mkdir -p /opt;
@@ -23,19 +24,19 @@ RUN cd /usr/src; wget https://bootstrap.pypa.io/get-pip.py; \
 RUN ln -sf /usr/local/bin/python2.7 /opt/miniconda/envs/gatk/bin/python
 
 # Install SamTools + BCFTools + htslib
-RUN cd /opt; wget https://github.com/samtools/htslib/releases/download/1.9/htslib-1.9.tar.bz2; \
-    tar -vxjf htslib-1.9.tar.bz2; rm htslib-1.9.tar.bz2; \
-    cd htslib-1.9; \
+RUN cd /opt; wget https://github.com/samtools/htslib/releases/download/1.10/htslib-1.10.tar.bz2; \
+    tar -vxjf htslib-1.10.tar.bz2; rm htslib-1.10.tar.bz2; \
+    cd htslib-1.10; \
     ./configure; make; make install; \
     cp -r htslib /opt/bin;
-RUN cd /opt; wget https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2; \
-    tar -vxjf samtools-1.9.tar.bz2; rm samtools-1.9.tar.bz2; \
-    cd samtools-1.9; \
+RUN cd /opt; wget https://github.com/samtools/samtools/releases/download/1.10/samtools-1.10.tar.bz2; \
+    tar -vxjf samtools-1.10.tar.bz2; rm samtools-1.10.tar.bz2; \
+    cd samtools-1.10; \
     ./configure; make; make install; \
     cp -r samtools /opt/bin;
-RUN cd /opt; wget https://github.com/samtools/bcftools/releases/download/1.9/bcftools-1.9.tar.bz2; \
-    tar -vxjf bcftools-1.9.tar.bz2; rm bcftools-1.9.tar.bz2; \
-    cd bcftools-1.9; \
+RUN cd /opt; wget https://github.com/samtools/bcftools/releases/download/1.10/bcftools-1.10.tar.bz2; \
+    tar -vxjf bcftools-1.10.tar.bz2; rm bcftools-1.10.tar.bz2; \
+    cd bcftools-1.10; \
     ./configure; make; make install; \
     cp -r bcftools /opt/bin;
 
@@ -85,6 +86,7 @@ ENV SNPEFF_HOME "/usr/local/bin/snpEff"
 RUN cd /opt; wget https://github.com/Illumina/strelka/releases/download/v2.9.10/strelka-2.9.10.centos6_x86_64.tar.bz2; \
     tar -vxjf strelka-2.9.10.centos6_x86_64.tar.bz2; rm strelka-2.9.10.centos6_x86_64.tar.bz2; \
     mv strelka-2.9.10.centos6_x86_64 /usr/local/bin;
+
 ENV PATH "$PATH:/usr/local/bin/strelka-2.9.10.centos6_x86_64/bin"
 
 # Install Manta
@@ -97,15 +99,6 @@ RUN cd /opt; wget https://github.com/Illumina/manta/releases/download/v1.6.0/man
 RUN cd /opt; git clone --recursive --branch v1.2.0 git://github.com/ekg/freebayes.git; \
     cd freebayes; \
     make; make install;
-
-# Install Shimmer
-RUN R -e "install.packages('statmod', repos = 'http://cran.us.r-project.org')"
-RUN cpanm CPAN::Meta Module::Build
-RUN cd /opt; wget https://github.com/nhansen/Shimmer/archive/v0.1.1.zip; \
-    unzip v0.1.1.zip; rm v0.1.1.zip; \
-    cd  Shimmer-0.1.1; \
-    perl Build.PL; \
-    ./Build; ./Build test; ./Build install;
 
 # Install Parallel
 RUN cd /opt/bin; wget http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2; \
@@ -120,16 +113,26 @@ RUN cd /opt/bin; wget https://github.com/atks/vt/archive/0.57721.tar.gz; \
     make; \
     mv vt /usr/local/bin/;
 
+# Install Shimmer
+RUN R -e "install.packages('statmod')"
+RUN cpanm CPAN::Meta Module::Build
+RUN cd /opt; wget https://github.com/nhansen/Shimmer/archive/v0.1.1.zip; \
+    unzip v0.1.1.zip; rm v0.1.1.zip; \
+    cd  Shimmer-0.1.1; \
+    perl Build.PL; \
+    ./Build; ./Build test; ./Build install;
+
 # Install Scripts
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_0.5.40 --single-branch --recursive https://github.com/bcantarel/school.git; \
+    git clone -b version_1.0.0 --single-branch --recursive https://github.com/bcantarel/school.git; \
     cd school; \
     git submodule sync --recursive; git submodule update --init --recursive; \
     cp -r process_scripts/alignment/* /usr/local/bin/; \
     cp -r process_scripts/variants/* /usr/local/bin/;
 
 RUN ln -sf /usr/local/bin/python2.7 /opt/miniconda/envs/gatk/bin/python
+ENV isdocker 1
 ENV PATH "$PATH:/usr/local/bin"
 
 WORKDIR /data/

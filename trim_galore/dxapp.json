@@ -3,7 +3,7 @@
   "title": "Trim Galore",
   "summary": "Trim Galore: Trims poor quality sequence from reads",
   "dxapi": "1.0.0",
-  "version": "0.5.40",
+  "version": "1.0.0",
   "inputSpec": [
     {
       "name": "fq1",
