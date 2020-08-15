@@ -40,6 +40,11 @@ main() {
     abratbam=$(dx upload ${caseid}.tumor.abra2.bam --brief)
     dx-jobutil-add-output abratbam "$abratbam" --class=file
 
+    for i in *.abra2.bam
+    do 
+	docker run -v ${PWD}:/data docker.io/goalconsortium/abra2:1.0.0 samtools index -@ $threads $i
+    done
+
     abratbai=$(dx upload ${caseid}.tumor.abra2.bam.bai --brief)
     dx-jobutil-add-output abratbai "$abratbai" --class=file
     

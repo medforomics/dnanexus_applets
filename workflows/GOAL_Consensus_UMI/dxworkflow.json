@@ -1,6 +1,6 @@
 {
-  "name": "TumorOnly",
-  "title": "TumorOnly",
+  "name": "GOAL_Consensus_UMI",
+  "title": "GOAL_Consensus_UMI",
   "stages": [
     {
       "id": "stage-FvpbKFQ0Y9g139Y04b101pX6",
@@ -37,30 +37,6 @@
       }
     },
     {
-      "id": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy",
-      "executable": "applet-FvpbQ0j0Y9gGvjQz44KXBpP7",
-      "input": {
-        "humanref": {
-          "$dnanexus_link": {
-            "inputField": "humanref",
-            "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
-          }
-        },
-        "bam": {
-          "$dnanexus_link": {
-            "outputField": "bam",
-            "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
-          }
-        },
-        "bai": {
-          "$dnanexus_link": {
-            "outputField": "bai",
-            "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
-          }
-        }
-      }
-    },
-    {
       "id": "stage-FvpbKV00Y9g603k4BZy8KyY5",
       "executable": "applet-FvpbFv80Y9gK6GZ79z2504FX",
       "input": {
@@ -88,13 +64,58 @@
       }
     },
     {
-      "id": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z",
-      "executable": "applet-FvpbG000Y9g6jkG04bX8Q8b6",
+      "id": "stage-FvqFGjQ07jGpzxV72JP6BjfJ",
+      "executable": "applet-FvpbFqQ0Y9g6jkG04bX8Q8ZX",
       "input": {
         "tbam": {
           "$dnanexus_link": {
             "outputField": "bam",
             "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
+          }
+        },
+        "reference": {
+          "$dnanexus_link": "file-FvZ2P3j0Y9g91by34BGKzkjp"
+        },
+        "panel": {
+          "$dnanexus_link": {
+            "inputField": "panel",
+            "stage": "stage-FvpbKV00Y9g603k4BZy8KyY5"
+          }
+        }
+      }
+    },
+    {
+      "id": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy",
+      "executable": "applet-FvpbQ0j0Y9gGvjQz44KXBpP7",
+      "input": {
+        "humanref": {
+          "$dnanexus_link": {
+            "inputField": "humanref",
+            "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
+          }
+        },
+        "bam": {
+          "$dnanexus_link": {
+            "outputField": "abratbam",
+            "stage": "stage-FvqFGjQ07jGpzxV72JP6BjfJ"
+          }
+        },
+        "bai": {
+          "$dnanexus_link": {
+            "outputField": "abratbai",
+            "stage": "stage-FvqFGjQ07jGpzxV72JP6BjfJ"
+          }
+        }
+      }
+    },
+    {
+      "id": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z",
+      "executable": "applet-FvpbG000Y9g6jkG04bX8Q8b6",
+      "input": {
+        "tbam": {
+          "$dnanexus_link": {
+            "outputField": "abratbam",
+            "stage": "stage-FvqFGjQ07jGpzxV72JP6BjfJ"
           }
         },
         "reference": {

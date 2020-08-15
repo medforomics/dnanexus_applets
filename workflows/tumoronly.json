@@ -1,0 +1,1232 @@
+{
+    "links": [], 
+    "inputSpec": [
+        {
+            "group": "stage-FvpbKFQ0Y9g139Y04b101pX6", 
+            "help": "", 
+            "label": "Fastq1", 
+            "patterns": [
+                "*.fastq.gz", 
+                "*.fq.gz"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbKFQ0Y9g139Y04b101pX6.fq1"
+        }, 
+        {
+            "group": "stage-FvpbKFQ0Y9g139Y04b101pX6", 
+            "help": "", 
+            "label": "Fastq2", 
+            "patterns": [
+                "*.fastq.gz", 
+                "*.fq.gz"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbKFQ0Y9g139Y04b101pX6.fq2"
+        }, 
+        {
+            "group": "stage-FvpbKFQ0Y9g139Y04b101pX6", 
+            "help": "", 
+            "label": "Output Files Prefix", 
+            "optional": false, 
+            "class": "string", 
+            "name": "stage-FvpbKFQ0Y9g139Y04b101pX6.sampleid"
+        }, 
+        {
+            "group": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF", 
+            "help": "R1", 
+            "default": {
+                "$dnanexus_link": {
+                    "outputField": "trim1", 
+                    "stage": "stage-FvpbKFQ0Y9g139Y04b101pX6"
+                }
+            }, 
+            "label": "Fastq1", 
+            "patterns": [
+                "*.fastq.gz", 
+                "*.fq.gz"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF.fq1"
+        }, 
+        {
+            "group": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF", 
+            "help": "R2", 
+            "default": {
+                "$dnanexus_link": {
+                    "outputField": "trim2", 
+                    "stage": "stage-FvpbKFQ0Y9g139Y04b101pX6"
+                }
+            }, 
+            "label": "Fastq2", 
+            "patterns": [
+                "*.fastq.gz", 
+                "*.fq.gz"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF.fq2"
+        }, 
+        {
+            "group": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF", 
+            "help": "tar gz file of BWA index files for Human Genome", 
+            "default": {
+                "$dnanexus_link": "file-FvPP4380Y9gK9k8384fYB6F5"
+            }, 
+            "label": "BWA Index Files for Human Genome (tar.gz)", 
+            "patterns": [
+                "*.tar.gz"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF.humanref"
+        }, 
+        {
+            "group": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF", 
+            "help": "tar gz file of BWA index files for Viral Genome", 
+            "default": {
+                "$dnanexus_link": "file-FvPP4QQ0Y9g68JZFBX0PbK8x"
+            }, 
+            "label": "BWA Index Files for Virus Genomes (tar.gz)", 
+            "patterns": [
+                "*.tar.gz"
+            ], 
+            "optional": true, 
+            "class": "file", 
+            "name": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF.virusref"
+        }, 
+        {
+            "group": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF", 
+            "help": "", 
+            "default": true, 
+            "label": "UMI in ReadName", 
+            "optional": true, 
+            "class": "boolean", 
+            "name": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF.umi"
+        }, 
+        {
+            "group": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF", 
+            "help": "", 
+            "label": "ReadGroup/SampleID", 
+            "optional": false, 
+            "class": "string", 
+            "name": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF.sampleid"
+        }, 
+        {
+            "group": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": {
+                    "outputField": "bam", 
+                    "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
+                }
+            }, 
+            "label": "Sorted BAM (.bam)", 
+            "patterns": [
+                "*.bam"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy.bam"
+        }, 
+        {
+            "group": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": {
+                    "outputField": "bai", 
+                    "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
+                }
+            }, 
+            "label": "BAM Index (.bai)", 
+            "patterns": [
+                "*.bai"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy.bai"
+        }, 
+        {
+            "group": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy", 
+            "help": "", 
+            "label": "ReadGroup/SampleID", 
+            "optional": false, 
+            "class": "string", 
+            "name": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy.sampleid"
+        }, 
+        {
+            "group": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy", 
+            "help": "tar gz file of BWA index files for Human Genome", 
+            "default": {
+                "$dnanexus_link": {
+                    "inputField": "humanref", 
+                    "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
+                }
+            }, 
+            "label": "BWA Index Files for Human Genome (tar.gz)", 
+            "patterns": [
+                "*.tar.gz"
+            ], 
+            "optional": true, 
+            "class": "file", 
+            "name": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy.humanref"
+        }, 
+        {
+            "group": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy", 
+            "help": "", 
+            "default": "fgbio_umi", 
+            "label": "MarkDup Method", 
+            "optional": false, 
+            "class": "string", 
+            "name": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy.mdup"
+        }, 
+        {
+            "group": "stage-FvpbKV00Y9g603k4BZy8KyY5", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": {
+                    "outputField": "bam", 
+                    "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
+                }
+            }, 
+            "label": "Raw BAM from alignment step (raw.bam)", 
+            "patterns": [
+                "*.bam"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbKV00Y9g603k4BZy8KyY5.bam"
+        }, 
+        {
+            "group": "stage-FvpbKV00Y9g603k4BZy8KyY5", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": {
+                    "outputField": "bai", 
+                    "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
+                }
+            }, 
+            "label": "Raw BAI from alignment step (raw.bam.bai)", 
+            "patterns": [
+                "*.bai"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbKV00Y9g603k4BZy8KyY5.bai"
+        }, 
+        {
+            "group": "stage-FvpbKV00Y9g603k4BZy8KyY5", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": "file-FvVYkf80Y9g5zV5x88fFZ22p"
+            }, 
+            "label": "Bedtools Genome File, Genome Fasta Index, reference_info.txt", 
+            "patterns": [
+                "*.tar.gz"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbKV00Y9g603k4BZy8KyY5.refinfo"
+        }, 
+        {
+            "group": "stage-FvpbKV00Y9g603k4BZy8KyY5", 
+            "help": "", 
+            "label": "Panel Files (tar.gz)", 
+            "patterns": [
+                "*.tar.gz"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbKV00Y9g603k4BZy8KyY5.panel"
+        }, 
+        {
+            "group": "stage-FvpbKV00Y9g603k4BZy8KyY5", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": {
+                    "outputField": "trimreport", 
+                    "stage": "stage-FvpbKFQ0Y9g139Y04b101pX6"
+                }
+            }, 
+            "label": "Trim Statistics Report from trim step", 
+            "patterns": [
+                "*trimreport.txt"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbKV00Y9g603k4BZy8KyY5.trimstat"
+        }, 
+        {
+            "group": "stage-FvpbKV00Y9g603k4BZy8KyY5", 
+            "help": "", 
+            "label": "ReadGroup/SampleName", 
+            "optional": false, 
+            "class": "string", 
+            "name": "stage-FvpbKV00Y9g603k4BZy8KyY5.sampleid"
+        }, 
+        {
+            "group": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": {
+                    "outputField": "bam", 
+                    "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
+                }
+            }, 
+            "label": "Tumor BAM (.bam)", 
+            "patterns": [
+                "*.bam"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z.tbam"
+        }, 
+        {
+            "group": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z", 
+            "help": "", 
+            "label": "Normal BAM (.bam)", 
+            "patterns": [
+                "*.bam"
+            ], 
+            "optional": true, 
+            "class": "file", 
+            "name": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z.nbam"
+        }, 
+        {
+            "group": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": "file-FvPP53Q0Y9gK9k8384fYB6Jx"
+            }, 
+            "label": "Reference Files (tar.gz)", 
+            "patterns": [
+                "*.tar.gz"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z.reference"
+        }, 
+        {
+            "group": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": {
+                    "inputField": "panel", 
+                    "stage": "stage-FvpbKV00Y9g603k4BZy8KyY5"
+                }
+            }, 
+            "label": "Panel Files (tar.gz)", 
+            "patterns": [
+                "*.tar.gz"
+            ], 
+            "optional": true, 
+            "class": "file", 
+            "name": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z.panel"
+        }, 
+        {
+            "group": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z", 
+            "help": "", 
+            "label": "SubjectID/CaseID", 
+            "optional": false, 
+            "class": "string", 
+            "name": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z.caseid"
+        }, 
+        {
+            "group": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z", 
+            "help": "", 
+            "default": "pindel_itd delly svaba cnvkit itdseek", 
+            "label": "Variant Calling Algorithm (pindel delly svaba cnvkit itdseek)", 
+            "optional": false, 
+            "class": "string", 
+            "name": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z.algo"
+        }, 
+        {
+            "group": "stage-FvpbXqj0Y9gGjg1755vVf0yK", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": {
+                    "outputField": "bam", 
+                    "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
+                }
+            }, 
+            "label": "Tumor Sorted BAM (.bam)", 
+            "patterns": [
+                "*.bam"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbXqj0Y9gGjg1755vVf0yK.tbam"
+        }, 
+        {
+            "group": "stage-FvpbXqj0Y9gGjg1755vVf0yK", 
+            "help": "", 
+            "label": "Normal Sorted BAM (.bam)", 
+            "patterns": [
+                "*.bam"
+            ], 
+            "optional": true, 
+            "class": "file", 
+            "name": "stage-FvpbXqj0Y9gGjg1755vVf0yK.nbam"
+        }, 
+        {
+            "group": "stage-FvpbXqj0Y9gGjg1755vVf0yK", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": "file-FvZ2P3j0Y9g91by34BGKzkjp"
+            }, 
+            "label": "Reference Files (tar.gz)", 
+            "patterns": [
+                "*.tar.gz"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbXqj0Y9gGjg1755vVf0yK.reference"
+        }, 
+        {
+            "group": "stage-FvpbXqj0Y9gGjg1755vVf0yK", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": {
+                    "inputField": "panel", 
+                    "stage": "stage-FvpbKV00Y9g603k4BZy8KyY5"
+                }
+            }, 
+            "label": "Target Panel Files (tar.gz)", 
+            "patterns": [
+                "*.tar.gz"
+            ], 
+            "optional": true, 
+            "class": "file", 
+            "name": "stage-FvpbXqj0Y9gGjg1755vVf0yK.panel"
+        }, 
+        {
+            "group": "stage-FvpbXqj0Y9gGjg1755vVf0yK", 
+            "help": "", 
+            "label": "SubjectID/CaseID", 
+            "optional": false, 
+            "class": "string", 
+            "name": "stage-FvpbXqj0Y9gGjg1755vVf0yK.caseid"
+        }, 
+        {
+            "group": "stage-FvpbKbj0Y9g07vb04bpVVPBQ", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": {
+                    "outputField": "dedupbam", 
+                    "stage": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy"
+                }
+            }, 
+            "label": "Tumor BAM (.bam)", 
+            "patterns": [
+                "*.bam"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbKbj0Y9g07vb04bpVVPBQ.tbam"
+        }, 
+        {
+            "group": "stage-FvpbKbj0Y9g07vb04bpVVPBQ", 
+            "help": "", 
+            "label": "Normal BAM (.bam)", 
+            "patterns": [
+                "*.bam"
+            ], 
+            "optional": true, 
+            "class": "file", 
+            "name": "stage-FvpbKbj0Y9g07vb04bpVVPBQ.nbam"
+        }, 
+        {
+            "group": "stage-FvpbKbj0Y9g07vb04bpVVPBQ", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": "file-FvPP1800Y9g471Q25gxJqp85"
+            }, 
+            "label": "Reference Files (tar.gz)", 
+            "patterns": [
+                "*.tar.gz"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbKbj0Y9g07vb04bpVVPBQ.reference"
+        }, 
+        {
+            "group": "stage-FvpbKbj0Y9g07vb04bpVVPBQ", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": {
+                    "inputField": "panel", 
+                    "stage": "stage-FvpbKV00Y9g603k4BZy8KyY5"
+                }
+            }, 
+            "label": "Panel Files (tar.gz)", 
+            "patterns": [
+                "*.tar.gz"
+            ], 
+            "optional": true, 
+            "class": "file", 
+            "name": "stage-FvpbKbj0Y9g07vb04bpVVPBQ.panel"
+        }, 
+        {
+            "group": "stage-FvpbKbj0Y9g07vb04bpVVPBQ", 
+            "help": "", 
+            "label": "SubjectID/CaseID", 
+            "optional": false, 
+            "class": "string", 
+            "name": "stage-FvpbKbj0Y9g07vb04bpVVPBQ.caseid"
+        }, 
+        {
+            "group": "stage-FvpbKbj0Y9g07vb04bpVVPBQ", 
+            "help": "", 
+            "default": "fb strelka2 platypus", 
+            "label": "Variant Calling Algorithm (mutect fb platypus strelka2 shimmer)", 
+            "optional": false, 
+            "class": "string", 
+            "name": "stage-FvpbKbj0Y9g07vb04bpVVPBQ.algo"
+        }, 
+        {
+            "group": "stage-FvpbKj80Y9gGyFz6GgXyvvXX", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": {
+                    "outputField": "dedupbam", 
+                    "stage": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy"
+                }
+            }, 
+            "label": "Sorted BAM (.bam)", 
+            "patterns": [
+                "*.bam"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbKj80Y9gGyFz6GgXyvvXX.bam"
+        }, 
+        {
+            "group": "stage-FvpbKj80Y9gGyFz6GgXyvvXX", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": {
+                    "outputField": "dedupbai", 
+                    "stage": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy"
+                }
+            }, 
+            "label": "BAM Index (.bai)", 
+            "patterns": [
+                "*.bai"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbKj80Y9gGyFz6GgXyvvXX.bai"
+        }, 
+        {
+            "group": "stage-FvpbKj80Y9gGyFz6GgXyvvXX", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": {
+                    "inputField": "reference", 
+                    "stage": "stage-FvpbKbj0Y9g07vb04bpVVPBQ"
+                }
+            }, 
+            "label": "Reference Files (tar.gz)", 
+            "patterns": [
+                "*.tar.gz"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbKj80Y9gGyFz6GgXyvvXX.reference"
+        }, 
+        {
+            "group": "stage-FvpbKj80Y9gGyFz6GgXyvvXX", 
+            "help": "", 
+            "label": "ReadGroup/SampleID", 
+            "optional": false, 
+            "class": "string", 
+            "name": "stage-FvpbKj80Y9gGyFz6GgXyvvXX.sampleid"
+        }, 
+        {
+            "group": "stage-FvpbKf00Y9gPxq3G4fFVfF4x", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": {
+                    "outputField": "gatkbam", 
+                    "stage": "stage-FvpbKj80Y9gGyFz6GgXyvvXX"
+                }
+            }, 
+            "label": "Tumor BAM (.bam)", 
+            "patterns": [
+                "*.bam"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbKf00Y9gPxq3G4fFVfF4x.tbam"
+        }, 
+        {
+            "group": "stage-FvpbKf00Y9gPxq3G4fFVfF4x", 
+            "help": "", 
+            "label": "Normal BAM (.bam)", 
+            "patterns": [
+                "*.bam"
+            ], 
+            "optional": true, 
+            "class": "file", 
+            "name": "stage-FvpbKf00Y9gPxq3G4fFVfF4x.nbam"
+        }, 
+        {
+            "group": "stage-FvpbKf00Y9gPxq3G4fFVfF4x", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": {
+                    "inputField": "reference", 
+                    "stage": "stage-FvpbKbj0Y9g07vb04bpVVPBQ"
+                }
+            }, 
+            "label": "Reference Files (tar.gz)", 
+            "patterns": [
+                "*.tar.gz"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbKf00Y9gPxq3G4fFVfF4x.reference"
+        }, 
+        {
+            "group": "stage-FvpbKf00Y9gPxq3G4fFVfF4x", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": {
+                    "inputField": "panel", 
+                    "stage": "stage-FvpbKV00Y9g603k4BZy8KyY5"
+                }
+            }, 
+            "label": "Panel Files (tar.gz)", 
+            "patterns": [
+                "*.tar.gz"
+            ], 
+            "optional": true, 
+            "class": "file", 
+            "name": "stage-FvpbKf00Y9gPxq3G4fFVfF4x.panel"
+        }, 
+        {
+            "group": "stage-FvpbKf00Y9gPxq3G4fFVfF4x", 
+            "help": "", 
+            "label": "SubjectID/CaseID", 
+            "optional": false, 
+            "class": "string", 
+            "name": "stage-FvpbKf00Y9gPxq3G4fFVfF4x.caseid"
+        }, 
+        {
+            "group": "stage-FvpbKf00Y9gPxq3G4fFVfF4x", 
+            "help": "", 
+            "default": "mutect", 
+            "label": "Variant Calling Algorithm (mutect fb platypus strelka2 shimmer)", 
+            "optional": false, 
+            "class": "string", 
+            "name": "stage-FvpbKf00Y9gPxq3G4fFVfF4x.algo"
+        }, 
+        {
+            "group": "stage-FvpbXvj0Y9gGyFz6GgXyvyJ9", 
+            "help": "", 
+            "default": [
+                {
+                    "$dnanexus_link": {
+                        "outputField": "vcf", 
+                        "stage": "stage-FvpbKbj0Y9g07vb04bpVVPBQ"
+                    }
+                }, 
+                {
+                    "$dnanexus_link": {
+                        "outputField": "vcf", 
+                        "stage": "stage-FvpbKf00Y9gPxq3G4fFVfF4x"
+                    }
+                }
+            ], 
+            "label": "VCF Files Tar Gz (Array)", 
+            "patterns": [
+                "*.tar.gz"
+            ], 
+            "optional": false, 
+            "class": "array:file", 
+            "name": "stage-FvpbXvj0Y9gGyFz6GgXyvyJ9.vcffiles"
+        }, 
+        {
+            "group": "stage-FvpbXvj0Y9gGyFz6GgXyvyJ9", 
+            "help": "", 
+            "default": {
+                "$dnanexus_link": "file-FvQykqj0Y9gPXZ7QG3Z4K2GP"
+            }, 
+            "label": "Genome Dictionary File for VCF sorting", 
+            "patterns": [
+                "*"
+            ], 
+            "optional": false, 
+            "class": "file", 
+            "name": "stage-FvpbXvj0Y9gGyFz6GgXyvyJ9.genodict"
+        }, 
+        {
+            "group": "stage-FvpbXvj0Y9gGyFz6GgXyvyJ9", 
+            "help": "", 
+            "label": "SubjectID/CaseID", 
+            "optional": false, 
+            "class": "string", 
+            "name": "stage-FvpbXvj0Y9gGyFz6GgXyvyJ9.caseid"
+        }
+    ], 
+    "id": "workflow-FvpbJz00Y9gK3Z0GBbP4kzf6", 
+    "title": "TumorOnly", 
+    "class": "workflow", 
+    "state": "open", 
+    "editVersion": 101, 
+    "details": {}, 
+    "folder": "/", 
+    "inputs": null, 
+    "temporary": false, 
+    "description": "", 
+    "tags": [], 
+    "outputSpec": [
+        {
+            "group": "stage-FvpbKFQ0Y9g139Y04b101pX6", 
+            "help": "", 
+            "label": "Trim Fq1", 
+            "patterns": [
+                "*"
+            ], 
+            "class": "file", 
+            "name": "stage-FvpbKFQ0Y9g139Y04b101pX6.trim1"
+        }, 
+        {
+            "group": "stage-FvpbKFQ0Y9g139Y04b101pX6", 
+            "help": "", 
+            "label": "Trim Fq2", 
+            "patterns": [
+                "*"
+            ], 
+            "class": "file", 
+            "name": "stage-FvpbKFQ0Y9g139Y04b101pX6.trim2"
+        }, 
+        {
+            "group": "stage-FvpbKFQ0Y9g139Y04b101pX6", 
+            "help": "", 
+            "label": "Trim Output Report", 
+            "patterns": [
+                "*"
+            ], 
+            "class": "file", 
+            "name": "stage-FvpbKFQ0Y9g139Y04b101pX6.trimreport"
+        }, 
+        {
+            "group": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF", 
+            "help": "", 
+            "label": "Sorted Bam", 
+            "patterns": [
+                "*"
+            ], 
+            "class": "file", 
+            "name": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF.bam"
+        }, 
+        {
+            "group": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF", 
+            "help": "", 
+            "label": "BAM index", 
+            "patterns": [
+                "*"
+            ], 
+            "class": "file", 
+            "name": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF.bai"
+        }, 
+        {
+            "group": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF", 
+            "help": "", 
+            "label": "Virus Sequence Stats", 
+            "patterns": [
+                "*"
+            ], 
+            "class": "file", 
+            "name": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF.vseqstat"
+        }, 
+        {
+            "group": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy", 
+            "help": "", 
+            "label": "Deduplicate Bam", 
+            "patterns": [
+                "*"
+            ], 
+            "class": "file", 
+            "name": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy.dedupbam"
+        }, 
+        {
+            "group": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy", 
+            "help": "", 
+            "label": "Deduplicate BAM index", 
+            "patterns": [
+                "*"
+            ], 
+            "class": "file", 
+            "name": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy.dedupbai"
+        }, 
+        {
+            "group": "stage-FvpbKV00Y9g603k4BZy8KyY5", 
+            "help": "", 
+            "label": "concatenated sequence stats", 
+            "patterns": [
+                "*"
+            ], 
+            "class": "file", 
+            "name": "stage-FvpbKV00Y9g603k4BZy8KyY5.seqstats"
+        }, 
+        {
+            "group": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z", 
+            "help": "", 
+            "label": "VCF File Output", 
+            "patterns": [
+                "*"
+            ], 
+            "optional": true, 
+            "class": "file", 
+            "name": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z.vcf"
+        }, 
+        {
+            "group": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z", 
+            "help": "", 
+            "label": "CNVKit Output Files", 
+            "patterns": [
+                "*"
+            ], 
+            "optional": true, 
+            "class": "file", 
+            "name": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z.cnvout"
+        }, 
+        {
+            "group": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z", 
+            "help": "", 
+            "label": "DNA Genefusion File Output", 
+            "patterns": [
+                "*"
+            ], 
+            "optional": true, 
+            "class": "file", 
+            "name": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z.genefusion"
+        }, 
+        {
+            "group": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z", 
+            "help": "", 
+            "label": "Structural Variant VCF File Output", 
+            "patterns": [
+                "*"
+            ], 
+            "optional": true, 
+            "class": "file", 
+            "name": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z.svvcf"
+        }, 
+        {
+            "group": "stage-FvpbXqj0Y9gGjg1755vVf0yK", 
+            "help": "", 
+            "label": "MSIsensor-pro File Output", 
+            "patterns": [
+                "*"
+            ], 
+            "optional": true, 
+            "class": "file", 
+            "name": "stage-FvpbXqj0Y9gGjg1755vVf0yK.msiout"
+        }, 
+        {
+            "group": "stage-FvpbXqj0Y9gGjg1755vVf0yK", 
+            "help": "", 
+            "label": "Checkmates Matched File Output", 
+            "patterns": [
+                "*"
+            ], 
+            "optional": true, 
+            "class": "file", 
+            "name": "stage-FvpbXqj0Y9gGjg1755vVf0yK.matched"
+        }, 
+        {
+            "group": "stage-FvpbXqj0Y9gGjg1755vVf0yK", 
+            "help": "", 
+            "label": "Checkmates All File Output", 
+            "patterns": [
+                "*"
+            ], 
+            "optional": true, 
+            "class": "file", 
+            "name": "stage-FvpbXqj0Y9gGjg1755vVf0yK.all"
+        }, 
+        {
+            "group": "stage-FvpbXqj0Y9gGjg1755vVf0yK", 
+            "help": "", 
+            "label": "Somatic Sequence Statistics", 
+            "patterns": [
+                "*"
+            ], 
+            "optional": true, 
+            "class": "file", 
+            "name": "stage-FvpbXqj0Y9gGjg1755vVf0yK.seqstats"
+        }, 
+        {
+            "group": "stage-FvpbKbj0Y9g07vb04bpVVPBQ", 
+            "help": "", 
+            "label": "VCF File Output", 
+            "patterns": [
+                "*"
+            ], 
+            "class": "file", 
+            "name": "stage-FvpbKbj0Y9g07vb04bpVVPBQ.vcf"
+        }, 
+        {
+            "group": "stage-FvpbKbj0Y9g07vb04bpVVPBQ", 
+            "help": "", 
+            "label": "Original VCF File Output", 
+            "patterns": [
+                "*"
+            ], 
+            "class": "file", 
+            "name": "stage-FvpbKbj0Y9g07vb04bpVVPBQ.ori"
+        }, 
+        {
+            "group": "stage-FvpbKj80Y9gGyFz6GgXyvvXX", 
+            "help": "", 
+            "label": "GATK Bam", 
+            "patterns": [
+                "*"
+            ], 
+            "class": "file", 
+            "name": "stage-FvpbKj80Y9gGyFz6GgXyvvXX.gatkbam"
+        }, 
+        {
+            "group": "stage-FvpbKj80Y9gGyFz6GgXyvvXX", 
+            "help": "", 
+            "label": "GATK BAM index", 
+            "patterns": [
+                "*"
+            ], 
+            "class": "file", 
+            "name": "stage-FvpbKj80Y9gGyFz6GgXyvvXX.gatkbai"
+        }, 
+        {
+            "group": "stage-FvpbKf00Y9gPxq3G4fFVfF4x", 
+            "help": "", 
+            "label": "VCF File Output", 
+            "patterns": [
+                "*"
+            ], 
+            "class": "file", 
+            "name": "stage-FvpbKf00Y9gPxq3G4fFVfF4x.vcf"
+        }, 
+        {
+            "group": "stage-FvpbKf00Y9gPxq3G4fFVfF4x", 
+            "help": "", 
+            "label": "Original VCF File Output", 
+            "patterns": [
+                "*"
+            ], 
+            "class": "file", 
+            "name": "stage-FvpbKf00Y9gPxq3G4fFVfF4x.ori"
+        }, 
+        {
+            "group": "stage-FvpbXvj0Y9gGyFz6GgXyvyJ9", 
+            "help": "", 
+            "label": "Union VCF", 
+            "patterns": [
+                "*"
+            ], 
+            "class": "file", 
+            "name": "stage-FvpbXvj0Y9gGyFz6GgXyvyJ9.union_vcf"
+        }
+    ], 
+    "outputs": null, 
+    "sponsored": false, 
+    "createdBy": {
+        "user": "user-utswclia"
+    }, 
+    "outputFolder": null, 
+    "properties": {}, 
+    "types": [], 
+    "hidden": false, 
+    "name": "TumorOnly", 
+    "created": 1597331196000, 
+    "modified": 1597434483303, 
+    "summary": "", 
+    "project": "project-FvPKK200Y9g81KqkKjJ9X818", 
+    "stages": [
+        {
+            "accessible": true, 
+            "executable": "applet-FvpbG0Q0Y9gPxq3G4fFVfF1z", 
+            "name": null, 
+            "systemRequirements": {}, 
+            "executionPolicy": {}, 
+            "input": {}, 
+            "folder": null, 
+            "id": "stage-FvpbKFQ0Y9g139Y04b101pX6"
+        }, 
+        {
+            "accessible": true, 
+            "executable": "applet-FvpbFv00Y9gB5Pfv84gJvFgP", 
+            "name": null, 
+            "systemRequirements": {
+                "*": {
+                    "instanceType": "mem1_ssd1_v2_x2"
+                }
+            }, 
+            "executionPolicy": {}, 
+            "input": {
+                "fq2": {
+                    "$dnanexus_link": {
+                        "outputField": "trim2", 
+                        "stage": "stage-FvpbKFQ0Y9g139Y04b101pX6"
+                    }
+                }, 
+                "humanref": {
+                    "$dnanexus_link": "file-FvPP4380Y9gK9k8384fYB6F5"
+                }, 
+                "fq1": {
+                    "$dnanexus_link": {
+                        "outputField": "trim1", 
+                        "stage": "stage-FvpbKFQ0Y9g139Y04b101pX6"
+                    }
+                }, 
+                "virusref": {
+                    "$dnanexus_link": "file-FvPP4QQ0Y9g68JZFBX0PbK8x"
+                }
+            }, 
+            "folder": "/", 
+            "id": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
+        }, 
+        {
+            "accessible": true, 
+            "executable": "applet-FvpbQ0j0Y9gGvjQz44KXBpP7", 
+            "name": null, 
+            "systemRequirements": {}, 
+            "executionPolicy": {}, 
+            "input": {
+                "humanref": {
+                    "$dnanexus_link": {
+                        "inputField": "humanref", 
+                        "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
+                    }
+                }, 
+                "bam": {
+                    "$dnanexus_link": {
+                        "outputField": "bam", 
+                        "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
+                    }
+                }, 
+                "bai": {
+                    "$dnanexus_link": {
+                        "outputField": "bai", 
+                        "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
+                    }
+                }
+            }, 
+            "folder": null, 
+            "id": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy"
+        }, 
+        {
+            "accessible": true, 
+            "executable": "applet-FvpbFv80Y9gK6GZ79z2504FX", 
+            "name": null, 
+            "systemRequirements": {}, 
+            "executionPolicy": {}, 
+            "input": {
+                "refinfo": {
+                    "$dnanexus_link": "file-FvVYkf80Y9g5zV5x88fFZ22p"
+                }, 
+                "trimstat": {
+                    "$dnanexus_link": {
+                        "outputField": "trimreport", 
+                        "stage": "stage-FvpbKFQ0Y9g139Y04b101pX6"
+                    }
+                }, 
+                "bam": {
+                    "$dnanexus_link": {
+                        "outputField": "bam", 
+                        "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
+                    }
+                }, 
+                "bai": {
+                    "$dnanexus_link": {
+                        "outputField": "bai", 
+                        "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
+                    }
+                }
+            }, 
+            "folder": null, 
+            "id": "stage-FvpbKV00Y9g603k4BZy8KyY5"
+        }, 
+        {
+            "accessible": true, 
+            "executable": "applet-FvpbG000Y9g6jkG04bX8Q8b6", 
+            "name": null, 
+            "systemRequirements": {
+                "*": {
+                    "instanceType": "mem1_ssd1_v2_x2"
+                }
+            }, 
+            "executionPolicy": {}, 
+            "input": {
+                "tbam": {
+                    "$dnanexus_link": {
+                        "outputField": "bam", 
+                        "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
+                    }
+                }, 
+                "reference": {
+                    "$dnanexus_link": "file-FvPP53Q0Y9gK9k8384fYB6Jx"
+                }, 
+                "panel": {
+                    "$dnanexus_link": {
+                        "inputField": "panel", 
+                        "stage": "stage-FvpbKV00Y9g603k4BZy8KyY5"
+                    }
+                }
+            }, 
+            "folder": null, 
+            "id": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z"
+        }, 
+        {
+            "accessible": true, 
+            "executable": "applet-FvpbQ2j0Y9g80yV1852BZY2F", 
+            "name": null, 
+            "systemRequirements": {}, 
+            "executionPolicy": {}, 
+            "input": {
+                "tbam": {
+                    "$dnanexus_link": {
+                        "outputField": "bam", 
+                        "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
+                    }
+                }, 
+                "reference": {
+                    "$dnanexus_link": "file-FvZ2P3j0Y9g91by34BGKzkjp"
+                }, 
+                "panel": {
+                    "$dnanexus_link": {
+                        "inputField": "panel", 
+                        "stage": "stage-FvpbKV00Y9g603k4BZy8KyY5"
+                    }
+                }
+            }, 
+            "folder": null, 
+            "id": "stage-FvpbXqj0Y9gGjg1755vVf0yK"
+        }, 
+        {
+            "accessible": true, 
+            "executable": "applet-FvpbFz00Y9gPxq3G4fFVfF1x", 
+            "name": "FB-Strelka2-Platypus", 
+            "systemRequirements": {
+                "*": {
+                    "instanceType": "mem1_ssd1_v2_x4"
+                }
+            }, 
+            "executionPolicy": {}, 
+            "input": {
+                "tbam": {
+                    "$dnanexus_link": {
+                        "outputField": "dedupbam", 
+                        "stage": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy"
+                    }
+                }, 
+                "reference": {
+                    "$dnanexus_link": "file-FvPP1800Y9g471Q25gxJqp85"
+                }, 
+                "panel": {
+                    "$dnanexus_link": {
+                        "inputField": "panel", 
+                        "stage": "stage-FvpbKV00Y9g603k4BZy8KyY5"
+                    }
+                }
+            }, 
+            "folder": "/", 
+            "id": "stage-FvpbKbj0Y9g07vb04bpVVPBQ"
+        }, 
+        {
+            "accessible": true, 
+            "executable": "applet-FvpbFvQ0Y9gBgppkGV11ZVf3", 
+            "name": null, 
+            "systemRequirements": {}, 
+            "executionPolicy": {}, 
+            "input": {
+                "bam": {
+                    "$dnanexus_link": {
+                        "outputField": "dedupbam", 
+                        "stage": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy"
+                    }
+                }, 
+                "reference": {
+                    "$dnanexus_link": {
+                        "inputField": "reference", 
+                        "stage": "stage-FvpbKbj0Y9g07vb04bpVVPBQ"
+                    }
+                }, 
+                "bai": {
+                    "$dnanexus_link": {
+                        "outputField": "dedupbai", 
+                        "stage": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy"
+                    }
+                }
+            }, 
+            "folder": null, 
+            "id": "stage-FvpbKj80Y9gGyFz6GgXyvvXX"
+        }, 
+        {
+            "accessible": true, 
+            "executable": "applet-FvpbFz00Y9gPxq3G4fFVfF1x", 
+            "name": "Mutect2", 
+            "systemRequirements": {
+                "*": {
+                    "instanceType": "mem3_ssd1_v2_x4"
+                }
+            }, 
+            "executionPolicy": {}, 
+            "input": {
+                "tbam": {
+                    "$dnanexus_link": {
+                        "outputField": "gatkbam", 
+                        "stage": "stage-FvpbKj80Y9gGyFz6GgXyvvXX"
+                    }
+                }, 
+                "algo": "mutect", 
+                "reference": {
+                    "$dnanexus_link": {
+                        "inputField": "reference", 
+                        "stage": "stage-FvpbKbj0Y9g07vb04bpVVPBQ"
+                    }
+                }, 
+                "panel": {
+                    "$dnanexus_link": {
+                        "inputField": "panel", 
+                        "stage": "stage-FvpbKV00Y9g603k4BZy8KyY5"
+                    }
+                }
+            }, 
+            "folder": "/", 
+            "id": "stage-FvpbKf00Y9gPxq3G4fFVfF4x"
+        }, 
+        {
+            "accessible": true, 
+            "executable": "applet-FvpbPz80Y9gK4bP245VFV6P2", 
+            "name": null, 
+            "systemRequirements": {}, 
+            "executionPolicy": {}, 
+            "input": {
+                "vcffiles": [
+                    {
+                        "$dnanexus_link": {
+                            "outputField": "vcf", 
+                            "stage": "stage-FvpbKbj0Y9g07vb04bpVVPBQ"
+                        }
+                    }, 
+                    {
+                        "$dnanexus_link": {
+                            "outputField": "vcf", 
+                            "stage": "stage-FvpbKf00Y9gPxq3G4fFVfF4x"
+                        }
+                    }
+                ], 
+                "genodict": {
+                    "$dnanexus_link": "file-FvQykqj0Y9gPXZ7QG3Z4K2GP"
+                }
+            }, 
+            "folder": null, 
+            "id": "stage-FvpbXvj0Y9gGyFz6GgXyvyJ9"
+        }
+    ]
+}
