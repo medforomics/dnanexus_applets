@@ -1,45 +1,143 @@
 {
-  "name": "GOAL_Consensus_StandardAdapters",
-  "title": "GOAL_Consensus_StandardAdapters",
+  "name": "dna_tumoronly",
+  "title": "DNA TumorOnly",
+  "version": "1.0.0",
+  "summary": "Tumor Variant Detection",
+  "inputs": [
+    {
+      "name": "FqR1",
+      "class": "file"
+    },
+    {
+      "name": "FqR2",
+      "class": "file"
+    },
+    {
+      "name": "CaseID",
+      "class": "string"
+    },
+    {
+      "name": "SampleID",
+      "class": "string"
+    },
+    {
+      "name": "PanelFile",
+      "class": "string"
+    }
+  ],
   "stages": [
     {
       "id": "stage-FvpbKFQ0Y9g139Y04b101pX6",
-      "executable": "applet-FvpbG0Q0Y9gPxq3G4fFVfF1z"
+      "name": "Trim Galore",
+      "executable": "applet-FvpbG0Q0Y9gPxq3G4fFVfF1z",
+      "input": {
+	"fq1": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "FqR1"
+	  } 
+	},
+	"fq2": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "FqR2"
+	  }
+	},
+	"sampleid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "SampleID"
+	  }
+	}
+      },
+      "systemRequirements": {
+	"main": {
+	  "instanceType": "mem1_ssd1_v2_x2"
+	}
+      }
     },
     {
       "id": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF",
+      "name": "DNA Alignment",
       "executable": "applet-FvpbFv00Y9gB5Pfv84gJvFgP",
-      "folder": "/",
       "input": {
-        "fq2": {
-          "$dnanexus_link": {
-            "outputField": "trim2",
-            "stage": "stage-FvpbKFQ0Y9g139Y04b101pX6"
-          }
-        },
-        "humanref": {
-          "$dnanexus_link": "file-FvPP4380Y9gK9k8384fYB6F5"
-        },
-        "fq1": {
+	"fq1": {
           "$dnanexus_link": {
             "outputField": "trim1",
             "stage": "stage-FvpbKFQ0Y9g139Y04b101pX6"
           }
-        },
-        "virusref": {
+	},
+	"fq2": {
+          "$dnanexus_link": {
+            "outputField": "trim2",
+            "stage": "stage-FvpbKFQ0Y9g139Y04b101pX6"
+          }
+	},
+	"humanref": {
+          "$dnanexus_link": "file-FvPP4380Y9gK9k8384fYB6F5"
+	},
+	"virusref": {
           "$dnanexus_link": "file-FvPP4QQ0Y9g68JZFBX0PbK8x"
-        }
+	},
+	"sampleid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "SampleID"
+	  }
+	}
       },
       "systemRequirements": {
         "*": {
-          "instanceType": "mem1_ssd1_v2_x2"
+          "instanceType": "mem1_ssd1_v2_x16"
         }
       }
     },
     {
+      "id": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy",
+      "name": "Consensus BAM",
+      "executable": "applet-FvpbQ0j0Y9gGvjQz44KXBpP7",
+      "input": {
+        "humanref": {
+          "$dnanexus_link": {
+            "inputField": "humanref",
+            "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
+          }
+	},
+	"sampleid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "SampleID"
+	  }
+        },
+        "bam": {
+          "$dnanexus_link": {
+            "outputField": "bam",
+            "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
+          }
+        },
+        "bai": {
+          "$dnanexus_link": {
+            "outputField": "bai",
+            "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
+          }
+        }
+      },
+      "systemRequirements": {
+	"main": {
+	  "instanceType": "mem2_ssd1_v2_x2"
+	}
+      }
+    },
+    {
       "id": "stage-FvpbKV00Y9g603k4BZy8KyY5",
+      "name": "BAM QC",
       "executable": "applet-FvpbFv80Y9gK6GZ79z2504FX",
       "input": {
+	"sampleid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "SampleID"
+	  }
+        },
+ 	"panel": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "PanelFile"
+	  }
+        },
         "refinfo": {
           "$dnanexus_link": "file-FvVYkf80Y9g5zV5x88fFZ22p"
         },
@@ -61,20 +159,32 @@
             "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
           }
         }
+      },
+      "systemRequirements": {
+	"main": {
+	  "instanceType": "mem3_ssd1_v2_x8"
+	}
       }
     },
     {
-      "id": "stage-FvqFGjQ07jGpzxV72JP6BjfJ",
-      "executable": "applet-FvpbFqQ0Y9g6jkG04bX8Q8ZX",
+      "id": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z",
+      "name": "SV Calling",
+      "executable": "applet-FvpbG000Y9g6jkG04bX8Q8b6",
       "input": {
-        "tbam": {
+	"caseid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "CaseID"
+	  }
+	},
+	"algo": "pindel_itd delly svaba cnvkit itdseek",
+	"tbam": {
           "$dnanexus_link": {
             "outputField": "bam",
             "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
           }
         },
         "reference": {
-          "$dnanexus_link": "file-FvZ2P3j0Y9g91by34BGKzkjp"
+          "$dnanexus_link": "file-FvPP53Q0Y9gK9k8384fYB6Jx"
         },
         "panel": {
           "$dnanexus_link": {
@@ -82,45 +192,31 @@
             "stage": "stage-FvpbKV00Y9g603k4BZy8KyY5"
           }
         }
-      }
-    },
-    {
-      "id": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy",
-      "executable": "applet-FvpbQ0j0Y9gGvjQz44KXBpP7",
-      "input": {
-        "mdup": "picard",
-        "humanref": {
-          "$dnanexus_link": {
-            "inputField": "humanref",
-            "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
-          }
-        },
-        "bam": {
-          "$dnanexus_link": {
-            "outputField": "abratbam",
-            "stage": "stage-FvqFGjQ07jGpzxV72JP6BjfJ"
-          }
-        },
-        "bai": {
-          "$dnanexus_link": {
-            "outputField": "abratbai",
-            "stage": "stage-FvqFGjQ07jGpzxV72JP6BjfJ"
-          }
+      },
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_v2_x16"
         }
       }
     },
     {
-      "id": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z",
-      "executable": "applet-FvpbG000Y9g6jkG04bX8Q8b6",
+      "id": "stage-FvpbXqj0Y9gGjg1755vVf0yK",
+      "name": "Variant Profiling",
+      "executable": "applet-FvpbQ2j0Y9g80yV1852BZY2F",
       "input": {
-        "tbam": {
+ 	"caseid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "CaseID"
+	  }
+	},
+	"tbam": {
           "$dnanexus_link": {
-            "outputField": "abratbam",
-            "stage": "stage-FvqFGjQ07jGpzxV72JP6BjfJ"
+            "outputField": "bam",
+            "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
           }
         },
         "reference": {
-          "$dnanexus_link": "file-FvPP53Q0Y9gK9k8384fYB6Jx"
+          "$dnanexus_link": "file-FvZ2P3j0Y9g91by34BGKzkjp"
         },
         "panel": {
           "$dnanexus_link": {
@@ -136,32 +232,15 @@
       }
     },
     {
-      "id": "stage-FvpbXqj0Y9gGjg1755vVf0yK",
-      "executable": "applet-FvpbQ2j0Y9g80yV1852BZY2F",
-      "input": {
-        "tbam": {
-          "$dnanexus_link": {
-            "outputField": "bam",
-            "stage": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF"
-          }
-        },
-        "reference": {
-          "$dnanexus_link": "file-FvZ2P3j0Y9g91by34BGKzkjp"
-        },
-        "panel": {
-          "$dnanexus_link": {
-            "inputField": "panel",
-            "stage": "stage-FvpbKV00Y9g603k4BZy8KyY5"
-          }
-        }
-      }
-    },
-    {
       "id": "stage-FvpbKbj0Y9g07vb04bpVVPBQ",
       "name": "FB-Strelka2-Platypus",
       "executable": "applet-FvpbFz00Y9gPxq3G4fFVfF1x",
-      "folder": "/",
       "input": {
+ 	"caseid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "CaseID"
+	  }
+	},
         "tbam": {
           "$dnanexus_link": {
             "outputField": "dedupbam",
@@ -171,6 +250,7 @@
         "reference": {
           "$dnanexus_link": "file-FvPP1800Y9g471Q25gxJqp85"
         },
+        "algo": "fb strelka2 platypus",
         "panel": {
           "$dnanexus_link": {
             "inputField": "panel",
@@ -180,14 +260,20 @@
       },
       "systemRequirements": {
         "*": {
-          "instanceType": "mem1_ssd1_v2_x4"
+          "instanceType": "mem1_ssd1_v2_x16"
         }
       }
     },
     {
       "id": "stage-FvpbKj80Y9gGyFz6GgXyvvXX",
+      "name": "GATK BQSR", 
       "executable": "applet-FvpbFvQ0Y9gBgppkGV11ZVf3",
       "input": {
+	"sampleid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "SampleID"
+	  }
+        },
         "bam": {
           "$dnanexus_link": {
             "outputField": "dedupbam",
@@ -206,14 +292,23 @@
             "stage": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy"
           }
         }
+      },
+      "systemRequirements": {
+	"main": {
+	  "instanceType": "mem3_hdd2_x2"
+	}
       }
     },
     {
       "id": "stage-FvpbKf00Y9gPxq3G4fFVfF4x",
       "name": "Mutect2",
       "executable": "applet-FvpbFz00Y9gPxq3G4fFVfF1x",
-      "folder": "/",
       "input": {
+ 	"caseid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "CaseID"
+	  }
+	},
         "tbam": {
           "$dnanexus_link": {
             "outputField": "gatkbam",
@@ -242,8 +337,14 @@
     },
     {
       "id": "stage-FvpbXvj0Y9gGyFz6GgXyvyJ9",
+      "name": "Union VCF",
       "executable": "applet-FvpbPz80Y9gK4bP245VFV6P2",
       "input": {
+ 	"caseid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "CaseID"
+	  }
+	},
         "vcffiles": [
           {
             "$dnanexus_link": {
@@ -261,6 +362,11 @@
         "genodict": {
           "$dnanexus_link": "file-FvQykqj0Y9gPXZ7QG3Z4K2GP"
         }
+      },
+      "systemRequirements": {
+	"main": {
+	  "instanceType": "mem1_ssd1_v2_x2"
+	}
       }
     }
   ]
