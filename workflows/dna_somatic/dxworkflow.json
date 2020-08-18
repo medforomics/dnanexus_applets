@@ -34,7 +34,7 @@
     },
     {
       "name": "PanelFile",
-      "class": "string"
+      "class": "file"
     }
   ],
   "stages": [
@@ -292,11 +292,6 @@
 	    "workflowInputField": "NormalID"
 	  }
 	},
-   	"panel": {
-	  "$dnanexus_link": {
-	    "workflowInputField": "PanelFile"
-	  }
-        },
 	"refinfo": {
           "$dnanexus_link": "file-FvVYkf80Y9g5zV5x88fFZ22p"
         },
@@ -409,6 +404,11 @@
       "executable": "applet-FvpbFz00Y9gPxq3G4fFVfF1x",
       "folder": "/",
       "input": {
+  	"caseid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "CaseID"
+	  }
+	},
         "tbam": {
           "$dnanexus_link": {
             "outputField": "dedupbam",
@@ -574,12 +574,12 @@
         "genodict": {
           "$dnanexus_link": "file-FvQykqj0Y9gPXZ7QG3Z4K2GP"
         }
-      }
-    },
-    "systemRequirements": {
-      "main": {
-	"instanceType": "mem1_ssd1_v2_x2"
-      }
+      },
+	"systemRequirements": {
+	    "main": {
+		"instanceType": "mem1_ssd1_v2_x2"
+	    }
+	}
     }
   ]
 }

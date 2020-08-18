@@ -22,7 +22,7 @@
     },
     {
       "name": "PanelFile",
-      "class": "string"
+      "class": "file"
     }
   ],
   "stages": [
