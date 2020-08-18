@@ -20,6 +20,7 @@ do
     esac
 done
 
+module load dxtoolkit/python27/0.294.0 
 shift $(($OPTIND -1))
 fqdir=$inputdir
 while read i; do
@@ -44,18 +45,16 @@ while read i; do
 	if [[ -n $PanelFile ]]
 	then
 	    PanelFile="/referencedata/${PanelFile}.tar.gz"
+	    opts="$opts -iPanelFile=$PanelFile"
 	fi
-	fqopt=''
 	dx mkdir -p /$RunID/$CaseID
 	for fq in "${!fqfiles[@]}"
 	do
 	    read="${fqdir}/${fqfiles[$fq]}"
 	    Fq=$(dx upload "$read" --destination /$RunID/$CaseID/ --brief)
-	    #Fq=$read
-	    fqopt="$fqopt -i${fq}=$Fq"
+	    opts="$opts -i${fq}=$Fq"
 	done
-	runwkflow=$(dx run $wkflow $opts $fqopt -iPanelFile=$PanelFile --destination /$RunID/$CaseID)
-	#echo "dx run $wkflow $opts $fqopt -iPanelFile=$PanelFile --destination /$RunID/$CaseID"
+	runwkflow=$(dx run $wkflow $opts --destination /$RunID/$CaseID)
 	echo $opts $runwkflow >> ${wkflow}.joblist.txt
     fi 
 done <$design
