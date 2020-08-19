@@ -23,9 +23,9 @@
   ],
   "stages": [
     {
-	"id": "stage-FvpbfxQ0Y9g3F8gZ5VK3FYp1",
-	"name": "Trim Galore",
-	"folder":"rnaout",
+      "id": "stage-FvpbfxQ0Y9g3F8gZ5VK3FYp1",
+      "name": "Trim Galore",
+      "folder":"rnaout",
       "executable": "applet-FvpbG0Q0Y9gPxq3G4fFVfF1z",
       "input": {
 	"fq1": {
@@ -53,8 +53,8 @@
     {
       "id": "stage-Fvpbg300Y9g139Y04b101qJb",
       "name": "STAR-Fusion",
-	"folder":"rnaout",
-	"executable": "applet-FvpbFzQ0Y9g3F8gZ5VK3FY0V",
+      "folder":"rnaout",
+      "executable": "applet-FvpbFzQ0Y9g3F8gZ5VK3FY0V",
       "input": {
 	"fq2": {
 	  "$dnanexus_link": {
@@ -88,8 +88,8 @@
     },
     {
       "id": "stage-FvpbvKj0Y9gGjg1755vVf1Xv",
-	"name": "RNA Alignment",
-	"folder":"rnaout",
+      "name": "RNA Alignment",
+      "folder":"rnaout",
       "executable": "applet-FvpbpV80Y9gK4bP245VFV7JX",
       "input": {
 	"fq2": {
@@ -120,10 +120,10 @@
       }
     },
     {
-	"id": "stage-FvyVYfj0Y9gPPfxP5033PXv2",
-	"name": "BAM Read Ct",
-	"folder":"rnaout",
-	"executable": "applet-FvyX7yj0Y9g6zgPf9FVf8120",
+      "id": "stage-FvyVYfj0Y9gPPfxP5033PXv2",
+      "name": "BAM Read Ct",
+      "folder":"rnaout",
+      "executable": "applet-FvyX7yj0Y9g6zgPf9FVf8120",
       "input": {
 	"sampleid": {
 	  "$dnanexus_link": {
@@ -155,8 +155,8 @@
     {
       "id": "stage-FvpbvP80Y9g143jkBYxVZ9j1",
       "name": "RNASeq BAM QC",
-	"folder":"rnaout",
-	"executable": "applet-Fvpfffj0Y9gB0YG54GPgGYf2",
+      "folder":"rnaout",
+      "executable": "applet-Fvpfffj0Y9gB0YG54GPgGYf2",
       "input": {
 	"bam": {
 	  "$dnanexus_link": {
@@ -185,8 +185,8 @@
     {
       "id": "stage-FvpbvYj0Y9gGyFz6GgXyvyXy",
       "name": "Gene Abundance",
-	"folder":"rnaout",
-	"executable": "applet-FvyVX0Q0Y9gPJ7Pv9Gy2YZFz",
+      "folder":"rnaout",
+      "executable": "applet-FvyVX0Q0Y9gPJ7Pv9Gy2YZFz",
       "input": {
 	"bam": {
 	  "$dnanexus_link": {
@@ -217,8 +217,8 @@
     },
     {
       "id": "stage-Fvpbxg00Y9gB0YG54GPgGPGP",
-	"name": "FreeBayes",
-	"folder":"rnavcf",
+      "name": "FreeBayes",
+      "folder":"rnavcf",
       "executable": "applet-FvpbFz00Y9gPxq3G4fFVfF1x",
       "input": {
 	"tbam": {
