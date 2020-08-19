@@ -1,5 +1,5 @@
 {
-  "name": "rna_bamqc",
+  "name": "rna_bamreadct",
   "title": "BAM-ReadCount",
   "summary": "Positional allele-specific read count from BAM",
   "dxapi": "1.0.0",
