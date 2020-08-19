@@ -10,20 +10,29 @@ usage() {
   exit 1
 }
 OPTIND=1 # Reset OPTIND
-while getopts :i:w:d:h opt
+while getopts :i:w:o:p:d:h opt
 do
     case $opt in
         i) inputdir=$OPTARG;;
         d) design=$OPTARG;;
         w) wkflow=$OPTARG;;
+	o) outdir=$OPTARG;;
+	p) seqrunid=$OPTARG;;
 	h) usage;;
     esac
 done
+shift $(($OPTIND -1))
 
 module load dxtoolkit/python27/0.294.0 
-pendingdir="/project/PHG/PHG_Clinical/cloud/pending"
+if [[ -z $outdir ]]
+then
+    outdir="/project/PHG/PHG_Clinical/cloud/pending"
+fi
+if [[ -z $seqrunid ]]
+then
+    seqrunid='test'
+fi
 
-shift $(($OPTIND -1))
 fqdir=$inputdir
 while read i; do
     line=($i)
@@ -49,14 +58,18 @@ while read i; do
 	    PanelFile="/referencedata/${PanelFile}.tar.gz"
 	    opts="$opts -iPanelFile=$PanelFile"
 	fi
+	if [[ -z $RunID ]]
+	then
+	    RunID=$seqrunid
+	fi
 	dx mkdir -p /$RunID/$CaseID
 	for fq in "${!fqfiles[@]}"
 	do
-	    read="${fqdir}/${fqfiles[$fq]}"
-	    Fq=$(dx upload "$read" --destination /$RunID/$CaseID/ --brief)
+	    read="${inputdir}/${fqfiles[$fq]}"
+	    Fq=$(dx upload $read --destination /$RunID/$CaseID/ --brief)
 	    opts="$opts -i${fq}=$Fq"
 	done
 	runwkflow=$(dx run $wkflow $opts --destination /$RunID/$CaseID -y --brief)
-	echo $runwkflow >> ${pendingdir}/${RunID}.${CaseID}.joblist.txt
+	echo $runwkflow >> ${outdir}/${RunID}.${CaseID}.joblist.txt
     fi 
 done <$design

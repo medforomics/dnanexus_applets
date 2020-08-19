@@ -186,7 +186,7 @@
       "id": "stage-FvpbvYj0Y9gGyFz6GgXyvyXy",
       "name": "Gene Abundance",
       "folder":"rnaout",
-      "executable": "applet-FvyVX0Q0Y9gPJ7Pv9Gy2YZFz",
+      "executable": "applet-FvyfXj00Y9gPPF6y6yX5Gf45",
       "input": {
 	"bam": {
 	  "$dnanexus_link": {
