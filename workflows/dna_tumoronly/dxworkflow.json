@@ -28,7 +28,8 @@
   "stages": [
     {
       "id": "stage-FvpbKFQ0Y9g139Y04b101pX6",
-      "name": "Trim Galore",
+	"name": "Trim Galore",
+	"folder":"dnaout",
       "executable": "applet-FvpbG0Q0Y9gPxq3G4fFVfF1z",
       "input": {
 	"fq1": {
@@ -55,7 +56,8 @@
     },
     {
       "id": "stage-FvpbKGQ0Y9g6jkG04bX8Q8fF",
-      "name": "DNA Alignment",
+	"name": "DNA Alignment",
+	"folder":"dnaout",
       "executable": "applet-FvpbFv00Y9gB5Pfv84gJvFgP",
       "input": {
 	"fq1": {
@@ -90,7 +92,8 @@
     },
     {
       "id": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy",
-      "name": "Consensus BAM",
+	"name": "Consensus BAM",
+	"folder":"dnaout",
       "executable": "applet-FvpbQ0j0Y9gGvjQz44KXBpP7",
       "input": {
         "humanref": {
@@ -125,7 +128,8 @@
     },
     {
       "id": "stage-FvpbKV00Y9g603k4BZy8KyY5",
-      "name": "BAM QC",
+	"name": "BAM QC",
+	"folder":"dnaout",
       "executable": "applet-FvpbFv80Y9gK6GZ79z2504FX",
       "input": {
 	"sampleid": {
@@ -168,7 +172,8 @@
     },
     {
       "id": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z",
-      "name": "SV Calling",
+	"name": "SV Calling",
+	"folder":"dnacallset",
       "executable": "applet-FvpbG000Y9g6jkG04bX8Q8b6",
       "input": {
 	"caseid": {
@@ -202,7 +207,8 @@
     {
       "id": "stage-FvpbXqj0Y9gGjg1755vVf0yK",
       "name": "Variant Profiling",
-      "executable": "applet-FvpbQ2j0Y9g80yV1852BZY2F",
+	"folder":"dnacallset",
+	"executable": "applet-FvpbQ2j0Y9g80yV1852BZY2F",
       "input": {
  	"caseid": {
 	  "$dnanexus_link": {
@@ -234,7 +240,8 @@
     {
       "id": "stage-FvpbKbj0Y9g07vb04bpVVPBQ",
       "name": "FB-Strelka2-Platypus",
-      "executable": "applet-FvpbFz00Y9gPxq3G4fFVfF1x",
+	"folder":"dnacallset",
+	"executable": "applet-FvpbFz00Y9gPxq3G4fFVfF1x",
       "input": {
  	"caseid": {
 	  "$dnanexus_link": {
@@ -267,7 +274,8 @@
     {
       "id": "stage-FvpbKj80Y9gGyFz6GgXyvvXX",
       "name": "GATK BQSR", 
-      "executable": "applet-FvpbFvQ0Y9gBgppkGV11ZVf3",
+	"folder":"dnaout",
+	"executable": "applet-FvpbFvQ0Y9gBgppkGV11ZVf3",
       "input": {
 	"sampleid": {
 	  "$dnanexus_link": {
@@ -302,7 +310,8 @@
     {
       "id": "stage-FvpbKf00Y9gPxq3G4fFVfF4x",
       "name": "Mutect2",
-      "executable": "applet-FvpbFz00Y9gPxq3G4fFVfF1x",
+	"folder":"dnacallset",
+	"executable": "applet-FvpbFz00Y9gPxq3G4fFVfF1x",
       "input": {
  	"caseid": {
 	  "$dnanexus_link": {
@@ -338,7 +347,8 @@
     {
       "id": "stage-FvpbXvj0Y9gGyFz6GgXyvyJ9",
       "name": "Union VCF",
-      "executable": "applet-FvpbPz80Y9gK4bP245VFV6P2",
+	"folder":"dnavcf",
+	"executable": "applet-FvpbPz80Y9gK4bP245VFV6P2",
       "input": {
  	"caseid": {
 	  "$dnanexus_link": {

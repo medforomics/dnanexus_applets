@@ -14,7 +14,7 @@ main() {
     
     docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.0 samtools index ${sampleid}.bam
     docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.0 bam-readcount -l targetpanel.bed -w 0 -q 0 -b 25 -f rnaref/genome.fa ${sampleid}.bam > ${sampleid}.bamreadcount.txt
-    
-    bamreadct=$(dx upload ${sampleid}.bamreadcount.txt --brief)
+    gzip ${sampleid}.bamreadcount.txt
+    bamreadct=$(dx upload ${sampleid}.bamreadcount.txt.gz --brief)
     dx-jobutil-add-output bamreadct "$bamreadct" --class=file
 }
