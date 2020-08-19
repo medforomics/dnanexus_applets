@@ -21,6 +21,8 @@ do
 done
 
 module load dxtoolkit/python27/0.294.0 
+pendingdir="/project/PHG/PHG_Clinical/cloud/pending"
+
 shift $(($OPTIND -1))
 fqdir=$inputdir
 while read i; do
@@ -54,7 +56,7 @@ while read i; do
 	    Fq=$(dx upload "$read" --destination /$RunID/$CaseID/ --brief)
 	    opts="$opts -i${fq}=$Fq"
 	done
-	runwkflow=$(dx run $wkflow $opts --destination /$RunID/$CaseID)
-	echo $opts $runwkflow >> ${wkflow}.joblist.txt
+	runwkflow=$(dx run $wkflow $opts --destination /$RunID/$CaseID -y --brief)
+	echo $runwkflow >> ${pendingdir}/${RunID}.${CaseID}.joblist.txt
     fi 
 done <$design
