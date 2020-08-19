@@ -24,21 +24,21 @@ RUN cd /usr/local/bin; \
 RUN python -m ensurepip --default-pip;
 
 # Install SamTools + BCFTools + htslib
-RUN cd /opt; wget https://github.com/samtools/htslib/releases/download/1.10/htslib-1.10.tar.bz2; \
-    tar -vxjf htslib-1.10.tar.bz2; rm htslib-1.10.tar.bz2; \
-    cd htslib-1.10; \
+RUN cd /opt; wget https://github.com/samtools/htslib/releases/download/1.10.2/htslib-1.10.2.tar.bz2; \
+    tar -vxjf htslib-1.10.2.tar.bz2; rm htslib-1.10.2.tar.bz2; \
+    cd htslib-1.10.2; \
     ./configure; make; make install; \
-    cp -r htslib /opt/bin;
+    mv htslib /opt/bin;
 RUN cd /opt; wget https://github.com/samtools/samtools/releases/download/1.10/samtools-1.10.tar.bz2; \
     tar -vxjf samtools-1.10.tar.bz2; rm samtools-1.10.tar.bz2; \
     cd samtools-1.10; \
     ./configure; make; make install; \
-    cp -r samtools /opt/bin;
-RUN cd /opt; wget https://github.com/samtools/bcftools/releases/download/1.10/bcftools-1.10.tar.bz2; \
-    tar -vxjf bcftools-1.10.tar.bz2; rm bcftools-1.10.tar.bz2; \
-    cd bcftools-1.10; \
+    mv samtools /opt/bin;
+RUN cd /opt; wget https://github.com/samtools/bcftools/releases/download/1.10.2/bcftools-1.10.2.tar.bz2; \
+    tar -vxjf bcftools-1.10.2.tar.bz2; rm bcftools-1.10.2.tar.bz2; \
+    cd bcftools-1.10.2; \
     ./configure; make; make install; \
-    cp -r bcftools /opt/bin;
+    mv bcftools /opt/bin;
 
 # Install Bedtools
 RUN cd /opt; wget https://github.com/arq5x/bedtools2/releases/download/v2.29.2/bedtools-2.29.2.tar.gz; \

@@ -24,21 +24,21 @@ RUN cd /usr/src; wget https://bootstrap.pypa.io/get-pip.py; \
 RUN ln -sf /usr/local/bin/python2.7 /opt/miniconda/envs/gatk/bin/python
 
 # Install SamTools + BCFTools + htslib
-RUN cd /opt; wget https://github.com/samtools/htslib/releases/download/1.10/htslib-1.10.tar.bz2; \
-    tar -vxjf htslib-1.10.tar.bz2; rm htslib-1.10.tar.bz2; \
-    cd htslib-1.10; \
+RUN cd /opt; wget https://github.com/samtools/htslib/releases/download/1.10.2/htslib-1.10.2.tar.bz2; \
+    tar -vxjf htslib-1.10.2.tar.bz2; rm htslib-1.10.2.tar.bz2; \
+    cd htslib-1.10.2; \
     ./configure; make; make install; \
-    cp -r htslib /opt/bin;
+    mv htslib /opt/bin;
 RUN cd /opt; wget https://github.com/samtools/samtools/releases/download/1.10/samtools-1.10.tar.bz2; \
     tar -vxjf samtools-1.10.tar.bz2; rm samtools-1.10.tar.bz2; \
     cd samtools-1.10; \
     ./configure; make; make install; \
-    cp -r samtools /opt/bin;
-RUN cd /opt; wget https://github.com/samtools/bcftools/releases/download/1.10/bcftools-1.10.tar.bz2; \
-    tar -vxjf bcftools-1.10.tar.bz2; rm bcftools-1.10.tar.bz2; \
-    cd bcftools-1.10; \
+    mv samtools /opt/bin;
+RUN cd /opt; wget https://github.com/samtools/bcftools/releases/download/1.10.2/bcftools-1.10.2.tar.bz2; \
+    tar -vxjf bcftools-1.10.2.tar.bz2; rm bcftools-1.10.2.tar.bz2; \
+    cd bcftools-1.10.2; \
     ./configure; make; make install; \
-    cp -r bcftools /opt/bin;
+    mv bcftools /opt/bin;
 
 # Install Platypus
 ENV C_INCLUDE_PATH $C_INCLUDE_PATH:/usr/local/include
