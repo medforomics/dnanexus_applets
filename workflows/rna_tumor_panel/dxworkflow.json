@@ -25,7 +25,6 @@
     {
       "id": "stage-FvpbfxQ0Y9g3F8gZ5VK3FYp1",
       "name": "Trim Galore",
-      "folder":"rnaout",
       "executable": "applet-FvpbG0Q0Y9gPxq3G4fFVfF1z",
       "input": {
 	"fq1": {

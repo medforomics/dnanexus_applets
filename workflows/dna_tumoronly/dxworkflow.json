@@ -29,7 +29,6 @@
     {
       "id": "stage-FvpbKFQ0Y9g139Y04b101pX6",
       "name": "Trim Galore",
-      "folder":"dnaout",
       "executable": "applet-FvpbG0Q0Y9gPxq3G4fFVfF1z",
       "input": {
 	"fq1": {
@@ -274,7 +273,6 @@
     {
       "id": "stage-FvpbKj80Y9gGyFz6GgXyvvXX",
       "name": "GATK BQSR", 
-      "folder":"dnaout",
       "executable": "applet-FvpbFvQ0Y9gBgppkGV11ZVf3",
       "input": {
 	"sampleid": {
