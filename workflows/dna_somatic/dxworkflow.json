@@ -41,7 +41,6 @@
     {
       "id": "stage-FvpbKFQ0Y9g139Y04b101pX6",
       "name": "Tumor Trim Galore",
-      "folder":"dnaout",
       "executable": "applet-FvpbG0Q0Y9gPxq3G4fFVfF1z",
       "input": {
 	"fq1": {
@@ -69,7 +68,6 @@
     {
       "id": "stage-Fvpf02j0Y9g24fZqGk2zJPpy",
       "name": "Normal Trim Galore",
-      "folder":"dnaout",
       "executable": "applet-FvpbG0Q0Y9gPxq3G4fFVfF1z",
       "input": {
 	"fq1": {
@@ -450,7 +448,6 @@
     {
       "id": "stage-FvpbKj80Y9gGyFz6GgXyvvXX",
       "name": "Tumor BQSR",
-      "folder":"dnaout",
       "executable": "applet-FvpbFvQ0Y9gBgppkGV11ZVf3",
       "input": {
  	"sampleid": {
@@ -486,7 +483,6 @@
     {
       "id": "stage-Fvpf0500Y9g139Y04b101qXB",
       "name": "Normal BQSR",
-      "folder":"dnaout",
       "executable": "applet-FvpbFvQ0Y9gBgppkGV11ZVf3",
       "input": {
  	"sampleid": {
