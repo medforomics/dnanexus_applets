@@ -403,13 +403,18 @@
             "stage": "stage-FvpbKV00Y9g603k4BZy8KyY5"
           }
         }
+      },
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem2_ssd1_x2"
+        }
       }
     },
     {
       "id": "stage-FvpbKbj0Y9g07vb04bpVVPBQ",
-      "name": "FB-Strelka2-Platypus-Shimmer",
+      "name": "FB-Strelka2",
       "folder":"dnacallset",
-      "executable": "applet-FvpbFz00Y9gPxq3G4fFVfF1x",
+      "executable": "applet-FvzKbGj0Y9g6v8VkKZpkv5Zp",
       "input": {
   	"caseid": {
 	  "$dnanexus_link": {
@@ -428,7 +433,7 @@
             "stage": "stage-Fvpf04Q0Y9g2F4Xy7qb1JJyv"
           }
         },
-        "algo": "fb strelka2 platypus shimmer",
+        "algo": "fb strelka2",
 	"reference": {
           "$dnanexus_link": "file-FvPP1800Y9g471Q25gxJqp85"
         },
@@ -516,7 +521,7 @@
       "id": "stage-FvpbKf00Y9gPxq3G4fFVfF4x",
       "name": "Mutect2",
       "folder":"dnacallset",
-      "executable": "applet-FvpbFz00Y9gPxq3G4fFVfF1x",
+      "executable": "applet-FvzKbGj0Y9g6v8VkKZpkv5Zp",
       "input": {
   	"caseid": {
 	  "$dnanexus_link": {

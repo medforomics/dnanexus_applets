@@ -218,7 +218,7 @@
       "id": "stage-Fvpbxg00Y9gB0YG54GPgGPGP",
       "name": "FreeBayes",
       "folder":"rnavcf",
-      "executable": "applet-FvpbFz00Y9gPxq3G4fFVfF1x",
+      "executable": "applet-FvzKbGj0Y9g6v8VkKZpkv5Zp",
       "input": {
 	"tbam": {
 	  "$dnanexus_link": {

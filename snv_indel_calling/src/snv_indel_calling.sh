@@ -44,9 +44,6 @@ main() {
     for a in $algo
     do
         echo "Starting ${a}"
-	vcfout+=" ${caseid}.${a}.vcf.gz"
-	vcfori+=" ${caseid}.${a}.ori.vcf.gz"
-	outfile+=".${a}"
 	if [[ "${a}" == "fb" ]] || [[ "${a}" == "platypus" ]]
 	then
 	    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.0 bash /seqprg/school/process_scripts/variants/germline_vc.sh -r dnaref -p ${caseid} -a ${a} ${panelopt}
@@ -63,6 +60,12 @@ main() {
 	    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.0 bash /seqprg/school/process_scripts/variants/uni_norm_annot.sh -g 'GRCh38.86' -r dnaref -p ${caseid}.${a} -v ${caseid}.${a}.vcf.gz
 	else
 	    echo "Incorrect algorithm selection. Please select 1 of the following algorithms: fb platypus strelka2 mutect shimmer"
+	fi
+	if [[ -f "${caseid}.${a}.ori.vcf.gz" ]]
+	then
+	    vcfout+=" ${caseid}.${a}.vcf.gz"
+	    vcfori+=" ${caseid}.${a}.ori.vcf.gz"
+	    outfile+=".${a}"
 	fi
     done
     
