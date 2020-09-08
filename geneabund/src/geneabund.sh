@@ -18,7 +18,7 @@ main() {
         tar xvfz panel.tar.gz
 	opt="-f /data/genelist.txt"
     fi
-    docker run -v ${PWD}:/data docker.io/goalconsortium/rna_gene_abundance:1.0.0 -s ${stranded} -g /data/gencode.gtf -p ${sampleid} -b ${sampleid}.bam -i /data/gene_info.human.txt $opt
+    docker run -v ${PWD}:/data docker.io/goalconsortium/rna_gene_abundance:1.0.4 -s ${stranded} -g /data/gencode.gtf -p ${sampleid} -b ${sampleid}.bam -i /data/gene_info.human.txt $opt
 
     tar zvcf  ${sampleid}_stringtie.tar.gz  ${sampleid}_stringtie
 

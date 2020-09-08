@@ -2,8 +2,8 @@
   "name": "abra2",
   "title": "Abra2",
   "summary": "This applet does BAM realignment with ABRA2",
-  "dxapi": "1.0.0",
-  "version": "1.0.0",
+  "dxapi": "1.0.4",
+  "version": "1.0.4",
   "inputSpec": [
    {
        "name": "tbam",

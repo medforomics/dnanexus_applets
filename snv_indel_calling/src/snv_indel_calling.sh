@@ -8,13 +8,13 @@ main() {
     dx download "$reference" -o ref.tar.gz
     
     mkdir dnaref
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.0 tar -I pigz -xvf ref.tar.gz --strip-components=1 -C dnaref
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.4 tar -I pigz -xvf ref.tar.gz --strip-components=1 -C dnaref
     
     panelopt=''
     if [ -n "$panel" ]
     then
         dx download "$panel" -o panel.tar.gz
-        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.0 tar -I pigz -xvf panel.tar.gz
+        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.4 tar -I pigz -xvf panel.tar.gz
 	capturebed=targetpanel.bed
 	pon=mutect2.pon.vcf.gz
 	panelopt="-b $capturebed"
@@ -33,7 +33,7 @@ main() {
         ponopt="-q $pon"
     fi
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.0 bash /seqprg/school/process_scripts/alignment/indexbams.sh
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.4 bash /seqprg/process_scripts/alignment/indexbams.sh
     
     vcfout=''
     vcfori=''
@@ -46,18 +46,18 @@ main() {
         echo "Starting ${a}"
 	if [[ "${a}" == "fb" ]] || [[ "${a}" == "platypus" ]]
 	then
-	    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.0 bash /seqprg/school/process_scripts/variants/germline_vc.sh -r dnaref -p ${caseid} -a ${a} ${panelopt}
-	    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.0 bash /seqprg/school/process_scripts/variants/uni_norm_annot.sh -g 'GRCh38.86' -r dnaref -p ${caseid}.${a} -v ${caseid}.${a}.vcf.gz
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.4 bash /seqprg/process_scripts/variants/germline_vc.sh -r dnaref -p ${caseid} -a ${a} ${panelopt}
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.4 bash /seqprg/process_scripts/variants/uni_norm_annot.sh -g 'GRCh38.86' -r dnaref -p ${caseid}.${a} -v ${caseid}.${a}.vcf.gz
 	    
 	elif [[ "${a}" == "strelka2" ]] || [[ "${a}" == "mutect" ]] || [[ "${a}" == "shimmer" ]]
 	then
 	    if [[ -z "$nbam" ]]
 	    then
-		docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.0 bash /seqprg/school/process_scripts/variants/germline_vc.sh -r dnaref -p ${caseid} -a ${a} ${panelopt} ${ponopt}
+		docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.4 bash /seqprg/process_scripts/variants/germline_vc.sh -r dnaref -p ${caseid} -a ${a} ${panelopt} ${ponopt}
 	    else
-		docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.0 bash /seqprg/school/process_scripts/variants/somatic_vc.sh -r dnaref -p ${caseid} -n ${caseid}.normal.bam -t ${caseid}.tumor.bam -a ${a} ${panelopt} ${ponopt}
+		docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.4 bash /seqprg/process_scripts/variants/somatic_vc.sh -r dnaref -p ${caseid} -n ${caseid}.normal.bam -t ${caseid}.tumor.bam -a ${a} ${panelopt} ${ponopt}
 	    fi
-	    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.0 bash /seqprg/school/process_scripts/variants/uni_norm_annot.sh -g 'GRCh38.86' -r dnaref -p ${caseid}.${a} -v ${caseid}.${a}.vcf.gz
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.4 bash /seqprg/process_scripts/variants/uni_norm_annot.sh -g 'GRCh38.86' -r dnaref -p ${caseid}.${a} -v ${caseid}.${a}.vcf.gz
 	else
 	    echo "Incorrect algorithm selection. Please select 1 of the following algorithms: fb platypus strelka2 mutect shimmer"
 	fi

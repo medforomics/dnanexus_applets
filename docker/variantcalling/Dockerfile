@@ -116,20 +116,19 @@ RUN cd /opt/bin; wget https://github.com/atks/vt/archive/0.57721.tar.gz; \
 # Install Shimmer
 RUN R -e "install.packages('statmod')"
 RUN cpanm CPAN::Meta Module::Build
-RUN cd /opt; wget https://github.com/nhansen/Shimmer/archive/v0.1.1.zip; \
-    unzip v0.1.1.zip; rm v0.1.1.zip; \
-    cd  Shimmer-0.1.1; \
+RUN cd /opt; wget https://github.com/bcantarel/Shimmer/archive/v0.1.2.zip; \
+    unzip v0.1.2.zip; rm v0.1.2.zip; \
+    cd  Shimmer-0.1.2; \
     perl Build.PL; \
     ./Build; ./Build test; ./Build install;
 
 # Install Scripts
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_1.0.0 --single-branch --recursive https://github.com/bcantarel/school.git; \
-    cd school; \
-    git submodule sync --recursive; git submodule update --init --recursive; \
-    cp -r process_scripts/alignment/* /usr/local/bin/; \
-    cp -r process_scripts/variants/* /usr/local/bin/;
+    git clone -b version_1.0.4 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \
+    cd process_scripts; \
+    cp -r alignment/* /usr/local/bin/; \
+    cp -r variants/* /usr/local/bin/
 
 RUN ln -sf /usr/local/bin/python2.7 /opt/miniconda/envs/gatk/bin/python
 ENV isdocker 1

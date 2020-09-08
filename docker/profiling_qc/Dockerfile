@@ -89,14 +89,13 @@ RUN cd /opt; wget https://github.com/genome/bam-readcount/archive/v0.8.0.tar.gz;
 # Install Scripts
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_1.0.0 --single-branch --recursive https://github.com/bcantarel/school.git; \
-    cd school; \
-    cp -r process_scripts/alignment/* /usr/local/bin/; \
-    cp -r process_scripts/variants/* /usr/local/bin/; \
-    cp -r scripts/* /usr/local/bin/;
+    git clone -b version_1.0.4 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \
+    cd process_scripts; \
+    cp -r alignment/* /usr/local/bin/; \
+    cp -r variants/* /usr/local/bin/
 
 ENV isdocker 1
 ENV PATH "$PATH:/usr/local/bin"
-ENV gitv "version_1.0.0"
+ENV gitv "version_1.0.4"
 
 WORKDIR /data/

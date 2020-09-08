@@ -8,13 +8,13 @@ main() {
     dx download "$reference" -o ref.tar.gz
 
     mkdir dnaref
-    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.0 tar -I pigz -xvf ref.tar.gz --strip-components=1 -C dnaref
+    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.4 tar -I pigz -xvf ref.tar.gz --strip-components=1 -C dnaref
 
     if [ -n "$panel" ]
     then
         dx download "$panel" -o panel.tar.gz
 	mkdir -p panel
-	docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.0 tar -I pigz -xvf panel.tar.gz -C panel/
+	docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.4 tar -I pigz -xvf panel.tar.gz -C panel/
     fi
 
     if [ -n "$nbam" ]
@@ -22,7 +22,7 @@ main() {
         dx download "$nbam" -o ${caseid}.normal.bam
     fi
     
-    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.0 bash /seqprg/school/process_scripts/alignment/indexbams.sh
+    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.4 bash /seqprg/process_scripts/alignment/indexbams.sh
     
     normopt=''
     if [[ -n "$nbam" ]]
@@ -41,19 +41,19 @@ main() {
 	
 	if [[ "${a}" == "pindel" ]]
 	then
-	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.0 bash /seqprg/school/process_scripts/variants/svcalling.sh -r dnaref -p $caseid -l dnaref/itd_genes.bed -c dnaref/targetpanel.bed -a ${a} -g GRCh38.86 -f
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.4 bash /seqprg/process_scripts/variants/svcalling.sh -r dnaref -p $caseid -l dnaref/itd_genes.bed -c dnaref/targetpanel.bed -a ${a} -g GRCh38.86 -f
 	elif [[ "${a}" == "pindel_itd" ]]
 	then
-	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.0 bash /seqprg/school/process_scripts/variants/svcalling.sh -r dnaref -p $caseid -l dnaref/itd_genes.bed -c dnaref/itd_genes.bed -a pindel -g GRCh38.86 -f
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.4 bash /seqprg/process_scripts/variants/svcalling.sh -r dnaref -p $caseid -l dnaref/itd_genes.bed -c dnaref/itd_genes.bed -a pindel -g GRCh38.86 -f
 	elif [[ "${a}" == "delly" ]] || [[ "${a}" == "svaba" ]]
 	then
-            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.0 bash /seqprg/school/process_scripts/variants/svcalling.sh -r dnaref -b ${caseid}.tumor.bam -p ${caseid} -a ${a} -g GRCh38.86 $normopt -f
+            docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.4 bash /seqprg/process_scripts/variants/svcalling.sh -r dnaref -b ${caseid}.tumor.bam -p ${caseid} -a ${a} -g GRCh38.86 $normopt -f
 	elif [[ "${a}" == "itdseek" ]]
 	then
-	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.0 bash /seqprg/school/process_scripts/variants/svcalling.sh -r dnaref -b ${caseid}.tumor.bam -p ${caseid} -a ${a} -l dnaref/itd_genes.bed -g GRCh38.86 -f
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.4 bash /seqprg/process_scripts/variants/svcalling.sh -r dnaref -b ${caseid}.tumor.bam -p ${caseid} -a ${a} -l dnaref/itd_genes.bed -g GRCh38.86 -f
 	elif [[ "${a}" == "cnvkit" ]]
 	then
-	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.0 bash /seqprg/school/process_scripts/variants/cnvkit.sh -r dnaref -b ${caseid}.tumor.bam -p ${caseid} -d panel
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.4 bash /seqprg/process_scripts/variants/cnvkit.sh -r dnaref -b ${caseid}.tumor.bam -p ${caseid} -d panel
 	    tar -czvf ${caseid}.cnvout.tar.gz ${caseid}.answerplot* *cnv.answer.txt *ballelefreq.txt ${caseid}.call.cns ${caseid}.cns ${caseid}.cnr
 	    cnvout=$(dx upload ${caseid}.cnvout.tar.gz --brief)
 	    dx-jobutil-add-output cnvout "$cnvout" --class=file

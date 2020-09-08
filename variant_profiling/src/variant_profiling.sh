@@ -15,20 +15,20 @@ main() {
     fi
 
     mkdir dnaref
-    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.0 tar -I pigz -xvf ref.tar.gz --strip-components=1 -C dnaref
+    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.4 tar -I pigz -xvf ref.tar.gz --strip-components=1 -C dnaref
 
     if [ -n "$panel" ]
     then
         dx download "$panel" -o panel.tar.gz
-         docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.0 tar -I pigz -xvf panel.tar.gz
+         docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.4 tar -I pigz -xvf panel.tar.gz
     fi
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.0 bash /seqprg/school/process_scripts/alignment/indexbams.sh
+    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.4 bash /seqprg/process_scripts/alignment/indexbams.sh
 
     if [[ -n "$nbam" ]]
     then
 	
-	docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.0 bash /seqprg/school/process_scripts/variants/checkmate.sh -r dnaref -p ${caseid} -c dnaref/NGSCheckMate.bed -f
+	docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.4 bash /seqprg/process_scripts/variants/checkmate.sh -r dnaref -p ${caseid} -c dnaref/NGSCheckMate.bed -f
 	echo -e "TumorFILE\t${tbam}" >> ${caseid}.sequence.stats.txt
 	echo -e "NormalFILE\t${nbam}" >> ${caseid}.sequence.stats.txt
 	
@@ -40,7 +40,7 @@ main() {
         dx-jobutil-add-output all "$all" --class=file
         dx-jobutil-add-output seqstats "$seqstats" --class=file
     fi
-    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.0 bash /seqprg/school/process_scripts/variants/msisensor.sh -r dnaref -p ${caseid} -b ${caseid}.tumor.bam -c targetpanel.bed $normopt
+    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.4 bash /seqprg/process_scripts/variants/msisensor.sh -r dnaref -p ${caseid} -b ${caseid}.tumor.bam -c targetpanel.bed $normopt
     msiout=$(dx upload ${caseid}.msi --brief)
     dx-jobutil-add-output msiout "$msiout" --class=file
 }
