@@ -8,12 +8,12 @@ RUN mkdir -p /opt/bin;
 
 #
 RUN R -e "install.packages('BiocManager', dependencies=TRUE, repos='http://cran.rstudio.com/')"; \
-    R -e "BiocManager::install('edgeR')"; /
-    R -e "BiocManager::install('DESeq2')"; /
-    R -e "install.packages('DESeq2', dependencies=TRUE, repos='http://cran.rstudio.com/')"; /
-    R -e "install.packages('RColorBrewer', dependencies=TRUE, repos='http://cran.rstudio.com/')"; /
-    R -e "install.packages('gplots', dependencies=TRUE, repos='http://cran.rstudio.com/')"; /
-    R -e "BiocManager::install('DESeq2')"; /
+    R -e "BiocManager::install('edgeR')"; \
+    R -e "BiocManager::install('DESeq2')"; \
+    R -e "install.packages('DESeq2', dependencies=TRUE, repos='http://cran.rstudio.com/')"; \
+    R -e "install.packages('RColorBrewer', dependencies=TRUE, repos='http://cran.rstudio.com/')"; \
+    R -e "install.packages('gplots', dependencies=TRUE, repos='http://cran.rstudio.com/')"; \
+    R -e "BiocManager::install('DESeq2')"; \
     R -e "BiocManager::install('ballgown')";
 
 # Install Scripts
