@@ -25,7 +25,7 @@
     {
       "id": "stage-FvpbfxQ0Y9g3F8gZ5VK3FYp1",
       "name": "Trim Galore",
-      "executable": "applet-FvpbG0Q0Y9gPxq3G4fFVfF1z",
+      "executable": "applet-FxJqKGQ0Y9g97Vg21b98XP7Q",
       "input": {
 	"fq1": {
 	  "$dnanexus_link": {
@@ -53,7 +53,7 @@
       "id": "stage-Fvpbg300Y9g139Y04b101qJb",
       "name": "STAR-Fusion",
       "folder":"rnaout",
-      "executable": "applet-FvpbFzQ0Y9g3F8gZ5VK3FY0V",
+      "executable": "applet-FxJqKB80Y9gGGV1f1Pjp2Xyj",
       "input": {
 	"fq2": {
 	  "$dnanexus_link": {
@@ -89,7 +89,7 @@
       "id": "stage-FvpbvKj0Y9gGjg1755vVf1Xv",
       "name": "RNA Alignment",
       "folder":"rnaout",
-      "executable": "applet-FvpbpV80Y9gK4bP245VFV7JX",
+      "executable": "applet-FxJqKYQ0Y9g60xg877jgZFgX",
       "input": {
 	"fq2": {
 	  "$dnanexus_link": {
@@ -122,7 +122,7 @@
       "id": "stage-FvyVYfj0Y9gPPfxP5033PXv2",
       "name": "BAM Read Ct",
       "folder":"rnaout",
-      "executable": "applet-FvyX7yj0Y9g6zgPf9FVf8120",
+      "executable": "applet-FxJqK980Y9g97Vg21b98XP77",
       "input": {
 	"sampleid": {
 	  "$dnanexus_link": {
@@ -155,7 +155,7 @@
       "id": "stage-FvpbvP80Y9g143jkBYxVZ9j1",
       "name": "RNASeq BAM QC",
       "folder":"rnaout",
-      "executable": "applet-Fvpfffj0Y9gB0YG54GPgGYf2",
+      "executable": "applet-FxJqK900Y9g5VQVQK823gPzX",
       "input": {
 	"bam": {
 	  "$dnanexus_link": {
@@ -185,7 +185,7 @@
       "id": "stage-FvpbvYj0Y9gGyFz6GgXyvyXy",
       "name": "Gene Abundance",
       "folder":"rnaout",
-      "executable": "applet-FvyfXj00Y9gPPF6y6yX5Gf45",
+      "executable": "applet-FxJqK700Y9g8jVp37vgQK6Zj",
       "input": {
 	"bam": {
 	  "$dnanexus_link": {
@@ -218,7 +218,7 @@
       "id": "stage-Fvpbxg00Y9gB0YG54GPgGPGP",
       "name": "FreeBayes",
       "folder":"rnavcf",
-      "executable": "applet-FvzKbGj0Y9g6v8VkKZpkv5Zp",
+      "executable": "applet-FxJqK9Q0Y9g7Zk9736014bqQ",
       "input": {
 	"tbam": {
 	  "$dnanexus_link": {
@@ -228,7 +228,7 @@
 	},
 	"algo": "fb",
 	"reference": {
-	  "$dnanexus_link": "file-FvPP1800Y9g471Q25gxJqp85"
+	  "$dnanexus_link": "file-FxJxBF00Y9g627808FG4850K"
 	},
 	"panel": {
 	  "$dnanexus_link": {
