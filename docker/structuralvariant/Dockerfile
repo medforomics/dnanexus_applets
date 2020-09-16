@@ -87,10 +87,10 @@ RUN cd /opt/bin; git clone --branch 1.1.0 --recursive https://github.com/walaj/s
     cp bin/* /usr/local/bin/;
 
 # Install ITDSeek
-RUN cd /opt/bin; wget https://github.com/bcantarel/itdseek/archive/v1.3.1.tar.gz; \
-    tar xvfz v1.3.1.tar.gz; rm v1.3.1.tar.gz; \
-    cd itdseek-1.3.1; \
-    mv *.pl /usr/local/bin/;
+RUN cd /opt/bin; wget https://github.com/bcantarel/itdseek/archive/v1.3.2.tar.gz; \
+    tar xvfz v1.3.2.tar.gz; rm v1.3.2.tar.gz; \
+    cd itdseek-1.3.2; \
+    mv itd* /usr/local/bin/;
 
 
 # Install Scripts

@@ -433,7 +433,7 @@
             "stage": "stage-Fvpf04Q0Y9g2F4Xy7qb1JJyv"
           }
         },
-        "algo": "fb strelka2",
+        "algo": "fb strelka2 platypus shimmer",
 	"reference": {
           "$dnanexus_link": "file-FxJxBF00Y9g627808FG4850K"
         },
