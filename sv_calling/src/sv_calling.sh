@@ -42,6 +42,9 @@ main() {
 	if [[ "${a}" == "pindel" ]]
 	then
 	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.4 bash /seqprg/process_scripts/variants/svcalling.sh -r dnaref -p $caseid -l dnaref/itd_genes.bed -c dnaref/targetpanel.bed -a ${a} -g GRCh38.86 -f
+	    tar -czvf ${caseid}${outfile}.vcf.tar.gz *.pindel.vcf.gz
+	    vcf=$(dx upload ${caseid}${outfile}.vcf.tar.gz --brief)
+	    dx-jobutil-add-output vcf "$vcf" --class=file  
 	elif [[ "${a}" == "pindel_itd" ]]
 	then
 	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.4 bash /seqprg/process_scripts/variants/svcalling.sh -r dnaref -p $caseid -l dnaref/itd_genes.bed -c dnaref/itd_genes.bed -a pindel -g GRCh38.86 -f
@@ -62,13 +65,13 @@ main() {
 	fi
     done
     
-    if [[ "${a}" == "delly" ]] || [[ "${a}" == "svaba" ]] || [[ "${a}" == "itdseek" ]] || [[ "${a}" == "pindel" ]]
+    if [[ "${algo}" =~ "delly" ]] || [[ "${algo}" =~ "svaba" ]] || [[ "${algo}" =~ "itdseek" ]] || [[ "${algo}" =~ "pindel" ]]
     then
 	tar -czvf ${caseid}${outfile}.sv.tar.gz *.vcf.gz
 	svvcf=$(dx upload ${caseid}${outfile}.sv.tar.gz --brief)
 	dx-jobutil-add-output svvcf "$svvcf" --class=file
     fi
-    if [[ "${a}" == "delly" ]] || [[ "${a}" == "svaba" ]] || [[ "${a}" == "pindel" ]]
+    if [[ "${algo}" =~ "delly" ]] || [[ "${algo}" =~ "svaba" ]]
     then
 	tar -czvf ${caseid}${outfile}.gf.tar.gz ${caseid}*.txt
 	genefusion=$(dx upload ${caseid}${outfile}.gf.tar.gz --brief)

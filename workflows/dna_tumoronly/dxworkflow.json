@@ -29,7 +29,7 @@
     {
       "id": "stage-FvpbKFQ0Y9g139Y04b101pX6",
       "name": "Trim Galore",
-      "executable": "applet-FxVfFQ80Y9gJyyy3Ff03F260",
+      "executable": "applet-FxVjKB80Y9gJq54Z0Pq8j78Z",
       "input": {
 	"fq1": {
 	  "$dnanexus_link": {
@@ -173,7 +173,7 @@
       "id": "stage-FvpbKX80Y9gPxq3G4fFVfF4Z",
       "name": "SV Calling",
       "folder":"dnacallset",
-      "executable": "applet-FxJqKF80Y9g7Zk9736014bqY",
+      "executable": "applet-FxVqXj80Y9gP6bqy0jk6Z6kY",
       "input": {
 	"caseid": {
 	  "$dnanexus_link": {
