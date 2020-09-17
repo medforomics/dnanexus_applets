@@ -29,7 +29,7 @@
     {
       "id": "stage-FxQQffQ0Y9g0YX7Q7JpY1JXz",
       "name": "Trim Galore",
-      "executable": "applet-FxJqKGQ0Y9g97Vg21b98XP7Q",
+      "executable": "applet-FxVfFQ80Y9gJyyy3Ff03F260",
       "input": {
 	"fq1": {
 	  "$dnanexus_link": {
@@ -84,7 +84,7 @@
 	}
       },
       "systemRequirements": {
-        "*": {
+        "main": {
           "instanceType": "mem1_ssd1_v2_x16"
         }
       }
@@ -201,7 +201,7 @@
       "id": "stage-FxQQgBj0Y9g9781vJ03xZ7pG",
       "name": "Variant Profiling",
       "folder":"dnacallset",
-      "executable": "applet-FxJqKJ80Y9g4VXp36PBz36p7",
+      "executable": "applet-FxVfFqQ0Y9gGk9kF573FVvZg",
       "input": {
    	"caseid": {
 	  "$dnanexus_link": {
@@ -225,8 +225,8 @@
         }
       },
       "systemRequirements": {
-        "*": {
-          "instanceType": "mem2_ssd1_x2"
+        "main": {
+          "instanceType": "mem2_ssd1_v2_x2"
         }
       }
     },
@@ -259,7 +259,7 @@
         }
       },
       "systemRequirements": {
-        "*": {
+        "main": {
           "instanceType": "mem1_ssd1_v2_x16"
         }
       }
@@ -293,7 +293,7 @@
         }
       },
       "systemRequirements": {
-        "*": {
+        "main": {
           "instanceType": "mem1_ssd1_v2_x16"
         }
       }
@@ -327,7 +327,7 @@
         }
       },
       "systemRequirements": {
-        "*": {
+        "main": {
           "instanceType": "mem1_ssd1_v2_x16"
         }
       }

@@ -34,5 +34,4 @@ RUN mkdir -p /seqprg; \
 
 ENV isdocker 1
 ENV PATH "$PATH:/usr/local/bin"
-ENTRYPOINT ["bash","/seqprg/school/process_scripts/genect_rnaseq/geneabundance.sh"]
 WORKDIR /data/

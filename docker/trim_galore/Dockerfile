@@ -34,4 +34,3 @@ ENV isdocker 1
 ENV PATH "$PATH:/usr/local/bin"
 
 WORKDIR /data/
-ENTRYPOINT ["bash","/seqprg/school/process_scripts/preproc_fastq/trimgalore.sh"]
