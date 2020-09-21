@@ -40,10 +40,11 @@ RUN cd /opt; wget ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/hisat2-2.1
 
 # Install Scripts
 RUN mkdir -p /seqprg; \
-    cd /seqprg; \
-    git clone -b version_1.0.4 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \
-    cd process_scripts; \
-    cp -r alignment/* /usr/local/bin/
+    cd /seqprg; wget https://github.com/bcantarel/process_scripts/archive/version_1.0.4.tar.gz; tar xvfz version_1.0.4.tar.gz; \
+    #git clone -b version_1.0.4 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \
+    mv process_scripts-version_1.0.4 process_scripts; cd process_scripts; \
+    cp -r alignment/* /usr/local/bin/; \
+    cp -r variants/* /usr/local/bin/
 
 ENV isdocker 1
 ENV PATH "$PATH:/usr/local/bin"

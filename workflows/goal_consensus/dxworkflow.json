@@ -181,7 +181,7 @@
         },
       "tbam": {
           "$dnanexus_link": {
-            "stage": "stage-FxVjJ180Y9g10x6JK0fVj72J",
+            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kq",
             "outputField": "abratbam"
           }
         }
@@ -261,10 +261,11 @@
     {
       "id": "stage-FxVjJ3j0Y9g9kpv15jF8vjBY",
       "executable": "applet-FxJqK880Y9g8yv9j6KQK5q08",
-      "name": "Consensus BAM",
+      "name": "MarkDuplicates",
       "folder":"dnaout",
       "input": {
- 	"sampleid": {
+ 	"mdup": "picard_umi",
+	"sampleid": {
 	  "$dnanexus_link": {
 	    "workflowInputField": "SampleID"
 	  }
@@ -406,13 +407,13 @@
         "vcffiles": [
           {
             "$dnanexus_link": {
-              "stage": "stage-FxVjJGQ0Y9g3jZz75fkZGG02",
+              "stage": "stage-FxVjJJj0Y9g919g45f3JY9Jq",
               "outputField": "vcf"
             }
           },
           {
             "$dnanexus_link": {
-              "stage": "stage-FxVjJJj0Y9g919g45f3JY9Jq",
+              "stage": "stage-FxVjJGQ0Y9g3jZz75fkZGG02",
               "outputField": "vcf"
             }
           },

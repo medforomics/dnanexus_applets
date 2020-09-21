@@ -20,10 +20,11 @@ RUN  pip install matplotlib==2.2.5; pip install pandas==0.24.2; pip install biop
     agfusion download -g hg38;
 
 RUN mkdir -p /seqprg; \
-    cd /seqprg; \
-    git clone -b version_1.0.4 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \
-    cd process_scripts; \
-    cp -r alignment/* /usr/local/bin/
+    cd /seqprg; wget https://github.com/bcantarel/process_scripts/archive/version_1.0.4.tar.gz; tar xvfz version_1.0.4.tar.gz; \
+    #git clone -b version_1.0.4 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \
+    mv process_scripts-version_1.0.4 process_scripts; cd process_scripts; \
+    cp -r alignment/* /usr/local/bin/; \
+    cp -r variants/* /usr/local/bin/
 
 ENV isdocker 1
 ENV PATH "$PATH:$STAR_FUSION_HOME:/usr/local/bin"

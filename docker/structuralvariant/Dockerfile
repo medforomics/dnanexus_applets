@@ -95,9 +95,10 @@ RUN cd /opt/bin; wget https://github.com/bcantarel/itdseek/archive/v1.3.2.tar.gz
 
 # Install Scripts
 RUN mkdir -p /seqprg; \
-    cd /seqprg; \
-    git clone -b version_1.0.4 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \
-    cd process_scripts; \
+    cd /seqprg; wget https://github.com/bcantarel/process_scripts/archive/version_1.0.4.tar.gz; tar xvfz version_1.0.4.tar.gz; \
+    #git clone -b version_1.0.4 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \
+    mv process_scripts-version_1.0.4 process_scripts; cd process_scripts; \
+    cp -r alignment/* /usr/local/bin/; \
     cp -r variants/* /usr/local/bin/
 
 ENV isdocker 1
