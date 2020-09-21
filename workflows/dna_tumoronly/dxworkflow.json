@@ -256,7 +256,7 @@
         "reference": {
           "$dnanexus_link": "file-FxJxBF00Y9g627808FG4850K"
         },
-        "algo": "fb strelka2 platypus",
+        "algo": "fb strelka2",
         "panel": {
           "$dnanexus_link": {
             "inputField": "panel",

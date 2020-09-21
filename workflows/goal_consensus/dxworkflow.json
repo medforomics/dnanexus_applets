@@ -301,7 +301,7 @@
       "folder":"dnacallset",
       "executable": "applet-FxJqK9Q0Y9g7Zk9736014bqQ",
       "input": {
-        "algo": "fb strelka2 platypus",
+        "algo": "fb strelka2",
   	"caseid": {
 	  "$dnanexus_link": {
 	    "workflowInputField": "CaseID"
