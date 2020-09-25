@@ -212,7 +212,7 @@
         },
 	"tbam": {
           "$dnanexus_link": {
-            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kqJ",
+            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kq",
             "outputField": "bam"
           }
         },
@@ -245,7 +245,7 @@
         },
        "tbam": {
           "$dnanexus_link": {
-            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kqJ",
+            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kq",
             "outputField": "bam"
           }
         },
@@ -269,21 +269,18 @@
 	    "workflowInputField": "SampleID"
 	  }
         },
-       "humanref": {
-          "$dnanexus_link": {
-            "inputField": "humanref",
-            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kq"
-          }
-        },
+	"humanref": {
+	  "$dnanexus_link": "file-FvPP4380Y9gK9k8384fYB6F5"
+	},
         "bam": {
           "$dnanexus_link": {
-            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kqJ",
+            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kq",
             "outputField": "bam"
           }
         },
         "bai": {
           "$dnanexus_link": {
-            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kqJ",
+            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kq",
             "outputField": "bai"
           }
         }
