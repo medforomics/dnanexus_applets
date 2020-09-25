@@ -23,6 +23,7 @@ RUN cd /opt; wget https://github.com/samtools/samtools/releases/download/1.10/sa
     cp samtools /usr/local/bin;
 
 # Install Scripts
+ENV repodir /seqprg
 RUN mkdir -p /seqprg; \
     cd /seqprg; wget https://github.com/bcantarel/process_scripts/archive/version_1.0.4.tar.gz; tar xvfz version_1.0.4.tar.gz; \
     #git clone -b version_1.0.4 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \

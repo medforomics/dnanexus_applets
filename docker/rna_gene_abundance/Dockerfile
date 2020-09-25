@@ -26,6 +26,7 @@ RUN cd /opt; wget http://ccb.jhu.edu/software/stringtie/dl/stringtie-2.1.1.Linux
     cp * /usr/local/bin;
 
 # Install Scripts
+ENV repodir /seqprg
 RUN mkdir -p /seqprg; \
     cd /seqprg; wget https://github.com/bcantarel/process_scripts/archive/version_1.0.4.tar.gz; tar xvfz version_1.0.4.tar.gz; \
     #git clone -b version_1.0.4 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \

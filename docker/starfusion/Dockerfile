@@ -19,6 +19,7 @@ RUN  pip install matplotlib==2.2.5; pip install pandas==0.24.2; pip install biop
     pip install agfusion; \
     agfusion download -g hg38;
 
+ENV repodir /seqprg
 RUN mkdir -p /seqprg; \
     cd /seqprg; wget https://github.com/bcantarel/process_scripts/archive/version_1.0.4.tar.gz; tar xvfz version_1.0.4.tar.gz; \
     #git clone -b version_1.0.4 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \

@@ -39,6 +39,7 @@ RUN cd /opt; wget ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/hisat2-2.1
     cp -r hisat* /usr/local/bin;
 
 # Install Scripts
+ENV repodir /seqprg
 RUN mkdir -p /seqprg; \
     cd /seqprg; wget https://github.com/bcantarel/process_scripts/archive/version_1.0.4.tar.gz; tar xvfz version_1.0.4.tar.gz; \
     #git clone -b version_1.0.4 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \

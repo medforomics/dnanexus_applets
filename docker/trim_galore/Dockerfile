@@ -24,6 +24,7 @@ RUN cd /opt; wget https://github.com/ComputationalSystemsBiology/EoulsanDockerFi
     ln -s /opt/trim_galore_zip/trim_galore /usr/local/bin/trim_galore;
 
 # Install Scripts
+ENV repodir /seqprg
 RUN mkdir -p /seqprg; \
     cd /seqprg; wget https://github.com/bcantarel/process_scripts/archive/version_1.0.4.tar.gz; tar xvfz version_1.0.4.tar.gz; \
     #git clone -b version_1.0.4 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \

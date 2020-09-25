@@ -87,6 +87,7 @@ RUN cd /opt; wget https://github.com/genome/bam-readcount/archive/v0.8.0.tar.gz;
     mv bin/bam-readcount /usr/local/bin/;
 
 # Install Scripts
+ENV repodir /seqprg
 RUN mkdir -p /seqprg; \
     cd /seqprg; wget https://github.com/bcantarel/process_scripts/archive/version_1.0.4.tar.gz; tar xvfz version_1.0.4.tar.gz; \
     #git clone -b version_1.0.4 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \

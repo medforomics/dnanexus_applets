@@ -17,6 +17,7 @@ RUN R -e "install.packages('BiocManager', dependencies=TRUE, repos='http://cran.
     R -e "BiocManager::install('ballgown')";
 
 # Install Scripts
+ENV repodir /seqprg
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
     git clone -b version_1.0.4 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \

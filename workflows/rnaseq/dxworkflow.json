@@ -1,0 +1,179 @@
+{
+  "name": "rnaseq",
+  "title": "RNA Gene Abundance Analysis",
+  "version": "1.0.0",
+  "summary": "RNASeq Analysis HiSAT->featureCount",
+  "inputs": [
+    {
+      "name": "FqR1",
+      "class": "file"
+    },
+    {
+      "name": "FqR2",
+      "class": "file"
+    },
+    {
+      "name": "SampleID",
+      "class": "string"
+    },
+    {
+      "name": "markdups",
+      "class": "string",
+      "default": "picard"
+    }
+  ],
+  "stages": [
+    {
+      "id": "stage-FvpbfxQ0Y9g3F8gZ5VK3FYp1",
+      "name": "Trim Galore",
+      "executable": "applet-FxVjKB80Y9gJq54Z0Pq8j78Z",
+      "input": {
+	"fq1": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "FqR1"
+	  } 
+	},
+	"fq2": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "FqR2"
+	  }
+	},
+	"sampleid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "SampleID"
+	  }
+	}
+      },
+      "systemRequirements": {
+	"main": {
+	  "instanceType": "mem1_ssd1_v2_x2"
+	}
+      }
+    },
+    {
+      "id": "stage-FvpbvKj0Y9gGjg1755vVf1Xv",
+      "name": "RNA Alignment",
+      "folder":"rnaout",
+      "executable": "applet-FxJqKYQ0Y9g60xg877jgZFgX",
+      "input": {
+	"fq2": {
+	  "$dnanexus_link": {
+	    "outputField": "trim2",
+	    "stage": "stage-FvpbfxQ0Y9g3F8gZ5VK3FYp1"
+	  }
+	},
+	"fq1": {
+	  "$dnanexus_link": {
+	    "outputField": "trim1",
+	    "stage": "stage-FvpbfxQ0Y9g3F8gZ5VK3FYp1"
+	  }
+	},
+	"reference": {
+	  "$dnanexus_link": "file-FvVKB280Y9g7bQ32G9XK9bVx"
+	},
+	"sampleid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "SampleID"
+	  }
+	}
+      },
+      "systemRequirements": {
+	"main": {
+	  "instanceType": "mem1_ssd1_x8"
+	}
+      }
+    },
+    {
+      "id": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy",
+      "name": "MarkDuplicates BAM",
+      "folder":"rnaout",
+      "executable": "applet-FxJqK880Y9g8yv9j6KQK5q08",
+      "input": {
+	"mdup": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "markdups"
+	  }
+	},
+	"sampleid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "SampleID"
+	  }
+        },
+        "bam": {
+          "$dnanexus_link": {
+            "outputField": "bam",
+            "stage": "stage-FvpbvKj0Y9gGjg1755vVf1Xv"
+          }
+        },
+        "bai": {
+          "$dnanexus_link": {
+            "outputField": "bai",
+            "stage": "stage-FvpbvKj0Y9gGjg1755vVf1Xv"
+          }
+        }
+      },
+      "systemRequirements": {
+	"main": {
+	  "instanceType": "mem2_ssd1_v2_x2"
+	}
+      }
+    },
+    {
+      "id": "stage-FvpbvP80Y9g143jkBYxVZ9j1",
+      "name": "RNASeq BAM QC",
+      "folder":"rnaout",
+      "executable": "applet-FxJqK900Y9g5VQVQK823gPzX",
+      "input": {
+	"bam": {
+	  "$dnanexus_link": {
+	    "outputField": "bam",
+	    "stage": "stage-FvpbvKj0Y9gGjg1755vVf1Xv"
+	  }
+	},
+	"alignstats": {
+	  "$dnanexus_link": {
+	    "outputField": "alignstats",
+	    "stage": "stage-FvpbvKj0Y9gGjg1755vVf1Xv"
+	  }
+	},
+	"sampleid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "SampleID"
+	  }
+	}
+      },
+      "systemRequirements": {
+	"main": {
+	  "instanceType": "mem1_ssd1_v2_x2"
+	}
+      }
+    },
+    {
+      "id": "stage-FvpbvYj0Y9gGyFz6GgXyvyXy",
+      "name": "Gene Abundance",
+      "folder":"rnaout",
+      "executable": "applet-FxVjKbj0Y9gJyyy3Ff03F37y",
+      "input": {
+	"bam": {
+	  "$dnanexus_link": {
+	    "outputField": "dedupbam",
+	    "stage": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy"
+	  }
+	},
+	"gtf": {
+	  "$dnanexus_link": "file-FvX8YQ80Y9gKkYg719yJ1V0F"
+	},
+	"sampleid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "SampleID"
+	  }
+	}
+      },
+      "systemRequirements": {
+	"main": {
+	  "instanceType": "mem1_ssd1_v2_x2"
+	}
+      }
+    }
+  ]
+}
