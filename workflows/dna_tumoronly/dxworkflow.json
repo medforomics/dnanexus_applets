@@ -93,7 +93,7 @@
       "id": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy",
       "name": "Consensus BAM",
       "folder":"dnaout",
-      "executable": "applet-FxJqK880Y9g8yv9j6KQK5q08",
+      "executable": "applet-FxfzyG80Y9gPzQZvFZ11FjbZ",
       "input": {
         "humanref": {
           "$dnanexus_link": {

@@ -6,17 +6,17 @@ main() {
 
     dx download "$bam" -o ${sampleid}.bam
     dx download "$bai" -o ${sampleid}.bam.bai
-    alignopt=''
-    if [[ ${mdup} == 'fgbio_umi' ]]
-    then
-	alignopt=" -u"
-    fi
-    dx download "$humanref" -o humanref.tar.gz
-
-    mkdir humanref
-    docker run -v ${PWD}:/data docker.io/goalconsortium/dna_alignment:1.0.4 tar -I pigz -xvf humanref.tar.gz --strip-components=1 -C humanref
     
-    docker run -v ${PWD}:/data docker.io/goalconsortium/dna_alignment:1.0.4 bash /seqprg/process_scripts/alignment/markdups.sh -a ${mdup} -b ${sampleid}.bam -p ${sampleid} -r humanref
+    opt=''
+    if [[ -n $humanref ]]
+    then
+	dx download "$humanref" -o humanref.tar.gz
+	mkdir humanref
+	docker run -v ${PWD}:/data docker.io/goalconsortium/dna_alignment:1.0.4 tar -I pigz -xvf humanref.tar.gz --strip-components=1 -C humanref
+	opt='-r humanref'
+    fi
+    
+    docker run -v ${PWD}:/data docker.io/goalconsortium/dna_alignment:1.0.4 bash /seqprg/process_scripts/alignment/markdups.sh -a ${mdup} -b ${sampleid}.bam -p ${sampleid} $opt
     
     mv ${sampleid}.dedup.bam ${sampleid}.consensus.bam
     mv ${sampleid}.dedup.bam.bai ${sampleid}.consensus.bam.bai

@@ -131,8 +131,7 @@
     {
       "id": "stage-FxVjJ180Y9g10x6JK0fVj72J",
       "name": "Abra2",
-      "folder":"dnaout",
-      "executable": "applet-FxJqK480Y9gBB8vg818XPy0P",
+  "executable": "applet-FxJqK480Y9gBB8vg818XPy0P",
       "input": {
       	"caseid": {
 	  "$dnanexus_link": {
@@ -182,7 +181,7 @@
       "tbam": {
           "$dnanexus_link": {
             "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kq",
-            "outputField": "abratbam"
+            "outputField": "bam"
           }
         }
       },
@@ -213,8 +212,8 @@
         },
 	"tbam": {
           "$dnanexus_link": {
-            "stage": "stage-FxVjJ180Y9g10x6JK0fVj72J",
-            "outputField": "abratbam"
+            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kqJ",
+            "outputField": "bam"
           }
         },
         "algo": "delly svaba cnvkit itdseek"
@@ -246,8 +245,8 @@
         },
        "tbam": {
           "$dnanexus_link": {
-            "stage": "stage-FxVjJ180Y9g10x6JK0fVj72J",
-            "outputField": "abratbam"
+            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kqJ",
+            "outputField": "bam"
           }
         },
         "algo": "pindel"
@@ -260,7 +259,7 @@
     },
     {
       "id": "stage-FxVjJ3j0Y9g9kpv15jF8vjBY",
-      "executable": "applet-FxJqK880Y9g8yv9j6KQK5q08",
+      "executable": "applet-FxfzyG80Y9gPzQZvFZ11FjbZ",
       "name": "MarkDuplicates",
       "folder":"dnaout",
       "input": {
@@ -278,14 +277,14 @@
         },
         "bam": {
           "$dnanexus_link": {
-            "stage": "stage-FxVjJ180Y9g10x6JK0fVj72J",
-            "outputField": "abratbam"
+            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kqJ",
+            "outputField": "bam"
           }
         },
         "bai": {
           "$dnanexus_link": {
-            "stage": "stage-FxVjJ180Y9g10x6JK0fVj72J",
-            "outputField": "abratbai"
+            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kqJ",
+            "outputField": "bai"
           }
         }
       },

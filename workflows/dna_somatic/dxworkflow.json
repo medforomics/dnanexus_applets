@@ -174,7 +174,7 @@
       "id": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy",
       "name": "Tumor FGBio",
       "folder":"dnaout",
-      "executable": "applet-FxJqK880Y9g8yv9j6KQK5q08",
+      "executable": "applet-FxfzyG80Y9gPzQZvFZ11FjbZ",
       "input": {
  	"sampleid": {
 	  "$dnanexus_link": {
@@ -210,7 +210,7 @@
       "id": "stage-Fvpf04Q0Y9g2F4Xy7qb1JJyv",
       "name": "Normal FGBio",
       "folder":"dnaout",
-      "executable": "applet-FxJqK880Y9g8yv9j6KQK5q08",
+      "executable": "applet-FxfzyG80Y9gPzQZvFZ11FjbZ",
       "input": {
 	"sampleid": {
 	  "$dnanexus_link": {
