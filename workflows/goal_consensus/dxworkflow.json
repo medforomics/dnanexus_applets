@@ -195,7 +195,7 @@
       "id": "stage-FxVjJ8j0Y9gBpjgJ5VPKB85j",
       "name": "SV Calling",
       "folder":"dnacallset",
-      "executable": "applet-FxVqXj80Y9gP6bqy0jk6Z6kY",
+      "executable": "applet-FxgG3xQ0Y9g0pj84FX2371G6",
       "input": {
      	"caseid": {
 	  "$dnanexus_link": {
@@ -228,7 +228,7 @@
       "id": "stage-FxVjJB80Y9g23YP757JPQ3q3",
       "name": "Pindel",
       "folder":"dnacallset",
-      "executable": "applet-FxVqXj80Y9gP6bqy0jk6Z6kY",
+      "executable": "applet-FxgG3xQ0Y9g0pj84FX2371G6",
       "input": {
       	"caseid": {
 	  "$dnanexus_link": {

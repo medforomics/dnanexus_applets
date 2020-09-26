@@ -29,7 +29,7 @@ main() {
     then
 	normopt=" -n ${caseid}.normal.bam"
     fi
-
+    
     outfile=''
 
     echo "$algo"
@@ -47,7 +47,7 @@ main() {
 	    dx-jobutil-add-output vcf "$vcf" --class=file  
 	elif [[ "${a}" == "pindel_itd" ]]
 	then
-	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.4 bash /seqprg/process_scripts/variants/svcalling.sh -r dnaref -p $caseid -l dnaref/itd_genes.bed -c dnaref/itd_genes.bed -a pindel -g GRCh38.86 -f
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.4 bash /seqprg/process_scripts/variants/svcalling.sh -r dnaref -p $caseid -l dnaref/itd_genes.bed -c dnaref/pindel_genes.bed -a pindel -g GRCh38.86 -f
 	elif [[ "${a}" == "delly" ]] || [[ "${a}" == "svaba" ]]
 	then
             docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.4 bash /seqprg/process_scripts/variants/svcalling.sh -r dnaref -b ${caseid}.tumor.bam -p ${caseid} -a ${a} -g GRCh38.86 $normopt -f

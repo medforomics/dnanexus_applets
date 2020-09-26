@@ -89,14 +89,14 @@ RUN cd /opt; wget https://github.com/genome/bam-readcount/archive/v0.8.0.tar.gz;
 # Install Scripts
 ENV repodir /seqprg
 RUN mkdir -p /seqprg; \
-    cd /seqprg; wget https://github.com/bcantarel/process_scripts/archive/version_1.0.4.tar.gz; tar xvfz version_1.0.4.tar.gz; \
-    #git clone -b version_1.0.4 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \
-    mv process_scripts-version_1.0.4 process_scripts; cd process_scripts; \
+    cd /seqprg; wget https://github.com/bcantarel/process_scripts/archive/version_1.0.5.tar.gz; tar xvfz version_1.0.5.tar.gz; \
+    #git clone -b version_1.0.5 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \
+    mv process_scripts-version_1.0.5 process_scripts; cd process_scripts; \
     cp -r alignment/* /usr/local/bin/; \
     cp -r variants/* /usr/local/bin/
 
 ENV isdocker 1
 ENV PATH "$PATH:/usr/local/bin"
-ENV gitv "version_1.0.4"
+ENV gitv "version_1.0.5"
 
 WORKDIR /data/
