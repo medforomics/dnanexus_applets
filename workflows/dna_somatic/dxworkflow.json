@@ -335,7 +335,7 @@
       "id": "process-sv",
       "name": "SV Calling",
       "folder":"dnacallset",
-      "executable": "applet-FxgG3xQ0Y9g0pj84FX2371G6",
+      "executable": "applet-FxkfF1j0Y9gG5vyfGVyF0fK2",
       "input": {
  	"caseid": {
 	  "$dnanexus_link": {
@@ -375,7 +375,7 @@
       "id": "process-pindel",
       "name": "Pindel",
       "folder":"dnacallset",
-      "executable": "applet-FxgG3xQ0Y9g0pj84FX2371G6",
+      "executable": "applet-FxkfF1j0Y9gG5vyfGVyF0fK2",
       "input": {
  	"caseid": {
 	  "$dnanexus_link": {

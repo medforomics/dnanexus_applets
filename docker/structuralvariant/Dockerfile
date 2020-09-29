@@ -96,9 +96,9 @@ RUN cd /opt/bin; wget https://github.com/bcantarel/itdseek/archive/v1.3.2.tar.gz
 # Install Scripts
 ENV repodir /seqprg
 RUN mkdir -p /seqprg; \
-    cd /seqprg; wget https://github.com/bcantarel/process_scripts/archive/version_1.0.5.tar.gz; tar xvfz version_1.0.5.tar.gz; \
-    #git clone -b version_1.0.5 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \
-    mv process_scripts-version_1.0.5 process_scripts; cd process_scripts; \
+    cd /seqprg; wget https://github.com/bcantarel/process_scripts/archive/version_1.0.6.tar.gz; tar xvfz version_1.0.6.tar.gz; \
+    #git clone -b version_1.0.6 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \
+    mv process_scripts-version_1.0.6 process_scripts; cd process_scripts; \
     cp -r alignment/* /usr/local/bin/; \
     cp -r variants/* /usr/local/bin/
 

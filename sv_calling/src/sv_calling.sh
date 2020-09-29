@@ -39,15 +39,17 @@ main() {
 	echo "Starting ${a}"
 	outfile+=".${a}"
 	
-	if [[ "${a}" == "pindel" ]]
+	if [[ "${a}" =~ "pindel" ]]
 	then
-	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.4 bash /seqprg/process_scripts/variants/svcalling.sh -r dnaref -p $caseid -l dnaref/itd_genes.bed -c dnaref/targetpanel.bed -a ${a} -g GRCh38.86 -f
+	    targetbed='dnaref/targetpanel.bed'
+	    if [[ "${a}" == "pindel_itd" ]]
+	    then
+		targetbed='dnaref/pindel_genes.bed'
+	    fi
+	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.4 bash /seqprg/process_scripts/variants/svcalling.sh -r dnaref -p $caseid -l dnaref/itd_genes.bed -c $targetbed -a pindel -g GRCh38.86 -f
 	    tar -czvf ${caseid}${outfile}.vcf.tar.gz *.pindel.vcf.gz
 	    vcf=$(dx upload ${caseid}${outfile}.vcf.tar.gz --brief)
 	    dx-jobutil-add-output vcf "$vcf" --class=file  
-	elif [[ "${a}" == "pindel_itd" ]]
-	then
-	    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.4 bash /seqprg/process_scripts/variants/svcalling.sh -r dnaref -p $caseid -l dnaref/itd_genes.bed -c dnaref/pindel_genes.bed -a pindel -g GRCh38.86 -f
 	elif [[ "${a}" == "delly" ]] || [[ "${a}" == "svaba" ]]
 	then
             docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.4 bash /seqprg/process_scripts/variants/svcalling.sh -r dnaref -b ${caseid}.tumor.bam -p ${caseid} -a ${a} -g GRCh38.86 $normopt -f
