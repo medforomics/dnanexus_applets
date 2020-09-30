@@ -2,7 +2,7 @@ FROM r-base:4.0.2
 LABEL Author="Jeremy Mathews" \
       Maintainer="b.cantarel@gmail.com"
 
-RUN apt-get update -y; apt-get install -y git;
+RUN apt-get update -y; apt-get install -y git libcurl4-openssl-dev;
 RUN mkdir -p /opt;
 RUN mkdir -p /opt/bin;
 
