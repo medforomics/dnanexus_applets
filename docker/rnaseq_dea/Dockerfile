@@ -2,19 +2,26 @@ FROM r-base:4.0.2
 LABEL Author="Jeremy Mathews" \
       Maintainer="b.cantarel@gmail.com"
 
-RUN apt-get update -y; apt-get install -y git libcurl4-openssl-dev;
-RUN mkdir -p /opt;
-RUN mkdir -p /opt/bin;
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+    libfftw3-dev \
+    gcc \
+    libcurl4-openssl-dev \
+    libxml2-dev \
+    git \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-#
-RUN R -e "install.packages('BiocManager', dependencies=TRUE, repos='http://cran.rstudio.com/')"; \
-    R -e "BiocManager::install('edgeR')"; \
-    R -e "BiocManager::install('DESeq2')"; \
-    R -e "install.packages('DESeq2', dependencies=TRUE, repos='http://cran.rstudio.com/')"; \
-    R -e "install.packages('RColorBrewer', dependencies=TRUE, repos='http://cran.rstudio.com/')"; \
-    R -e "install.packages('gplots', dependencies=TRUE, repos='http://cran.rstudio.com/')"; \
-    R -e "BiocManager::install('DESeq2')"; \
-    R -e "BiocManager::install('ballgown')";
+#Install BIOCONDUCTOR Packages
+RUN R -e 'install.packages("BiocManager")'
+RUN R -e 'BiocManager::install("edgeR")'
+RUN R -e 'BiocManager::install("DESeq2")'
+RUN R -e 'BiocManager::install("qusage")'
+RUN R -e 'BiocManager::install("ballgown")'
+
+# Install R Packages
+RUN R -e "install.packages('RColorBrewer', dependencies=TRUE, repos='http://cran.rstudio.com/')"; \
+    R -e "install.packages('gplots', dependencies=TRUE, repos='http://cran.rstudio.com/')";
 
 # Install Scripts
 ENV repodir /seqprg
