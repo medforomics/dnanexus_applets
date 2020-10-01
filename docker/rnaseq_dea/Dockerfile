@@ -34,4 +34,6 @@ RUN mkdir -p /seqprg; \
 ENV isdocker 1
 ENV PATH "$PATH:/usr/local/bin"
 
+CMD []
+
 WORKDIR /data/
