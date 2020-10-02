@@ -9,6 +9,7 @@ RUN apt-get update \
     libcurl4-openssl-dev \
     libxml2-dev \
     git \
+    procps \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
