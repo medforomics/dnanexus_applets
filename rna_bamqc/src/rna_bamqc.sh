@@ -8,7 +8,7 @@ main() {
     dx download "$alignstats" -o ${sampleid}.alignerout.txt
     
     USER=$(dx whoami)
-    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.4 bash /seqprg/process_scripts/alignment/bamqc.sh -p ${sampleid} -b ${sampleid}.bam -n rna 
+    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.7 bash /seqprg/process_scripts/alignment/bamqc.sh -p ${sampleid} -b ${sampleid}.bam -n rna 
 
     fastqczip=$(dx upload ${sampleid}_fastqc.zip --brief)
     fastqchtml=$(dx upload ${sampleid}_fastqc.html --brief)

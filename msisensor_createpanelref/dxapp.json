@@ -1,0 +1,66 @@
+{
+  "name": "msisensor_createpanelref",
+  "title": "MSI Panel Reference File Generator",
+  "summary": "This app will take a set of panel of normals BAMs to generate reference files for running MSISensor Pro using Tumor Only Samples",
+  "dxapi": "1.0.0",
+  "version": "0.0.1",
+  "inputSpec": [
+    {
+      "name": "bams",
+      "label": "BAMs",
+      "class": "array:file",
+      "optional": false,
+      "patterns": [
+        "*.bam"
+      ],
+      "help": ""
+    },
+    {
+      "name": "reference",
+      "label": "Reference FastA + Annotation File (tar gz)",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*.tar.gz"
+      ],
+      "help": ""
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "msibase",
+      "label": "MSI Sensor Scan and Baseline Outfiles (tar.gz)",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    }
+  ],
+  "runSpec": {
+    "timeoutPolicy": {
+      "*": {
+        "hours": 4
+      }
+    },
+    "interpreter": "bash",
+    "release": "16.04",
+    "distribution": "Ubuntu",
+    "file": "src/msisensor_createpanelref.sh",
+    "version": "1"
+  },
+  "access": {
+    "network": [
+      "*"
+    ]
+  },
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_v2_x2"
+        }
+      }
+    }
+  }
+}

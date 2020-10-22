@@ -8,7 +8,7 @@ main() {
     dx download "$reference" -o ref.tar.gz
 
     mkdir dnaref
-    docker run -v ${PWD}:/data docker.io/goalconsortium/abra2:1.0.4 tar -I pigz -xvf ref.tar.gz --strip-components=1 -C dnaref
+    docker run -v ${PWD}:/data docker.io/goalconsortium/abra2:1.0.7 tar -I pigz -xvf ref.tar.gz --strip-components=1 -C dnaref
     
     ioopt="--in ${caseid}.tumor.bam --out ${caseid}.tumor.abra2.bam"
 
@@ -23,7 +23,7 @@ main() {
     then
         dx download "$panel" -o panel.tar.gz
         mkdir -p panel
-        docker run -v ${PWD}:/data docker.io/goalconsortium/abra2:1.0.4 tar -I pigz -xvf panel.tar.gz
+        docker run -v ${PWD}:/data docker.io/goalconsortium/abra2:1.0.7 tar -I pigz -xvf panel.tar.gz
 	opt="--targets targetpanel.bed"
     fi
 
@@ -32,17 +32,17 @@ main() {
     
     for i in *.bam
     do 
-	docker run -v ${PWD}:/data docker.io/goalconsortium/abra2:1.0.4 samtools index -@ $threads $i
+	docker run -v ${PWD}:/data docker.io/goalconsortium/abra2:1.0.7 samtools index -@ $threads $i
     done
         
-    docker run -v ${PWD}:/data docker.io/goalconsortium/abra2:1.0.4 java -Xmx16G -jar /usr/local/bin/abra2.jar $ioopt --ref dnaref/genome.fa --threads $threads $opt --tmpdir tmpdir --mbq 150 --mnf 5 --mer 0.05 > abra.log
+    docker run -v ${PWD}:/data docker.io/goalconsortium/abra2:1.0.7 java -Xmx16G -jar /usr/local/bin/abra2.jar $ioopt --ref dnaref/genome.fa --threads $threads $opt --tmpdir tmpdir --mbq 150 --mnf 5 --mer 0.05 > abra.log
 
     abratbam=$(dx upload ${caseid}.tumor.abra2.bam --brief)
     dx-jobutil-add-output abratbam "$abratbam" --class=file
 
     for i in *.abra2.bam
     do 
-	docker run -v ${PWD}:/data docker.io/goalconsortium/abra2:1.0.4 samtools index -@ $threads $i
+	docker run -v ${PWD}:/data docker.io/goalconsortium/abra2:1.0.7 samtools index -@ $threads $i
     done
 
     abratbai=$(dx upload ${caseid}.tumor.abra2.bam.bai --brief)

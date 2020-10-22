@@ -11,10 +11,10 @@ main() {
     tar xvfz panel.tar.gz
     
     mkdir CTAT_resource_lib
-    docker run -v ${PWD}:/data docker.io/goalconsortium/starfusion:1.0.4 tar -I pigz -xvf rnaref.tar.gz --strip-components=2 -C CTAT_resource_lib
+    docker run -v ${PWD}:/data docker.io/goalconsortium/starfusion:1.0.7 tar -I pigz -xvf rnaref.tar.gz --strip-components=2 -C CTAT_resource_lib
 
     cp genelist.txt panelgenes.txt
-    docker run -v ${PWD}:/data docker.io/goalconsortium/starfusion:1.0.4 bash /seqprg/process_scripts/alignment/starfusion.sh -p ${sampleid} -r /data -a ${sampleid}.trim.R1.fastq.gz -b ${sampleid}.trim.R2.fastq.gz -f 
+    docker run -v ${PWD}:/data docker.io/goalconsortium/starfusion:1.0.7 bash /seqprg/process_scripts/alignment/starfusion.sh -p ${sampleid} -r /data -a ${sampleid}.trim.R1.fastq.gz -b ${sampleid}.trim.R2.fastq.gz -f 
     
     tar cf ${sampleid}.starfusion.tar ${sampleid}*star_fusion/*.tsv *.txt
     gzip ${sampleid}.starfusion.tar
