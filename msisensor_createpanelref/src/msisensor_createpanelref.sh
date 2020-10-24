@@ -19,6 +19,7 @@ main() {
     do
 	prefix="${i%.bam}"
 	echo $prefix $i >> bam.list
+	docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.7 samtools index $i
     done
 
     docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.7  msisensor-pro baseline -d microsatellites.list -i bam.list -o ./

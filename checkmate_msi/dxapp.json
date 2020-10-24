@@ -1,9 +1,10 @@
 {
-  "name": "variant_profiling",
-  "title": "Variant Profiling",
-  "summary": "This applet contains variant calling methods for tumor only and somatic workflows. Including msisensor-pro, NGSCheckMates",
-  "dxapi": "1.0.4",
-  "version": "1.0.4",
+  "name": "checkmate_msi",
+  "title": "Variant Profiling with NGS CheckMate and MSISensor Pro",
+  "summary": "This applet contains variant profiling methods for tumor only and somatic workflows. Including msisensor-pro, NGSCheckMates",
+  "dxapi": "1.0.0",
+  "version": "1.0.0",
+  "openSource": true,
   "inputSpec": [
    {
       "name": "tbam",
@@ -13,7 +14,7 @@
       "patterns": [
         "*.bam"
       ],
-      "help": ""
+      "help": "Tumor BAM"
     },
    {
       "name": "nbam",
@@ -23,7 +24,7 @@
       "patterns": [
         "*.bam"
       ],
-      "help": ""
+      "help": "Matched Normal BAM"
     },
     {
       "name": "reference",
@@ -33,7 +34,7 @@
       "patterns": [
         "*.tar.gz"
       ],
-      "help": ""
+      "help": "Reference File"
     },
     {
       "name": "panel",
@@ -43,7 +44,7 @@
       "patterns": [
         "*.tar.gz"
       ],
-      "help": ""
+      "help": "(Optional) Panel File"
     },
     {
       "name": "caseid",
@@ -119,5 +120,28 @@
         }
       }
     }
-  }
+  },
+    "details": {
+  "upstreamProjects": [
+    {
+      "name": "MSISensor Pro",
+      "repoUrl": "https://github.com/xjtu-omics/msisensor-pro",
+      "version": "1.0.a",
+      "licenseUrl": "https://github.com/xjtu-omics/msisensor-pro/blob/master/LICENSE"
+      "author": "Peng Jia"
+    },
+    {
+      "name": "NGS CheckMate",
+      "repoUrl": "https://github.com/parklab/NGSCheckMate",
+      "version": "ncm-1.0.0",
+      "license": "MIT",
+    }
+
+  ],
+  "citations": [
+    "https://doi.org/10.1016/j.gpb.2020.02.001",
+    "https://doi.org/10.1093/nar/gkx193"
+  ]
+
+ }
 }

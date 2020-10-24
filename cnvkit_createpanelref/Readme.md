@@ -19,3 +19,6 @@ comments.
 
 For more info, see https://documentation.dnanexus.com/developer.
 -->
+
+[hg38 annotation reference](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/refFlat.txt.gz)
+[hg19 annotation reference](http://hgdownload.soe.ucsc.edu/goldenPath/hg19/database/refFlat.txt.gz)

@@ -2,8 +2,9 @@
   "name": "trim_galore",
   "title": "Trim Galore",
   "summary": "Trim Galore: Trims poor quality sequence from reads",
-  "dxapi": "1.0.4",
-  "version": "1.0.4",
+  "dxapi": "1.0.0",
+  "version": "1.0.0",
+  "openSource": true,
   "inputSpec": [
     {
       "name": "fq1",
@@ -13,7 +14,7 @@
       "patterns": [
           "*.fastq.gz","*.fq.gz"
       ],
-      "help": ""
+      "help": "FastQ R1"
     },
     {
       "name": "fq2",
@@ -23,7 +24,7 @@
       "patterns": [
         "*.fastq.gz","*.fq.gz"
       ],
-      "help": ""
+      "help": "FastQ R2"
     },
     {
       "name": "sampleid",
@@ -86,5 +87,16 @@
         }
       }
     }
-  }
+  },
+    "details": {
+  "upstreamProjects": [
+    {
+      "name": "Trim Galore",
+      "repoUrl": "https://www.bioinformatics.babraham.ac.uk/projects/trim_galore",
+      "version": " v0.4.1",
+      "license": "GPL-3.0-or-later",
+      "author": "Felix Krueger"
+    }
+  ]
+ }
 }

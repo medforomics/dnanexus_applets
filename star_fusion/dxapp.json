@@ -2,8 +2,9 @@
   "name": "star_fusion",
   "title": "STAR-Fusion",
   "summary": "STAR-Fusion identifies Gene Fusions in Paired-End RNASeq",
-  "dxapi": "1.0.4",
-  "version": "1.0.4",
+  "dxapi": "1.0.0",
+  "version": "1.0.0",
+  "openSource": true,
   "inputSpec": [
     {
       "name": "fq1",
@@ -88,5 +89,35 @@
         }
       }
     }
-  }
+  },
+  "details": {
+  "upstreamProjects": [
+    {
+      "name": "Star-Fusion",
+      "repoUrl": "https://github.com/STAR-Fusion/STAR-Fusion/wiki",
+      "version": "v1.9.1",
+      "license": "BSD 2-Clause",
+      "licenseUrl": "https://github.com/STAR-Fusion/STAR-Fusion/blob/master/LICENSE",
+      "author": "Brian Haas"
+    },
+    {
+      "name": "AGFusion",
+      "repoUrl": "https://github.com/murphycj/AGFusion",
+      "version": "v1.25",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/murphycj/AGFusion/blob/master/LICENSE.txt",
+      "author": "Charles Murphy"
+    }
+
+  ],
+  "citations": [
+    " https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1842-9",
+    "http://dx.doi.org/10.1101/080903"
+  ]
+
+ }
+
 }
+
+
+ 

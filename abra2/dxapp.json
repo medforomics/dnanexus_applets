@@ -1,19 +1,20 @@
 {
   "name": "abra2",
   "title": "Abra2",
-  "summary": "This applet does BAM realignment with ABRA2",
-  "dxapi": "1.0.4",
-  "version": "1.0.4",
+  "summary": "Realigns alignments in BAM around insertions and deletions using ABRA2",
+  "dxapi": "1.0.0",
+  "version": "1.0.0",
+  "openSource": true,
   "inputSpec": [
    {
-       "name": "tbam",
+      "name": "tbam",
       "label": "Tumor Sorted BAM (.bam)",
       "class": "file",
       "optional": false,
       "patterns": [
         "*.bam"
       ],
-      "help": ""
+      "help": " Tumor BAM File"
     },
    {
       "name": "nbam",
@@ -23,7 +24,7 @@
       "patterns": [
         "*.bam"
       ],
-      "help": ""
+      "help": "Matched Normal BAM File"
     },
     {
       "name": "reference",
@@ -33,7 +34,7 @@
       "patterns": [
         "*.tar.gz"
       ],
-      "help": ""
+      "help": "tar gzip directory containing fasta reference file called genome.fa"
     },
     {
       "name": "panel",
@@ -43,7 +44,7 @@
       "patterns": [
         "*.tar.gz"
       ],
-      "help": ""
+      "help": "(Optional) tar gzip containing target bed file called targetpanel.bed"
     },
    {
       "name": "caseid",
@@ -102,6 +103,7 @@
     },
     "interpreter": "bash",
     "release": "16.04",
+    "version": "1",
     "distribution": "Ubuntu",
     "file": "src/abra2.sh"
   },
@@ -118,5 +120,29 @@
         }
       }
     }
-  }
+  },
+  "details": {
+   "upstreamProjects": [
+    {
+      "name": "Samtools",
+      "repoUrl": "http://www.htslib.org",
+      "version": "1.10",
+      "license": "BSD, MIT",
+      "licenseUrl": "https://github.com/samtools/samtools/blob/develop/LICENSE",
+      "author": "Heng Li"
+    },
+    {
+      "name": "ABRA2",
+      "repoUrl": "https://github.com/mozack/abra2",
+      "version": "2.20",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/mozack/abra2/blob/master/LICENSE.txt",
+      "author": "Lisle Mose"
+   }
+   ],
+     "citations": [
+    "https://doi.org/10.1093/bioinformatics/btz033",
+    "https://pubmed.ncbi.nlm.nih.gov/19505943/"
+  ]
+ }
 }

@@ -2,8 +2,9 @@
   "name": "dna_bamqc",
   "title": "DNA BAM QC",
   "summary": "Calculates QC of Alignment",
-  "dxapi": "1.0.4",
-  "version": "1.0.4",
+  "dxapi": "1.0.0",
+  "version": "1.0.0",
+  "openSource": true,
   "inputSpec": [
     {
       "name": "bam",
@@ -98,5 +99,40 @@
         }
       }
     }
-  }
+  },
+  "details": {
+  "upstreamProjects": [
+     {
+      "name": "Picard",
+      "repoUrl": "https://broadinstitute.github.io/picard/",
+      "version": "2.21.7",
+      "license": "MIT"
+    },
+    {
+      "name": "FastQC",
+      "repoUrl": "https://www.bioinformatics.babraham.ac.uk/projects/fastqc ",
+      "version": "v0.11.5",
+      "license": "GPL-3.0-or-later",
+      "author": "Simon Andrews"
+    },
+    {
+      "name": "Bedtools",
+      "repoUrl": "https://bedtools.readthedocs.io/en/latest",
+      "version": "2.29.2",
+      "license": "GPL-2",
+      "author": "Aaron Quinlan"
+    },
+    {
+      "name": "Samtools",
+      "repoUrl": "http://www.htslib.org",
+      "version": "1.10",
+      "license": "BSD, MIT",
+      "licenseUrl": "https://github.com/samtools/samtools/blob/develop/LICENSE",
+      "author": "Heng Li"
+    }
+   ],
+     "citations": [
+    "arXiv:1303.3997v2"
+  ]
+ }
 }

@@ -21,9 +21,9 @@ RUN  pip install matplotlib==2.2.5; pip install pandas==0.24.2; pip install biop
 
 ENV repodir /seqprg
 RUN mkdir -p /seqprg; \
-    cd /seqprg; wget https://github.com/bcantarel/process_scripts/archive/version_1.0.6.tar.gz; tar xvfz version_1.0.6.tar.gz; \
-    #git clone -b version_1.0.6 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \
-    mv process_scripts-version_1.0.6 process_scripts; cd process_scripts; \
+    cd /seqprg; wget https://github.com/bcantarel/process_scripts/archive/version_1.0.7.tar.gz; tar xvfz version_1.0.7.tar.gz; \
+    #git clone -b version_1.0.7 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \
+    mv process_scripts-version_1.0.7 process_scripts; cd process_scripts; \
     cp -r alignment/* /usr/local/bin/; \
     cp -r variants/* /usr/local/bin/
 

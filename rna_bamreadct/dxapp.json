@@ -2,8 +2,9 @@
   "name": "rna_bamreadct",
   "title": "BAM-ReadCount",
   "summary": "Positional allele-specific read count from BAM",
-  "dxapi": "1.0.4",
-  "version": "1.0.4",
+  "dxapi": "1.0.0",
+  "version": "1.0.0",
+  "openSource": true,
   "inputSpec": [
     {
       "name": "bam",
@@ -13,7 +14,7 @@
       "patterns": [
         "*.bam"
       ],
-      "help": ""
+      "help": "BAM File"
     },
     {
       "name": "sampleid",
@@ -30,7 +31,7 @@
       "patterns": [
         "*.tar.gz"
       ],
-      "help": ""
+      "help": "Panel Reference File"
     },
     {
       "name": "reference",
@@ -40,7 +41,7 @@
         "patterns": [
             "*.tar.gz"
         ],
-      "help": ""
+      "help": "Reference Sequence File"
     }
   ],
   "outputSpec": [
@@ -79,5 +80,15 @@
         }
       }
     }
-  }
+  },
+  "details": {
+  "upstreamProjects": [
+    {
+      "name": "BAM Read Count",
+      "repoUrl": "https://github.com/genome/bam-readcount",
+      "version": " v0.8.0",
+      "license": "MIT"
+    }
+  ]
+ }
 }

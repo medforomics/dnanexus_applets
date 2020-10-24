@@ -2,7 +2,7 @@
 # Trim Galore 0.6.3
 trim_galore
 
-Uses
+## Uses
 - [docker.io/goalconsortium/trim_galore:0.5.40](https://hub.docker.com/repository/docker/goalconsortium/trim_galore/general)
   - trim_galore_v0.4.1
   - cutadapt==1.9.1

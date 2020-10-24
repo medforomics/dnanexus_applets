@@ -2,8 +2,9 @@
   "name": "rna_align",
   "title": "RNASeq Alignment",
   "summary": "Creates a BAM file from RNASeq data",
-  "dxapi": "1.0.4",
-  "version": "1.0.4",
+  "dxapi": "1.0.0",
+  "version": "1.0.0",
+  "openSource": true,
   "inputSpec": [
     {
 	"name": "fq1",
@@ -13,7 +14,7 @@
 	"patterns": [
             "*.fastq.gz","*.fq.gz"
 	],
-	"help": ""
+	"help": "FastQ R1"
     },
     {
       "name": "fq2",
@@ -23,7 +24,7 @@
 	"patterns": [
             "*.fastq.gz","*.fq.gz"
 	],
-      "help": ""
+      "help": "FastQ R2"
     },
     {
       "name": "reference",
@@ -33,7 +34,7 @@
 	"patterns": [
             "*.tar.gz"
 	],
-      "help": ""
+      "help": "HiSat2 Reference"
     },
     {
       "name": "sampleid",
@@ -48,7 +49,7 @@
       "class": "boolean",
 	"optional": false,
 	"default": true,
-      "help": ""
+      "help": "Are there UMI in the FastQ ReadName?"
     },
     {
       "name": "aligner",
@@ -112,5 +113,28 @@
         }
       }
     }
-  }
+  },
+  "details": {
+  "upstreamProjects": [
+    {
+      "name": "HiSAT2",
+      "repoUrl": "http://daehwankimlab.github.io/hisat2",
+      "version": "2.2.1",
+      "license": "GPL-3.0-or-later",
+      "author": "Daehwan Kim"
+    },
+    {
+      "name": "Samtools",
+      "repoUrl": "http://www.htslib.org",
+      "version": "1.10",
+      "license": "BSD, MIT",
+      "licenseUrl": "https://github.com/samtools/samtools/blob/develop/LICENSE",
+      "author": "Heng Li"
+    }
+  ],
+  "citations": [
+    "https://doi.org/10.1038/s41587-019-0201-4",
+    "https://pubmed.ncbi.nlm.nih.gov/19505943/"
+  ]
+ }
 }

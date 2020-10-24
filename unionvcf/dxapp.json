@@ -1,9 +1,11 @@
 {
-  "name": "integratevcf",
-  "title": "Intergrate VCF",
+  "name": "unionvcf",
+  "title": "Union VCF",
   "summary": "Combine VCF Outputs",
-  "dxapi": "1.0.4",
-  "version": "1.0.4",
+  "dxapi": "1.0.0",
+  "version": "1.0.0",
+  "openSource": true,
+  
   "inputSpec": [
      {
       "name": "vcffiles",
@@ -23,7 +25,7 @@
       "patterns": [
         "*"
       ],
-      "help": ""
+      "help": "genome.dict -- created with Picard CreateSequenceDictionary"
     },
     {
       "name": "caseid",
@@ -53,7 +55,7 @@
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/integratevcf.sh"
+    "file": "src/union.sh"
   },
   "access": {
     "network": [

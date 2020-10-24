@@ -25,9 +25,9 @@ RUN cd /opt; wget https://github.com/samtools/samtools/releases/download/1.10/sa
 # Install Scripts
 ENV repodir /seqprg
 RUN mkdir -p /seqprg; \
-    cd /seqprg; wget https://github.com/bcantarel/process_scripts/archive/version_1.0.6.tar.gz; tar xvfz version_1.0.6.tar.gz; \
-    #git clone -b version_1.0.6 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \
-    mv process_scripts-version_1.0.6 process_scripts; cd process_scripts; \
+    cd /seqprg; wget https://github.com/bcantarel/process_scripts/archive/version_1.0.7.tar.gz; tar xvfz version_1.0.7.tar.gz; \
+    #git clone -b version_1.0.7 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \
+    mv process_scripts-version_1.0.7 process_scripts; cd process_scripts; \
     cp -r alignment/* /usr/local/bin/; \
     cp -r variants/* /usr/local/bin/
 

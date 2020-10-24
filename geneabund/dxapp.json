@@ -2,8 +2,8 @@
   "name": "geneabund",
   "title": "Gene Abundance",
   "summary": "Calculates gene counts and fpkm values",
-  "dxapi": "1.0.4",
-  "version": "1.0.4",
+  "dxapi": "1.0.0",
+  "version": "1.0.0",
   "inputSpec": [
     {
       "name": "bam",
@@ -13,7 +13,7 @@
       "patterns": [
         "*.bam"
       ],
-      "help": ""
+      "help": "RNA BAM File"
     },
     {
       "name": "gtf",
@@ -23,7 +23,7 @@
       "patterns": [
         "*gtf.gz"
       ],
-      "help": ""
+      "help": "https://www.gencodegenes.org/human/"
     },
     {
       "name": "sampleid",
@@ -40,15 +40,15 @@
       "patterns": [
         "*tar.gz"
       ],
-      "help": ""
+      "help": "(Optional) File with the List of Gene Symbols if Hyb from a Gene Panel"
     },
     {
       "name": "stranded",
-      "label": "0(unstranded) 1(stranded) 2(reversely stranded)",
+      "label": "Stranded Library",
       "class": "int",
       "optional": false,
       "default": 0,
-      "help": ""
+      "help": "0(unstranded), 1(stranded), 2(reversely stranded)"
     }
   ],
   "outputSpec": [
@@ -104,5 +104,25 @@
         }
       }
     }
+  },
+    "details": {
+  "upstreamProjects": [
+    {
+      "name": "StringTie",
+      "repoUrl": "https://ccb.jhu.edu/software/stringtie/"
+      "version": "2.1.1",
+      "license": "MIT"
+      "author": "Mihaela Pertea"
+    },
+    {
+      "name": "FeatureCount",
+      "repoUrl": "http://subread.sourceforge.net"
+      "version": "2.0.1"
+     }
+   ],
+     "citations": [
+    "https://pubmed.ncbi.nlm.nih.gov/24227677/",
+    "doi:10.1186/s13059-019-1910-1"
+  ]
   }
 }
