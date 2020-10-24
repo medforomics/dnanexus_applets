@@ -181,6 +181,12 @@ gunzip cytoBand.txt.gz
   - in BED format called repeat_regions.bed.gz
   - use tabix to create index
 
+Create Tar Gzip File
+```
+cd ..
+tar cfz ref.tar.gz reference
+```
+
 **Panel Reference**
 - Target Panel Bed
 - MuTect2 PON VCF

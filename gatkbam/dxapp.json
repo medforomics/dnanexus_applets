@@ -2,8 +2,9 @@
   "name": "gatkbam",
   "title": "GATK BQSR",
   "summary": "This applet contains GATK and runs BQSR for BAM files for samples analyzed downstream by GATK",
-  "dxapi": "1.0.4",
-  "version": "1.0.4",
+  "dxapi": "1.0.0",
+  "version": "1.0.0",
+  "openSource": true,
   "inputSpec": [
    {
       "name": "bam",
@@ -13,7 +14,7 @@
       "patterns": [
         "*.bam"
       ],
-      "help": ""
+      "help": "BAM file with duplicates removed or marked"
     },
    {
       "name": "bai",
@@ -23,7 +24,7 @@
       "patterns": [
         "*.bai"
       ],
-      "help": ""
+      "help": "BAM File Index"
     },
     {
       "name": "reference",
@@ -87,5 +88,22 @@
         }
       }
     }
-  }
+  },
+  "details": {
+  "upstreamProjects": [
+    {
+      "name": "GATK4",
+      "repoUrl": "https://gatk.broadinstitute.org/hc/en-us",
+      "version": "4.1.4.0",
+      "license": "BSD 3-Clause",
+      "licenseUrl": "https://github.com/broadinstitute/gatk/blob/master/LICENSE.TXT",
+      "citationUrl": "http://dx.doi.org/10.1038/ng.806",
+      "author": "Broad"
+    }
+  ],
+  "citations": [
+    "http://dx.doi.org/10.1038/ng.806"
+  ]
+ }
+
 }

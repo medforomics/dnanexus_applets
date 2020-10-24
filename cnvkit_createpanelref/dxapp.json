@@ -3,7 +3,8 @@
   "title": "CNVKit Panel Reference File Generator",
   "summary": "This app will take a bed file and a set of panel of normals BAMs to generate reference files for running CNVkit",
   "dxapi": "1.0.0",
-  "version": "0.0.1",
+  "openSource": true,
+  "version": "1.0.0",
   "inputSpec": [
     {
       "name": "bams",
@@ -13,7 +14,7 @@
       "patterns": [
         "*.bam"
       ],
-      "help": ""
+      "help": "Panel of Normal Bam Files"
     },
     {
       "name": "panelbed",
@@ -23,17 +24,17 @@
       "patterns": [
         "*.bed"
       ],
-      "help": ""
+      "help": "Target BedFile"
     },
     {
       "name": "reference",
-      "label": "Reference FastA + Annotation File (tar gz)",
+      "label": "Reference (tar gz)",
       "class": "file",
       "optional": true,
       "patterns": [
         "*.tar.gz"
       ],
-      "help": ""
+      "help": "Reference FastA + Annotation File"
     }
   ],
   "outputSpec": [
@@ -72,5 +73,21 @@
         }
       }
     }
-  }
+  },
+     "details": {
+  "upstreamProjects": [
+        {
+      "name": "CNVKit"
+      "repoUrl": "https://cnvkit.readthedocs.io/en/stable/",
+      "version": "0.9.7",
+      "license": "Apache 2.0",
+      "author": "Eric Talevich",
+      "citationUrl": "http://dx.doi.org/10.1371/journal.pcbi.1004873"
+    }
+  ],
+  "citations": [
+   "http://dx.doi.org/10.1371/journal.pcbi.1004873" 
+  ]
+ }
+
 }

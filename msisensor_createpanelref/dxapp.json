@@ -13,17 +13,17 @@
       "patterns": [
         "*.bam"
       ],
-      "help": ""
+      "help": "Panel of Normal BAM Files"
     },
     {
       "name": "reference",
-      "label": "Reference FastA + Annotation File (tar gz)",
+      "label": "Reference (tar gz)",
       "class": "file",
       "optional": true,
       "patterns": [
         "*.tar.gz"
       ],
-      "help": ""
+      "help": "Reference FastA"
     }
   ],
   "outputSpec": [
@@ -62,5 +62,22 @@
         }
       }
     }
-  }
+  },
+  "details": {
+  "upstreamProjects": [
+    {
+      "name": "MSISensor Pro",
+      "repoUrl": "https://github.com/xjtu-omics/msisensor-pro",
+      "version": "1.0.a",
+      "licenseUrl": "https://github.com/xjtu-omics/msisensor-pro/blob/master/LICENSE"
+      "author": "Peng Jia"
+    }
+
+  ],
+  "citations": [
+    "https://doi.org/10.1016/j.gpb.2020.02.001"
+  ]
+
+ }
+
 }

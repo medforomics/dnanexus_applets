@@ -2,8 +2,9 @@
   "name": "sv_calling",
   "title": "Structural Variants Calling",
   "summary": "This applet contains variant calling methods for tumor only and somatic workflows. Including pindel, delly, svaba, cnvkit and itdseek",
-  "dxapi": "1.0.4",
-  "version": "1.0.4",
+  "dxapi": "1.0.0",
+  "version": "1.0.0",
+  "openSource": true,
   "inputSpec": [
    {
       "name": "tbam",
