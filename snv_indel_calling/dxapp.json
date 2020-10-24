@@ -118,6 +118,7 @@
     {
       "name": "Platypus",
       "repoUrl": "https://www.rdm.ox.ac.uk/research/lunter-group/lunter-group/platypus-a-haplotype-based-variant-caller-for-next-generation-sequence-data",
+      "citationUrl": "https://www.nature.com/articles/ng.3036",
       "version": "0.8.0",
       "author": "Gerton Lunter"
     },
@@ -127,12 +128,14 @@
       "version": "1.10,1.10.2,1.10.2",
       "license": "BSD 3-Clause",
       "licenseUrl": "https://github.com/broadinstitute/gatk/blob/master/LICENSE.TXT",
+      "citationUrl": "https://www.biorxiv.org/content/10.1101/861054v1",
       "author": "BROAD"
     },
     {
       "name": "Shimmer",
       "repoUrl": "https://github.com/nhansen/Shimmer",
       "version": "0.1.2",
+      "citationURL":"https://dx.doi.org/10.1093%2Fbioinformatics%2Fbtt183",
       "author": "Nancy Hansen"
     },
     {
@@ -141,6 +144,7 @@
       "version": "v1.2.0",
       "license": "MIT",
       "licenseUrl": "https://github.com/ekg/freebayes/blob/master/LICENSE",
+      "citationUrl": "https://arxiv.org/abs/1207.3907",
       "author": "Eric Garrison"
     },
     {
@@ -148,15 +152,16 @@
       "repoUrl": "https://sourceforge.net/projects/snpeff",
       "version": "v4_3t",
       "license": "LGPLv3",
-      "licenseUrl": "https://github.com/samtools/samtools/blob/develop/LICENSE",
+      "citationUrl": "https://doi.org/10.4161/fly.19695",
       "author": "Pablo Cingolani"
     },
     {
       "name": "VCFTools",
       "repoUrl": "https://github.com/vcftools/vcftools",
       "version": "0.1.14",
-      "license": "BSD 3",
+      "license": "LGPLv3",
       "licenseUrl": "https://github.com/vcftools/vcftools/blob/master/LICENSE",
+      "citationUrl": "http://dx.doi.org/10.1093/bioinformatics/btr330",
       "author": "Adam Auton, Petr Danecek, Anthony Marcketta"
     },
     {
@@ -165,13 +170,15 @@
       "version": "0.57721", 
       "license": "MIT",
       "licenseUrl": "https://github.com/atks/vt/blob/master/LICENSE",
-      "author": "Heng Li"
+      "citationURL": "https://doi.org/10.1093/bioinformatics/btv112",
+      "author": "Adrian Tan"
     },
     {
       "name": "Bedtools",
       "repoUrl": "https://bedtools.readthedocs.io/en/latest",
       "version": "2.29.2",
       "license": "GPL-2",
+      "citationURL": "https://doi.org/10.1093/bioinformatics/btq033",
       "author": "Aaron Quinlan"
     },
     {
@@ -180,6 +187,7 @@
       "version": "2.9.10"
       "license": "GPL 3",
       "licenseUrl": "https://github.com/Illumina/strelka/blob/v2.9.x/LICENSE.txt",
+      "citationUrl": "https://doi.org/10.1038/s41592-018-0051-x",
       "author": "Illumina"
     },
     {
@@ -188,18 +196,18 @@
       "version": "1.10,1.10.2,1.10.2",
       "license": "BSD, MIT",
       "licenseUrl": "https://github.com/samtools/samtools/blob/develop/LICENSE",
+      "citationUrl": "https://pubmed.ncbi.nlm.nih.gov/19505943/",
       "author": "Heng Li"
     }
    ],
-     "citations": [
-    "https://pubmed.ncbi.nlm.nih.gov/19505943/",
-    "doi:10.1038/ng.3036",
+  "citations": [
+    "https://www.nature.com/articles/ng.3036",
     "https://www.biorxiv.org/content/10.1101/861054v1",
-    "https://doi.org/10.1093/bioinformatics/btv112",
+    "https://doi.org/10.4161/fly.19695",
+    "http://dx.doi.org/10.1093/bioinformatics/btr330",
     "https://doi.org/10.1038/s41592-018-0051-x",
-    "https://dx.doi.org/10.1093%2Fbioinformatics%2Fbtt183",
-    "arXiv:1207.3907",
-    "https://doi.org/10.4161/fly.19695"
+    "https://arxiv.org/abs/1207.3907",
+    "https://pubmed.ncbi.nlm.nih.gov/19505943/"
   ]
  }
 }

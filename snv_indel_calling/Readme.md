@@ -182,6 +182,14 @@ gunzip cytoBand.txt.gz
   - use tabix to create index
 
 **Panel Reference**
+- Target Panel Bed
+- MuTect2 PON VCF
+  - GRCh38
+    - gs://gatk-best-practices/somatic-hg38/1000g_pon.hg38.vcf.gz
+  - GRCh37
+    - gs://gatk-best-practices/somatic-b37/Mutect2-exome-panel.vcf
+    
 ```
-tar cfz panel.tar.gz targetpanel.bed
+mv 1000g_pon.hg38.vcf.gz mutect.pon.vcf.gz
+tar cfz panel.tar.gz mutect.pon.vcf.gz targetpanel.bed
 ```

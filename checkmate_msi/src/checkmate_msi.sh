@@ -20,7 +20,11 @@ main() {
     if [ -n "$panel" ]
     then
         dx download "$panel" -o panel.tar.gz
-         docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.7 tar -I pigz -xvf panel.tar.gz
+        docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.7 tar -I pigz -xvf panel.tar.gz
+	if [[  -f microsatellites.list_baseline ]]
+	then
+	    cp microsatellites.list* dnaref
+	fi
     fi
 
     docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.7 bash /seqprg/process_scripts/alignment/indexbams.sh
