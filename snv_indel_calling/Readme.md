@@ -48,7 +48,7 @@ cd reference
 java -jar picard.jar CreateSequenceDictionary R=genome.fa O=genome.dict
 samtools faidx genome.fa
 cut -f 1,2 genome.fa.fai > genomefile.txt
-fasta_generate_regions.py genome.fa.fai 5000000 > genomefile.5M.txt
+bedtools makewindows -g genomefile.chr.txt -w 5000000 | awk '{print ":""-"}'|sed 's/:0-/:1-/' > genomefile.5M.txt
 ```
 
 - PlatRef.header
