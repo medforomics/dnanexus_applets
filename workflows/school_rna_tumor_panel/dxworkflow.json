@@ -1,8 +1,8 @@
 {
-  "name": "rnaseq",
-  "title": "RNA Gene Abundance Analysis",
+  "name": "school_rna_tumor_panel",
+  "title": "RNA TumorPanel Gene Fusion and Gene Expression Workflow",
   "version": "1.0.0",
-  "summary": "RNASeq Analysis HiSAT->featureCount",
+  "summary": "RNASeq Panel with Gene Fusion Discovery",
   "inputs": [
     {
       "name": "FqR1",
@@ -13,13 +13,12 @@
       "class": "file"
     },
     {
-      "name": "SampleID",
+      "name": "CaseID",
       "class": "string"
     },
     {
-      "name": "markdups",
-      "class": "string",
-      "default": "picard"
+      "name": "SampleID",
+      "class": "string"
     }
   ],
   "stages": [
@@ -47,6 +46,42 @@
       "systemRequirements": {
 	"main": {
 	  "instanceType": "mem1_ssd1_v2_x2"
+	}
+      }
+    },
+    {
+      "id": "stage-Fvpbg300Y9g139Y04b101qJb",
+      "name": "STAR-Fusion",
+      "folder":"rnaout",
+      "executable": "app-FyG7xJQ0X8bkjK3X4zb9zygb",
+      "input": {
+	"fq2": {
+	  "$dnanexus_link": {
+	    "outputField": "trim2",
+	    "stage": "stage-FvpbfxQ0Y9g3F8gZ5VK3FYp1"
+	  }
+	},
+	"fq1": {
+	  "$dnanexus_link": {
+	    "outputField": "trim1",
+	    "stage": "stage-FvpbfxQ0Y9g3F8gZ5VK3FYp1"
+	  }
+	},
+	"reference": {
+	  "$dnanexus_link": "file-FvX7Z700P95VYbgK1pb7y36Y"
+	},
+	"panel": {
+	  "$dnanexus_link": "file-FvYJyZ00Y9g95GFQ595YB503"
+	},
+	"sampleid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "SampleID"
+	  }
+	}
+      },
+      "systemRequirements": {
+	"main": {
+	  "instanceType": "mem3_ssd1_v2_x8"
 	}
       }
     },
@@ -84,37 +119,35 @@
       }
     },
     {
-      "id": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy",
-      "name": "MarkDuplicates BAM",
+      "id": "stage-FvyVYfj0Y9gPPfxP5033PXv2",
+      "name": "BAM Read Ct",
       "folder":"rnaout",
-      "executable": "app-FyFYfb002F11BBgy38vZV08v",
+      "executable": "app-FyG9jXQ00zB46KP85b3qqby3",
       "input": {
-	"mdup": {
-	  "$dnanexus_link": {
-	    "workflowInputField": "markdups"
-	  }
-	},
 	"sampleid": {
 	  "$dnanexus_link": {
 	    "workflowInputField": "SampleID"
 	  }
-        },
+	},
         "bam": {
           "$dnanexus_link": {
             "outputField": "bam",
             "stage": "stage-FvpbvKj0Y9gGjg1755vVf1Xv"
           }
         },
-        "bai": {
+        "reference": {
+          "$dnanexus_link": "file-FvXqGkj0Y9g77y9v25X5xyyY"
+        },
+        "panel": {
           "$dnanexus_link": {
-            "outputField": "bai",
-            "stage": "stage-FvpbvKj0Y9gGjg1755vVf1Xv"
+            "inputField": "panel",
+            "stage": "stage-Fvpbg300Y9g139Y04b101qJb"
           }
         }
       },
       "systemRequirements": {
 	"main": {
-	  "instanceType": "mem3_ssd1_v2_x4"
+	  "instanceType": "mem2_hdd2_x1"
 	}
       }
     },
@@ -156,12 +189,18 @@
       "input": {
 	"bam": {
 	  "$dnanexus_link": {
-	    "outputField": "dedupbam",
-	    "stage": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy"
+	    "outputField": "bam",
+	    "stage": "stage-FvpbvKj0Y9gGjg1755vVf1Xv"
 	  }
 	},
 	"gtf": {
 	  "$dnanexus_link": "file-FvX8YQ80Y9gKkYg719yJ1V0F"
+	},
+	"glist": {
+	  "$dnanexus_link": {
+	    "inputField": "panel",
+	    "stage": "stage-Fvpbg300Y9g139Y04b101qJb"
+	  }
 	},
 	"sampleid": {
 	  "$dnanexus_link": {
@@ -174,6 +213,42 @@
 	  "instanceType": "mem1_ssd1_v2_x2"
 	}
       }
+    },
+    {
+      "id": "stage-Fvpbxg00Y9gB0YG54GPgGPGP",
+      "name": "FreeBayes",
+      "folder":"rnavcf",
+      "executable": "app-FyGB0X00GJkZJFyP5qXfyV58",
+      "input": {
+	"tbam": {
+	  "$dnanexus_link": {
+	    "outputField": "bam",
+	    "stage": "stage-FvpbvKj0Y9gGjg1755vVf1Xv"
+	  }
+	},
+	"algo": "fb",
+	"reference": {
+	  "$dnanexus_link": "file-FxJxBF00Y9g627808FG4850K"
+	},
+	"panel": {
+	  "$dnanexus_link": {
+	    "inputField": "panel",
+	    "stage": "stage-Fvpbg300Y9g139Y04b101qJb"
+	  }
+	},
+	"caseid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "CaseID"
+	  }
+			      
+	}
+      },
+      "systemRequirements": {
+	"main": {
+	  "instanceType": "mem1_ssd1_v2_x16"
+	}
+      }
     }
   ]
 }
+  

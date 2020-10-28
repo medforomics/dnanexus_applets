@@ -1,7 +1,7 @@
 {
-  "name": "rna_align",
-  "title": "RNASeq Alignment",
-  "summary": "Creates a BAM file from RNASeq data",
+  "name": "school_rna_bamqc",
+  "title": "RNASeq Alignment QC",
+  "summary": "RNASeq Alignment QC, alignment stats and fastqc",
   "dxapi": "1.0.0",
   "version": "1.0.0",
   "openSource": true,
@@ -13,11 +13,11 @@
     "whatsNew": "",
     "upstreamProjects": [
       {
-	"name": "HiSAT2",
-	"repoUrl": "http://daehwankimlab.github.io/hisat2",
-	"version": "2.2.1",
+	"name": "FastQC",
+	"repoUrl": "https://www.bioinformatics.babraham.ac.uk/projects/fastqc ",
+	"version": "v0.11.5",
 	"license": "GPL-3.0-or-later",
-	"author": "Daehwan Kim"
+	"author": "Simon Andrews"
       },
       {
 	"name": "Samtools",
@@ -29,13 +29,13 @@
       }
     ],
     "citations": [
-      "doi: 10.1038/s41587-019-0201-4",
       "doi: 10.1093/bioinformatics/btp352"
     ]
   },
   "categories": [
     "RNA-Seq",
-    "Read Mapping"
+    "Reports",
+    "Read Manipulation"
   ],
   "developers": [
     "user-utswclia",
@@ -43,63 +43,34 @@
   ],
   "inputSpec": [
     {
-	"name": "fq1",
-	"label": "Fastq1",
-	"class": "file",
-	"optional": false,
-	"patterns": [
-            "*.fastq.gz","*.fq.gz"
-	],
-	"help": "FastQ R1"
-    },
-    {
-      "name": "fq2",
-      "label": "Fastq2",
+      "name": "bam",
+      "label": "BAM",
       "class": "file",
       "optional": false,
-	"patterns": [
-            "*.fastq.gz","*.fq.gz"
-	],
-      "help": "FastQ R2"
+      "patterns": [
+        "*.bam"
+      ],
+      "help": "BAM File"
     },
     {
-      "name": "reference",
-      "label": "Reference Files (tar.gz)",
+      "name": "alignstats",
+      "label": "Alignment Statistics",
       "class": "file",
       "optional": false,
-	"patterns": [
-            "*.tar.gz"
-	],
-      "help": "HiSat2 Reference"
+      "help": "Stats from HiSat2 (rna_align app)"
     },
     {
       "name": "sampleid",
-      "label": "ReadGroup/SampleID",
+      "label": "ReadGroup/SampleName",
       "class": "string",
       "optional": false,
-      "help": ""
-    },
-    {
-      "name": "umi",
-      "label": "UMI in ReadName",
-      "class": "boolean",
-	"optional": false,
-	"default": true,
-      "help": "Are there UMI in the FastQ ReadName?"
-    },
-    {
-      "name": "aligner",
-      "label": "Aligner to be used",
-      "class": "string",
-      "optional": false,
-      "default": "hisat",
       "help": ""
     }
   ],
   "outputSpec": [
     {
-      "name": "bam",
-      "label": "BAM file",
+      "name": "fastqczip",
+      "label": "FastQC output file (zip)",
       "class": "file",
       "patterns": [
         "*"
@@ -107,8 +78,8 @@
       "help": ""
     },
     {
-      "name": "bai",
-      "label": "BAM Index file",
+      "name": "fastqchtml",
+      "label": "FastQC output file (html)",
       "class": "file",
       "patterns": [
         "*"
@@ -116,8 +87,8 @@
       "help": ""
     },
     {
-      "name": "alignstats",
-      "label": "rnaseq alignment summary stats file",
+      "name": "seqstats",
+      "label": "Sequence Statistics output file",
       "class": "file",
       "patterns": [
         "*"
@@ -128,13 +99,13 @@
   "runSpec": {
     "timeoutPolicy": {
       "*": {
-        "hours": 2
+        "hours": 1
       }
     },
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/rna_align.sh"
+    "file": "src/school_rna_bamqc.sh"
   },
   "access": {
     "network": [
@@ -145,7 +116,7 @@
     "aws:us-east-1": {
       "systemRequirements": {
         "*": {
-          "instanceType": "mem1_ssd1_x8"
+          "instanceType": "mem1_ssd1_v2_x2"
         }
       }
     }

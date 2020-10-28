@@ -5,6 +5,33 @@
   "dxapi": "1.0.0",
   "openSource": true,
   "version": "1.0.0",
+  "details": {
+    "contactEmail": "genome.school@gmail.com",
+    "upstreamAuthor": "Brandi Cantarel",
+    "upstreamUrl": "https://github.com/GoalConsortium/dnanexus_applets",
+    "upstreamLicenses": ["MIT"],
+    "whatsNew": "",
+    "upstreamProjects": [
+      {
+	"name": "CNVKit",
+	"repoUrl": "https://cnvkit.readthedocs.io/en/stable/",
+	"version": "0.9.7",
+	"license": "Apache 2.0",
+	"author": "Eric Talevich",
+	"citationUrl": "http://dx.doi.org/10.1371/journal.pcbi.1004873"
+      }
+    ],
+    "citations": [
+      "doi: 10.1371/journal.pcbi.1004873" 
+    ]
+  },
+  "categories": [
+    "Structural Variation"
+  ],
+  "developers": [
+    "user-utswclia",
+    "user-jkuttan"
+  ],
   "inputSpec": [
     {
       "name": "bams",
@@ -74,20 +101,7 @@
       }
     }
   },
-     "details": {
-  "upstreamProjects": [
-        {
-      "name": "CNVKit"
-      "repoUrl": "https://cnvkit.readthedocs.io/en/stable/",
-      "version": "0.9.7",
-      "license": "Apache 2.0",
-      "author": "Eric Talevich",
-      "citationUrl": "http://dx.doi.org/10.1371/journal.pcbi.1004873"
-    }
-  ],
-  "citations": [
-   "http://dx.doi.org/10.1371/journal.pcbi.1004873" 
-  ]
+  "details": {
  }
 
 }

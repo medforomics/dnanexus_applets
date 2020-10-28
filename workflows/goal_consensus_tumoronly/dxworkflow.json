@@ -1,0 +1,434 @@
+{
+  "name": "goal_consensus_tumoronly",
+  "title": "GOAL Consenus Tumor Only Variant Detection Workflow",
+  "version": "1.0.0",
+  "summary": "Tumor Variant Detection",
+  "inputs": [
+    {
+      "name": "FqR1",
+      "class": "file"
+    },
+    {
+      "name": "FqR2",
+      "class": "file"
+    },
+    {
+      "name": "CaseID",
+      "class": "string"
+    },
+    {
+      "name": "SampleID",
+      "class": "string"
+    },
+    {
+      "name": "PanelFile",
+      "class": "file"
+    }
+  ],
+  "stages": [
+    {
+      "id": "stage-FxVjGjj0Y9g7G2bV8z6kq5Jv",
+      "name": "Trim Galore",
+      "executable": "app-FyFQk600g2zJ3ZzqFP8V78XB",
+      "input": {
+	"fq1": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "FqR1"
+	  } 
+	},
+	"fq2": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "FqR2"
+	  }
+	},
+	"sampleid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "SampleID"
+	  }
+	}
+      },
+      "systemRequirements": {
+	"main": {
+	  "instanceType": "mem1_ssd1_v2_x2"
+	}
+      }
+    },
+    {
+      "id": "stage-FxVjGq80Y9gF8VQP90B2G8kq",
+      "name": "DNA Alignment",
+      "folder":"dnaout",
+      "executable": "app-FyFY97j06fqYfKV5FP0qB0ZX",
+      "input": {
+	"sampleid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "SampleID"
+	  }
+	},
+        "fq1": {
+          "$dnanexus_link": {
+            "stage": "stage-FxVjGjj0Y9g7G2bV8z6kq5Jv",
+            "outputField": "trim1"
+          }
+        },
+        "fq2": {
+          "$dnanexus_link": {
+            "stage": "stage-FxVjGjj0Y9g7G2bV8z6kq5Jv",
+            "outputField": "trim2"
+          }
+        },
+	"humanref": {
+	  "$dnanexus_link": "file-FvPP4380Y9gK9k8384fYB6F5"
+	},
+	"virusref": {
+	  "$dnanexus_link": "file-FvPP4QQ0Y9g68JZFBX0PbK8x"
+	}
+      },
+      "systemRequirements": {
+        "main": {
+          "instanceType": "mem1_ssd1_v2_x16"
+        }
+      }
+    },
+    {
+      "id": "stage-FxVjGxQ0Y9g10x6JK0fVj72G",
+      "executable": "app-FyG3FYQ0jQ9pZVfGJy6KqQXV",
+      "name": "BAM QC",
+      "folder":"dnaout",
+      "input": {
+	"sampleid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "SampleID"
+	  }
+        },
+ 	"panel": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "PanelFile"
+	  }
+        },
+        "trimstat": {
+          "$dnanexus_link": {
+            "stage": "stage-FxVjGjj0Y9g7G2bV8z6kq5Jv",
+            "outputField": "trimreport"
+          }
+        },
+        "refinfo": {
+          "$dnanexus_link": "file-FvVYkf80Y9g5zV5x88fFZ22p"
+        },
+        "bam": {
+          "$dnanexus_link": {
+            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kq",
+            "outputField": "bam"
+          }
+        },
+        "bai": {
+          "$dnanexus_link": {
+            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kq",
+            "outputField": "bai"
+          }
+        }
+      }
+    },
+    {
+      "id": "stage-FxVjJ180Y9g10x6JK0fVj72J",
+      "name": "Abra2",
+  "executable": "app-Fy9Zxx80qx8qY0xZPZ0X1gQj",
+      "input": {
+      	"caseid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "CaseID"
+	  }
+	},
+       "reference": {
+          "$dnanexus_link": "file-FvZ2P3j0Y9g91by34BGKzkjp"
+        },
+ 	"panel": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "PanelFile"
+	  }
+        },
+        "tbam": {
+          "$dnanexus_link": {
+            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kq",
+            "outputField": "bam"
+          }
+        }
+      },
+      "systemRequirements": {
+        "main": {
+          "instanceType": "mem1_ssd1_v2_x16"
+        }
+      }
+    },
+    {
+      "id": "stage-FxVjJ5Q0Y9g10x6JK0fVj72P",
+      "name": "Variant Profiling",
+      "folder":"dnacallset",
+      "executable": "app-FyG39zQ0gKbzbGPfPFZ2pJBJ",
+      "input": {
+     	"caseid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "CaseID"
+	  }
+	},
+  	"panel": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "PanelFile"
+	  }
+        },
+       "reference": {
+          "$dnanexus_link": "file-FvZ2P3j0Y9g91by34BGKzkjp"
+        },
+      "tbam": {
+          "$dnanexus_link": {
+            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kq",
+            "outputField": "bam"
+          }
+        }
+      },
+      "systemRequirements": {
+        "main": {
+          "instanceType": "mem2_ssd1_v2_x2"
+        }
+      }
+    },
+    {
+      "id": "stage-FxVjJ8j0Y9gBpjgJ5VPKB85j",
+      "name": "SV Calling",
+      "folder":"dnacallset",
+      "executable": "app-FyG9vbj03XKy1jq056gbq16Q",
+      "input": {
+     	"caseid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "CaseID"
+	  }
+	},
+  	"panel": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "PanelFile"
+	  }
+        },
+        "reference": {
+          "$dnanexus_link": "file-FxgGFPj0Y9g00V6b2bGYKz6f"
+        },
+	"tbam": {
+          "$dnanexus_link": {
+            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kq",
+            "outputField": "bam"
+          }
+        },
+        "algo": "delly svaba cnvkit itdseek"
+      },
+      "systemRequirements": {
+        "main": {
+          "instanceType": "mem1_ssd1_v2_x16"
+        }
+      }
+    },
+    {
+      "id": "stage-FxVjJB80Y9g23YP757JPQ3q3",
+      "name": "Pindel",
+      "folder":"dnacallset",
+      "executable": "app-FyG9vbj03XKy1jq056gbq16Q",
+      "input": {
+      	"caseid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "CaseID"
+	  }
+	},
+  	"panel": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "PanelFile"
+	  }
+        },
+        "reference": {
+          "$dnanexus_link": "file-FxgGFPj0Y9g00V6b2bGYKz6f"
+        },
+       "tbam": {
+          "$dnanexus_link": {
+            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kq",
+            "outputField": "bam"
+          }
+        },
+        "algo": "pindel"
+      },
+      "systemRequirements": {
+        "main": {
+          "instanceType": "mem1_ssd1_v2_x16"
+        }
+      }
+    },
+    {
+      "id": "stage-FxVjJ3j0Y9g9kpv15jF8vjBY",
+      "executable": "app-FyFYfb002F11BBgy38vZV08v",
+      "name": "MarkDuplicates",
+      "folder":"dnaout",
+      "input": {
+ 	"mdup": "picard_umi",
+	"sampleid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "SampleID"
+	  }
+        },
+	"humanref": {
+	  "$dnanexus_link": "file-FvPP4380Y9gK9k8384fYB6F5"
+	},
+        "bam": {
+          "$dnanexus_link": {
+            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kq",
+            "outputField": "bam"
+          }
+        },
+        "bai": {
+          "$dnanexus_link": {
+            "stage": "stage-FxVjGq80Y9gF8VQP90B2G8kq",
+            "outputField": "bai"
+          }
+        }
+      },
+      "systemRequirements": {
+	"main": {
+	  "instanceType": "mem2_ssd1_v2_x2"
+	}
+      }
+    },
+    {
+      "id": "stage-FxVjJGQ0Y9g3jZz75fkZGG02",
+      "name": "SNV Indel Calling",
+      "folder":"dnacallset",
+      "executable": "app-FyGB0X00GJkZJFyP5qXfyV58",
+      "input": {
+        "algo": "fb strelka2",
+  	"caseid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "CaseID"
+	  }
+	},
+   	"panel": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "PanelFile"
+	  }
+        },
+       "reference": {
+          "$dnanexus_link": "file-FxJxBF00Y9g627808FG4850K"
+        },
+         "tbam": {
+          "$dnanexus_link": {
+            "stage": "stage-FxVjJ3j0Y9g9kpv15jF8vjBY",
+            "outputField": "dedupbam"
+          }
+        }
+      },
+      "systemRequirements": {
+        "main": {
+          "instanceType": "mem1_ssd1_v2_x16"
+        }
+      }
+    },
+    {
+      "id": "stage-FxVjJJ80Y9g3jZz75fkZGG03",
+      "name": "GATK BQSR", 
+      "executable": "app-FyG44FQ0P1bkYpF177FxykjG",
+      "input": {
+ 	"sampleid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "SampleID"
+	  }
+        },
+       "reference": {
+          "$dnanexus_link": "file-FxJxBF00Y9g627808FG4850K"
+        },
+       "bam": {
+          "$dnanexus_link": {
+            "stage": "stage-FxVjJ3j0Y9g9kpv15jF8vjBY",
+            "outputField": "dedupbam"
+          }
+        },
+       "bai": {
+          "$dnanexus_link": {
+            "stage": "stage-FxVjJ3j0Y9g9kpv15jF8vjBY",
+            "outputField": "dedupbai"
+          }
+        }
+      },
+      "systemRequirements": {
+	"main": {
+	  "instanceType": "mem3_hdd2_x2"
+	}
+      }
+    },
+    {
+      "id": "stage-FxVjJJj0Y9g919g45f3JY9Jq",
+      "name": "Mutect2",
+      "folder":"dnacallset",
+      "executable": "app-FyGB0X00GJkZJFyP5qXfyV58",
+      "input": {
+        "algo": "mutect",
+  	"caseid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "CaseID"
+	  }
+	},
+   	"panel": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "PanelFile"
+	  }
+        },
+        "tbam": {
+          "$dnanexus_link": {
+            "stage": "stage-FxVjJJ80Y9g3jZz75fkZGG03",
+            "outputField": "gatkbam"
+          }
+        },
+        "reference": {
+          "$dnanexus_link": "file-FxJxBF00Y9g627808FG4850K"
+        }
+      },
+      "systemRequirements": {
+        "main": {
+          "instanceType": "mem3_ssd1_v2_x4"
+        }
+      }
+    },
+    {
+      "id": "stage-FxVjJQ80Y9g196Q0KP2v3718",
+      "name": "Union VCF",
+      "folder":"dnavcf",
+      "executable": "app-FyG46500VvvJ0B57B9kjy1zk",
+      "input": {
+   	"caseid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "CaseID"
+	  }
+	},
+        "vcffiles": [
+          {
+            "$dnanexus_link": {
+              "stage": "stage-FxVjJJj0Y9g919g45f3JY9Jq",
+              "outputField": "vcf"
+            }
+          },
+          {
+            "$dnanexus_link": {
+              "stage": "stage-FxVjJGQ0Y9g3jZz75fkZGG02",
+              "outputField": "vcf"
+            }
+          },
+          {
+            "$dnanexus_link": {
+              "stage": "stage-FxVjJB80Y9g23YP757JPQ3q3",
+              "outputField": "vcf"
+            }
+          }
+        ],
+        "genodict": {
+          "$dnanexus_link": "file-FvQykqj0Y9gPXZ7QG3Z4K2GP"
+        }
+      },
+      "systemRequirements": {
+	"main": {
+	  "instanceType": "mem1_ssd1_v2_x2"
+	}
+      }
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "name": "school_dna_align",
+  "title": "DNA Alignment Fq to Sorted BAM",
+  "summary": "Aligns FastQ files to a reference genome using BWA and create a Sorted BAM using Samtools",
+  "dxapi": "1.0.0",
+  "version": "1.0.0",
+  "openSource": true,
+  "details": {
+    "contactEmail": "genome.school@gmail.com",
+    "upstreamAuthor": "Brandi Cantarel",
+    "upstreamUrl": "https://github.com/GoalConsortium/dnanexus_applets",
+    "upstreamLicenses": ["MIT"],
+    "whatsNew": "",
+      "upstreamProjects": [
+    {
+      "name": "BWA",
+      "repoUrl": "https://github.com/lh3/bwa",
+      "version": "0.7.15-r1140",
+      "license": "GPL-3.0-or-later",
+      "licenseUrl": "https://github.com/lh3/bwa/blob/08764215c6615ea52894e1ce9cd10d2a2faa37a6/COPYING",
+      "citationUrl": "https://arxiv.org/abs/1303.3997",
+      "author": "Heng Li"
+    },
+    {
+      "name": "Samtools",
+      "repoUrl": "http://www.htslib.org",
+      "version": "1.10",
+      "license": "BSD, MIT",
+      "licenseUrl": "https://github.com/samtools/samtools/blob/develop/LICENSE",
+      "citationUrl": "https://doi.org/10.1093/bioinformatics/btp352",
+      "author": "Heng Li"
+    }
+   ],
+     "citations": [
+    "arXiv: 1303.3997v2",
+    "doi: 10.1093/bioinformatics/btp352"
+  ]
+  },
+  "categories": [
+    "Read Mapping",
+    "Mappings Manipulation"
+  ],
+  "developers": [
+    "user-utswclia",
+    "user-jkuttan"
+  ],
+  "inputSpec": [
+    {
+      "name": "fq1",
+      "label": "Fastq1",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+          "*.fastq.gz","*.fq.gz"
+      ],
+      "help": "FastQ R1"
+    },
+    {
+      "name": "fq2",
+      "label": "Fastq2",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*.fastq.gz","*.fq.gz"
+      ],
+      "help": "FastQ R2"
+    },
+    {
+      "name": "humanref",
+      "label": "BWA Index Files for Human Genome (tar.gz)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*.tar.gz"
+      ],
+      "help": "tar gz file of BWA index files for Human Genome"
+    },
+    {
+      "name": "virusref",
+      "label": "BWA Index Files for Virus Genomes (tar.gz)",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*.tar.gz"
+      ],
+      "help": "(Optional) tar gz file of BWA index files for Viral Genome"
+    },
+    {
+      "name": "umi",
+      "label": "UMI in ReadName",
+      "class": "boolean",
+	"optional": true,
+	"default": true,
+      "help": "Is the UMI in the ReadName?"
+    },
+    {
+      "name": "sampleid",
+      "label": "ReadGroup/SampleID",
+      "class": "string",
+      "optional": false,
+      "help": ""
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "bam",
+      "label": "Sorted Bam",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "bai",
+      "label": "BAM index",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "vseqstat",
+      "label": "Virus Sequence Stats",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    }
+  ],
+  "runSpec": {
+      "timeoutPolicy": {
+      "*": {
+        "hours": 4
+      }
+    },
+    "interpreter": "bash",
+    "release": "16.04",
+    "distribution": "Ubuntu",
+    "file": "src/school_dna_align.sh"
+  },
+  "access": {
+    "network": [
+      "*"
+    ]
+  },
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_v2_x16"
+        }
+      }
+    }
+  }
+}

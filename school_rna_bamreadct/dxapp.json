@@ -1,7 +1,7 @@
 {
-  "name": "msisensor_createpanelref",
-  "title": "MSI Panel Reference File Generator",
-  "summary": "This app will take a set of panel of normals BAMs to generate reference files for running MSISensor Pro using Tumor Only Samples",
+  "name": "school_rna_bamreadct",
+  "title": "BAM-ReadCount",
+  "summary": "Positional allele-specific read count from BAM",
   "dxapi": "1.0.0",
   "version": "1.0.0",
   "openSource": true,
@@ -13,19 +13,16 @@
     "whatsNew": "",
     "upstreamProjects": [
       {
-	"name": "MSISensor Pro",
-	"repoUrl": "https://github.com/xjtu-omics/msisensor-pro",
-	"version": "1.0.a",
-	"licenseUrl": "https://github.com/xjtu-omics/msisensor-pro/blob/master/LICENSE",
-	"author": "Peng Jia"
+	"name": "BAM Read Count",
+	"repoUrl": "https://github.com/genome/bam-readcount",
+	"version": " v0.8.0",
+	"license": "MIT"
       }
-	
-    ],
-    "citations": [
-      "doi: 10.1016/j.gpb.2020.02.001"
     ]
   },
   "categories": [
+    "RNA-Seq",
+    "Mappings Manipulation",
     "Variation Calling"
   ],
   "developers": [
@@ -34,31 +31,49 @@
   ],
   "inputSpec": [
     {
-      "name": "bams",
-      "label": "BAMs",
-      "class": "array:file",
+      "name": "bam",
+      "label": "Sorted BAM",
+      "class": "file",
       "optional": false,
       "patterns": [
         "*.bam"
       ],
-      "help": "Panel of Normal BAM Files"
+      "help": "BAM File"
     },
     {
-      "name": "reference",
-      "label": "Reference (tar gz)",
+      "name": "sampleid",
+      "label": "ReadGroup/SampleID",
+      "class": "string",
+      "optional": false,
+      "help": ""
+    },
+    {
+      "name": "panel",
+      "label": "RNA Panel Files (tar.gz)",
       "class": "file",
       "optional": true,
       "patterns": [
         "*.tar.gz"
       ],
-      "help": "Reference FastA"
+      "help": "Panel Reference File"
+    },
+    {
+      "name": "reference",
+      "label": "Reference Files (tar.gz)",
+      "class": "file",
+      "optional": false,
+        "patterns": [
+            "*.tar.gz"
+        ],
+      "help": "Reference Sequence File"
     }
   ],
   "outputSpec": [
     {
-      "name": "msibase",
-      "label": "MSI Sensor Scan and Baseline Outfiles (tar.gz)",
+      "name": "bamreadct",
+      "label": "bam-readcount output file",
       "class": "file",
+      "optional": true,
       "patterns": [
         "*"
       ],
@@ -74,8 +89,7 @@
     "interpreter": "bash",
     "release": "16.04",
     "distribution": "Ubuntu",
-    "file": "src/msisensor_createpanelref.sh",
-    "version": "1"
+    "file": "src/school_rna_bamreadct.sh"
   },
   "access": {
     "network": [
@@ -86,13 +100,10 @@
     "aws:us-east-1": {
       "systemRequirements": {
         "*": {
-          "instanceType": "mem1_ssd1_v2_x2"
+          "instanceType": "mem2_hdd2_x1"
         }
       }
     }
-  },
-  "details": {
- 
- }
-
+  }
 }
+  

@@ -1,1 +1,0 @@
-../genect_rnaseq/dea.R

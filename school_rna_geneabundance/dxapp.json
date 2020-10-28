@@ -1,0 +1,143 @@
+{
+  "name": "school_rna_geneabundance",
+  "title": "Gene Abundance",
+  "summary": "Calculates gene counts and fpkm values",
+  "dxapi": "1.0.0",
+  "version": "1.0.0",
+  "openSource": true,
+  "details": {
+    "contactEmail": "genome.school@gmail.com",
+    "upstreamAuthor": "Brandi Cantarel",
+    "upstreamUrl": "https://github.com/GoalConsortium/dnanexus_applets",
+    "upstreamLicenses": ["MIT"],
+    "whatsNew": "",
+    "upstreamProjects": [
+      {
+	"name": "StringTie",
+	"repoUrl": "https://ccb.jhu.edu/software/stringtie/",
+	"version": "2.1.1",
+	"license": "MIT",
+	"author": "Mihaela Pertea"
+      },
+      {
+	"name": "FeatureCount",
+	"repoUrl": "http://subread.sourceforge.net",
+	"version": "2.0.1"
+      }
+    ],
+    "citations": [
+      "doi: 10.1093/bioinformatics/btt656",
+      "doi: 10.1186/s13059-019-1910-1"
+    ]
+  },
+  "categories": [
+    "RNA-Seq",
+    "Mappings Manipulation",
+    "Annotation"
+  ],
+  "developers": [
+    "user-utswclia",
+    "user-jkuttan"
+  ],
+  "inputSpec": [
+    {
+      "name": "bam",
+      "label": "BAM",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*.bam"
+      ],
+      "help": "RNA BAM File"
+    },
+    {
+      "name": "gtf",
+      "label": "Gencode GTF File",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*gtf.gz"
+      ],
+      "help": "https://www.gencodegenes.org/human/"
+    },
+    {
+      "name": "sampleid",
+      "label": "ReadGroup/SampleID",
+      "class": "string",
+      "optional": false,
+      "help": ""
+    },
+    {
+      "name": "glist",
+      "label": "Panel Gene List",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*tar.gz"
+      ],
+      "help": "(Optional) File with the List of Gene Symbols if Hyb from a Gene Panel"
+    },
+    {
+      "name": "stranded",
+      "label": "Stranded Library",
+      "class": "int",
+      "optional": false,
+      "default": 0,
+      "help": "0(unstranded), 1(stranded), 2(reversely stranded)"
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "counts",
+      "label": "featureCounts Gene Count File",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "strcts",
+      "label": "StringTie Output Files",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "fpkm",
+      "label": "StringTie FPKM File",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    }
+  ],
+  "runSpec": {
+    "timeoutPolicy": {
+      "*": {
+        "hours": 1
+      }
+    },
+    "interpreter": "bash",
+    "release": "16.04",
+    "distribution": "Ubuntu",
+    "file": "src/school_rna_geneabundance.sh"
+  },
+  "access": {
+    "network": [
+      "*"
+    ]
+  },
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_v2_x2"
+        }
+      }
+    }
+  }
+}

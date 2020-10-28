@@ -1,0 +1,241 @@
+{
+  "name": "school_sv_calling",
+  "title": "Structural Variants Calling",
+  "summary": "This applet contains variant calling methods for tumor only and somatic workflows. Including pindel, delly, svaba, cnvkit and itdseek",
+  "dxapi": "1.0.0",
+  "version": "1.0.0",
+  "openSource": true,
+  "details": {
+    "contactEmail": "genome.school@gmail.com",
+    "upstreamAuthor": "Brandi Cantarel",
+    "upstreamUrl": "https://github.com/GoalConsortium/dnanexus_applets",
+    "upstreamLicenses": ["MIT"],
+    "whatsNew": "",
+    "upstreamProjects": [
+      {
+	"name": "Picard",
+	"repoUrl": "https://broadinstitute.github.io/picard/",
+	"version": "2.21.7",
+	"license": "MIT"
+      },
+      {
+	"name": "Pindel",
+	"repoUrl": "https://github.com/genome/pindel",
+	"version": "v0.2.5b8",
+	"author": "Kai Ye",
+	"citationUrl": "https://dx.doi.org/10.1093%2Fbioinformatics%2Fbtp394"
+      },
+      {
+	"name": "CNVKit",
+	"repoUrl": "https://cnvkit.readthedocs.io/en/stable/",
+	"version": "0.9.7",
+	"license": "Apache 2.0",
+	"author": "Eric Talevich",
+	"citationUrl": "http://dx.doi.org/10.1371/journal.pcbi.1004873"
+      },
+      {
+	"name": "SVABA",
+	"repoUrl": "https://github.com/walaj/svaba",
+	"version": "0.1.1",
+	"license": "GPLv3",
+	"licenseUrl": "https://github.com/walaj/svaba/blob/master/LICENSE",
+	"citationUrl": "doi:10.1101/gr.221028.117",
+	"author": "Jeremiah Wala"
+      },
+      {
+	"name": "Delly",
+	"repoUrl": "https://github.com/dellytools/delly",
+	"version": "v1.2.0",
+	"license": "GPLv3",
+	"licenseUrl": "https://github.com/dellytools/delly/blob/master/LICENSE",
+	"citationUrl": "https://doi.org/10.1093/bioinformatics/bts378",
+	"author": "Tobias Rausch"
+      },
+      {
+	"name": "snpEFF",
+	"repoUrl": "https://sourceforge.net/projects/snpeff",
+	"version": "v4_3t",
+	"license": "LGPLv3",
+	"citationUrl": "https://doi.org/10.4161/fly.19695",
+	"author": "Pablo Cingolani"
+      },
+      {
+	"name": "VCFTools",
+	"repoUrl": "https://github.com/vcftools/vcftools",
+	"version": "0.1.14",
+	"license": "LGPLv3",
+	"licenseUrl": "https://github.com/vcftools/vcftools/blob/master/LICENSE",
+	"citationUrl": "http://dx.doi.org/10.1093/bioinformatics/btr330",
+	"author": "Adam Auton, Petr Danecek, Anthony Marcketta"
+    },
+      {
+	"name": "Bedtools",
+	"repoUrl": "https://bedtools.readthedocs.io/en/latest",
+	"version": "2.29.2",
+	"license": "GPL-2",
+	"citationURL": "https://doi.org/10.1093/bioinformatics/btq033",
+	"author": "Aaron Quinlan"
+      },
+      {
+      "name": "ITDSeek",
+      "repoUrl": "https://github.com/tommyau/itdseek",
+      "version": "v1.2",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/tommyau/itdseek/blob/master/LICENSE",
+      "citationUrl": "https://link.springer.com/article/10.1186/s13000-016-0456-8",
+      "author": "Tommy Au"
+      },
+      {
+	"name": "Samtools,BCFTools,htslib",
+	"repoUrl": "http://www.htslib.org",
+	"version": "1.10,1.10.2,1.10.2",
+	"license": "BSD, MIT",
+	"licenseUrl": "https://github.com/samtools/samtools/blob/develop/LICENSE",
+	"citationUrl": "https://pubmed.ncbi.nlm.nih.gov/19505943/",
+	"author": "Heng Li"
+      }
+    ],
+    "citations": [
+      "doi: 10.1093%2Fbioinformatics%2Fbtp394",
+      "doi: 10.1371/journal.pcbi.1004873",
+      "doi: 10.1101/gr.221028.117",
+      "doi: 10.1093/bioinformatics/bts378",
+      "doi: 10.4161/fly.19695",
+      "doi: 10.1186/s13000-016-0456-8",
+      "doi: 10.1093/bioinformatics/btp352"
+    ]
+  },
+  "categories": [
+    "Structural Variation",
+    "Annotation"
+  ],
+  "developers": [
+    "user-utswclia",
+    "user-jkuttan"
+  ],
+  "inputSpec": [
+    {
+      "name": "tbam",
+      "label": "Tumor BAM (.bam)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*.bam"
+      ],
+      "help": "Tumor BAM"
+    },
+    {
+      "name": "nbam",
+      "label": "Normal BAM (.bam)",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*.bam"
+      ],
+      "help": "Matched Normal BAM"
+    },
+    {
+      "name": "reference",
+      "label": "Reference Files (tar.gz)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*.tar.gz"
+      ],
+      "help": ""
+    },
+    {
+      "name": "panel",
+      "label": "Panel Files (tar.gz)",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*.tar.gz"
+      ],
+      "help": ""
+    },
+    {
+      "name": "caseid",
+      "label": "SubjectID/CaseID",
+      "class": "string",
+      "optional": false,
+      "help": ""
+    },
+    {
+	"name": "algo",
+	"label": "Variant Calling Algorithm (pindel delly svaba cnvkit itdseek)",
+	"class": "string",
+	"optional": false,
+	"default":"pindel_itd delly svaba cnvkit itdseek",
+	"help": ""
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "vcf",
+      "label": "VCF File Output",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "cnvout",
+	"label": "CNVKit Output Files",
+	"class": "file",
+      "optional": true,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "genefusion",
+      "label": "DNA Genefusion File Output",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "svvcf",
+      "label": "Structural Variant VCF File Output",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    }
+   ],
+  "runSpec": {
+    "timeoutPolicy": {
+      "*": {
+        "hours": 4
+      }
+    },
+    "interpreter": "bash",
+    "release": "16.04",
+    "distribution": "Ubuntu",
+    "file": "src/school_sv_calling.sh"
+  },
+  "access": {
+    "network": [
+      "*"
+    ]
+  },
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_v2_x16"
+        }
+      }
+    }
+  }
+}
+  

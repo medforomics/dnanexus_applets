@@ -1,0 +1,87 @@
+{
+  "name": "school_unionvcf",
+  "title": "Union VCF",
+  "summary": "Combine VCF Outputs",
+  "dxapi": "1.0.0",
+  "version": "1.0.0",
+  "openSource": true,
+  "details": {
+    "contactEmail": "genome.school@gmail.com",
+    "upstreamAuthor": "Brandi Cantarel",
+    "upstreamUrl": "https://github.com/GoalConsortium/dnanexus_applets",
+    "upstreamLicenses": ["MIT"],
+    "whatsNew": ""
+  },
+  "categories": [
+    "Variation Calling"
+  ],
+  "developers": [
+    "user-utswclia",
+    "user-jkuttan"
+  ],
+  "inputSpec": [
+     {
+      "name": "vcffiles",
+      "label": "VCF Files Tar Gz (Array)",
+      "class": "array:file",
+      "optional": false,
+      "patterns": [
+        "*.tar.gz"
+      ],
+      "help": ""
+    },
+    {
+      "name": "genodict",
+      "label": "Genome Dictionary File for VCF sorting",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": "genome.dict -- created with Picard CreateSequenceDictionary"
+    },
+    {
+      "name": "caseid",
+      "label": "SubjectID/CaseID",
+      "class": "string",
+      "optional": false,
+      "help": ""
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "union_vcf",
+      "label": "Union VCF",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    }
+  ],
+  "runSpec": {
+    "timeoutPolicy": {
+      "*": {
+        "hours": 1
+      }
+    },
+    "interpreter": "bash",
+    "release": "16.04",
+    "distribution": "Ubuntu",
+    "file": "src/school_unionvcf.sh"
+  },
+  "access": {
+    "network": [
+      "*"
+    ]
+  },
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_x2"
+        }
+      }
+    }
+  }
+}

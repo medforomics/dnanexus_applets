@@ -1,0 +1,151 @@
+{
+  "name": "dna_bamqc",
+  "title": "DNA BAM QC",
+  "summary": "Calculates QC of Alignment",
+  "dxapi": "1.0.0",
+  "version": "1.0.0",
+  "openSource": true,
+  "details": {
+    "contactEmail": "genome.school@gmail.com",
+    "upstreamAuthor": "Brandi Cantarel",
+    "upstreamUrl": "https://github.com/GoalConsortium/dnanexus_applets",
+    "upstreamLicenses": ["MIT"],
+    "whatsNew": "",
+    "upstreamProjects": [
+      {
+	"name": "Picard",
+	"repoUrl": "https://broadinstitute.github.io/picard/",
+	"version": "2.21.7",
+	"license": "MIT"
+      },
+      {
+	"name": "FastQC",
+	"repoUrl": "https://www.bioinformatics.babraham.ac.uk/projects/fastqc ",
+	"version": "v0.11.5",
+	"license": "GPL-3.0-or-later",
+	"author": "Simon Andrews"
+      },
+      {
+	"name": "Bedtools",
+	"repoUrl": "https://bedtools.readthedocs.io/en/latest",
+	"version": "2.29.2",
+	"license": "GPL-2",
+	"author": "Aaron Quinlan"
+      },
+      {
+	"name": "Samtools",
+	"repoUrl": "http://www.htslib.org",
+	"version": "1.10",
+	"license": "BSD, MIT",
+	"licenseUrl": "https://github.com/samtools/samtools/blob/develop/LICENSE",
+      "author": "Heng Li"
+      }
+    ],
+    "citations": [
+      "doi: 10.1093/bioinformatics/btp352"
+    ]
+  },
+  "categories": [
+    "Mappings Manipulation",
+    "Reports"
+  ],
+  "developers": [
+    "user-utswclia",
+    "user-jkuttan"
+  ],
+  "inputSpec": [
+    {
+      "name": "bam",
+      "label": "Raw BAM from alignment step (raw.bam)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*.bam"
+      ],
+      "help": ""
+    },
+    {
+      "name": "bai",
+      "label": "Raw BAI from alignment step (raw.bam.bai)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*.bai"
+      ],
+      "help": ""
+    },
+    {
+      "name": "refinfo",
+      "label": "Bedtools Genome File, Genome Fasta Index, reference_info.txt",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*.tar.gz"
+      ],
+      "help": ""
+    },
+    {
+      "name": "panel",
+      "label": "Panel Files (tar.gz)",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*.tar.gz"
+      ],
+      "help": ""
+    },
+    {
+      "name": "trimstat",
+      "label": "Trim Statistics Report from trim step",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*trimreport.txt"
+      ],
+      "help": ""
+    },
+    {
+      "name": "sampleid",
+      "label": "ReadGroup/SampleName",
+      "class": "string",
+      "optional": false,
+      "help": ""
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "seqstats",
+      "label": "concatenated sequence stats",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    }
+  ],
+  "runSpec": {
+    "timeoutPolicy": {
+      "*": {
+        "hours": 6
+      }
+    },
+    "interpreter": "bash",
+    "release": "16.04",
+    "distribution": "Ubuntu",
+    "file": "src/school_dna_bamqc.sh"
+  },
+  "access": {
+    "network": [
+      "*"
+    ]
+  },
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem3_ssd1_v2_x8"
+        }
+      }
+    }
+  }
+}
