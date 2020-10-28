@@ -48,7 +48,7 @@ cd reference
 java -jar picard.jar CreateSequenceDictionary R=genome.fa O=genome.dict
 samtools faidx genome.fa
 cut -f 1,2 genome.fa.fai > genomefile.txt
-fasta_generate_regions.py genome.fa.fai 5000000 > genomefile.5M.txt
+bedtools makewindows -g genomefile.chr.txt -w 5000000 | awk '{print ":""-"}'|sed 's/:0-/:1-/' > genomefile.5M.txt
 ```
 
 - PlatRef.header
@@ -103,7 +103,7 @@ echo '##INFO=<ID=DP,Number=1,Type=Integer,Description="Approximate read depth; s
 echo '##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">' >> gnomad.header
 ```
 
-- [dbNSFP](https://pcingola.github.io/SnpEff/ss_dbnsfp/}
+- [dbNSFP](https://pcingola.github.io/SnpEff/ss_dbnsfp/)
 ```
 wget https://snpeff.blob.core.windows.net/databases/dbs/GRCh37/dbNSFP_4.1a/dbNSFP4.1a.txt.gz
 wget https://snpeff.blob.core.windows.net/databases/dbs/GRCh37/dbNSFP_4.1a/dbNSFP4.1a.txt.gz.tbi
