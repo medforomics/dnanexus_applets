@@ -103,7 +103,7 @@ echo '##INFO=<ID=DP,Number=1,Type=Integer,Description="Approximate read depth; s
 echo '##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">' >> gnomad.header
 ```
 
-- [dbNSFP](https://pcingola.github.io/SnpEff/ss_dbnsfp/}
+- [dbNSFP](https://pcingola.github.io/SnpEff/ss_dbnsfp/)
 ```
 wget https://snpeff.blob.core.windows.net/databases/dbs/GRCh37/dbNSFP_4.1a/dbNSFP4.1a.txt.gz
 wget https://snpeff.blob.core.windows.net/databases/dbs/GRCh37/dbNSFP_4.1a/dbNSFP4.1a.txt.gz.tbi
