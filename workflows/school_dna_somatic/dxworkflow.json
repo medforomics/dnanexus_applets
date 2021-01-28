@@ -394,7 +394,7 @@
             "stage": "process-dalign_valign_norm"
           }
         },
-	"algo": "delly svaba cnvkit itdseek",
+	"algo": "pindel_itd",
         "reference": {
           "$dnanexus_link": "file-FxgGFPj0Y9g00V6b2bGYKz6f"
         },
