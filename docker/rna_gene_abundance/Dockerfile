@@ -5,7 +5,7 @@ LABEL Author="Jeremy Mathews" \
 
 #install additional requirements
 RUN apt-get update; apt-get install -y build-essential checkinstall; \
-    apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev liblzma-dev libcurl4-gnutls-dev libncurses5-dev wget unzip git default-jre default-jdk pigz;
+    apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev zlib1g-dev liblzma-dev libcurl4-gnutls-dev libncurses5-dev wget unzip git default-jre default-jdk cmake pigz;
 
 # Make destination and work directory
 RUN mkdir -p /opt;
@@ -24,6 +24,8 @@ RUN cd /opt; wget http://ccb.jhu.edu/software/stringtie/dl/stringtie-2.1.1.Linux
     tar xvfz stringtie-2.1.1.Linux_x86_64.tar.gz; rm stringtie-2.1.1.Linux_x86_64.tar.gz; \
     cd stringtie-2.1.1.Linux_x86_64; \
     cp * /usr/local/bin;
+
+RUN cd /opt; wget https://github.com/griffithlab/regtools/archive/0.5.2.tar.gz; cd regtools-0.5.2/; mkdir build; cd build/; cmake ..; make; cp regtools /usr/local/bin/
 
 # Install Scripts
 ENV repodir /seqprg

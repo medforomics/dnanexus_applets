@@ -356,7 +356,7 @@
         },
 	"algo": "delly svaba cnvkit itdseek",
         "reference": {
-          "$dnanexus_link": "file-FxgGFPj0Y9g00V6b2bGYKz6f"
+          "$dnanexus_link": "file-G0G6qv00Y9gJv3y0Gj8Z15Gv"
         },
         "panel": {
           "$dnanexus_link": {
@@ -394,9 +394,9 @@
             "stage": "process-dalign_valign_norm"
           }
         },
-	"algo": "delly svaba cnvkit itdseek",
+	"algo": "pindel_itd",
         "reference": {
-          "$dnanexus_link": "file-FxgGFPj0Y9g00V6b2bGYKz6f"
+          "$dnanexus_link": "file-G0G6qv00Y9gJv3y0Gj8Z15Gv"
         },
         "panel": {
           "$dnanexus_link": {
