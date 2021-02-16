@@ -28,7 +28,7 @@ RUN R -e "install.packages('RColorBrewer', dependencies=TRUE, repos='http://cran
 ENV repodir /seqprg
 RUN mkdir -p /seqprg; \
     cd /seqprg; \
-    git clone -b version_1.0.7 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \
+    git clone -b version_1.0.9 --single-branch --recursive https://github.com/bcantarel/process_scripts.git; \
     cd process_scripts; \
     cp -r genect_rnaseq/* /usr/local/bin/;
 
