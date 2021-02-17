@@ -10,7 +10,7 @@ main() {
     dx download "$panelbed" -o panel.bed
     dx download "$reference" -o ref.tar.gz
     mkdir dnaref
-    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.7 tar -I pigz -xvf ref.tar.gz --strip-components=1
+    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.9 tar -I pigz -xvf ref.tar.gz --no-same-owner --strip-components=1
 
     for i in ${!bams[@]}
     do
@@ -22,17 +22,17 @@ main() {
     then
 	anopt="--annotate refFlat.txt"
     fi
-    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.7 cnvkit.py target panel.bed ${anopt} --split -o cnvkit.targets.bed
-    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.7 cnvkit.py antitarget panel.bed -o cnvkit.antitargets.bed
+    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.9 cnvkit.py target panel.bed ${anopt} --split -o cnvkit.targets.bed
+    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.9 cnvkit.py antitarget panel.bed -o cnvkit.antitargets.bed
     
     for i in *.bam
     do
 	prefix="${i%.bam}"
-	docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.7 cnvkit.py coverage $i cnvkit.targets.bed -o ${prefix}.targetcoverage.cnn
-	docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.7 cnvkit.py coverage $i cnvkit.antitargets.bed -o ${prefix}.antitargetcoverage.cnn
+	docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.9 cnvkit.py coverage $i cnvkit.targets.bed -o ${prefix}.targetcoverage.cnn
+	docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.9 cnvkit.py coverage $i cnvkit.antitargets.bed -o ${prefix}.antitargetcoverage.cnn
     done
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.7 cnvkit.py reference *coverage.cnn -f genome.fa -o pon.cnn
+    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.9 cnvkit.py reference *coverage.cnn -f genome.fa -o pon.cnn
 
     tar cfz cnvkit_pon.tar.gz pon.cnn cnvkit.targets.bed cnvkit.antitargets.bed
     

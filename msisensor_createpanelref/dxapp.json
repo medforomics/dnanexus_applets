@@ -3,7 +3,7 @@
   "title": "MSI Panel Reference File Generator",
   "summary": "This app will take a set of panel of normals BAMs to generate reference files for running MSISensor Pro using Tumor Only Samples",
   "dxapi": "1.0.0",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "openSource": true,
   "details": {
     "contactEmail": "genome.school@gmail.com",

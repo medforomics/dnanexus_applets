@@ -3,7 +3,7 @@
   "title": "STAR-Fusion",
   "summary": "STAR-Fusion identifies Gene Fusions in Paired-End RNASeq",
   "dxapi": "1.0.0",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "openSource": true,
   "details": {
     "contactEmail": "genome.school@gmail.com",

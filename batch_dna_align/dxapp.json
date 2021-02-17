@@ -3,7 +3,7 @@
   "title": "DNA Alignment Fq to Sorted BAM in Batch",
   "summary": "Aligns FastQ files to a reference genome using BWA and create a Sorted BAM using Samtools in Batch",
   "dxapi": "1.0.0",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "openSource": true,
   "details": {
     "contactEmail": "genome.school@gmail.com",

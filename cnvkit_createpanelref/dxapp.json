@@ -4,7 +4,7 @@
   "summary": "This app will take a bed file and a set of panel of normals BAMs to generate reference files for running CNVkit",
   "dxapi": "1.0.0",
   "openSource": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "details": {
     "contactEmail": "genome.school@gmail.com",
     "upstreamAuthor": "Brandi Cantarel",

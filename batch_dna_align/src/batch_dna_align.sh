@@ -8,7 +8,7 @@ main() {
     dx download "$humanref" -o humanref
     
     mkdir humanref
-    docker run -v ${PWD}:/data docker.io/goalconsortium/dna_alignment:1.0.7 tar -I pigz -xvf humanref.tar.gz --strip-components=1 -C humanref
+    docker run -v ${PWD}:/data docker.io/goalconsortium/dna_alignment:1.0.9 tar -I pigz -xvf humanref.tar.gz --strip-components=1 -C humanref
     
     declare -A bams
     declare -a bais
@@ -32,7 +32,7 @@ main() {
 	   dx download "${fqfiles[FqR1]}" -o $SampleID.R1.fastq.gz
 	   dx download "${fqfiles[FqR2]}" -o $SampleID.R2.fastq.gz
 	   
-	   docker run -v ${PWD}:/data docker.io/goalconsortium/dna_alignment:1.0.7 bash /seqprg/process_scripts/alignment/dnaseqalign.sh -r humanref -p ${SampleID} -x ${Sampleid}.R1.fastq.gz -y ${SampleID}.R2.fastq.gz
+	   docker run -v ${PWD}:/data docker.io/goalconsortium/dna_alignment:1.0.9 bash /seqprg/process_scripts/alignment/dnaseqalign.sh -r humanref -p ${SampleID} -x ${Sampleid}.R1.fastq.gz -y ${SampleID}.R2.fastq.gz
 	   
 	   bams[${ln}]=$(dx upload ${sampleid}.bam --brief)
 	   bais[${ln}]=$(dx upload ${sampleid}.bam.bai --brief)

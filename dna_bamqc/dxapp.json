@@ -3,7 +3,7 @@
   "title": "DNA BAM QC",
   "summary": "Calculates QC of Alignment",
   "dxapi": "1.0.0",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "openSource": true,
   "details": {
     "contactEmail": "genome.school@gmail.com",

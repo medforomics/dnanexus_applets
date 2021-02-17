@@ -9,14 +9,14 @@ main() {
     dx download "$reference" -o rnaref.tar.gz
 
     mkdir rnaref
-    docker run -v ${PWD}:/data docker.io/goalconsortium/rna_alignment:1.0.7 tar -I pigz -xvf rnaref.tar.gz --strip-components=1 -C rnaref
+    docker run -v ${PWD}:/data docker.io/goalconsortium/rna_alignment:1.0.9 tar -I pigz -xvf rnaref.tar.gz --strip-components=1 -C rnaref
 
     umiopt=""
     if [[ -n ${umi} ]]
     then
 	umiopt=" -u"
     fi
-    docker run -v ${PWD}:/data docker.io/goalconsortium/rna_alignment:1.0.7 bash /seqprg/process_scripts/alignment/rnaseqalign.sh -a ${aligner} -p ${sampleid} -r rnaref -x ${sampleid}.R1.fastq.gz -y ${sampleid}.R2.fastq.gz $umiopt
+    docker run -v ${PWD}:/data docker.io/goalconsortium/rna_alignment:1.0.9 bash /seqprg/process_scripts/alignment/rnaseqalign.sh -a ${aligner} -p ${sampleid} -r rnaref -x ${sampleid}.R1.fastq.gz -y ${sampleid}.R2.fastq.gz $umiopt
 
     bam=$(dx upload ${sampleid}.bam --brief)
     bai=$(dx upload ${sampleid}.bam.bai --brief)

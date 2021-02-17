@@ -3,7 +3,7 @@
   "title": "Gene Abundance",
   "summary": "Calculates gene counts and fpkm values",
   "dxapi": "1.0.0",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "openSource": true,
   "details": {
     "contactEmail": "genome.school@gmail.com",
