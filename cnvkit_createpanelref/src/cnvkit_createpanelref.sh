@@ -10,7 +10,7 @@ main() {
     dx download "$panelbed" -o panel.bed
     dx download "$reference" -o ref.tar.gz
     mkdir dnaref
-    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.9 tar -I pigz -xvf ref.tar.gz --no-same-owner --strip-components=1
+    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.9 tar -I pigz -xvf ref.tar.gz --strip-components=1
 
     for i in ${!bams[@]}
     do
