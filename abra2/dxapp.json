@@ -3,15 +3,8 @@
   "title": "Abra2",
   "summary": "Realigns alignments in BAM around insertions and deletions using ABRA2",
   "dxapi": "1.0.0",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "openSource": true,
-  "details": {
-    "contactEmail": "genome.school@gmail.com",
-    "upstreamAuthor": "Brandi Cantarel",
-    "upstreamUrl": "https://github.com/GoalConsortium/dnanexus_applets",
-    "upstreamLicenses": ["MIT"],
-    "whatsNew": ""
-  }
   "categories": [
     "Variation Calling"
   ],
@@ -137,7 +130,12 @@
     }
   },
   "details": {
-   "upstreamProjects": [
+    "contactEmail": "genome.school@gmail.com",
+    "upstreamAuthor": "Brandi Cantarel",
+    "upstreamUrl": "https://github.com/GoalConsortium/dnanexus_applets",
+    "upstreamLicenses": ["MIT"],
+    "whatsNew": "",
+    "upstreamProjects": [
     {
       "name": "Samtools",
       "repoUrl": "http://www.htslib.org",
