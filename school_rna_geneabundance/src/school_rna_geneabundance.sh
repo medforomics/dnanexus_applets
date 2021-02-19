@@ -15,7 +15,7 @@ main() {
     if [[ -n "${glist}" ]]
     then
         dx download "$glist" -o panel.tar.gz
-        tar xvfz panel.tar.gz 
+        tar xvfz panel.tar.gz  --no-same-owner 
 	opt="-f /data/genelist.txt"
     fi
     docker run -v ${PWD}:/data docker.io/goalconsortium/rna_gene_abundance:1.0.9 bash /seqprg/process_scripts/genect_rnaseq/geneabundance.sh -s ${stranded} -g /data/gencode.gtf -p ${sampleid} -b ${sampleid}.bam -i /data/gene_info.human.txt $opt

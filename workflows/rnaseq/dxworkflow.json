@@ -26,7 +26,7 @@
     {
       "id": "stage-FvpbfxQ0Y9g3F8gZ5VK3FYp1",
       "name": "Trim Galore",
-      "executable": "app-FyFQk600g2zJ3ZzqFP8V78XB",
+      "executable": "app-school_trim_galore/1.0.1",
       "input": {
 	"fq1": {
 	  "$dnanexus_link": {
@@ -54,7 +54,7 @@
       "id": "stage-FvpbvKj0Y9gGjg1755vVf1Xv",
       "name": "RNA Alignment",
       "folder":"rnaout",
-      "executable": "app-FyG7z3Q0F9Jpbx1Y77F23YjZ",
+      "executable": "app-rna_align/1.0.1",
       "input": {
 	"fq2": {
 	  "$dnanexus_link": {
@@ -87,7 +87,7 @@
       "id": "stage-FvpbXQ80Y9gK3Z0GBbP4kzxy",
       "name": "MarkDuplicates BAM",
       "folder":"rnaout",
-      "executable": "app-FyFYfb002F11BBgy38vZV08v",
+      "executable": "app-school_markdups/1.0.1",
       "input": {
 	"mdup": {
 	  "$dnanexus_link": {
@@ -122,7 +122,7 @@
       "id": "stage-FvpbvP80Y9g143jkBYxVZ9j1",
       "name": "RNASeq BAM QC",
       "folder":"rnaout",
-      "executable": "app-FyG9fb80YXqfxB3GGV6py8f8",
+      "executable": "app-school_rna_bamqc/1.0.1",
       "input": {
 	"bam": {
 	  "$dnanexus_link": {
@@ -152,7 +152,7 @@
       "id": "stage-FvpbvYj0Y9gGyFz6GgXyvyXy",
       "name": "Gene Abundance",
       "folder":"rnaout",
-      "executable": "app-FyG7jk00yK92p741PvQG3Y47",
+      "executable": "app-school_rna_geneabundance/1.0.1",
       "input": {
 	"bam": {
 	  "$dnanexus_link": {

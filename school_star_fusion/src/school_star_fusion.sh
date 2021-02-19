@@ -8,10 +8,10 @@ main() {
     dx download "$fq2" -o ${sampleid}.trim.R2.fastq.gz
     dx download "$reference" -o rnaref.tar.gz
     dx download "$panel" -o panel.tar.gz
-    tar xvfz panel.tar.gz
+    tar xvfz panel.tar.gz --no-same-owner
     
     mkdir CTAT_resource_lib
-    docker run -v ${PWD}:/data docker.io/goalconsortium/starfusion:1.0.9 tar -I pigz -xvf rnaref.tar.gz --strip-components=2 -C CTAT_resource_lib
+    docker run -v ${PWD}:/data docker.io/goalconsortium/starfusion:1.0.9 tar -I pigz -xvf rnaref.tar.gz  --no-same-owner --strip-components=2 -C CTAT_resource_lib
 
     cp genelist.txt panelgenes.txt
     docker run -v ${PWD}:/data docker.io/goalconsortium/starfusion:1.0.9 bash /seqprg/process_scripts/alignment/starfusion.sh -p ${sampleid} -r /data -a ${sampleid}.trim.R1.fastq.gz -b ${sampleid}.trim.R2.fastq.gz -f 

@@ -8,13 +8,13 @@ main() {
     dx download "$reference" -o ref.tar.gz
 
     mkdir dnaref
-    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.9 tar -I pigz -xvf ref.tar.gz --strip-components=1 -C dnaref
+    docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.9 tar -I pigz -xvf ref.tar.gz --no-same-owner --strip-components=1 -C dnaref
 
     if [ -n "$panel" ]
     then
         dx download "$panel" -o panel.tar.gz
 	mkdir -p panel
-	docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.9 tar -I pigz -xvf panel.tar.gz -C panel/
+	docker run -v ${PWD}:/data docker.io/goalconsortium/structuralvariant:1.0.9 tar -I pigz -xvf panel.tar.gz  --no-same-owner -C panel/
     fi
 
     if [ -n "$nbam" ]

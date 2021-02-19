@@ -6,7 +6,7 @@ main() {
     echo "Value of bams: '${bams[@]}'"
 
     dx download "$reference" -o ref.tar.gz
-    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.9 tar -I pigz -xvf ref.tar.gz --strip-components=1
+    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.9 tar -I pigz -xvf ref.tar.gz --no-same-owner --strip-components=1
 
     for i in ${!bams[@]}
     do

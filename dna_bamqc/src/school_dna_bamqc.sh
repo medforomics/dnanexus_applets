@@ -10,8 +10,8 @@ main() {
     dx download "$panel" -o panel.tar.gz
     dx download "$trimstat" -o ${sampleid}.trimreport.txt
     
-    tar xvfz panel.tar.gz
-    tar xvfz reference.tar.gz --strip-components=1
+    tar xvfz panel.tar.gz --no-same-owner
+    tar xvfz reference.tar.gz --no-same-owner --strip-components=1
     
     USER=$(dx whoami)
 

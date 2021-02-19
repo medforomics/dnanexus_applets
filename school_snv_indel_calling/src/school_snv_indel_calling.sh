@@ -8,13 +8,13 @@ main() {
     dx download "$reference" -o ref.tar.gz
     
     mkdir dnaref
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.9 tar -I pigz -xvf ref.tar.gz --strip-components=1 -C dnaref
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.9 tar -I pigz -xvf ref.tar.gz --no-same-owner --strip-components=1 -C dnaref
     
     panelopt=''
     if [ -n "$panel" ]
     then
         dx download "$panel" -o panel.tar.gz
-        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.9 tar -I pigz -xvf panel.tar.gz
+        docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.9 tar -I pigz -xvf panel.tar.gz --no-same-owner
 	capturebed=targetpanel.bed
 	pon=mutect2.pon.vcf.gz
 	panelopt="-b $capturebed"

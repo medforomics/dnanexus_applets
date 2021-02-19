@@ -29,7 +29,7 @@
     {
       "id": "stage-FxVjGjj0Y9g7G2bV8z6kq5Jv",
       "name": "Trim Galore",
-      "executable": "app-FyFQk600g2zJ3ZzqFP8V78XB",
+      "executable": "app-school_trim_galore/1.0.1",
       "input": {
 	"fq1": {
 	  "$dnanexus_link": {
@@ -57,7 +57,7 @@
       "id": "stage-FxVjGq80Y9gF8VQP90B2G8kq",
       "name": "DNA Alignment",
       "folder":"dnaout",
-      "executable": "app-FyFY97j06fqYfKV5FP0qB0ZX",
+      "executable": "app-school_dna_align/1.0.1",
       "input": {
 	"sampleid": {
 	  "$dnanexus_link": {
@@ -91,7 +91,7 @@
     },
     {
       "id": "stage-FxVjGxQ0Y9g10x6JK0fVj72G",
-      "executable": "app-FyG3FYQ0jQ9pZVfGJy6KqQXV",
+      "executable": "app-dna_bamqc/1.0.1",
       "name": "BAM QC",
       "folder":"dnaout",
       "input": {
@@ -131,7 +131,7 @@
     {
       "id": "stage-FxVjJ180Y9g10x6JK0fVj72J",
       "name": "Abra2",
-  "executable": "app-Fy9Zxx80qx8qY0xZPZ0X1gQj",
+  "executable": "app-abra2/1.0.1",
       "input": {
       	"caseid": {
 	  "$dnanexus_link": {
@@ -163,7 +163,7 @@
       "id": "stage-FxVjJ5Q0Y9g10x6JK0fVj72P",
       "name": "Variant Profiling",
       "folder":"dnacallset",
-      "executable": "app-FyG39zQ0gKbzbGPfPFZ2pJBJ",
+      "executable": "app-school_checkmate_msi/1.0.1",
       "input": {
      	"caseid": {
 	  "$dnanexus_link": {
@@ -195,7 +195,7 @@
       "id": "stage-FxVjJ8j0Y9gBpjgJ5VPKB85j",
       "name": "SV Calling",
       "folder":"dnacallset",
-      "executable": "app-FyG9vbj03XKy1jq056gbq16Q",
+      "executable": "app-school_sv_calling/1.0.1",
       "input": {
      	"caseid": {
 	  "$dnanexus_link": {
@@ -228,7 +228,7 @@
       "id": "stage-FxVjJB80Y9g23YP757JPQ3q3",
       "name": "Pindel",
       "folder":"dnacallset",
-      "executable": "app-FyG9vbj03XKy1jq056gbq16Q",
+      "executable": "app-school_sv_calling/1.0.1",
       "input": {
       	"caseid": {
 	  "$dnanexus_link": {
@@ -259,7 +259,7 @@
     },
     {
       "id": "stage-FxVjJ3j0Y9g9kpv15jF8vjBY",
-      "executable": "app-FyFYfb002F11BBgy38vZV08v",
+      "executable": "app-school_markdups/1.0.1",
       "name": "MarkDuplicates",
       "folder":"dnaout",
       "input": {
@@ -295,7 +295,7 @@
       "id": "stage-FxVjJGQ0Y9g3jZz75fkZGG02",
       "name": "SNV Indel Calling",
       "folder":"dnacallset",
-      "executable": "app-FyGB0X00GJkZJFyP5qXfyV58",
+      "executable": "app-school_snv_indel_calling/1.0.1",
       "input": {
         "algo": "fb strelka2",
   	"caseid": {
@@ -309,7 +309,7 @@
 	  }
         },
        "reference": {
-          "$dnanexus_link": "file-FxJxBF00Y9g627808FG4850K"
+          "$dnanexus_link": "file-G0gX8B00Y9g9pJXV49354X2X"
         },
          "tbam": {
           "$dnanexus_link": {
@@ -327,7 +327,7 @@
     {
       "id": "stage-FxVjJJ80Y9g3jZz75fkZGG03",
       "name": "GATK BQSR", 
-      "executable": "app-FyG44FQ0P1bkYpF177FxykjG",
+      "executable": "app-school_gatkbqsr/1.0.1",
       "input": {
  	"sampleid": {
 	  "$dnanexus_link": {
@@ -335,7 +335,7 @@
 	  }
         },
        "reference": {
-          "$dnanexus_link": "file-FxJxBF00Y9g627808FG4850K"
+          "$dnanexus_link": "file-G0gX8B00Y9g9pJXV49354X2X"
         },
        "bam": {
           "$dnanexus_link": {
@@ -360,7 +360,7 @@
       "id": "stage-FxVjJJj0Y9g919g45f3JY9Jq",
       "name": "Mutect2",
       "folder":"dnacallset",
-      "executable": "app-FyGB0X00GJkZJFyP5qXfyV58",
+      "executable": "app-school_snv_indel_calling/1.0.1",
       "input": {
         "algo": "mutect",
   	"caseid": {
@@ -380,7 +380,7 @@
           }
         },
         "reference": {
-          "$dnanexus_link": "file-FxJxBF00Y9g627808FG4850K"
+          "$dnanexus_link": "file-G0gX8B00Y9g9pJXV49354X2X"
         }
       },
       "systemRequirements": {
@@ -393,7 +393,7 @@
       "id": "stage-FxVjJQ80Y9g196Q0KP2v3718",
       "name": "Union VCF",
       "folder":"dnavcf",
-      "executable": "app-FyG46500VvvJ0B57B9kjy1zk",
+      "executable": "app-school_unionvcf/1.0.1",
       "input": {
    	"caseid": {
 	  "$dnanexus_link": {

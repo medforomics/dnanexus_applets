@@ -29,7 +29,7 @@
     {
       "id": "process-dtrim",
       "name": "Trim Galore",
-      "executable": "app-FyFQk600g2zJ3ZzqFP8V78XB",
+      "executable": "app-school_trim_galore/1.0.1",
       "input": {
 	"fq1": {
 	  "$dnanexus_link": {
@@ -57,7 +57,7 @@
       "id": "process-dalign_valign",
       "name": "DNA Alignment",
       "folder":"dnaout",
-      "executable": "app-FyFY97j06fqYfKV5FP0qB0ZX",
+      "executable": "app-school_dna_align/1.0.1",
       "input": {
 	"fq1": {
           "$dnanexus_link": {
@@ -93,7 +93,7 @@
       "id": "process-markdups",
       "name": "Consensus BAM",
       "folder":"dnaout",
-      "executable": "app-FyFYfb002F11BBgy38vZV08v",
+      "executable": "app-school_markdups/1.0.1",
       "input": {
         "humanref": {
           "$dnanexus_link": {
@@ -126,10 +126,10 @@
       }
     },
     {
-      "id": "process-dna_bamqc",
+      "id": "process-app-dna_bamqc",
       "name": "BAM QC",
       "folder":"dnaout",
-      "executable": "app-FyG3FYQ0jQ9pZVfGJy6KqQXV",
+      "executable": "app-dna_bamqc/1.0.1",
       "input": {
 	"sampleid": {
 	  "$dnanexus_link": {
@@ -173,7 +173,7 @@
       "id": "process-sv",
       "name": "SV Calling",
       "folder":"dnacallset",
-      "executable": "app-FyG9vbj03XKy1jq056gbq16Q",
+      "executable": "app-school_sv_calling/1.0.1",
       "input": {
 	"caseid": {
 	  "$dnanexus_link": {
@@ -193,7 +193,7 @@
         "panel": {
           "$dnanexus_link": {
             "inputField": "panel",
-            "stage": "process-dna_bamqc"
+            "stage": "process-app-dna_bamqc"
           }
         }
       },
@@ -207,7 +207,7 @@
       "id": "process-pindel",
       "name": "Pindel",
       "folder":"dnacallset",
-      "executable": "app-FyG9vbj03XKy1jq056gbq16Q",
+      "executable": "app-school_sv_calling/1.0.1",
       "input": {
 	"caseid": {
 	  "$dnanexus_link": {
@@ -227,7 +227,7 @@
         "panel": {
           "$dnanexus_link": {
             "inputField": "panel",
-            "stage": "process-dna_bamqc"
+            "stage": "process-app-dna_bamqc"
           }
         }
       },
@@ -241,7 +241,7 @@
       "id": "process-variant_profiling",
       "name": "Variant Profiling",
       "folder":"dnacallset",
-      "executable": "app-FyG39zQ0gKbzbGPfPFZ2pJBJ",
+      "executable": "app-school_checkmate_msi/1.0.1",
       "input": {
  	"caseid": {
 	  "$dnanexus_link": {
@@ -260,7 +260,7 @@
         "panel": {
           "$dnanexus_link": {
             "inputField": "panel",
-            "stage": "process-dna_bamqc"
+            "stage": "process-app-dna_bamqc"
           }
         }
       },
@@ -274,7 +274,7 @@
       "id": "process-vc",
       "name": "FB-Strelka2",
       "folder":"dnacallset",
-      "executable": "app-FyGB0X00GJkZJFyP5qXfyV58",
+      "executable": "app-school_snv_indel_calling/1.0.1",
       "input": {
  	"caseid": {
 	  "$dnanexus_link": {
@@ -288,13 +288,13 @@
           }
         },
         "reference": {
-          "$dnanexus_link": "file-FxJxBF00Y9g627808FG4850K"
+          "$dnanexus_link": "file-G0gX8B00Y9g9pJXV49354X2X"
         },
         "algo": "fb strelka2",
         "panel": {
           "$dnanexus_link": {
             "inputField": "panel",
-            "stage": "process-dna_bamqc"
+            "stage": "process-app-dna_bamqc"
           }
         }
       },
@@ -307,7 +307,7 @@
     {
       "id": "process-bqsr",
       "name": "GATK BQSR", 
-      "executable": "app-FyG44FQ0P1bkYpF177FxykjG",
+      "executable": "app-school_gatkbqsr/1.0.1",
       "input": {
 	"sampleid": {
 	  "$dnanexus_link": {
@@ -343,7 +343,7 @@
       "id": "process-mutect",
       "name": "Mutect2",
       "folder":"dnacallset",
-      "executable": "app-FyGB0X00GJkZJFyP5qXfyV58",
+      "executable": "app-school_snv_indel_calling/1.0.1",
       "input": {
  	"caseid": {
 	  "$dnanexus_link": {
@@ -366,7 +366,7 @@
         "panel": {
           "$dnanexus_link": {
             "inputField": "panel",
-            "stage": "process-dna_bamqc"
+            "stage": "process-app-dna_bamqc"
           }
         }
       },
@@ -380,7 +380,7 @@
       "id": "process-integrate",
       "name": "Union VCF",
       "folder":"dnavcf",
-      "executable": "app-FyG46500VvvJ0B57B9kjy1zk",
+      "executable": "app-school_unionvcf/1.0.1",
       "input": {
  	"caseid": {
 	  "$dnanexus_link": {

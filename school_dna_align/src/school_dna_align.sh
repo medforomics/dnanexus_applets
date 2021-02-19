@@ -9,7 +9,7 @@ main() {
     dx download "$humanref" -o humanref.tar.gz
 
     mkdir humanref
-    docker run -v ${PWD}:/data docker.io/goalconsortium/dna_alignment:1.0.9 tar -I pigz -xvf humanref.tar.gz --strip-components=1 -C humanref
+    docker run -v ${PWD}:/data docker.io/goalconsortium/dna_alignment:1.0.9 tar -I pigz -xvf humanref.tar.gz --no-same-owner --strip-components=1 -C humanref
     
     alignopt=''
     if [[ -n ${umi} ]]
@@ -27,7 +27,7 @@ main() {
     then
 	dx download "$virusref" -o virusref.tar.gz
 	mkdir virusref
-	tar xvfz virusref.tar.gz --strip-components=1 -C virusref
+	tar xvfz virusref.tar.gz --no-same-owner --strip-components=1 -C virusref
 
 	docker run -v ${PWD}:/data docker.io/goalconsortium/dna_alignment:1.0.9 bash /seqprg/process_scripts/alignment/virusalign.sh -b ${sampleid}.bam -p ${sampleid} -r virusref -f
 	vseqstat=$(dx upload ${sampleid}.viral.seqstats.txt --brief)

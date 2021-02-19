@@ -25,7 +25,7 @@
     {
       "id": "stage-FvpbfxQ0Y9g3F8gZ5VK3FYp1",
       "name": "Trim Galore",
-      "executable": "app-FyFQk600g2zJ3ZzqFP8V78XB",
+      "executable": "app-school_trim_galore/1.0.1",
       "input": {
 	"fq1": {
 	  "$dnanexus_link": {
@@ -53,7 +53,7 @@
       "id": "stage-Fvpbg300Y9g139Y04b101qJb",
       "name": "STAR-Fusion",
       "folder":"rnaout",
-      "executable": "app-FyG7xJQ0X8bkjK3X4zb9zygb",
+      "executable": "app-school_star_fusion/1.0.1",
       "input": {
 	"fq2": {
 	  "$dnanexus_link": {
@@ -89,7 +89,7 @@
       "id": "stage-FvpbvKj0Y9gGjg1755vVf1Xv",
       "name": "RNA Alignment",
       "folder":"rnaout",
-      "executable": "app-FyG7z3Q0F9Jpbx1Y77F23YjZ",
+      "executable": "app-rna_align/1.0.1",
       "input": {
 	"fq2": {
 	  "$dnanexus_link": {
@@ -122,7 +122,7 @@
       "id": "stage-FvyVYfj0Y9gPPfxP5033PXv2",
       "name": "BAM Read Ct",
       "folder":"rnaout",
-      "executable": "app-FyG9jXQ00zB46KP85b3qqby3",
+      "executable": "app-school_rna_bamreadct/1.0.1",
       "input": {
 	"sampleid": {
 	  "$dnanexus_link": {
@@ -155,7 +155,7 @@
       "id": "stage-FvpbvP80Y9g143jkBYxVZ9j1",
       "name": "RNASeq BAM QC",
       "folder":"rnaout",
-      "executable": "app-FyG9fb80YXqfxB3GGV6py8f8",
+      "executable": "app-school_rna_bamqc/1.0.1",
       "input": {
 	"bam": {
 	  "$dnanexus_link": {
@@ -185,7 +185,7 @@
       "id": "stage-FvpbvYj0Y9gGyFz6GgXyvyXy",
       "name": "Gene Abundance",
       "folder":"rnaout",
-      "executable": "app-FyG7jk00yK92p741PvQG3Y47",
+      "executable": "app-school_rna_geneabundance/1.0.1",
       "input": {
 	"bam": {
 	  "$dnanexus_link": {
@@ -218,7 +218,7 @@
       "id": "stage-Fvpbxg00Y9gB0YG54GPgGPGP",
       "name": "FreeBayes",
       "folder":"rnavcf",
-      "executable": "app-FyGB0X00GJkZJFyP5qXfyV58",
+      "executable": "app-school_snv_indel_calling/1.0.1",
       "input": {
 	"tbam": {
 	  "$dnanexus_link": {
@@ -228,7 +228,7 @@
 	},
 	"algo": "fb",
 	"reference": {
-	  "$dnanexus_link": "file-FxJxBF00Y9g627808FG4850K"
+	  "$dnanexus_link": "file-G0gX8B00Y9g9pJXV49354X2X"
 	},
 	"panel": {
 	  "$dnanexus_link": {

@@ -12,7 +12,7 @@ main() {
     then
 	dx download "$humanref" -o humanref.tar.gz
 	mkdir humanref
-	docker run -v ${PWD}:/data docker.io/goalconsortium/dna_alignment:1.0.9 tar -I pigz -xvf humanref.tar.gz --strip-components=1 -C humanref
+	docker run -v ${PWD}:/data docker.io/goalconsortium/dna_alignment:1.0.9 tar -I pigz -xvf humanref.tar.gz --no-same-owner --strip-components=1 -C humanref
 	opt='-r humanref'
     fi
     
