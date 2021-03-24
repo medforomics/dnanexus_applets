@@ -37,6 +37,11 @@
     "RNA-Seq",
     "Read Mapping"
   ],
+  "authorizedUsers": [
+    "org-utsouthwestern",
+    "bwakeland",
+    "craulerson"
+  ],
   "developers": [
     "user-utswclia",
     "user-jkuttan"

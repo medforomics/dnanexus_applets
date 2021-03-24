@@ -10,7 +10,7 @@ main() {
     mkdir rnaref
     docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.9 tar -I pigz -xvf ref.tar.gz --no-same-owner --strip-components=1 -C rnaref
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/rna_gene_abundance:1.0.9 bash /seqprg/process_scripts/genect_rnaseq/exonskipping.sh -g rnaref/gencode.gtf -p ${sampleid} -b ${sbam} -r rnaref
+    docker run -v ${PWD}:/data docker.io/goalconsortium/rna_gene_abundance:1.0.9 bash /seqprg/process_scripts/genect_rnaseq/exonskipping.sh -g rnaref/gencode.gtf -p ${sampleid} -b ${sampleid}.bam -r rnaref
 
     outfile=$(dx upload ${sampleid}.exonskip.answer.txt --brief)
     dx-jobutil-add-output outfile "$outfile" --class=file

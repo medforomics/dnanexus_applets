@@ -14,10 +14,17 @@
     },
     {
       "name": "CaseID",
+      "default": "PatientID",
       "class": "string"
     },
     {
       "name": "SampleID",
+      "default": "SampleID",
+      "class": "string"
+    },
+    {
+      "name": "DupMethod",
+      "default": "picard",
       "class": "string"
     },
     {
@@ -263,7 +270,11 @@
       "name": "MarkDuplicates",
       "folder":"dnaout",
       "input": {
- 	"mdup": "picard_umi",
+ 	"mdup": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "DupMethod"
+	  }
+        },
 	"sampleid": {
 	  "$dnanexus_link": {
 	    "workflowInputField": "SampleID"

@@ -23,7 +23,7 @@
   ],
   "stages": [
     {
-      "id": "stage-FvpbfxQ0Y9g3F8gZ5VK3FYp1",
+      "id": "process-rtrim",
       "name": "Trim Galore",
       "executable": "app-school_trim_galore/1.0.1",
       "input": {
@@ -50,7 +50,7 @@
       }
     },
     {
-      "id": "stage-Fvpbg300Y9g139Y04b101qJb",
+      "id": "process-starfusion",
       "name": "STAR-Fusion",
       "folder":"rnaout",
       "executable": "app-school_star_fusion/1.0.1",
@@ -58,13 +58,13 @@
 	"fq2": {
 	  "$dnanexus_link": {
 	    "outputField": "trim2",
-	    "stage": "stage-FvpbfxQ0Y9g3F8gZ5VK3FYp1"
+	    "stage": "process-rtrim"
 	  }
 	},
 	"fq1": {
 	  "$dnanexus_link": {
 	    "outputField": "trim1",
-	    "stage": "stage-FvpbfxQ0Y9g3F8gZ5VK3FYp1"
+	    "stage": "process-rtrim"
 	  }
 	},
 	"reference": {
@@ -86,7 +86,7 @@
       }
     },
     {
-      "id": "stage-FvpbvKj0Y9gGjg1755vVf1Xv",
+      "id": "process-ralign",
       "name": "RNA Alignment",
       "folder":"rnaout",
       "executable": "app-rna_align/1.0.1",
@@ -94,13 +94,13 @@
 	"fq2": {
 	  "$dnanexus_link": {
 	    "outputField": "trim2",
-	    "stage": "stage-FvpbfxQ0Y9g3F8gZ5VK3FYp1"
+	    "stage": "process-rtrim"
 	  }
 	},
 	"fq1": {
 	  "$dnanexus_link": {
 	    "outputField": "trim1",
-	    "stage": "stage-FvpbfxQ0Y9g3F8gZ5VK3FYp1"
+	    "stage": "process-rtrim"
 	  }
 	},
 	"reference": {
@@ -119,7 +119,7 @@
       }
     },
     {
-      "id": "stage-FvyVYfj0Y9gPPfxP5033PXv2",
+      "id": "process-bamreadct",
       "name": "BAM Read Ct",
       "folder":"rnaout",
       "executable": "app-school_rna_bamreadct/1.0.1",
@@ -132,7 +132,7 @@
         "bam": {
           "$dnanexus_link": {
             "outputField": "bam",
-            "stage": "stage-FvpbvKj0Y9gGjg1755vVf1Xv"
+            "stage": "process-ralign"
           }
         },
         "reference": {
@@ -141,7 +141,7 @@
         "panel": {
           "$dnanexus_link": {
             "inputField": "panel",
-            "stage": "stage-Fvpbg300Y9g139Y04b101qJb"
+            "stage": "process-starfusion"
           }
         }
       },
@@ -152,7 +152,7 @@
       }
     },
     {
-      "id": "stage-FvpbvP80Y9g143jkBYxVZ9j1",
+      "id": "process-rnabamqc",
       "name": "RNASeq BAM QC",
       "folder":"rnaout",
       "executable": "app-school_rna_bamqc/1.0.1",
@@ -160,13 +160,13 @@
 	"bam": {
 	  "$dnanexus_link": {
 	    "outputField": "bam",
-	    "stage": "stage-FvpbvKj0Y9gGjg1755vVf1Xv"
+	    "stage": "process-ralign"
 	  }
 	},
 	"alignstats": {
 	  "$dnanexus_link": {
 	    "outputField": "alignstats",
-	    "stage": "stage-FvpbvKj0Y9gGjg1755vVf1Xv"
+	    "stage": "process-ralign"
 	  }
 	},
 	"sampleid": {
@@ -182,7 +182,7 @@
       }
     },
     {
-      "id": "stage-FvpbvYj0Y9gGyFz6GgXyvyXy",
+      "id": "process-geneabund",
       "name": "Gene Abundance",
       "folder":"rnaout",
       "executable": "app-school_rna_geneabundance/1.0.1",
@@ -190,7 +190,7 @@
 	"bam": {
 	  "$dnanexus_link": {
 	    "outputField": "bam",
-	    "stage": "stage-FvpbvKj0Y9gGjg1755vVf1Xv"
+	    "stage": "process-ralign"
 	  }
 	},
 	"gtf": {
@@ -199,7 +199,7 @@
 	"glist": {
 	  "$dnanexus_link": {
 	    "inputField": "panel",
-	    "stage": "stage-Fvpbg300Y9g139Y04b101qJb"
+	    "stage": "process-starfusion"
 	  }
 	},
 	"sampleid": {
@@ -215,7 +215,34 @@
       }
     },
     {
-      "id": "stage-Fvpbxg00Y9gB0YG54GPgGPGP",
+      "id": "process-exonskip",
+      "name": "Exon Skipping",
+      "folder":"rnaout",
+      "executable": "app-school_rna_exonskipping/1.0.1",
+      "input": {
+	"bam": {
+	  "$dnanexus_link": {
+	    "outputField": "bam",
+	    "stage": "process-ralign"
+	  }
+	},
+	"reference": {
+	  "$dnanexus_link": "file-G1943580Y9gK2F76JffFp0Xv"
+	},
+	"sampleid": {
+	  "$dnanexus_link": {
+	    "workflowInputField": "SampleID"
+	  }
+	}
+      },
+      "systemRequirements": {
+	"main": {
+	  "instanceType": "mem1_ssd1_v2_x2"
+	}
+      }
+    },
+    {
+      "id": "process-fb",
       "name": "FreeBayes",
       "folder":"rnavcf",
       "executable": "app-school_snv_indel_calling/1.0.1",
@@ -223,7 +250,7 @@
 	"tbam": {
 	  "$dnanexus_link": {
 	    "outputField": "bam",
-	    "stage": "stage-FvpbvKj0Y9gGjg1755vVf1Xv"
+	    "stage": "process-ralign"
 	  }
 	},
 	"algo": "fb",
@@ -233,7 +260,7 @@
 	"panel": {
 	  "$dnanexus_link": {
 	    "inputField": "panel",
-	    "stage": "stage-Fvpbg300Y9g139Y04b101qJb"
+	    "stage": "process-starfusion"
 	  }
 	},
 	"caseid": {

@@ -37,6 +37,11 @@
     "Reports",
     "Read Manipulation"
   ],
+  "authorizedUsers": [
+    "org-utsouthwestern",
+    "bwakeland",
+    "craulerson"
+  ],
   "developers": [
     "user-utswclia",
     "user-jkuttan"

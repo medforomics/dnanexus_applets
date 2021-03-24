@@ -121,6 +121,11 @@
     "user-utswclia",
     "user-jkuttan"
   ],
+  "authorizedUsers": [
+    "org-utsouthwestern",
+    "bwakeland",
+    "craulerson"
+  ],
   "inputSpec": [
     {
       "name": "tbam",

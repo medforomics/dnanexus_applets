@@ -204,6 +204,11 @@
 	"main": {
 	  "instanceType": "mem2_ssd1_v2_x2"
 	}
+      },
+      "timeoutPolicy": {
+	"*": {
+          "hours": 12
+	}
       }
     },
     {
@@ -239,6 +244,11 @@
       "systemRequirements": {
 	"main": {
 	  "instanceType": "mem2_ssd1_v2_x2"
+	}
+      },
+      "timeoutPolicy": {
+	"*": {
+          "hours": 12
 	}
       }
     },

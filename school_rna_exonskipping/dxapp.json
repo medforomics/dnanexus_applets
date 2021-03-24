@@ -1,7 +1,7 @@
 {
   "name": "school_rna_exonskipping",
-  "title": "Gene Abundance",
-  "summary": "Calculates gene counts and fpkm values",
+  "title": "Exon Skipping",
+  "summary": "Calculates Exon Skipping",
   "dxapi": "1.0.0",
   "version": "1.0.1",
   "openSource": true,
@@ -31,6 +31,11 @@
   "developers": [
     "user-utswclia",
     "user-jkuttan"
+  ],
+  "authorizedUsers": [
+    "org-utsouthwestern",
+    "bwakeland",
+    "craulerson"
   ],
   "inputSpec": [
     {

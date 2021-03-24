@@ -49,6 +49,11 @@
   "categories": [
     "Mappings Manipulation"
   ],
+  "authorizedUsers": [
+    "org-utsouthwestern",
+    "bwakeland",
+    "craulerson"
+  ],
   "developers": [
     "user-utswclia",
     "user-jkuttan"
@@ -123,7 +128,7 @@
   "runSpec": {
       "timeoutPolicy": {
       "*": {
-        "hours": 6
+        "hours": 12
       }
     },
     "interpreter": "bash",
