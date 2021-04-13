@@ -46,8 +46,18 @@
   ],
   "authorizedUsers": [
     "org-utsouthwestern",
-    "bwakeland",
-    "craulerson"
+    "user-achitturi",
+    "user-ashbig",
+    "user-chaserushton",
+    "user-dames",
+    "user-gsteinhardt",
+    "user-jkuttan",
+    "user-myourshaw",
+    "user-pwanjari",
+    "user-tdlee",
+    "org-dnanexus_tools_admin",
+    "user-aflannery",
+    "user-jsegal5"
   ],
   "inputSpec": [
     {

@@ -64,7 +64,7 @@
       "id": "process-dalign",
       "name": "DNA Alignment",
       "folder":"dnaout",
-      "executable": "app-school_dna_align/1.0.1",
+      "executable": "app-school_dna_align/1.0.2",
       "input": {
 	"sampleid": {
 	  "$dnanexus_link": {
@@ -82,6 +82,9 @@
             "stage": "process-dtrim",
             "outputField": "trim2"
           }
+        },
+	"virusref": {
+          "$dnanexus_link": "file-FvPP4QQ0Y9g68JZFBX0PbK8x"
         },
 	"humanref": {
 	  "$dnanexus_link": "file-FvPP4380Y9gK9k8384fYB6F5"
@@ -116,7 +119,7 @@
           }
         },
         "refinfo": {
-          "$dnanexus_link": "file-FvVYkf80Y9g5zV5x88fFZ22p"
+          "$dnanexus_link": "file-G0j42J80Y9g20x3y6kq98J2g"
         },
         "bam": {
           "$dnanexus_link": {
@@ -199,7 +202,7 @@
       "id": "process_svcalling",
       "name": "SV Calling",
       "folder":"dnacallset",
-      "executable": "app-school_sv_calling/1.0.1",
+      "executable": "app-school_sv_calling/1.0.2",
       "input": {
      	"caseid": {
 	  "$dnanexus_link": {
@@ -232,7 +235,7 @@
       "id": "process-pindel",
       "name": "Pindel",
       "folder":"dnacallset",
-      "executable": "app-school_sv_calling/1.0.1",
+      "executable": "app-school_sv_calling/1.0.2",
       "input": {
       	"caseid": {
 	  "$dnanexus_link": {

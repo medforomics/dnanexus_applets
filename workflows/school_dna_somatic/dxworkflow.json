@@ -96,7 +96,7 @@
       "id": "process-dalign_valign",
       "name": "Tumor Align",
       "folder":"dnaout",
-      "executable": "app-school_dna_align/1.0.1",
+      "executable": "app-school_dna_align/1.0.2",
       "input": {
 	"sampleid": {
 	  "$dnanexus_link": {
@@ -132,7 +132,7 @@
       "id": "process-dalign_valign_norm",
       "name": "Normal Align",
       "folder":"dnaout",
-      "executable": "app-school_dna_align/1.0.1",
+      "executable": "app-school_dna_align/1.0.2",
       "input": {
  	"sampleid": {
 	  "$dnanexus_link": {
@@ -204,11 +204,6 @@
 	"main": {
 	  "instanceType": "mem2_ssd1_v2_x2"
 	}
-      },
-      "timeoutPolicy": {
-	"*": {
-          "hours": 12
-	}
       }
     },
     {
@@ -245,11 +240,6 @@
 	"main": {
 	  "instanceType": "mem2_ssd1_v2_x2"
 	}
-      },
-      "timeoutPolicy": {
-	"*": {
-          "hours": 12
-	}
       }
     },
     {
@@ -269,7 +259,7 @@
 	  }
         },
 	"refinfo": {
-          "$dnanexus_link": "file-FvVYkf80Y9g5zV5x88fFZ22p"
+          "$dnanexus_link": "file-G0j42J80Y9g20x3y6kq98J2g"
         },
         "trimstat": {
           "$dnanexus_link": {
@@ -308,7 +298,7 @@
 	  }
 	},
 	"refinfo": {
-          "$dnanexus_link": "file-FvVYkf80Y9g5zV5x88fFZ22p"
+          "$dnanexus_link": "file-G0j42J80Y9g20x3y6kq98J2g"
         },
         "trimstat": {
           "$dnanexus_link": {
@@ -345,7 +335,7 @@
       "id": "process-sv",
       "name": "SV Calling",
       "folder":"dnacallset",
-      "executable": "app-school_sv_calling/1.0.1",
+      "executable": "app-school_sv_calling/1.0.2",
       "input": {
  	"caseid": {
 	  "$dnanexus_link": {
@@ -385,7 +375,7 @@
       "id": "process-pindel",
       "name": "Pindel",
       "folder":"dnacallset",
-      "executable": "app-school_sv_calling/1.0.1",
+      "executable": "app-school_sv_calling/1.0.2",
       "input": {
  	"caseid": {
 	  "$dnanexus_link": {

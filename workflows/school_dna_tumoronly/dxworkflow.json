@@ -57,7 +57,7 @@
       "id": "process-dalign_valign",
       "name": "DNA Alignment",
       "folder":"dnaout",
-      "executable": "app-school_dna_align/1.0.1",
+      "executable": "app-school_dna_align/1.0.2",
       "input": {
 	"fq1": {
           "$dnanexus_link": {
@@ -123,11 +123,6 @@
 	"main": {
 	  "instanceType": "mem2_ssd1_v2_x2"
 	}
-      },
-      "timeoutPolicy": {
-	"*": {
-          "hours": 12
-	}
       }
     },
     {
@@ -147,7 +142,7 @@
 	  }
         },
         "refinfo": {
-          "$dnanexus_link": "file-FvVYkf80Y9g5zV5x88fFZ22p"
+          "$dnanexus_link": "file-G0j42J80Y9g20x3y6kq98J2g"
         },
         "trimstat": {
           "$dnanexus_link": {
@@ -178,7 +173,7 @@
       "id": "process-sv",
       "name": "SV Calling",
       "folder":"dnacallset",
-      "executable": "app-school_sv_calling/1.0.1",
+      "executable": "app-school_sv_calling/1.0.2",
       "input": {
 	"caseid": {
 	  "$dnanexus_link": {
@@ -212,7 +207,7 @@
       "id": "process-pindel",
       "name": "Pindel",
       "folder":"dnacallset",
-      "executable": "app-school_sv_calling/1.0.1",
+      "executable": "app-school_sv_calling/1.0.2",
       "input": {
 	"caseid": {
 	  "$dnanexus_link": {

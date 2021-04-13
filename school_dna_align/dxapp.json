@@ -3,7 +3,7 @@
   "title": "DNA Alignment Fq to Sorted BAM",
   "summary": "Aligns FastQ files to a reference genome using BWA and create a Sorted BAM using Samtools",
   "dxapi": "1.0.0",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "openSource": true,
   "details": {
     "contactEmail": "genome.school@gmail.com",
@@ -39,6 +39,22 @@
   "categories": [
     "Read Mapping",
     "Mappings Manipulation"
+  ],
+  "authorizedUsers": [
+    "org-utsouthwestern",
+    "user-achitturi",
+    "user-ashbig",
+    "user-chaserushton",
+    "user-craulerson",
+    "user-dames",
+    "user-gsteinhardt",
+    "user-jkuttan",
+    "user-myourshaw",
+    "user-pwanjari",
+    "user-tdlee",
+    "org-dnanexus_tools_admin",
+    "user-aflannery",
+    "user-jsegal5"
   ],
   "developers": [
     "user-utswclia",
@@ -124,6 +140,7 @@
       "name": "vseqstat",
       "label": "Virus Sequence Stats",
       "class": "file",
+      "optional": true,
       "patterns": [
         "*"
       ],
