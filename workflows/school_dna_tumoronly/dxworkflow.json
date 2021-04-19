@@ -126,7 +126,7 @@
       }
     },
     {
-      "id": "process-app-dna_bamqc",
+      "id": "process-dna_bamqc",
       "name": "BAM QC",
       "folder":"dnaout",
       "executable": "app-dna_bamqc/1.0.1",
@@ -193,7 +193,7 @@
         "panel": {
           "$dnanexus_link": {
             "inputField": "panel",
-            "stage": "process-app-dna_bamqc"
+            "stage": "process-dna_bamqc"
           }
         }
       },
@@ -227,7 +227,7 @@
         "panel": {
           "$dnanexus_link": {
             "inputField": "panel",
-            "stage": "process-app-dna_bamqc"
+            "stage": "process-dna_bamqc"
           }
         }
       },
@@ -260,7 +260,7 @@
         "panel": {
           "$dnanexus_link": {
             "inputField": "panel",
-            "stage": "process-app-dna_bamqc"
+            "stage": "process-dna_bamqc"
           }
         }
       },
@@ -294,7 +294,7 @@
         "panel": {
           "$dnanexus_link": {
             "inputField": "panel",
-            "stage": "process-app-dna_bamqc"
+            "stage": "process-dna_bamqc"
           }
         }
       },
@@ -366,7 +366,7 @@
         "panel": {
           "$dnanexus_link": {
             "inputField": "panel",
-            "stage": "process-app-dna_bamqc"
+            "stage": "process-dna_bamqc"
           }
         }
       },

@@ -136,7 +136,7 @@
       }
     },
     {
-      "id": "process-abraJ",
+      "id": "process-abra",
       "name": "Abra2",
   "executable": "app-abra2/1.0.1",
       "input": {
@@ -343,7 +343,10 @@
 	  }
         },
        "reference": {
-          "$dnanexus_link": "file-G0gX8B00Y9g9pJXV49354X2X"
+          "$dnanexus_link": {
+            "inputField": "reference",
+            "stage": "process-vc"
+          }
         },
        "bam": {
           "$dnanexus_link": {
@@ -388,7 +391,10 @@
           }
         },
         "reference": {
-          "$dnanexus_link": "file-G0gX8B00Y9g9pJXV49354X2X"
+           "$dnanexus_link": {
+            "inputField": "reference",
+            "stage": "process-vc"
+          }
         }
       },
       "systemRequirements": {
