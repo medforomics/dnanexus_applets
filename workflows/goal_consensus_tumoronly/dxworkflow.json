@@ -98,7 +98,7 @@
     },
     {
       "id": "process-dna_bamqc",
-      "executable": "app-dna_bamqc/1.0.1",
+      "executable": "app-dna_bamqc/1.0.2",
       "name": "BAM QC",
       "folder":"dnaout",
       "input": {

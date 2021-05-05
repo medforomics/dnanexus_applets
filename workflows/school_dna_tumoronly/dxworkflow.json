@@ -121,7 +121,7 @@
       },
       "systemRequirements": {
 	"main": {
-	  "instanceType": "mem2_ssd1_v2_x2"
+	  "instanceType": "mem3_ssd2_v2_x2"
 	}
       }
     },
@@ -129,7 +129,7 @@
       "id": "process-dna_bamqc",
       "name": "BAM QC",
       "folder":"dnaout",
-      "executable": "app-dna_bamqc/1.0.1",
+      "executable": "app-dna_bamqc/1.0.2",
       "input": {
 	"sampleid": {
 	  "$dnanexus_link": {

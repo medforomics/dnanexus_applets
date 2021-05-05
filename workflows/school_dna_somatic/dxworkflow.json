@@ -202,7 +202,7 @@
       },
       "systemRequirements": {
 	"main": {
-	  "instanceType": "mem2_ssd1_v2_x2"
+	  "instanceType": "mem3_ssd2_v2_x2"
 	}
       }
     },
@@ -238,7 +238,7 @@
       },
       "systemRequirements": {
 	"main": {
-	  "instanceType": "mem2_ssd1_v2_x2"
+	  "instanceType": "mem3_ssd2_v2_x2"
 	}
       }
     },
@@ -246,7 +246,7 @@
       "id": "process-app-dna_bamqc",
       "name": "Tumor BAM QC",
       "folder":"dnaout",
-      "executable": "app-dna_bamqc/1.0.1",
+      "executable": "app-dna_bamqc/1.0.2",
       "input": {
  	"sampleid": {
 	  "$dnanexus_link": {
@@ -290,7 +290,7 @@
       "id": "process-bamqc_normal",
       "name": "Normal BAM QC",
       "folder":"dnaout",
-      "executable": "app-dna_bamqc/1.0.1",
+      "executable": "app-dna_bamqc/1.0.2",
       "input": {
   	"sampleid": {
 	  "$dnanexus_link": {
