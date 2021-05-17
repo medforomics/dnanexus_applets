@@ -185,7 +185,7 @@
       "id": "process-geneabund",
       "name": "Gene Abundance",
       "folder":"rnaout",
-      "executable": "app-school_rna_geneabundance/1.0.2",
+      "executable": "app-school_rna_geneabundance/1.0.3",
       "input": {
 	"bam": {
 	  "$dnanexus_link": {
@@ -218,7 +218,7 @@
       "id": "process-exonskip",
       "name": "Exon Skipping",
       "folder":"rnaout",
-      "executable": "app-school_rna_exonskipping/1.0.3",
+      "executable": "app-school_rna_exonskipping/1.0.4",
       "input": {
 	"bam": {
 	  "$dnanexus_link": {

@@ -152,7 +152,7 @@
       "id": "stage-FvpbvYj0Y9gGyFz6GgXyvyXy",
       "name": "Gene Abundance",
       "folder":"rnaout",
-      "executable": "app-school_rna_geneabundance/1.0.1",
+      "executable": "app-school_rna_geneabundance/1.0.3",
       "input": {
 	"bam": {
 	  "$dnanexus_link": {

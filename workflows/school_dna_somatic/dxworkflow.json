@@ -174,7 +174,7 @@
       "id": "process-markdups",
       "name": "Tumor FGBio",
       "folder":"dnaout",
-      "executable": "app-school_markdups/1.0.1",
+      "executable": "app-school_markdups/1.0.2",
       "input": {
  	"sampleid": {
 	  "$dnanexus_link": {
@@ -210,7 +210,7 @@
       "id": "process-markdups_normal",
       "name": "Normal FGBio",
       "folder":"dnaout",
-      "executable": "app-school_markdups/1.0.1",
+      "executable": "app-school_markdups/1.0.2",
       "input": {
 	"sampleid": {
 	  "$dnanexus_link": {
@@ -616,12 +616,6 @@
             "$dnanexus_link": {
               "outputField": "vcf",
               "stage": "process-variant_calling"
-            }
-          },
-           {
-            "$dnanexus_link": {
-              "outputField": "vcf",
-              "stage": "process-pindel"
             }
           },
          {

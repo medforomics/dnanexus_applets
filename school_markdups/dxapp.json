@@ -3,7 +3,7 @@
   "title": "Markduplicates",
   "summary":"This app runs MarksDuplicates (PICARD or FG Biotools)", 
   "dxapi": "1.0.0",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "details": {
     "contactEmail": "genome.school@gmail.com",
     "upstreamAuthor": "Brandi Cantarel",
@@ -138,7 +138,7 @@
   "runSpec": {
       "timeoutPolicy": {
       "*": {
-        "hours": 12
+        "hours": 24
       }
     },
     "interpreter": "bash",

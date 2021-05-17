@@ -93,7 +93,7 @@
       "id": "process-markdups",
       "name": "Consensus BAM",
       "folder":"dnaout",
-      "executable": "app-school_markdups/1.0.1",
+      "executable": "app-school_markdups/1.0.2",
       "input": {
         "humanref": {
           "$dnanexus_link": {
@@ -392,12 +392,6 @@
             "$dnanexus_link": {
               "outputField": "vcf",
               "stage": "process-vc"
-            }
-          },
-          {
-            "$dnanexus_link": {
-              "outputField": "vcf",
-              "stage": "process-pindel"
             }
           },
           {
