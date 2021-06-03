@@ -303,7 +303,7 @@
       "id": "process-vc",
       "name": "SNV Indel Calling",
       "folder":"dnacallset",
-      "executable": "app-school_snv_indel_calling/1.0.2",
+      "executable": "app-school_snv_indel_calling/1.0.3",
       "input": {
         "algo": "fb strelka2",
   	"caseid": {
@@ -371,7 +371,7 @@
       "id": "process-mutect",
       "name": "Mutect2",
       "folder":"dnacallset",
-      "executable": "app-school_snv_indel_calling/1.0.2",
+      "executable": "app-school_snv_indel_calling/1.0.3",
       "input": {
         "algo": "mutect",
   	"caseid": {
