@@ -274,7 +274,7 @@
       "id": "process-vc",
       "name": "FB-Strelka2",
       "folder":"dnacallset",
-      "executable": "app-school_snv_indel_calling/1.0.3",
+      "executable": "app-school_snv_indel_calling/1.0.4",
       "input": {
  	"caseid": {
 	  "$dnanexus_link": {
@@ -343,7 +343,7 @@
       "id": "process-mutect",
       "name": "Mutect2",
       "folder":"dnacallset",
-      "executable": "app-school_snv_indel_calling/1.0.3",
+      "executable": "app-school_snv_indel_calling/1.0.4",
       "input": {
  	"caseid": {
 	  "$dnanexus_link": {

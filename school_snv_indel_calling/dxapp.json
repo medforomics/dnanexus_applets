@@ -3,7 +3,7 @@
   "title": "Variant Calling (SNVs and InDels)",
   "summary": "This applet contains variant calling algorithms (BAM -> VCF) including Platypus, Freebayes, Strelka2, Mutect2, and Shimmer",
   "dxapi": "1.0.0",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "openSource": true,
   "details": {
     "contactEmail": "genome.school@gmail.com",
