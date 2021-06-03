@@ -3,7 +3,7 @@
   "title": "Variant Profiling with NGS CheckMate and MSISensor Pro",
   "summary": "This applet contains variant profiling methods for tumor only and somatic workflows. Including msisensor-pro, NGSCheckMates",
   "dxapi": "1.0.0",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "openSource": true,
   "details": {
     "contactEmail": "genome.school@gmail.com",
@@ -38,6 +38,8 @@
   ],
   "developers": [
     "user-utswclia",
+    "user-craulerson",
+    "user-bcantarel.genformatic",
     "user-jkuttan"
   ],
   "authorizedUsers": [

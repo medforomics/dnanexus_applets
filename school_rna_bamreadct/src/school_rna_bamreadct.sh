@@ -7,13 +7,14 @@ main() {
     dx download "$bam" -o ${sampleid}.bam
     dx download "$panel" -o panel.tar.gz
     dx download "$reference" -o ref.tar.gz
-    
+
+    docker load -i /docker.profiling_qc.tar.gz
     tar xvfz panel.tar.gz --no-same-owner
     mkdir rnaref
-    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.9 tar -I pigz -xvf ref.tar.gz --no-same-owner --strip-components=1 -C rnaref
+    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.1.3 tar -I pigz -xvf ref.tar.gz --no-same-owner --strip-components=1 -C rnaref
     
-    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.9 samtools index ${sampleid}.bam
-    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.9 bam-readcount -l targetpanel.bed -w 0 -q 0 -b 25 -f rnaref/genome.fa ${sampleid}.bam > ${sampleid}.bamreadcount.txt
+    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.1.3 samtools index ${sampleid}.bam
+    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.1.3 bam-readcount -l targetpanel.bed -w 0 -q 0 -b 25 -f rnaref/genome.fa ${sampleid}.bam > ${sampleid}.bamreadcount.txt
     gzip ${sampleid}.bamreadcount.txt
     bamreadct=$(dx upload ${sampleid}.bamreadcount.txt.gz --brief)
     dx-jobutil-add-output bamreadct "$bamreadct" --class=file

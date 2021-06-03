@@ -6,17 +6,18 @@ main() {
 
     dx download "$bam" -o ${sampleid}.bam
     dx download "$bai" -o ${sampleid}.bam.bai
-    
+
+    docker load -i /docker.dna_alignment.tar.gz
     opt=''
     if [[ -n $humanref ]]
     then
 	dx download "$humanref" -o humanref.tar.gz
 	mkdir humanref
-	docker run -v ${PWD}:/data docker.io/goalconsortium/dna_alignment:1.0.9 tar -I pigz -xvf humanref.tar.gz --no-same-owner --strip-components=1 -C humanref
+	docker run -v ${PWD}:/data docker.io/goalconsortium/dna_alignment:1.1.3 tar -I pigz -xvf humanref.tar.gz --no-same-owner --strip-components=1 -C humanref
 	opt='-r humanref'
     fi
     
-    docker run -v ${PWD}:/data docker.io/goalconsortium/dna_alignment:1.0.9 bash /seqprg/process_scripts/alignment/markdups.sh -a ${mdup} -b ${sampleid}.bam -p ${sampleid} $opt
+    docker run -v ${PWD}:/data docker.io/goalconsortium/dna_alignment:1.1.3 bash /seqprg/process_scripts/alignment/markdups.sh -a ${mdup} -b ${sampleid}.bam -p ${sampleid} $opt
     
     mv ${sampleid}.dedup.bam ${sampleid}.consensus.bam
     mv ${sampleid}.dedup.bam.bai ${sampleid}.consensus.bam.bai

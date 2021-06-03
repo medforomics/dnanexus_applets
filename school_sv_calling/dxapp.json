@@ -3,7 +3,7 @@
   "title": "Structural Variants Calling",
   "summary": "This applet contains variant calling methods for tumor only and somatic workflows. Including pindel, delly, svaba, cnvkit and itdseek",
   "dxapi": "1.0.0",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "openSource": true,
   "details": {
     "contactEmail": "genome.school@gmail.com",
@@ -126,6 +126,7 @@
   ],
   "developers": [
     "user-utswclia",
+    "user-bcantarel.genformatic",
     "user-craulerson",
     "user-jkuttan"
   ],

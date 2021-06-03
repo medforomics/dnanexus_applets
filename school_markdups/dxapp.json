@@ -3,7 +3,7 @@
   "title": "Markduplicates",
   "summary":"This app runs MarksDuplicates (PICARD or FG Biotools)", 
   "dxapi": "1.0.0",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "details": {
     "contactEmail": "genome.school@gmail.com",
     "upstreamAuthor": "Brandi Cantarel",
@@ -66,6 +66,8 @@
   ],
   "developers": [
     "user-utswclia",
+    "user-craulerson",
+    "user-bcantarel.genformatic",
     "user-jkuttan"
   ],
   "inputSpec": [

@@ -3,7 +3,7 @@
   "title": "Union VCF",
   "summary": "Combine VCF Outputs",
   "dxapi": "1.0.0",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "openSource": true,
   "details": {
     "contactEmail": "genome.school@gmail.com",
@@ -17,6 +17,8 @@
   ],
   "developers": [
     "user-utswclia",
+    "user-craulerson",
+    "user-bcantarel.genformatic",
     "user-jkuttan"
   ],
   "authorizedUsers": [

@@ -7,6 +7,7 @@ main() {
     dx download "$bam" -o ${sampleid}.bam
     dx download "$gtf" -o gencode.gtf.gz
 
+    docker load -i /docker.rna_gene_abundance.tar.gz
     gunzip gencode.gtf.gz
     cp /datadir/gene_info.human.txt.gz .
     gunzip gene_info.human.txt.gz

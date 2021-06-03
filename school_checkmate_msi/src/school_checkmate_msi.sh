@@ -6,6 +6,8 @@ main() {
 
     dx download "$tbam" -o ${caseid}.tumor.bam
     dx download "$reference" -o ref.tar.gz
+
+    docker load -i /docker.profiling_qc.tar.gz
     
     normopt=''
     if [ -n "$nbam" ]
@@ -15,24 +17,24 @@ main() {
     fi
 
     mkdir dnaref
-    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.9 tar -I pigz -xvf ref.tar.gz --no-same-owner --strip-components=1 -C dnaref
+    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.1.3 tar -I pigz -xvf ref.tar.gz --no-same-owner --strip-components=1 -C dnaref
 
     if [ -n "$panel" ]
     then
         dx download "$panel" -o panel.tar.gz
-        docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.9 tar -I pigz -xvf panel.tar.gz --no-same-owner
+        docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.1.3 tar -I pigz -xvf panel.tar.gz --no-same-owner
 	if [[  -f microsatellites.list_baseline ]]
 	then
 	    cp microsatellites.list* dnaref
 	fi
     fi
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.9 bash /seqprg/process_scripts/alignment/indexbams.sh
+    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.1.3 bash /seqprg/process_scripts/alignment/indexbams.sh
 
     if [[ -n "$nbam" ]]
     then
 	
-	docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.9 bash /seqprg/process_scripts/variants/checkmate.sh -r dnaref -p ${caseid} -c dnaref/NGSCheckMate.bed -f
+	docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.1.3 bash /seqprg/process_scripts/variants/checkmate.sh -r dnaref -p ${caseid} -c dnaref/NGSCheckMate.bed -f
 	echo -e "TumorFILE\t${tbam}" >> ${caseid}.sequence.stats.txt
 	echo -e "NormalFILE\t${nbam}" >> ${caseid}.sequence.stats.txt
 	
@@ -44,7 +46,7 @@ main() {
         dx-jobutil-add-output all "$all" --class=file
         dx-jobutil-add-output seqstats "$seqstats" --class=file
     fi
-    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.0.9 bash /seqprg/process_scripts/variants/msisensor.sh -r dnaref -p ${caseid} -b ${caseid}.tumor.bam -c targetpanel.bed $normopt
+    docker run -v ${PWD}:/data docker.io/goalconsortium/profiling_qc:1.1.3 bash /seqprg/process_scripts/variants/msisensor.sh -r dnaref -p ${caseid} -b ${caseid}.tumor.bam -c targetpanel.bed $normopt
     msiout=$(dx upload ${caseid}.msi --brief)
     dx-jobutil-add-output msiout "$msiout" --class=file
 }

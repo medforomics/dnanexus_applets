@@ -3,7 +3,7 @@
   "title": "Exon Skipping",
   "summary": "Calculates Exon Skipping",
   "dxapi": "1.0.0",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "openSource": true,
   "details": {
     "contactEmail": "genome.school@gmail.com",
@@ -30,6 +30,7 @@
   ],
   "developers": [
     "user-utswclia",
+    "user-bcantarel.genformatic",
     "user-craulerson",
     "user-jkuttan"
   ],

@@ -9,6 +9,7 @@ main() {
     dx download "$reference" -o rnaref.tar.gz
 
     mkdir rnaref
+    docker load -i /docker.rna_alignment.tar.gz
     docker run -v ${PWD}:/data docker.io/goalconsortium/rna_alignment:1.0.9 tar -I pigz -xvf rnaref.tar.gz --no-same-owner --strip-components=1 -C rnaref
 
     umiopt=""

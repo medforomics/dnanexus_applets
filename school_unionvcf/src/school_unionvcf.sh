@@ -7,6 +7,7 @@ main() {
     echo "Value of vcffiles: '${vcffiles[@]}'"
     echo "Value of caseid: '$caseid'"
     dx download "$genodict" -o genome.dict
+    docker load -i /docker.variantcalling.tar.gz
     
     for i in ${!vcffiles[@]}
     do
@@ -14,7 +15,7 @@ main() {
 	tar xvf vcffiles-${i}.tar.gz
     done
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.0.9 bash /seqprg/process_scripts/variants/union.sh -r ./ -p ${caseid}
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.1.3 bash /seqprg/process_scripts/variants/union.sh -r ./ -p ${caseid}
     union_vcf=$(dx upload ${caseid}.union.vcf.gz --brief)
     dx-jobutil-add-output union_vcf "$union_vcf" --class=file
 }

@@ -1,9 +1,9 @@
 {
-  "name": "rna_align",
+  "name": "school_rna_align",
   "title": "RNASeq Alignment",
   "summary": "Creates a BAM file from RNASeq data",
   "dxapi": "1.0.0",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "openSource": true,
   "details": {
     "contactEmail": "genome.school@gmail.com",
@@ -54,7 +54,9 @@
   ],
   "developers": [
     "user-utswclia",
-    "user-jkuttan"
+     "user-craulerson",
+     "user-bcantarel.genformatic",
+     "user-jkuttan"
   ],
   "inputSpec": [
     {
