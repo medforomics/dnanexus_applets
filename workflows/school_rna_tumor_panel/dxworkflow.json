@@ -25,7 +25,7 @@
     {
       "id": "process-rtrim",
       "name": "Trim Galore",
-      "executable": "app-school_trim_galore/1.0.1",
+      "executable": "app-school_trim_galore/1.0.2",
       "input": {
 	"fq1": {
 	  "$dnanexus_link": {
@@ -53,7 +53,7 @@
       "id": "process-starfusion",
       "name": "STAR-Fusion",
       "folder":"rnaout",
-      "executable": "app-school_star_fusion/1.0.1",
+      "executable": "app-school_star_fusion/1.0.2",
       "input": {
 	"fq2": {
 	  "$dnanexus_link": {
@@ -89,7 +89,7 @@
       "id": "process-ralign",
       "name": "RNA Alignment",
       "folder":"rnaout",
-      "executable": "app-rna_align/1.0.1",
+      "executable": "app-school_rna_align/1.0.2",
       "input": {
 	"fq2": {
 	  "$dnanexus_link": {
@@ -122,7 +122,7 @@
       "id": "process-bamreadct",
       "name": "BAM Read Ct",
       "folder":"rnaout",
-      "executable": "app-school_rna_bamreadct/1.0.1",
+      "executable": "app-school_rna_bamreadct/1.0.2",
       "input": {
 	"sampleid": {
 	  "$dnanexus_link": {
@@ -155,7 +155,7 @@
       "id": "process-rnabamqc",
       "name": "RNASeq BAM QC",
       "folder":"rnaout",
-      "executable": "app-school_rna_bamqc/1.0.1",
+      "executable": "app-school_rna_bamqc/1.0.2",
       "input": {
 	"bam": {
 	  "$dnanexus_link": {
@@ -185,7 +185,7 @@
       "id": "process-geneabund",
       "name": "Gene Abundance",
       "folder":"rnaout",
-      "executable": "app-school_rna_geneabundance/1.0.3",
+      "executable": "app-school_rna_geneabundance/1.0.4",
       "input": {
 	"bam": {
 	  "$dnanexus_link": {
@@ -218,7 +218,7 @@
       "id": "process-exonskip",
       "name": "Exon Skipping",
       "folder":"rnaout",
-      "executable": "app-school_rna_exonskipping/1.0.4",
+      "executable": "app-school_rna_exonskipping/1.0.5",
       "input": {
 	"bam": {
 	  "$dnanexus_link": {
@@ -245,7 +245,7 @@
       "id": "process-fb",
       "name": "FreeBayes",
       "folder":"rnavcf",
-      "executable": "app-school_snv_indel_calling/1.0.1",
+      "executable": "app-school_snv_indel_calling/1.0.2",
       "input": {
 	"tbam": {
 	  "$dnanexus_link": {
