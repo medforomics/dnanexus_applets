@@ -245,7 +245,7 @@
       "id": "process-fb",
       "name": "FreeBayes",
       "folder":"rnavcf",
-      "executable": "app-school_snv_indel_calling/1.0.4",
+      "executable": "app-school_snv_indel_calling/1.0.5",
       "input": {
 	"tbam": {
 	  "$dnanexus_link": {

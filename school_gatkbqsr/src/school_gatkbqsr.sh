@@ -10,10 +10,10 @@ main() {
 
     mkdir dnaref
     docker load -i /docker.variantcalling.tar.gz
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.1.3 tar -I pigz -xvf ref.tar.gz --no-same-owner --strip-components=1 -C dnaref
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.1.4 tar -I pigz -xvf ref.tar.gz --no-same-owner --strip-components=1 -C dnaref
 
 
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.1.3 bash /seqprg/process_scripts/variants/gatkrunner.sh -a gatkbam -b ${sampleid}.bam -r dnaref -p ${sampleid}
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.1.4 bash /seqprg/process_scripts/variants/gatkrunner.sh -a gatkbam -b ${sampleid}.bam -r dnaref -p ${sampleid}
 
     gatkbam=$(dx upload ${sampleid}.final.bam --brief)
     gatkbai=$(dx upload ${sampleid}.final.bam.bai --brief)

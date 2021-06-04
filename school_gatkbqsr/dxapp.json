@@ -3,7 +3,7 @@
   "title": "GATK BQSR",
   "summary": "This applet contains GATK and runs BQSR for BAM files for samples analyzed downstream by GATK",
   "dxapi": "1.0.0",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "openSource": true,
   "details": {
     "contactEmail": "genome.school@gmail.com",

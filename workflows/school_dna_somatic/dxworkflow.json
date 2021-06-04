@@ -335,7 +335,7 @@
       "id": "process-sv",
       "name": "SV Calling",
       "folder":"dnacallset",
-      "executable": "app-school_sv_calling/1.0.3",
+      "executable": "app-school_sv_calling/1.0.4",
       "input": {
  	"caseid": {
 	  "$dnanexus_link": {
@@ -375,7 +375,7 @@
       "id": "process-pindel",
       "name": "Pindel",
       "folder":"dnacallset",
-      "executable": "app-school_sv_calling/1.0.3",
+      "executable": "app-school_sv_calling/1.0.4",
       "input": {
  	"caseid": {
 	  "$dnanexus_link": {
@@ -454,7 +454,7 @@
       "id": "process-variant_calling",
       "name": "FB-Strelka2",
       "folder":"dnacallset",
-      "executable": "app-school_snv_indel_calling/1.0.4",
+      "executable": "app-school_snv_indel_calling/1.0.5",
       "input": {
   	"caseid": {
 	  "$dnanexus_link": {
@@ -493,7 +493,7 @@
     {
       "id": "process-bqsr",
       "name": "Tumor BQSR",
-      "executable": "app-school_gatkbqsr/1.0.2",
+      "executable": "app-school_gatkbqsr/1.0.3",
       "input": {
  	"sampleid": {
 	  "$dnanexus_link": {
@@ -528,7 +528,7 @@
     {
       "id": "process-bqsr-normal",
       "name": "Normal BQSR",
-      "executable": "app-school_gatkbqsr/1.0.2",
+      "executable": "app-school_gatkbqsr/1.0.3",
       "input": {
  	"sampleid": {
 	  "$dnanexus_link": {
@@ -561,7 +561,7 @@
       "id": "process-mutect",
       "name": "Mutect2",
       "folder":"dnacallset",
-      "executable": "app-school_snv_indel_calling/1.0.4",
+      "executable": "app-school_snv_indel_calling/1.0.5",
       "input": {
   	"caseid": {
 	  "$dnanexus_link": {
@@ -604,7 +604,7 @@
       "id": "process-integrate",
       "name": "Union VCF",
       "folder":"dnavcf",
-      "executable": "app-school_unionvcf/1.0.2",
+      "executable": "app-school_unionvcf/1.0.3",
       "input": {
  	"caseid": {
 	  "$dnanexus_link": {
