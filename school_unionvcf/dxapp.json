@@ -3,7 +3,7 @@
   "title": "Union VCF",
   "summary": "Combine VCF Outputs",
   "dxapi": "1.0.0",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "openSource": true,
   "details": {
     "contactEmail": "genome.school@gmail.com",
@@ -63,12 +63,28 @@
       "class": "string",
       "optional": false,
       "help": ""
+    },
+    {
+      "name": "normalid",
+      "label": "NormalID",
+      "class": "string",
+      "optional": true,
+      "help": "Used for Tumor/Normal pairs to distinquish Germline vs Somatic"
     }
   ],
   "outputSpec": [
     {
       "name": "union_vcf",
       "label": "Union VCF",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "qcunion_vcf",
+      "label": "QC Marked Union VCF",
       "class": "file",
       "patterns": [
         "*"

@@ -14,8 +14,17 @@ main() {
         dx download "${vcffiles[$i]}" -o vcffiles-${i}.tar.gz
 	tar xvf vcffiles-${i}.tar.gz
     done
-
-    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.1.4 bash /seqprg/process_scripts/variants/union.sh -r ./ -p ${caseid}
+    qcopt=''
+    if [[ $normalid ]]
+    then
+	qcopt="-n ${normalid}"
+    fi
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.1.5 bash /seqprg/process_scripts/variants/union.sh -r ./ -p ${caseid}
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.1.5 perl /seqprg/process_scripts/variants/filter_somatic.pl -f ${caseid}.union.vcf.gz -p ${caseid} $qcopt
+    docker run -v ${PWD}:/data docker.io/goalconsortium/variantcalling:1.1.5 bgzip ${caseid}.filt.vcf
+    mv ${caseid}.filt.vcf.gz ${caseid}.qcmark.vcf.gz
     union_vcf=$(dx upload ${caseid}.union.vcf.gz --brief)
     dx-jobutil-add-output union_vcf "$union_vcf" --class=file
+    qcunion_vcf=$(dx upload ${caseid}.qcmark.vcf.gz --brief)
+    dx-jobutil-add-output qcunion_vcf "$qcunion_vcf" --class=file
 }
