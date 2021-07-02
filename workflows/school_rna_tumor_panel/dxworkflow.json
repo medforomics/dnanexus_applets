@@ -122,7 +122,7 @@
       "id": "process-bamreadct",
       "name": "BAM Read Ct",
       "folder":"rnaout",
-      "executable": "app-school_rna_bamreadct/1.0.2",
+      "executable": "app-school_rna_bamreadct/1.0.4",
       "input": {
 	"sampleid": {
 	  "$dnanexus_link": {
