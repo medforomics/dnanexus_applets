@@ -81,7 +81,7 @@ echo '##INFO=<ID=TQSI,Number=1,Type=Integer,Description="Data tier used to compu
 echo '##INFO=<ID=NT,Number=1,Type=String,Description="Genotype of the normal in all data tiers, as used to classify somatic variants. One of {ref,het,hom,conflict}.">' >> strelka.missing.header
 echo '##INFO=<ID=QSI_NT,Number=1,Type=Integer,Description="Quality score reflecting the joint probability of a somatic variant and NT">' >> strelka.missing.header
 echo '##INFO=<ID=TQSI_NT,Number=1,Type=Integer,Description="Data tier used to compute QSI_NT">' >> strelka.missing.header
-echo '##INFO=<ID=SNVSB,Description="Sample SNV strand bias value (SB)">' >> strelka.missing.header\
+echo '##INFO=<ID=SNVSB,Description="Sample SNV strand bias value (SB)">' >> strelka.missing.header
 echo '##INFO=<ID=ReadPosRankSum,Number=1,Type=Float,Description="Z-score from Wilcoxon rank sum test of Alt vs. Ref read position bias">' >> strelka.missing.header
 echo '##INFO=<ID=DP,Number=1,Type=Integer,Description="Approximate read depth; some reads may have been filtered">' >> strelka.missing.header
 echo '##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">' >> strelka.missing.header
