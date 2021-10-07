@@ -135,9 +135,6 @@ vcf-concat CosmicCodingMuts.vcf.gz CosmicNonCodingVariants.vcf.gz |vcf-sort > co
 tabix cosmic.vcf.gz
 ```
 
-- [GNOMAD](https://gnomad.broadinstitute.org/downloads)
-
-
 - cytoBand.txt
 ```
 wget http://hgdownload.cse.ucsc.edu/goldenpath/hg38/database/cytoBand.txt.gz
@@ -174,6 +171,10 @@ gunzip cytoBand.txt.gz
     - GNOMAD_AF
     - AF_POPMAX
     - GNOMAD_HG19_VARIANT
+```
+java -jar /usr/local/bin/snpEff/SnpSift.jar extractFields gnomad.exomes.r2.1.1.sites.liftover_grch38.vcf.bgz CHROM POS REF ALT nhomalt controls_AF AF_popmax OriginalContig OriginalStart OriginalAlleles >gnomad.exomes.txt
+java -jar /usr/local/bin/snpEff/SnpSift.jar extractFields gnomad.genomes.r2.1.1.sites.liftover_grch38.vcf.bgz CHROM POS REF ALT nhomalt controls_AF AF_popmax OriginalContig OriginalStart OriginalAlleles >gnomad.genomes.txt
+```
 
 - Repeats  
   - Repeat Databases are available at http://hgdownload.cse.ucsc.edu/goldenpath/hg38/database
