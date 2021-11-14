@@ -8,7 +8,7 @@ Runs Star Fusion to Detect Gene Fusions and uses AGFusion to annotate Exon Junct
 - Fastq Files (PE):
   - fq1
   - fq2
-- Human Ref: (CTAT plug and play)[https://github.com/FusionAnnotator/CTAT_HumanFusionLib/wiki]
+- Human Ref: [CTAT plug and play](https://github.com/FusionAnnotator/CTAT_HumanFusionLib/wiki)
 - ReadGroup/SampleName 
 
 **Output**
